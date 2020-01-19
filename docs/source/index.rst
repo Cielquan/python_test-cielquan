@@ -13,12 +13,3 @@ This a test documentation.
    :caption: Contents:
 
    readme
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
