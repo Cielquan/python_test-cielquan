@@ -43,7 +43,7 @@ Repo for testing different stuff with python repos.
         $ sphinx-quickstart
         $ make html
         $ popd
-        # TODO 19.01.2020: readthedocs.yaml
+        $ touch .readthedocs.yaml
 
 #. setup tests::
 
