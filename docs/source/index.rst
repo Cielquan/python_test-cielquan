@@ -13,3 +13,4 @@ This a test documentation.
    :caption: Contents:
 
    readme
+   contents
