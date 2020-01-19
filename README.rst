@@ -76,7 +76,7 @@ Repo for testing different stuff with python repos.
 
 #. setup travis-ci::
 
-    $ touch .travis.yaml
+    $ touch .travis.yml
 
 #. setup setup::
 
