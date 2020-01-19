@@ -28,8 +28,8 @@ python:
         path: .
         extra_requirements:
             - docs
-      - method: setuptools
-        path: python_test
+#      - method: setuptools
+#        path: python_test
    system_packages: true
 
 build:
