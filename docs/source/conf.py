@@ -22,7 +22,8 @@ copyright = '2020, Cielquan'
 author = 'Cielquan'
 
 # The full version, including alpha/beta/rc tags
-release = '0'
+version = '0'
+release = version
 
 
 # -- General configuration ---------------------------------------------------
