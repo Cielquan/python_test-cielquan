@@ -25,5 +25,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="python_test",
-    packages=find_packages(),
+    packages=find_packages("src"),
+    package_dir={"": "src"},
+    include_package_data=True,
 )
