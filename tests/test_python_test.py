@@ -20,3 +20,6 @@
 # Github: https://github.com/Cielquan/
 # ==============================================================================
 
+
+def test_something():
+    assert 2 == 2
