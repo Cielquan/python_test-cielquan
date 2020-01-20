@@ -70,7 +70,17 @@ Repo for testing different stuff with python repos.
     $ touch conftest.py
     $ popd
 
-#. setup tox::
+#. setup tox
+    tox:
+      - flake8
+      - pylint
+      - black
+      - isort
+      - coverage
+      - docs
+      - pytest
+
+::
 
     $ touch tox.ini
 
@@ -100,16 +110,5 @@ TODO:
     - requires.io
 
 * pre-commit
-* isort (tox?)
 * codecov.io > coveralls.io (tox)
-* coverage (tox)
 * appveyor
-* pytest (tox)
-* pylint (tox)
-* tox:
-
-  - flake8
-  - black
-  - coverage
-  - docs
-  - test
