@@ -88,8 +88,23 @@ Repo for testing different stuff with python repos.
 
 
 TODO:
+* links
+
+    - https://github.com/nedbat/coveragepy/blob/master/doc/conf.py
+
+* badges:
+
+    - https://github.com/nedbat/coveragepy/blob/master/README.rst
+    - https://github.com/pytest-dev/pytest-cov/blob/master/README.rst
+    - requires.io
 
 * pre-commit
+* isort (tox?)
+* codecov.io > coveralls.io (tox)
+* coverage (tox)
+* appveyor
+* pytest (tox)
+* pylint (tox)
 * tox:
 
   - flake8
