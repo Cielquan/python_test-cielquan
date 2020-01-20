@@ -14,7 +14,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath("../.."))
-from matnum import __version__
+# from python_test import __version__
 
 
 # -- Project information -----------------------------------------------------
@@ -24,7 +24,7 @@ copyright = "2020, Christian Riedel"
 author = "Christian Riedel"
 
 # The full version, including alpha/beta/rc tags
-version = __version__
+version = __version__ = '0'
 release = version
 
 
@@ -35,7 +35,7 @@ release = version
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
-    "sphinxarg.ext",
+    # "sphinxarg.ext",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
