@@ -56,6 +56,11 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
+def rtd_theme():
+    extensions.append("sphinx_rtd_theme")
+    html_theme = "sphinx_rtd_theme"
+
+
 html_theme = "alabaster"
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -71,9 +76,9 @@ try:
 except ImportError:
     pass
 else:
-    extensions.append("sphinx_rtd_theme")
-    html_theme = "sphinx_rtd_theme"
+    rtd_theme()
 
-on_rtd = os.environ.get('READTHEDOCS', None) == 'True'
+if os.environ.get('READTHEDOCS', None) == 'True':
+    rtd_theme()
 
 master_doc = "index"

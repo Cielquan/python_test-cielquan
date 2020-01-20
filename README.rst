@@ -112,4 +112,4 @@ TODO:
 * pre-commit
 * codecov.io > coveralls.io (tox)
 * appveyor
-* docs conf _static/_template only if present
+* docs conf theme
