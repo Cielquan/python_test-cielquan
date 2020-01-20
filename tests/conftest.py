@@ -20,3 +20,8 @@
 # Github: https://github.com/Cielquan/
 # ==============================================================================
 
+import os
+
+
+def hello():
+    return "hi"
