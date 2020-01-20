@@ -12,9 +12,9 @@ matrix:
     - python: 3.8
       env: TOXENV=docs
     - python: 3.8
-      env: TOXENV=lint
-    - python: 3.8
-      env: TOXENV=format
+      env: TOXENV=format, lint
+#    - python: 3.8
+#      env: TOXENV=lint
 install:
   - pip install tox
 script:
