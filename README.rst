@@ -30,6 +30,10 @@ python_test
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
 
+.. other badges:
+    https://github.com/pytest-dev/pytest-cov/blob/master/README.rst
+    https://github.com/nedbat/coveragepy/blob/master/README.rst
+
 .. finish badges
 
 Repo for testing different stuff with python repos.
