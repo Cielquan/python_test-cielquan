@@ -21,12 +21,12 @@ conf_dir = Path(__file__)
 
 # -- Project information -----------------------------------------------------
 
-project = "SW-MatNum"
-copyright = "2020, Christian Riedel"
-author = "Christian Riedel"
+project = "python_test"
+copyright = "2020, Cielquan"
+author = "Cielquan"
 
 # The full version, including alpha/beta/rc tags
-version = __version__ = '0'
+version = __version__ = "0"
 release = version
 
 
@@ -37,7 +37,7 @@ release = version
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
-    # "sphinxarg.ext",
+    "sphinxarg.ext",
 ]
 
 master_doc = "index"
@@ -72,4 +72,3 @@ else:
 html_static_path = []
 if Path(conf_dir, "_static").exists():
     html_static_path = ["_static"]
-
