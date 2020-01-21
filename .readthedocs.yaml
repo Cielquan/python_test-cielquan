@@ -20,9 +20,9 @@ python:
       - requirements: docs/source/requirements.pip
       - method: pip
         path: .
-        extra_requirements:
-            - docs
+#        extra_requirements:
+#            - docs
    system_packages: false
 
-build:
-  image: stable
+#build:
+#  image: stable
