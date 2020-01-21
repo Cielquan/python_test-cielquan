@@ -9,7 +9,7 @@ version: 2
 sphinx:
   configuration: docs/source/conf.py
   fail_on_warning: true
-  builder: html
+  builder: dirhtml
 
 
 # Optionally set the version of Python and requirements required to build your docs

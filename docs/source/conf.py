@@ -28,6 +28,15 @@ author = "Cielquan"
 # The full version, including alpha/beta/rc tags
 version = __version__ = "0"
 release = version
+# release_date = ""
+#
+# rst_epilog = """
+# .. |release_date| replace:: {release_date}
+# .. |coverage-equals-release| replace:: coverage=={release}
+# .. |doc-url| replace:: https://coverage.readthedocs.io/en/coverage-{release}
+# .. |br| raw:: html
+#   <br/>
+# """.format(release=release, release_date=release_date)
 
 
 # -- General configuration ---------------------------------------------------
@@ -41,6 +50,12 @@ extensions = [
 ]
 
 master_doc = "index"
+
+pygments_style = 'sphinx'
+
+# intersphinx_mapping = {
+#     'python': ('https://docs.python.org/3', None),
+#     }
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = []
@@ -72,3 +87,5 @@ else:
 html_static_path = []
 if Path(conf_dir, "_static").exists():
     html_static_path = ["_static"]
+
+html_show_sourcelink = True

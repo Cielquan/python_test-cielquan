@@ -120,7 +120,6 @@ Repo for testing different stuff with python repos.
 TODO:
 * links
 
-    - https://github.com/nedbat/coveragepy/blob/master/doc/conf.py
     - https://github.com/Pierre-Sassoulas/django-zxcvbn-password-validator/blob/master/tox.ini
 
 * badges:
