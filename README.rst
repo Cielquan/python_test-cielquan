@@ -118,9 +118,6 @@ Repo for testing different stuff with python repos.
 
 
 TODO:
-* links
-
-    - https://github.com/Pierre-Sassoulas/django-zxcvbn-password-validator/blob/master/tox.ini
 
 * badges:
 
@@ -131,4 +128,3 @@ TODO:
 * pre-commit
 * codecov.io > coveralls.io (tox)
 * appveyor
-* docs conf theme
