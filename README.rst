@@ -6,8 +6,8 @@ python_test
 .. list-table::
     :stub-columns: 1
 
-    * - docs
-      - |docs| |license| |black|
+    * - info
+      - |docs| |license| |black| |last_commit|
     * - tests
       - |travis|
     * - package
@@ -29,6 +29,9 @@ python_test
 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/psf/black
+
+.. |last_commit| image:: https://img.shields.io/github/last-commit/Cielquan/python_test
+    :alt: GitHub last commit
 
 .. other badges:
     https://github.com/pytest-dev/pytest-cov/blob/master/README.rst
