@@ -11,18 +11,13 @@ sphinx:
   fail_on_warning: true
   builder: htmldir
 
-#formats: all
+formats: all
 
 # Optionally set the version of Python and requirements required to build your docs
 python:
    version: 3.7
+   system_packages: false
    install:
       - requirements: docs/source/requirements.pip
       - method: pip
         path: .
-#        extra_requirements:
-#            - docs
-   system_packages: false
-
-#build:
-#  image: stable
