@@ -87,7 +87,8 @@ install:
   - "python -m pip install --disable-pip-version-check --upgrade virtualenv"
 
   # Install requirements.
-  - "%CMD_IN_ENV% pip install tox"
+#  - "%CMD_IN_ENV% pip install tox"
+  - "pip install tox"
 
   # Make a pythonX.Y.bat file in the current directory so that tox will find it
   # and pythonX.Y will mean what we want it to.
