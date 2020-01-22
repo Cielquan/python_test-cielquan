@@ -37,7 +37,7 @@ env:
     - TOXENV=py36
     - TOXENV=py37
     - TOXENV=py38
-    - TOXENV=coverage-ci
+#    - TOXENV=coverage-ci
     - TOXENV=docs
 
 install:
@@ -45,9 +45,9 @@ install:
 
 script: tox
 
-#after_success:
-#    - codecov
-#
+after_success:
+    - codecov
+
 #cache:
 #    directories:
-        - $HOME/.cache/pip
+#        - $HOME/.cache/pip
