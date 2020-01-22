@@ -3,18 +3,6 @@ python:
     - "3.6"
     - "3.7"
     - "3.8"
-matrix:
-  include:
-    - python: 3.6
-      env: TOXENV=py36
-    - python: 3.7
-      env: TOXENV=py37
-    - python: 3.8
-      env: TOXENV=py38
-    - python: 3.8
-      env: TOXENV=coverage
-    - python: 3.8
-      env: TOXENV=docs
 
 notifications:
   email: false
@@ -26,20 +14,3 @@ script:
   - tox
 
 after_success: coverage combine && codecov
-#
-#jobs:
-#  include:
-#    - python: 3.8
-#      sudo: true
-#
-#    - python: 3.8
-#      env: TOXENV=docs
-#
-#    - python: 3.8
-#      env: TOXENV=desc
-#
-#    - stage: deploy
-#      python: 3.8
-#      install: true
-#      script: true
-#      after_success: true
