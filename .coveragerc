@@ -1,6 +1,27 @@
 [run]
 branch = True
+parallel = true
 source = src/
 
 [report]
+skip_covered = True
 show_missing = True
+exclude_lines =
+    \#\s*pragma: no cover
+    ^\s*raise AssertionError\b
+    ^\s*raise NotImplementedError\b
+    ^\s*return NotImplemented\b
+    ^\s*raise$
+    ^if __name__ == ['"]__main__['"]:$
+omit =
+    venv/*
+    tests/*
+    setup.py
+
+[paths]
+source = src/python_test
+         */.tox/*/lib/python*/site-packages/python_test
+         */.tox/pypy*/site-packages/python_test
+         */.tox\*\Lib\site-packages\python_test
+         */src/python_test
+         *\src\python_test
