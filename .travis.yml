@@ -1,28 +1,51 @@
-language: python
+#language: python
 
 notifications:
   email: false
 
-matrix:
-  include:
-    - python: 3.6
-      env: TOXENV=py36
-    - python: 3.7
-      env: TOXENV=py37
-    - python: 3.8
-      env: TOXENV=py38
-    - python: 3.8
-      env: TOXENV=coverage-ci
+#matrix:
+#  include:
+#    - python: 3.6
+#      env: TOXENV=py36
+#    - python: 3.7
+#      env: TOXENV=py37
 #    - python: 3.8
-#      env: TOXENV=lint
-    - python: 3.8
-      env: TOXENV=docs
+#      env: TOXENV=py38
+#    - python: 3.8
+#      env: TOXENV=coverage-ci
+##    - python: 3.8
+##      env: TOXENV=lint
+#    - python: 3.8
+#      env: TOXENV=docs
+#
+#install:
+#  - pip install tox
+#
+#script:
+#  - tox
+#
+#after_success:
+#  - codecov
+
+########################
+# .travis.yml
+language: python
+python: 3.8
+sudo: false
+
+env:
+    - TOXENV=py36
+    - TOXENV=py37
+    - TOXENV=py38
 
 install:
-  - pip install tox
+    - pip install -U tox codecov
 
-script:
-  - tox
+script: tox
 
 after_success:
-  - codecov
+    - codecov
+
+cache:
+    directories:
+        - $HOME/.cache/pip
