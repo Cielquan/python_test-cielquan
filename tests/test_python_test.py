@@ -23,4 +23,4 @@ from python_test.python_tester import testus
 
 
 def test_something():
-    assert testus() == 2
+    assert testus() == 2  #: 2

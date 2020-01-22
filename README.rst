@@ -9,7 +9,7 @@ python_test
     * - info
       - |docs| |license| |black| |last_commit|
     * - tests
-      - |travis|
+      - |travis| |codecov|
     * - package
       - |version|
 
@@ -22,6 +22,9 @@ python_test
 
 .. |travis| image:: https://travis-ci.com/Cielquan/python_test.svg?branch=master
     :target: https://travis-ci.com/Cielquan/python_test
+
+.. |codecov| image:: https://codecov.io/gh/Cielquan/python_test/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/Cielquan/python_test
 
 .. |docs| image:: https://readthedocs.org/projects/python-test-cielquan/badge/?version=latest
   :target: https://python-test-cielquan.readthedocs.io/en/latest/?badge=latest
@@ -89,6 +92,7 @@ Repo for testing different stuff with python repos.
     $ mkdir tests && pushd tests
     $ touch conftest.py
     $ popd
+    $ touch pytest.ini
 
 #. setup tox
     tox:
