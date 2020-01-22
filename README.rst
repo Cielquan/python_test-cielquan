@@ -130,5 +130,4 @@ TODO:
     - requires.io
 
 * pre-commit
-* codecov.io > coveralls.io (tox)
 * appveyor
