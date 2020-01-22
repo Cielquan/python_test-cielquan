@@ -1,6 +1,5 @@
 [run]
 branch = True
-parallel = true
 source = src/
 
 [report]

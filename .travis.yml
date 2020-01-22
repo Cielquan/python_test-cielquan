@@ -13,8 +13,8 @@ matrix:
       env: TOXENV=py38
     - python: 3.8
       env: TOXENV=coverage
-    - python: 3.8
-      env: TOXENV=lint
+#    - python: 3.8
+#      env: TOXENV=lint
     - python: 3.8
       env: TOXENV=docs
 
