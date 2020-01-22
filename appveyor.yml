@@ -88,7 +88,7 @@ install:
 
   # Install requirements.
 #  - "%CMD_IN_ENV% pip install tox"
-  - "pip install tox"
+  - "pip install tox bdist_wheel setuptools"
 
   # Make a pythonX.Y.bat file in the current directory so that tox will find it
   # and pythonX.Y will mean what we want it to.
@@ -97,7 +97,7 @@ install:
 build_script:
   # If not a metacov job, then build wheel installers.
 #  - if 1 == 1 %CMD_IN_ENV% %PYTHON%\python setup.py bdist_wheel
-  - if 1 == 1 %PYTHON%\python setup.py
+  - if 1 == 1 %PYTHON%\python setup.py bdist_wheel
 
 test_script:
 #  - "%CMD_IN_ENV% %PYTHON%\\Scripts\\tox"
