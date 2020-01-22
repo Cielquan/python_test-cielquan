@@ -95,7 +95,7 @@ install:
 
 build_script:
   # If not a metacov job, then build wheel installers.
-  - %CMD_IN_ENV% %PYTHON%\python setup.py bdist_wheel
+  - "%CMD_IN_ENV% %PYTHON%\python setup.py bdist_wheel"
 
 test_script:
   - "%CMD_IN_ENV% %PYTHON%\\Scripts\\tox"
