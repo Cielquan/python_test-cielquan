@@ -8,12 +8,6 @@ python:
 notifications:
   email: false
 
-env:
-    - TOXENV=py36
-    - TOXENV=py37
-    - TOXENV=py38
-    - TOXENV=docs
-
 install:
     - pip install -U tox-travis codecov
 
