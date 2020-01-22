@@ -11,7 +11,9 @@ notifications:
 install:
     - pip install -U tox-travis codecov
 
-script: tox
+script:
+  - tox
+  - codecov
 
 after_success:
   - codecov
