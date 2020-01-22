@@ -3,7 +3,7 @@ branch = True
 source = src/
 
 [report]
-fail_under = 90
+;fail_under = 90
 ;skip_covered = True
 show_missing = True
 exclude_lines =
