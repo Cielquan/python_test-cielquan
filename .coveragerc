@@ -4,7 +4,7 @@ source = src/
 
 [report]
 ;fail_under = 90
-skip_covered = True
+;skip_covered = True
 show_missing = True
 exclude_lines =
     \#\s*pragma: no cover

@@ -20,6 +20,14 @@
 # Github: https://github.com/Cielquan/
 # ==============================================================================
 
+import sys
+
 
 def testus():
-    return 2
+    __py_min_ver__ = (3, 7)
+
+    if sys.version_info < __py_min_ver__:
+        return 2
+    else:
+        return 2
+
