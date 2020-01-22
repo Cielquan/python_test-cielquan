@@ -130,4 +130,4 @@ TODO:
     - requires.io
 
 * pre-commit
-* appveyor
+* appveyor a
