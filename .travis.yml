@@ -26,9 +26,3 @@ script:
 
 after_success:
   - codecov
-
-[testenv]
-passenv =
-  CI
-  TRAVIS
-  TRAVIS_*
