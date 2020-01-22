@@ -13,7 +13,6 @@ install:
 
 script:
   - tox
-  - codecov
 
 after_success:
   - codecov
