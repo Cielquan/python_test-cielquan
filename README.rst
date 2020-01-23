@@ -22,6 +22,22 @@ python_test
       - |stars| |forks| |contributors|
 
 
++---------------+-------------------------------------------+
+| **Info**      | |license| |black|                         |
++---------------+-------------------------------------------+
+| **Tests**     | |travis| |appveyor| |codecov|             |
+|               +-------------------------------------------+
+|               | |docs| |reqs|                             |
++---------------+-------------------------------------------+
+| **PyPI**      | |py_versions| |implementations| |status|  |
+|               +-------------------------------------------+
+|               | |pypi| |format| |downloads|               |
++---------------+-------------------------------------------+
+| **Github**    | |release| |commits_since|  |last_commit|  |
+|               +-------------------------------------------+
+|               | |stars| |forks| |contributors|            |
++---------------+-------------------------------------------+
+
 .. info block
 .. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square
     :alt: License
