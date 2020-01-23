@@ -21,8 +21,9 @@ python_test
 | tests   | |travis| |appveyor| |codecov|  |
 |         | |docs| |reqs|                  |
 +---------+--------------------------------+
-| package | |py_versions| |pypi| |format|  |
-|         | |downloads|                    |
+| package | |py_versions| |implementations||
+|         | |pypi| |pypi2|                 |
+|         | |wheel| |downloads|            |
 +---------+--------------------------------+
 | Github  | |release| |last_commit|        |
 |         | |stars| |forks| |contributors| |
@@ -62,13 +63,20 @@ python_test
     :target: https://pypi.org/project/python_test_cielquan/
     :alt: Python versions supported
 
+.. |implementations| image:: https://img.shields.io/pypi/implementation/python_test_cielquan.svg
+    :alt: Supported implementations
+    :target: https://pypi.python.org/pypi/python_test_cielquan
+
 .. |pypi| image:: https://badge.fury.io/py/python_test_cielquan.svg
     :target: https://pypi.org/project/python_test_cielquan/
     :alt: PyPI status
+.. |pypi2| image:: https://img.shields.io/pypi/v/python_test_cielquan.svg
+    :alt: PyPI Package latest release
+    :target: https://pypi.python.org/pypi/python_test_cielquan
 
-.. |format| image:: https://img.shields.io/pypi/format/python_test_cielquan.svg
+.. |wheel| image:: https://img.shields.io/pypi/format/python_test_cielquan.svg
     :target: https://pypi.org/project/python_test_cielquan/
-    :alt: Kit format
+    :alt: PyPI Wheel
 
 .. |downloads| image:: https://img.shields.io/pypi/dw/python_test_cielquan.svg
     :target: https://pypi.org/project/python_test_cielquan/
@@ -89,6 +97,9 @@ python_test
 
 .. |last_commit| image:: https://img.shields.io/github/last-commit/Cielquan/python_test
     :alt: GitHub last commit
+.. |commits-since| image:: https://img.shields.io/github/commits-since/pytest-dev/pytest-cov/v2.8.1.svg
+    :alt: Commits since latest release
+    :target: https://github.com/pytest-dev/pytest-cov/compare/v2.8.1...master
 
 .. |stars| image:: https://img.shields.io/github/stars/Cielquan/python_test.svg?logo=github
     :target: https://github.com/Cielquan/python_test/stargazers
