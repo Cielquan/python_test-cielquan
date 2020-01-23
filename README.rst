@@ -17,6 +17,14 @@ python_test
 |               | |stars| |forks| |contributors|            |
 +---------------+-------------------------------------------+
 
+| |license| |black|
+| |travis| |appveyor| |codecov|
+| |docs| |reqs|
+| |py_versions| |implementations|
+| |pypi| |status| |format| |downloads|
+| |release| |commits_since|  |last_commit|
+| |stars| |forks| |contributors|
+
 
 Repo for testing different stuff with python repos.
 
