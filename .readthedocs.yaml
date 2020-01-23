@@ -9,10 +9,10 @@ sphinx:
   fail_on_warning: true
   builder: htmldir
 
-python:
-   version: 3.7
-   system_packages: false
-   install:
-      - requirements: docs/source/requirements.pip
-      - method: pip
-        path: .
+#python:
+#   version: 3.7
+#   system_packages: false
+#   install:
+#      - requirements: docs/source/requirements.pip
+#      - method: pip
+#        path: .
