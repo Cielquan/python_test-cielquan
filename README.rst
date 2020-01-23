@@ -11,7 +11,7 @@ python_test
     * - tests
       - |travis| |appveyor| |codecov| |docs| |reqs|
     * - package
-      - |py_versions| |pypi| |format| |downloads|
+      - |py_versions| |pypi| |wheel| |downloads|
     * - Github stats
       - |release| |last_commit| |stars| |forks| |contributors|
 
