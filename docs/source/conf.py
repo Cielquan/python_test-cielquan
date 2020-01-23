@@ -46,7 +46,6 @@ release = version
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
-    "sphinxarg.ext",
 ]
 
 master_doc = "index"
