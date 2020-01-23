@@ -2,13 +2,13 @@ python_test
 ===========
 
 | |license| |black|
-
+|
 | |travis| |appveyor| |codecov|
 | |docs| |reqs|
-
+|
 | |py_versions| |implementations|
 | |pypi| |status| |format| |downloads|
-
+|
 | |release| |commits_since|  |last_commit|
 | |stars| |forks| |contributors|
 
