@@ -15,6 +15,18 @@
 +---------------+-------------------------------------------+
 
 
+| |license| |black|
+
+| |travis| |appveyor| |codecov|
+| |docs| |reqs|
+
+| |py_versions| |implementations|
+| |pypi| |status| |format| |downloads|
+
+| |release| |commits_since|  |last_commit|
+| |stars| |forks| |contributors|
+
+
 .. info block
 .. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square
     :alt: License

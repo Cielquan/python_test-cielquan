@@ -1,27 +1,14 @@
 python_test
 ===========
 
-+---------------+-------------------------------------------+
-| **Info**      | |license| |black|                         |
-+---------------+-------------------------------------------+
-| **Tests**     | |travis| |appveyor| |codecov|             |
-|               +-------------------------------------------+
-|               | |docs| |reqs|                             |
-+---------------+-------------------------------------------+
-| **PyPI**      | |py_versions| |implementations|           |
-|               +-------------------------------------------+
-|               | |pypi| |status| |format| |downloads|      |
-+---------------+-------------------------------------------+
-| **Github**    | |release| |commits_since|  |last_commit|  |
-|               +-------------------------------------------+
-|               | |stars| |forks| |contributors|            |
-+---------------+-------------------------------------------+
-
 | |license| |black|
+
 | |travis| |appveyor| |codecov|
 | |docs| |reqs|
+
 | |py_versions| |implementations|
 | |pypi| |status| |format| |downloads|
+
 | |release| |commits_since|  |last_commit|
 | |stars| |forks| |contributors|
 
