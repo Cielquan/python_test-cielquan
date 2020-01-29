@@ -1,10 +1,9 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
 # ======================================================================================
 # Copyright (c) 2020 Christian Riedel
 #
-# This file 'conf.py' created 2020-01-24 is part of the project/program 'DoTH-DNS'.
+# This file 'conf.py' created 2020-01-15
+# is part of the project/program 'python_test'.
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the MIT License as published by
 # the Massachusetts Institute of Technology.
@@ -29,12 +28,14 @@
     :license: MIT, see LICENSE.rst for more details
 """
 import os
-from pathlib import Path
 import sys
 
-import dothdns as project_info
+from pathlib import Path
+
+from matnum import __version__
 
 
+#: pylint: disable=C0103
 # Paths
 sys.path.insert(0, os.path.abspath("../.."))
 conf_dir = Path(__file__)
@@ -42,13 +43,13 @@ conf_dir = Path(__file__)
 
 # -- PROJECT INFORMATION ---------------------------------------------------------------
 
-project = project_info.__title__
-author = project_info.__author__
-copyright = "2020, " + author
+project = "python_test"
+author = "Christian Riedel"
+copyright = "2020, " + author  #: pylint: disable=W0622  #: CHANGEME
 # The full version, including alpha/beta/rc tags
-release = ".".join(project_info.__version_info__[0:2])
+release = __version__
 # Major version like (X.Y)
-version = project_info.__version__
+version = __version__[0:3]
 # Release date
 release_date = "2020"  #: CHANGEME
 
@@ -57,12 +58,11 @@ release_date = "2020"  #: CHANGEME
 
 # Add any Sphinx extension module names here, as strings.
 extensions = [
+    "sphinx.ext.intersphinx",
     "sphinx.ext.autodoc",
 ]
 
-# intersphinx_mapping = {
-#     'python': ('https://docs.python.org/3', None),
-#     }
+intersphinx_mapping = {'python': ('https://docs.python.org/3/', None)}
 
 
 # -- FILES -----------------------------------------------------------------------------
@@ -94,7 +94,7 @@ pygments_style = "sphinx"
 
 # Use RTD Theme if installed
 try:
-    import sphinx_rtd_theme
+    import sphinx_rtd_theme  #: pylint: disable=W0611
 except ImportError:
     html_theme = "alabaster"
 else:
