@@ -19,4 +19,25 @@
 #
 # Github: https://github.com/Cielquan/
 # ==============================================================================
+"""
+    matnum
+    ~~~~~~
 
+    Handler for siegwerk material numbers.
+
+    ::copyright: (c) Christian Riedel
+    :license: MIT, see LICENSE for more details
+"""
+try:
+    from .version import __version__
+except ModuleNotFoundError:  # pragma: no cover
+    __version__ = "0.0.0"
+
+
+from .matnum import MatNumHandler
+
+
+__all__ = (
+    "__version__",
+    "MatNumHandler",
+)
