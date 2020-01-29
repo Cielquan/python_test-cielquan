@@ -1,4 +1,7 @@
+.. _license:
+
 MIT License
+===========
 
 Copyright (c) 2020 Christian Riedel
 
