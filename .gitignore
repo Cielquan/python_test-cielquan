@@ -107,3 +107,24 @@ venv.bak/
 
 # pycharm folder
 .idea/
+
+# Versioning
+version.py
+
+# Backup files
+*.bak
+
+# Configs
+*.list
+.htpasswd
+
+# Certificate files
+*.pem
+*.crt
+*.csr
+*.ext
+*.key
+*.srl
+
+# Personal stuff
+_backupfiles
