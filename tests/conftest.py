@@ -3,7 +3,8 @@
 # ==============================================================================
 # Copyright (c) 2020 Christian Riedel
 #
-# This file 'conftest.py' created 2020-01-19 is part of the project/program 'python_test'.
+# This file 'conftest.py' created 2020-01-19
+# is part of the project/program 'python_test'.
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the MIT License as published by
 # the Massachusetts Institute of Technology.
@@ -18,8 +19,7 @@
 #
 # Github: https://github.com/Cielquan/
 # ==============================================================================
-
-import os
+"""docstring"""
 
 
 def hello():
