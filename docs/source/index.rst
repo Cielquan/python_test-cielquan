@@ -8,8 +8,25 @@ Welcome to python_test's documentation!
 
 This a test documentation.
 
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   readme
+   installation
+   usage
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: API Reference:
+
+   api
+
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Miscellaneous:
+
+   changelog
+   license
