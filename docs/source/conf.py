@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # ======================================================================================
 # Copyright (c) 2020 Christian Riedel
 #
@@ -30,10 +29,12 @@
 #: pylint: disable=C0103
 import os
 import sys
-from datetime import datetime
 
+from datetime import datetime
 from pathlib import Path
+
 import sphinx_rtd_theme
+
 from python_test import __version__
 
 
