@@ -51,6 +51,7 @@ repos:
     rev: v4.3.20
     hooks:
     -   id: isort
+        args: [--apply, --recursive]
 
 #: Black for python code in docs
 -   repo: https://github.com/asottile/blacken-docs
@@ -64,7 +65,7 @@ repos:
     rev: 19.10b0
     hooks:
     -   id: black
-        args: [--safe, --line-length, "88", --exclude, venv/]
+        args: [--safe]
 
 #: flake8
 -   repo: https://gitlab.com/pycqa/flake8
