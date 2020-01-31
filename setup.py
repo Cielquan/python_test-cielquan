@@ -18,6 +18,7 @@
 #
 # Github: https://github.com/Cielquan/
 # ==============================================================================
+"""docstring"""
 import textwrap
 
 import setuptools

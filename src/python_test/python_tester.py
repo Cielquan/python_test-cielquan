@@ -24,9 +24,9 @@ import sys
 
 
 def testus():
+    """docstring"""
     __py_min_ver__ = (3, 7)
 
     if sys.version_info < __py_min_ver__:
         return 2
-    else:
-        return 2
+    return 2

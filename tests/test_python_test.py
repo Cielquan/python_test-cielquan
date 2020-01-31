@@ -24,4 +24,5 @@ from python_test.python_tester import testus
 
 
 def test_something():
+    """docstring"""
     assert testus() == 2  #: 2
