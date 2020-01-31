@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 
 # ==============================================================================
 # Copyright (c) 2020 Christian Riedel
@@ -19,13 +18,19 @@
 #
 # Github: https://github.com/Cielquan/
 # ==============================================================================
+import textwrap
 
-from setuptools import setup, find_packages
+import setuptools
 
 
-setup(
-    name="python_test",
-    packages=find_packages("src"),
-    package_dir={"": "src"},
-    include_package_data=True,
+setuptools.setup(
+    use_scm_version={
+        "write_to": "src/python_test/version.py",
+        "write_to_template": textwrap.dedent(
+            """
+             # -*- coding: utf-8 -*-
+             __version__ = {version!r}
+             """
+        ).lstrip(),
+    },
 )
