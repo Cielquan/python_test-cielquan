@@ -12,7 +12,6 @@ repos:
     -   id: check-yaml
     -   id: detect-private-key
     -   id: debug-statements
-    -   id: fix-encoding-pragma
     -   id: check-docstring-first
     -   id: trailing-whitespace
     -   id: end-of-file-fixer
