@@ -20,9 +20,18 @@
 # Github: https://github.com/Cielquan/
 # ==============================================================================
 """docstring"""
+import flask
+
+import python_test
+
 from python_test.python_tester import testus
 
 
 def test_something():
     """docstring"""
     assert testus() == 2  #: 2
+
+
+def test_init():
+    """docstring"""
+    assert python_test.__version__
