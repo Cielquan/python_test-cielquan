@@ -20,8 +20,6 @@
 # Github: https://github.com/Cielquan/
 # ==============================================================================
 """docstring"""
-import flask
-
 import python_test
 
 from python_test.python_tester import testus
