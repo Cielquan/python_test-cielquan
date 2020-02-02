@@ -23,10 +23,14 @@
 import sys
 
 
-def testus():
-    """docstring"""
+def testus(zahl=2):
+    """
+    func
+    :param zahl: default: 2
+    :return: 2 * zahl
+    """
     __py_min_ver__ = (3, 7)
 
     if sys.version_info < __py_min_ver__:
-        return 2
-    return 2
+        return 2 * zahl
+    return 2 * zahl
