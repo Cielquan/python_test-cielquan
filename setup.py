@@ -19,12 +19,9 @@
 # Github: https://github.com/Cielquan/
 # ==============================================================================
 """docstring"""
-import textwrap
-
 import setuptools
 
 
 setuptools.setup(
-    setup_requires=['setuptools_scm'],
-    use_scm_version=True,
+    setup_requires=["setuptools_scm"], use_scm_version=True,
 )
