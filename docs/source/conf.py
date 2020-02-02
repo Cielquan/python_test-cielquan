@@ -32,6 +32,7 @@ import sys
 
 from datetime import datetime
 from pathlib import Path
+from typing import List
 
 import sphinx_rtd_theme
 
@@ -77,7 +78,7 @@ intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 master_doc = "index"
 
 #: Files to exclude for source of doc
-exclude_patterns = []
+exclude_patterns: List[str] = []
 
 #: Folder for static files, if folder exists
 html_static_path = []

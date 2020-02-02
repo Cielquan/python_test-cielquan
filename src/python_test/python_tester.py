@@ -23,7 +23,7 @@
 import sys
 
 
-def testus(zahl: int) -> int:
+def testus(zahl: int = 2) -> int:
     """
     func
     :param zahl: default: 2
