@@ -206,3 +206,36 @@ TODO:
     :target: https://github.com/Cielquan/python_test/graphs/contributors
 
 ..  BADGES END
+
+####################################
+
+commit-msg hook for jira issue verification with pre-commit.
+
+See also: https://github.com/pre-commit/pre-commit
+
+Add this to your ``.pre-commit-config.yaml``:
+
+.. code-block:: yaml
+
+    - repo: https://github.com/Cielquan/commit-msg-jira-hook
+      rev: v0.1.0 # Use the ref you want to point at
+      hooks:
+      - id: jira_commit_msg
+        stages: [commit-msg]
+
+Then add a ``jira.ini`` to you projects root directory with following data:
+
+.. code-block:: ini
+
+    [jira]
+    JIRA_URL = e.g. https://jira.atlassian.com
+    JIRA_TAG = tag
+    JIRA_USERNAME = email
+    JIRA_TOKEN = api-token
+
+Lastly install the hook:
+
+.. code-block:: console
+
+    $ pre-commit install -t commit-msg
+
