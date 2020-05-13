@@ -80,7 +80,7 @@ repos:
 
   #: flake8
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.7.9
+    rev: 3.7.9 # TODO: check flake8 3.8 .... tox config
     hooks:
       - id: flake8
       additional_dependencies:
