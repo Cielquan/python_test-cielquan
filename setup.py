@@ -19,7 +19,7 @@
 # Github: https://github.com/Cielquan/
 # ==============================================================================
 """docstring"""
-import setuptools
+import setuptools  # type: ignore
 
 
 setuptools.setup(

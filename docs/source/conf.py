@@ -34,7 +34,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import List
 
-import sphinx_rtd_theme
+import sphinx_rtd_theme  # type: ignore
 
 from python_test import __version__
 
