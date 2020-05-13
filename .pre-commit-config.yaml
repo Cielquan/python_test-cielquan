@@ -70,7 +70,7 @@ repos:
       - id: black
         args: [--safe]
 
-# TODO 16.04.2020: Currently bandit is unusable with pre-commit .. wait for fix .. remove in tox then
+# TODO: 16.04.2020: Currently bandit is unusable with pre-commit .. wait for fix .. remove in tox then
 #  #: Python source code security analyzer
 #  - repo: https://github.com/PyCQA/bandit
 #    rev: 1.6.2
@@ -95,7 +95,7 @@ repos:
         - "flake8-comprehensions==3.2.2"
         #: Check docstrings with PEP257
         #: D100-D107 | D200-D215 | D300-D302 | D400-D417
-# TODO 16.04.2020: Wait for https://github.com/PyCQA/pydocstyle/pull/446 to fix problem with noqa before module docstrings
+# TODO: 16.04.2020: Wait for https://github.com/PyCQA/pydocstyle/pull/446 to fix problem with noqa before module docstrings
 #        - "flake8-docstrings==1.5.0"
         #: Find dead/out-commented code
         #: E800
@@ -128,6 +128,7 @@ repos:
         #: YTT101-YTT103 | YTT201-YTT204 | YTT301-YTT303
         - "flake8-2020==1.6.0"
 
+# TODO: add bandit like pylint calling tox env
   #: pylint
   - repo: local
     hooks:
