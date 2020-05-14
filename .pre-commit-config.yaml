@@ -132,33 +132,21 @@ repos:
           #: YTT101-YTT103 | YTT201-YTT204 | YTT301-YTT303
           - "flake8-2020==1.6.0"
 
-# TODO: add bandit like pylint calling tox env
-  #: pylint
   - repo: local
     hooks:
+      #: pylint
       - id: pylint
         args: [--rcfile=tox.ini, --ignore=version.py]
         name: pylint
-#        entry: .tox/pre-commit/bin/pylint
-#        entry: tox -e pylint-win,pylint-nix --
-        entry: tox -e pylint --
+        entry: ./.pre-commit-scripts/run-pylint
         language: system
         types: [python]
-
-#  #: mypy
-#  - repo: https://github.com/pre-commit/mirrors-mypy
-#    rev: v0.761
-#    hooks:
-#      - id: mypy
-#        args: [--no-strict-optional, --ignore-missing-imports]
-#        additional_dependencies: [tokenize-rt==3.2.0]
-  - repo: local
-    hooks:
+      #: mypy
       - id: mypy
         args: ["--config-file", "tox.ini"]
-#        args: ["--config-file", "tox.ini", --no-strict-optional, --scripts-are-modules, --ignore-missing-imports]
+        # args: ["--config-file", "tox.ini", --no-strict-optional, --scripts-are-modules, --ignore-missing-imports]
         name: mypy
-        entry: .tox/pre-commit/bin/mypy
+        entry: ./.pre-commit-scripts/run-mypy
         language: system
         types: [python]
         exclude: >
@@ -166,6 +154,7 @@ repos:
               setup.py|
               docs/source/conf.py
           )$
+
 
   #: Meta hooks
   - repo: meta
