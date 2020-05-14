@@ -23,7 +23,9 @@ repos:
       - id: debug-statements
       - id: check-docstring-first
       - id: trailing-whitespace
+        stages: [commit, push]
       - id: end-of-file-fixer
+        stages: [commit, push]
 
   #: Several regex hooks
   - repo: https://github.com/pre-commit/pygrep-hooks
