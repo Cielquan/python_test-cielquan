@@ -1,5 +1,5 @@
 +---------------+-------------------------------------------+
-| **Info**      | |license| |black|                         |
+| **Info**      | |license| |black| |pre-commit|            |
 +---------------+-------------------------------------------+
 | **Tests**     | |travis| |appveyor| |codecov|             |
 |               +-------------------------------------------+
@@ -15,7 +15,7 @@
 +---------------+-------------------------------------------+
 
 
-| |license| |black|
+| |license| |black| |pre-commit|
 
 | |travis| |appveyor| |codecov|
 | |docs| |reqs|
@@ -35,6 +35,10 @@
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square
     :alt: Code Style: Black
     :target: https://github.com/psf/black
+
+.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
+   :target: https://github.com/pre-commit/pre-commit
+   :alt: pre-commit
 
 
 .. tests block
