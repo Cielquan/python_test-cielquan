@@ -36,7 +36,7 @@ repos:
     rev: v1.9.0
     hooks:
       - id: setup-cfg-fmt
-        #: On win py38 has problems with C/C++-Extensions - here subdependency: "editdistance"
+        #: C/C++-Extensions make problems with py38 on win - here: "editdistance"
         language_version: python3.7
 
   #: pyupgrade - upgrade old python syntax to new
@@ -129,7 +129,7 @@ repos:
           #: Make more readable variables names
           #: VNE001-VNE003
           - "flake8-variables-names==0.0.3"
-          #: Checks for misuse of sys.version or sys.version_info (Py 3.10 / 4.0 comming)
+          #: Checks for misuse of sys.version or sys.version_info (Py 3.10 / 4.0 coming)
           #: YTT101-YTT103 | YTT201-YTT204 | YTT301-YTT303
           - "flake8-2020==1.6.0"
 
