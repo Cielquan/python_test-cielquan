@@ -50,6 +50,7 @@ repos:
     rev: v2.1.1
     hooks:
       - id: seed-isort-config
+        # TODO: fix "src" thing for non src-repos
         args: [--application-directories, "src:."]
 
   #: isort - sort imports
