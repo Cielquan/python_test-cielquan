@@ -56,7 +56,7 @@
    :target: https://github.com/Cielquan/python_test/graphs/commit-activity
    :alt: Maintained? no
 
-.. |unmaintained| image:: http://unmaintained.tech/badge.svg?style=flat-square
+.. |unmaintained| image:: https://img.shields.io/badge/No%20Maintenance%20intended-X-red.svg?style=flat-square
   :target: http://unmaintained.tech
   :alt: No Maintenance Intended
 
@@ -64,7 +64,7 @@
   :target: https://github.com/Cielquan/python_test
   :alt: Website
 
-.. |pgp-key| image:: https://img.shields.io/keybase/pgp/cielquan?style=flat-square&logo=gnu-privacy-guard&label=PGP
+.. |pgp-key| image:: https://img.shields.io/keybase/pgp/cielquan?style=flat-square&logo=keybase&label=PGP
   :target: https://keybase.io
   :alt: Keybase PGP
 
