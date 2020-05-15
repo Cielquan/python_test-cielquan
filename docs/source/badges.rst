@@ -1,26 +1,29 @@
-+---------------+-------------------------------------------+
-| **Info**      | |license| |black| |pre-commit|            |
-+---------------+-------------------------------------------+
-| **Tests**     | |travis| |appveyor| |codecov|             |
-|               +-------------------------------------------+
-|               | |docs| |reqs|                             |
-+---------------+-------------------------------------------+
-| **PyPI**      | |py_versions| |implementations|           |
-|               +-------------------------------------------+
-|               | |pypi| |status| |format| |downloads|      |
-+---------------+-------------------------------------------+
-| **Github**    | |release| |commits_since|  |last_commit|  |
-|               +-------------------------------------------+
-|               | |stars| |forks| |contributors| |watchers| |
-+---------------+-------------------------------------------+
++---------------+-------------------------------------------------+
+| **Info**      | |license| |black| |pre-commit|                  |
+|               +-------------------------------------------------+
+|               | |maintained-yes| |maintained-no| |unmaintained| |
++---------------+-------------------------------------------------+
+| **Tests**     | |travis| |appveyor| |codecov|                   |
+|               +-------------------------------------------------+
+|               | |docs| |reqs|                                   |
++---------------+-------------------------------------------------+
+| **PyPI**      | |py_versions| |implementations|                 |
+|               +-------------------------------------------------+
+|               | |pypi| |status| |format| |downloads|            |
++---------------+-------------------------------------------------+
+| **Github**    | |release| |commits_since|  |last_commit|        |
+|               +-------------------------------------------------+
+|               | |stars| |forks| |contributors| |watchers|       |
++---------------+-------------------------------------------------+
 
 .. docs made with: sphinx
 .. tests made with: pytest
 .. packageing made with: poetry
-.. maintained: yes/no
 .. webside: up/down
 
 | |license| |black| |pre-commit|
+| |maintained-yes| |maintained-no| |unmaintained|
+| |webside| |signed| |pgp-key| |vcs|
 
 | |travis| |appveyor| |codecov|
 | |docs| |reqs|
@@ -44,6 +47,34 @@
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
    :target: https://github.com/pre-commit/pre-commit
    :alt: pre-commit
+
+.. |maintained-yes| image:: https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg?style=flat-square
+   :target: https://github.com/Cielquan/python_test/graphs/commit-activity
+   :alt: Maintained? yes
+
+.. |maintained-no| image:: https://img.shields.io/badge/Maintained%3F-no-red.svg?style=flat-square
+   :target: https://github.com/Cielquan/python_test/graphs/commit-activity
+   :alt: Maintained? no
+
+.. |unmaintained| image:: http://unmaintained.tech/badge.svg?style=flat-square
+  :target: http://unmaintained.tech
+  :alt: No Maintenance Intended
+
+.. |webside| image:: https://img.shields.io/website-up-down-brightgreen-red/http/shields.io.svg?style=flat-square
+  :target: https://github.com/Cielquan/python_test
+  :alt: Website
+
+.. |pgp-key| image:: https://img.shields.io/keybase/pgp/cielquan?style=flat-square&logo=gnu-privacy-guard&label=PGP
+  :target: https://keybase.io
+  :alt: Keybase PGP
+
+.. |signed| image:: https://img.shields.io/badge/PGP-signed-blue.svg?style=flat-square&logo=gnu-privacy-guard
+  :target: https://keybase.de
+  :alt: Website
+
+.. |vcs| image:: https://img.shields.io/badge/VCS-git-orange.svg?style=flat-square&logo=git
+  :target: https://git-scm.com/
+  :alt: VCS
 
 
 .. tests block
