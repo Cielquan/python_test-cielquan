@@ -11,9 +11,14 @@
 +---------------+-------------------------------------------+
 | **Github**    | |release| |commits_since|  |last_commit|  |
 |               +-------------------------------------------+
-|               | |stars| |forks| |contributors|            |
+|               | |stars| |forks| |contributors| |watchers| |
 +---------------+-------------------------------------------+
 
+.. docs made with: sphinx
+.. tests made with: pytest
+.. packageing made with: poetry
+.. maintained: yes/no
+.. webside: up/down
 
 | |license| |black| |pre-commit|
 
@@ -24,7 +29,7 @@
 | |pypi| |status| |format| |downloads|
 
 | |release| |commits_since|  |last_commit|
-| |stars| |forks| |contributors|
+| |stars| |forks| |contributors| |watchers|
 
 
 .. info block
@@ -122,3 +127,7 @@
 .. |contributors| image:: https://img.shields.io/github/contributors/Cielquan/python_test.svg?style=flat-square&logo=github
     :alt: Github Contributors
     :target: https://github.com/Cielquan/python_test/graphs/contributors
+
+.. |watchers| image:: https://img.shields.io/github/watchers/Cielquan/python_test.svg?style=flat-square&logo=github
+    :alt: Github Watchers
+    :target: https://github.com/Cielquan/python_test/watchers/
