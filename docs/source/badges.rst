@@ -51,11 +51,11 @@
     :target: http://unmaintained.tech
     :alt: No Maintenance Intended
 
-.. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square
+.. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square&label=License
     :alt: License
     :target: https://github.com/Cielquan/python_test/blob/master/LICENSE.rst
 
-.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square
+.. |black| image:: https://img.shields.io/badge/Code%20Style-black-000000.svg?style=flat-square
     :alt: Code Style: Black
     :target: https://github.com/psf/black
 
