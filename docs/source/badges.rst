@@ -1,5 +1,5 @@
 +---------------+----------------------------------------------------------------------+
-| **General**   | |maintained-may| |license| |black| |rtd|                             |
+| **General**   | |maintained-notactive| |license| |black| |rtd|                       |
 +---------------+----------------------------------------------------------------------+
 | **CI/CD**     | |travis| |appveyor| |codecov|                                        |
 +---------------+----------------------------------------------------------------------+
@@ -21,7 +21,7 @@
 |
 |
 |
-| |maintained-may| |license| |black| |rtd|
+| |maintained-notactive| |license| |black| |rtd|
 |
 | |travis| |appveyor| |codecov|
 |
@@ -47,7 +47,11 @@
     :target: https://github.com/Cielquan/python_test/graphs/commit-activity
     :alt: Maintained - no
 
-.. |maintained-may| image:: https://img.shields.io/badge/Maintained-not%20intended-red.svg?style=flat-square
+.. |maintained-notactive| image:: https://img.shields.io/badge/Maintained-not%20active-orange.svg?style=flat-square
+    :target: https://github.com/Cielquan/python_test/graphs/commit-activity
+    :alt: Maintained - no
+
+.. |maintained-maybe| image:: https://img.shields.io/badge/Maintained-not%20intended-red.svg?style=flat-square
     :target: http://unmaintained.tech
     :alt: Maintenance - not intended
 
