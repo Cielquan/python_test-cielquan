@@ -28,7 +28,7 @@
 | |py_versions| |implementations|
 | |pypi| |status| |format| |downloads|
 |
-| |release| |commits_since|  |last_commit|
+| |release| |commits_since| |last_commit|
 | |stars| |forks| |contributors| |watchers|
 |
 
