@@ -1,5 +1,5 @@
 +---------------+----------------------------------------------------------------------+
-| **General**   | |maintained-maybe| |license| |black| |rtd|                           |
+| **General**   | |maintenance| |license| |black| |rtd|                                |
 +---------------+----------------------------------------------------------------------+
 | **CI/CD**     | |travis| |appveyor| |codecov|                                        |
 +---------------+----------------------------------------------------------------------+
@@ -21,7 +21,7 @@
 |
 |
 |
-| |maintained-maybe| |license| |black| |rtd|
+| |maintenance| |license| |black| |rtd|
 |
 | |travis| |appveyor| |codecov|
 |
@@ -39,19 +39,7 @@
 
 
 .. General
-.. |maintained-yes| image:: https://img.shields.io/badge/Maintained-yes-brightgreen.svg?style=flat-square
-    :target: https://github.com/Cielquan/python_test/graphs/commit-activity
-    :alt: Maintained - yes
-
-.. |maintained-no| image:: https://img.shields.io/badge/Maintained-no-red.svg?style=flat-square
-    :target: https://github.com/Cielquan/python_test/graphs/commit-activity
-    :alt: Maintained - no
-
-.. |maintained-notactive| image:: https://img.shields.io/badge/Maintained-not%20active-orange.svg?style=flat-square
-    :target: https://github.com/Cielquan/python_test/graphs/commit-activity
-    :alt: Maintained - no
-
-.. |maintained-maybe| image:: https://img.shields.io/badge/No%20Maintenance%20Intended-X-green.svg?style=flat-square
+.. |maintenance| image:: https://img.shields.io/badge/No%20Maintenance%20Intended-X-orange.svg?style=flat-square
     :target: http://unmaintained.tech/
     :alt: Maintenance - not intended
 
