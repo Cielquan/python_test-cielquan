@@ -5,7 +5,7 @@
 +---------------+----------------------------------------------------------------------+
 | **Tools**     | |poetry| |tox| |pytest| |sphinx|                                     |
 +---------------+----------------------------------------------------------------------+
-| **VCS**       | |vcs| |signed| |pre-commit|                                          |
+| **VCS**       | |vcs| |gpg| |pre-commit|                                             |
 +---------------+----------------------------------------------------------------------+
 | **Github**    | |gh_release| |gh_commits_since| |gh_last_commit|                     |
 |               +----------------------------------------------------------------------+
@@ -27,7 +27,7 @@
 |
 | |poetry| |tox| |pytest| |sphinx|
 |
-| |vcs| |signed| |pre-commit|
+| |vcs| |gpg| |pre-commit|
 |
 | |gh_release| |gh_commits_since| |gh_last_commit|
 | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|
@@ -93,7 +93,7 @@
     :target: https://git-scm.com/
     :alt: VCS
 
-.. |signed| image:: https://img.shields.io/badge/PGP-signed-blue.svg?style=flat-square&logo=gnu-privacy-guard
+.. |gpg| image:: https://img.shields.io/badge/GPG-signed-blue.svg?style=flat-square&logo=gnu-privacy-guard
     :target: https://gnupg.org/
     :alt: Website
 
