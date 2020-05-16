@@ -1,6 +1,3 @@
-
-
-
 +---------------+----------------------------------------------------------------------+
 | **Info**      | |license| |black| |pre-commit|                                       |
 |               +----------------------------------------------------------------------+
@@ -22,7 +19,6 @@
 
 | |license|
 | |maintained-yes| |maintained-no| |unmaintained|
-| |webside|
 | |poetry|
 |
 | |black|
@@ -63,10 +59,6 @@
     :target: http://unmaintained.tech
     :alt: No Maintenance Intended
 
-.. |webside| image:: https://img.shields.io/website-up-down-brightgreen-red/http/shields.io.svg?style=flat-square
-    :target: https://github.com/Cielquan/python_test
-    :alt: Website
-
 .. |poetry| image:: https://img.shields.io/badge/Packaging-poetry-brightgreen.svg?style=flat-square
     :target: https://python-poetry.org/
     :alt: Poetry
@@ -81,7 +73,7 @@
     :target: https://keybase.de
     :alt: Website
 
-.. |pgp-key| image:: https://img.shields.io/keybase/pgp/cielquan?style=flat-square&logo=keybase&label=PGP
+.. |pgp-key| image:: https://img.shields.io/keybase/pgp/cielquan?style=flat-square&logo=keybase&label=PGP%20Key
     :target: https://keybase.io
     :alt: Keybase PGP
 
