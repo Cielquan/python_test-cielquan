@@ -63,25 +63,27 @@
     :target: https://github.com/Cielquan/python_test
     :alt: Website
 
-.. |pgp-key| image:: https://img.shields.io/keybase/pgp/cielquan?style=flat-square&logo=keybase&label=PGP
-    :target: https://keybase.io
-    :alt: Keybase PGP
-
-.. |signed| image:: https://img.shields.io/badge/PGP-signed-blue.svg?style=flat-square&logo=gnu-privacy-guard
-    :target: https://keybase.de
-    :alt: Website
-
-.. |vcs| image:: https://img.shields.io/badge/VCS-git-orange.svg?style=flat-square&logo=git
-    :target: https://git-scm.com/
-    :alt: VCS
-
 .. |poetry| image:: https://img.shields.io/badge/Packaging-poetry-brightgreen.svg?style=flat-square
     :target: https://python-poetry.org/
     :alt: Poetry
 
 
+.. VCS
+.. |vcs| image:: https://img.shields.io/badge/VCS-git-orange.svg?style=flat-square&logo=git
+    :target: https://git-scm.com/
+    :alt: VCS
+
+.. |signed| image:: https://img.shields.io/badge/PGP-signed-blue.svg?style=flat-square&logo=gnu-privacy-guard
+    :target: https://keybase.de
+    :alt: Website
+
+.. |pgp-key| image:: https://img.shields.io/keybase/pgp/cielquan?style=flat-square&logo=keybase&label=PGP
+    :target: https://keybase.io
+    :alt: Keybase PGP
+
+
 .. Tests
-.. |pytest| image:: https://img.shields.io/badge/Test%20suite-pytest-brightgreen.svg?style=flat-square
+.. |pytest| image:: https://img.shields.io/badge/Test%20framework-pytest-brightgreen.svg?style=flat-square
     :target: https://docs.pytest.org/en/latest/
     :alt: Pytest
 
