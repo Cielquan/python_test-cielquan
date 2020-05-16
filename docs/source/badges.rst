@@ -97,11 +97,7 @@
     :target: https://gnupg.org/
     :alt: Website
 
-.. |pgp-key| image:: https://img.shields.io/badge/PGP%20Key-FA3BA3BF51282609-blue.svg?style=flat-square&logo=gnu-privacy-guard
-    :target: https://api.github.com/users/cielquan/gpg_keys
-    :alt: Website
-
-.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
+.. |pgp-key| image:: https://img.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
     :target: https://github.com/pre-commit/pre-commit
     :alt: pre-commit
 
