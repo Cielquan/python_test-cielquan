@@ -8,7 +8,7 @@
 +---------------+----------------------------------------------------------------------+
 | **Tests**     | |pytest| |tox| |travis| |appveyor| |codecov|                         |
 +---------------+----------------------------------------------------------------------+
-| **Docs**      | |sphinx| |docs|                                                      |
+| **Docs**      | |sphinx| |rtd|                                                      |
 +---------------+----------------------------------------------------------------------+
 | **PyPI**      | |pypi_release| |pypi_py_versions| |pypi_implementations|             |
 |               +----------------------------------------------------------------------+
@@ -27,7 +27,7 @@
 |
 | |pytest| |tox| |travis| |appveyor| |codecov|
 |
-| |sphinx| |docs|
+| |sphinx| |rtd|
 |
 | |pypi_release| |pypi_py_versions| |pypi_implementations|
 | |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|
@@ -96,20 +96,20 @@
 
 
 .. Tests
-.. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=flat-square&logo=travis-ci&logoColor=FBE072
+.. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=flat-square&logo=travis-ci&logoColor=FBE072&label=Travis%20CI
     :alt: Travis - Build Status
     :target: https://travis-ci.com/Cielquan/python_test
 
-.. |appveyor| image:: https://img.shields.io/appveyor/ci/Cielquan/python_test/master.svg?style=flat-square&logo=appveyor
+.. |appveyor| image:: https://img.shields.io/appveyor/ci/Cielquan/python_test/master.svg?style=flat-square&logo=appveyor&label=AppVeyor
     :alt: AppVeyor - Build Status
     :target: https://ci.appveyor.com/project/Cielquan/pytest-cov
 
-.. |codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=flat-square&logo=codecov
+.. |codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=flat-square&logo=codecov&label=Codecov
     :alt: Codecov - Test Coverage
     :target: https://codecov.io/gh/Cielquan/python_test
 
-.. |docs| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white
-    :alt: Read the Docs (latest) - Status
+.. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Docs%20build
+    :alt: Read the Docs - Build Status (latest)
     :target: https://python-test-cielquan.readthedocs.io/en/latest/?badge=latest
 
 
