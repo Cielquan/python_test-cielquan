@@ -1,5 +1,5 @@
 +---------------+----------------------------------------------------------------------+
-| **General**   | |maintained-yes| |license| |black| |rtd|                             |
+| **General**   | |maintained-may| |license| |black| |rtd|                             |
 +---------------+----------------------------------------------------------------------+
 | **Tests**     | |travis| |appveyor| |codecov|                                        |
 +---------------+----------------------------------------------------------------------+
@@ -21,7 +21,7 @@
 |
 |
 |
-| |maintained-yes| |license| |black| |rtd|
+| |maintained-may| |license| |black| |rtd|
 |
 | |travis| |appveyor| |codecov|
 |
@@ -47,7 +47,7 @@
     :target: https://github.com/Cielquan/python_test/graphs/commit-activity
     :alt: Maintained? no
 
-.. |unmaintained| image:: https://img.shields.io/badge/Maintained-not%20intended-red.svg?style=flat-square
+.. |maintained-may| image:: https://img.shields.io/badge/Maintained-not%20intended-red.svg?style=flat-square
     :target: http://unmaintained.tech
     :alt: No Maintenance Intended
 
@@ -102,7 +102,7 @@
     :alt: VCS
 
 .. |signed| image:: https://img.shields.io/badge/PGP-signed-blue.svg?style=flat-square&logo=gnu-privacy-guard
-    :target: https://keybase.de
+    :target: https://gnupg.org/
     :alt: Website
 
 .. |pgp-key| image:: https://img.shields.io/keybase/pgp/cielquan?style=flat-square&logo=keybase&label=PGP%20Key
