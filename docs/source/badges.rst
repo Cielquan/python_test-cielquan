@@ -21,15 +21,16 @@
 | |maintained-yes| |maintained-no| |unmaintained|
 | |webside| |signed| |pgp-key| |vcs|
 | |pytest| |tox| |sphinx| |poetry|
-
+|
 | |travis| |appveyor| |codecov|
 | |docs| |reqs|
-
+|
 | |py_versions| |implementations|
 | |pypi| |status| |format| |downloads|
-
+|
 | |release| |commits_since|  |last_commit|
 | |stars| |forks| |contributors| |watchers|
+|
 
 
 .. info block
