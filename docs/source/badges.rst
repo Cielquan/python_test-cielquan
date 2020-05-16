@@ -97,7 +97,7 @@
     :target: https://gnupg.org/
     :alt: Website
 
-.. |pgp-key| image:: https://img.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
+.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
     :target: https://github.com/pre-commit/pre-commit
     :alt: pre-commit
 
