@@ -25,8 +25,8 @@
 | |webside| |signed| |pgp-key| |vcs|
 | |poetry|
 |
-| |pytest| |tox| |codecov| |pre-commit|
-| |travis| |appveyor|
+| |pytest| |tox| |pre-commit|
+| |travis| |appveyor| |codecov|
 |
 | |sphinx| |rtd|
 |
@@ -46,10 +46,6 @@
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square
     :alt: Code Style: Black
     :target: https://github.com/psf/black
-
-.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
-    :target: https://github.com/pre-commit/pre-commit
-    :alt: pre-commit
 
 .. |maintained-yes| image:: https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg?style=flat-square
     :target: https://github.com/Cielquan/python_test/graphs/commit-activity
@@ -79,24 +75,26 @@
     :target: https://git-scm.com/
     :alt: VCS
 
-.. |pytest| image:: https://img.shields.io/badge/Test%20suite-pytest-brightgreen.svg?style=flat-square
-    :target: https://docs.pytest.org/en/latest/
-    :alt: Pytest
-
-.. |tox| image:: https://img.shields.io/badge/Test%20automation-tox-brightgreen.svg?style=flat-square
-    :target: https://tox.readthedocs.io/en/latest/
-    :alt: tox
-
-.. |sphinx| image:: https://img.shields.io/badge/Doc%20builder-sphinx-brightgreen.svg?style=flat-square
-    :target: https://www.sphinx-doc.org/en/latest/
-    :alt: Sphinx
-
 .. |poetry| image:: https://img.shields.io/badge/Packaging-poetry-brightgreen.svg?style=flat-square
     :target: https://python-poetry.org/
     :alt: Poetry
 
 
 .. Tests
+.. |pytest| image:: https://img.shields.io/badge/Test%20suite-pytest-brightgreen.svg?style=flat-square
+    :target: https://docs.pytest.org/en/latest/
+    :alt: Pytest
+
+.. |tox| image:: https://img.shields.io/badge/Automation-tox-brightgreen.svg?style=flat-square
+    :target: https://tox.readthedocs.io/en/latest/
+    :alt: tox
+
+.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
+    :target: https://github.com/pre-commit/pre-commit
+    :alt: pre-commit
+
+
+.. Pipelines
 .. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=flat-square&logo=travis-ci&logoColor=FBE072&label=Travis%20CI
     :alt: Travis - Build Status
     :target: https://travis-ci.com/Cielquan/python_test
@@ -108,6 +106,12 @@
 .. |codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=flat-square&logo=codecov&label=Codecov
     :alt: Codecov - Test Coverage
     :target: https://codecov.io/gh/Cielquan/python_test
+
+
+.. Docs
+.. |sphinx| image:: https://img.shields.io/badge/Doc%20builder-sphinx-brightgreen.svg?style=flat-square
+    :target: https://www.sphinx-doc.org/en/latest/
+    :alt: Sphinx
 
 .. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
     :alt: Read the Docs - Build Status (latest)
