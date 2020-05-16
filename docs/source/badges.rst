@@ -16,7 +16,11 @@
 |               | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|                |
 +---------------+----------------------------------------------------------------------+
 
-
+|
+|
+|
+|
+|
 | |license| |black| |maintained-yes|
 | |maintained-no| |unmaintained|
 | |poetry|
