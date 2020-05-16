@@ -6,9 +6,9 @@
 |               +----------------------------------------------------------------------+
 |               | |maintained-yes| |maintained-no| |unmaintained|                      |
 +---------------+----------------------------------------------------------------------+
-| **Tests**     | |travis| |appveyor| |codecov|                                        |
-|               +----------------------------------------------------------------------+
-|               | |docs|                                                               |
+| **Tests**     | |pytest| |tox| |travis| |appveyor| |codecov|                         |
++---------------+----------------------------------------------------------------------+
+| **Docs**      | |sphinx| |docs|                                                      |
 +---------------+----------------------------------------------------------------------+
 | **PyPI**      | |pypi_release| |pypi_py_versions| |pypi_implementations|             |
 |               +----------------------------------------------------------------------+
@@ -23,10 +23,11 @@
 | |license| |black| |pre-commit|
 | |maintained-yes| |maintained-no| |unmaintained|
 | |webside| |signed| |pgp-key| |vcs|
-| |pytest| |tox| |sphinx| |poetry|
+| |poetry|
 |
-| |travis| |appveyor| |codecov|
-| |docs|
+| |pytest| |tox| |travis| |appveyor| |codecov|
+|
+| |sphinx| |docs|
 |
 | |pypi_release| |pypi_py_versions| |pypi_implementations|
 | |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|
@@ -94,7 +95,7 @@
     :alt: Poetry
 
 
-.. tests
+.. Tests
 .. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=flat-square&logo=travis-ci&logoColor=FBE072
     :alt: Travis - Build Status
     :target: https://travis-ci.com/Cielquan/python_test
