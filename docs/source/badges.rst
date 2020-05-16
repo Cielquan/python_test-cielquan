@@ -24,6 +24,7 @@
 | |license| |black| |pre-commit|
 | |maintained-yes| |maintained-no| |unmaintained|
 | |webside| |signed| |pgp-key| |vcs|
+| |pytest| |sphinx| |poetry|
 
 | |travis| |appveyor| |codecov|
 | |docs| |reqs|
@@ -75,6 +76,18 @@
 .. |vcs| image:: https://img.shields.io/badge/VCS-git-orange.svg?style=flat-square&logo=git
     :target: https://git-scm.com/
     :alt: VCS
+
+.. |pytest| image:: https://img.shields.io/badge/Test%20suite-pytest-brightgreen.svg?style=flat-square
+    :target: https://docs.pytest.org/en/latest/
+    :alt: Pytest
+
+.. |sphinx| image:: https://img.shields.io/badge/Doc%20builder-sphinx-brightgreen.svg?style=flat-square
+    :target: https://www.sphinx-doc.org/en/latest/
+    :alt: Sphinx
+
+.. |poetry| image:: https://img.shields.io/badge/Packaging-poetry-brightgreen.svg?style=flat-square
+    :target: https://python-poetry.org/
+    :alt: Poetry
 
 
 .. tests block
