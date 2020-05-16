@@ -39,15 +39,15 @@
 
 
 .. General
-.. |maintained-yes| image:: https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg?style=flat-square
+.. |maintained-yes| image:: https://img.shields.io/badge/Maintained-yes-brightgreen.svg?style=flat-square
     :target: https://github.com/Cielquan/python_test/graphs/commit-activity
     :alt: Maintained? yes
 
-.. |maintained-no| image:: https://img.shields.io/badge/Maintained%3F-no-red.svg?style=flat-square
+.. |maintained-no| image:: https://img.shields.io/badge/Maintained-no-red.svg?style=flat-square
     :target: https://github.com/Cielquan/python_test/graphs/commit-activity
     :alt: Maintained? no
 
-.. |unmaintained| image:: https://img.shields.io/badge/No%20Maintenance%20intended-X-red.svg?style=flat-square
+.. |unmaintained| image:: https://img.shields.io/badge/Maintained-not%20intended-red.svg?style=flat-square
     :target: http://unmaintained.tech
     :alt: No Maintenance Intended
 
