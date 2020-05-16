@@ -39,7 +39,7 @@
 
 
 .. General
-.. |maintenance| image:: https://img.shields.io/badge/No%20Maintenance%20Intended-X-orange.svg?style=flat-square
+.. |maintenance| image:: https://img.shields.io/badge/No%20Maintenance%20Intended-X-red.svg?style=flat-square
     :target: http://unmaintained.tech/
     :alt: Maintenance - not intended
 
