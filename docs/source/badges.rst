@@ -119,31 +119,31 @@
 
 
 .. PyPI block
-.. |py_versions| image:: https://img.shields.io/pypi/pyversions/dothhdns.svg?style=flat-square&logo=python&logoColor=FBE072
+.. |py_versions| image:: https://img.shields.io/pypi/pyversions/dothdns.svg?style=flat-square&logo=python&logoColor=FBE072
     :alt: PyPI - Python versions supported
     :target: https://pypi.org/project/python_test_cielquan/
 
-.. |implementations| image:: https://img.shields.io/pypi/implementation/dothhdns.svg?style=flat-square&logo=python&logoColor=FBE072
+.. |implementations| image:: https://img.shields.io/pypi/implementation/dothdns.svg?style=flat-square&logo=python&logoColor=FBE072
     :alt: PyPI - Implementations supported
     :target: https://pypi.org/project/python_test_cielquan/
 
-.. |status| image:: https://img.shields.io/pypi/status/dothhdns.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. |status| image:: https://img.shields.io/pypi/status/dothdns.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :alt: PyPI - Package stability
     :target: https://pypi.org/project/python_test_cielquan/
 
-.. |pypi| image:: https://img.shields.io/pypi/v/dothhdns.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. |pypi| image:: https://img.shields.io/pypi/v/dothdns.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :alt: PyPI - Package latest release
     :target: https://pypi.org/project/python_test_cielquan/
 
-.. |format| image:: https://img.shields.io/pypi/format/dothhdns.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. |format| image:: https://img.shields.io/pypi/format/dothdns.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :alt: PyPI - Format
     :target: https://pypi.org/project/python_test_cielquan/
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/dothhdns.svg?style=flat-square
+.. |wheel| image:: https://img.shields.io/pypi/wheel/dothdns.svg?style=flat-square
     :alt: PyPI - Wheel
     :target: https://pypi.org/project/python_test_cielquan/
 
-.. |downloads| image:: https://img.shields.io/pypi/dm/dothhdns.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. |downloads| image:: https://img.shields.io/pypi/dm/dothdns.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :target: https://pypi.org/project/python_test_cielquan/
     :alt: PyPI - Monthly downloads
 
