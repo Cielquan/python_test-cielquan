@@ -1,19 +1,19 @@
 +---------------+----------------------------------------------------------------------+
 | **General**   | |maintained-yes| |license| |black| |rtd|                             |
 +---------------+----------------------------------------------------------------------+
-| **Tools**     | |pytest| |tox| |sphinx| |poetry|                                     |
-+---------------+----------------------------------------------------------------------+
-| **VCS**       | |vcs| |signed| |pgp-key| |pre-commit|                                |
-+---------------+----------------------------------------------------------------------+
 | **Tests**     | |travis| |appveyor| |codecov|                                        |
 +---------------+----------------------------------------------------------------------+
-| **PyPI**      | |pypi_release| |pypi_py_versions| |pypi_implementations|             |
-|               +----------------------------------------------------------------------+
-|               | |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|            |
+| **Tools**     | |poetry| |tox| |pytest| |sphinx|                                     |
++---------------+----------------------------------------------------------------------+
+| **VCS**       | |vcs| |signed| |pgp-key| |pre-commit|                                |
 +---------------+----------------------------------------------------------------------+
 | **Github**    | |gh_release| |gh_commits_since| |gh_last_commit|                     |
 |               +----------------------------------------------------------------------+
 |               | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|                |
++---------------+----------------------------------------------------------------------+
+| **PyPI**      | |pypi_release| |pypi_py_versions| |pypi_implementations|             |
+|               +----------------------------------------------------------------------+
+|               | |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|            |
 +---------------+----------------------------------------------------------------------+
 
 | .
@@ -21,35 +21,24 @@
 |
 |
 |
-| |license| |black| |maintained-yes|
-| |maintained-no| |unmaintained|
-| |poetry|
-|
-| |pytest| |tox| |sphinx| |pre-commit|
-|
-| |vcs| |signed| |pgp-key|
+| |maintained-yes| |license| |black| |rtd|
 |
 | |travis| |appveyor| |codecov|
 |
-| |rtd|
+| |poetry| |tox| |pytest| |sphinx|
 |
-| |pypi_release| |pypi_py_versions| |pypi_implementations|
-| |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|
+| |vcs| |signed| |pgp-key| |pre-commit|
 |
 | |gh_release| |gh_commits_since| |gh_last_commit|
 | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|
 |
+| |pypi_release| |pypi_py_versions| |pypi_implementations|
+| |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|
+|
+|
 
 
-.. info
-.. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square
-    :alt: License
-    :target: https://github.com/Cielquan/python_test/blob/master/LICENSE.rst
-
-.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square
-    :alt: Code Style: Black
-    :target: https://github.com/psf/black
-
+.. General
 .. |maintained-yes| image:: https://img.shields.io/badge/Maintained%3F-yes-brightgreen.svg?style=flat-square
     :target: https://github.com/Cielquan/python_test/graphs/commit-activity
     :alt: Maintained? yes
@@ -62,9 +51,49 @@
     :target: http://unmaintained.tech
     :alt: No Maintenance Intended
 
+.. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square
+    :alt: License
+    :target: https://github.com/Cielquan/python_test/blob/master/LICENSE.rst
+
+.. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg?style=flat-square
+    :alt: Code Style: Black
+    :target: https://github.com/psf/black
+
+.. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
+    :alt: Read the Docs - Build Status (latest)
+    :target: https://python-test-cielquan.readthedocs.io/en/latest/?badge=latest
+
+
+.. Tests
+.. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=flat-square&logo=travis-ci&logoColor=FBE072&label=Travis%20CI
+    :alt: Travis - Build Status
+    :target: https://travis-ci.com/Cielquan/python_test
+
+.. |appveyor| image:: https://img.shields.io/appveyor/ci/Cielquan/python_test/master.svg?style=flat-square&logo=appveyor&label=AppVeyor
+    :alt: AppVeyor - Build Status
+    :target: https://ci.appveyor.com/project/Cielquan/pytest-cov
+
+.. |codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=flat-square&logo=codecov&label=Codecov
+    :alt: Codecov - Test Coverage
+    :target: https://codecov.io/gh/Cielquan/python_test
+
+
+.. Tools
 .. |poetry| image:: https://img.shields.io/badge/Packaging-poetry-brightgreen.svg?style=flat-square
     :target: https://python-poetry.org/
     :alt: Poetry
+
+.. |tox| image:: https://img.shields.io/badge/Automation-tox-brightgreen.svg?style=flat-square
+    :target: https://tox.readthedocs.io/en/latest/
+    :alt: tox
+
+.. |pytest| image:: https://img.shields.io/badge/Test%20framework-pytest-brightgreen.svg?style=flat-square
+    :target: https://docs.pytest.org/en/latest/
+    :alt: Pytest
+
+.. |sphinx| image:: https://img.shields.io/badge/Doc%20builder-sphinx-brightgreen.svg?style=flat-square
+    :target: https://www.sphinx-doc.org/en/latest/
+    :alt: Sphinx
 
 
 .. VCS
@@ -80,73 +109,9 @@
     :target: https://keybase.io
     :alt: Keybase PGP
 
-
-.. Tests
-.. |pytest| image:: https://img.shields.io/badge/Test%20framework-pytest-brightgreen.svg?style=flat-square
-    :target: https://docs.pytest.org/en/latest/
-    :alt: Pytest
-
-.. |tox| image:: https://img.shields.io/badge/Automation-tox-brightgreen.svg?style=flat-square
-    :target: https://tox.readthedocs.io/en/latest/
-    :alt: tox
-
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
     :target: https://github.com/pre-commit/pre-commit
     :alt: pre-commit
-
-
-.. Pipelines
-.. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=flat-square&logo=travis-ci&logoColor=FBE072&label=Travis%20CI
-    :alt: Travis - Build Status
-    :target: https://travis-ci.com/Cielquan/python_test
-
-.. |appveyor| image:: https://img.shields.io/appveyor/ci/Cielquan/python_test/master.svg?style=flat-square&logo=appveyor&label=AppVeyor
-    :alt: AppVeyor - Build Status
-    :target: https://ci.appveyor.com/project/Cielquan/pytest-cov
-
-.. |codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=flat-square&logo=codecov&label=Codecov
-    :alt: Codecov - Test Coverage
-    :target: https://codecov.io/gh/Cielquan/python_test
-
-
-.. Docs
-.. |sphinx| image:: https://img.shields.io/badge/Doc%20builder-sphinx-brightgreen.svg?style=flat-square
-    :target: https://www.sphinx-doc.org/en/latest/
-    :alt: Sphinx
-
-.. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
-    :alt: Read the Docs - Build Status (latest)
-    :target: https://python-test-cielquan.readthedocs.io/en/latest/?badge=latest
-
-
-.. PyPI
-.. |pypi_release| image:: https://img.shields.io/pypi/v/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :alt: PyPI - Package latest release
-    :target: https://pypi.org/project/python_test_cielquan/
-
-.. |pypi_py_versions| image:: https://img.shields.io/pypi/pyversions/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
-    :alt: PyPI - Supported Python Versions
-    :target: https://pypi.org/project/python_test_cielquan/
-
-.. |pypi_implementations| image:: https://img.shields.io/pypi/implementation/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
-    :alt: PyPI - Supported Implementations
-    :target: https://pypi.org/project/python_test_cielquan/
-
-.. |pypi_status| image:: https://img.shields.io/pypi/status/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :alt: PyPI - Stability
-    :target: https://pypi.org/project/python_test_cielquan/
-
-.. |pypi_format| image:: https://img.shields.io/pypi/format/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :alt: PyPI - Format
-    :target: https://pypi.org/project/python_test_cielquan/
-
-.. |pypi_wheel| image:: https://img.shields.io/pypi/wheel/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :alt: PyPI - Wheel
-    :target: https://pypi.org/project/python_test_cielquan/
-
-.. |pypi_downloads| image:: https://img.shields.io/pypi/dm/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :target: https://pypi.org/project/python_test_cielquan/
-    :alt: PyPI - Monthly downloads
 
 
 .. GitHub
@@ -177,3 +142,33 @@
 .. |gh_watchers| image:: https://img.shields.io/github/watchers/Cielquan/python_test.svg?style=flat-square&logo=github
     :alt: Github - Watchers
     :target: https://github.com/Cielquan/python_test/watchers/
+
+
+.. PyPI
+.. |pypi_release| image:: https://img.shields.io/pypi/v/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+    :alt: PyPI - Package latest release
+    :target: https://pypi.org/project/python_test_cielquan/
+
+.. |pypi_py_versions| image:: https://img.shields.io/pypi/pyversions/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
+    :alt: PyPI - Supported Python Versions
+    :target: https://pypi.org/project/python_test_cielquan/
+
+.. |pypi_implementations| image:: https://img.shields.io/pypi/implementation/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
+    :alt: PyPI - Supported Implementations
+    :target: https://pypi.org/project/python_test_cielquan/
+
+.. |pypi_status| image:: https://img.shields.io/pypi/status/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+    :alt: PyPI - Stability
+    :target: https://pypi.org/project/python_test_cielquan/
+
+.. |pypi_format| image:: https://img.shields.io/pypi/format/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+    :alt: PyPI - Format
+    :target: https://pypi.org/project/python_test_cielquan/
+
+.. |pypi_wheel| image:: https://img.shields.io/pypi/wheel/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+    :alt: PyPI - Wheel
+    :target: https://pypi.org/project/python_test_cielquan/
+
+.. |pypi_downloads| image:: https://img.shields.io/pypi/dm/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+    :target: https://pypi.org/project/python_test_cielquan/
+    :alt: PyPI - Monthly downloads
