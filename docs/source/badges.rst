@@ -1,20 +1,23 @@
-+---------------+-------------------------------------------------+
-| **Info**      | |license| |black| |pre-commit|                  |
-|               +-------------------------------------------------+
-|               | |maintained-yes| |maintained-no| |unmaintained| |
-+---------------+-------------------------------------------------+
-| **Tests**     | |travis| |appveyor| |codecov|                   |
-|               +-------------------------------------------------+
-|               | |docs| |reqs|                                   |
-+---------------+-------------------------------------------------+
-| **PyPI**      | |pypi| |py_versions| |implementations|          |
-|               +-------------------------------------------------+
-|               | |status| |format| |downloads|                   |
-+---------------+-------------------------------------------------+
-| **Github**    | |release| |commits_since| |last_commit|         |
-|               +-------------------------------------------------+
-|               | |stars| |forks| |contributors| |watchers|       |
-+---------------+-------------------------------------------------+
+
+
+
++---------------+----------------------------------------------------------------------+
+| **Info**      | |license| |black| |pre-commit|                                       |
+|               +----------------------------------------------------------------------+
+|               | |maintained-yes| |maintained-no| |unmaintained|                      |
++---------------+----------------------------------------------------------------------+
+| **Tests**     | |travis| |appveyor| |codecov|                                        |
+|               +----------------------------------------------------------------------+
+|               | |docs| |reqs|                                                        |
++---------------+----------------------------------------------------------------------+
+| **PyPI**      | |pypi_release| |pypi_py_versions| |pypi_implementations|             |
+|               +----------------------------------------------------------------------+
+|               | |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|            |
++---------------+----------------------------------------------------------------------+
+| **Github**    | |gh_release| |gh_commits_since| |gh_last_commit|                     |
+|               +----------------------------------------------------------------------+
+|               | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|                |
++---------------+----------------------------------------------------------------------+
 
 
 | |license| |black| |pre-commit|
@@ -25,15 +28,15 @@
 | |travis| |appveyor| |codecov|
 | |docs| |reqs|
 |
-| |py_versions| |implementations|
-| |pypi| |status| |format| |downloads|
+| |pypi_release| |pypi_py_versions| |pypi_implementations|
+| |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|
 |
-| |release| |commits_since| |last_commit|
-| |stars| |forks| |contributors| |watchers|
+| |gh_release| |gh_commits_since| |gh_last_commit|
+| |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|
 |
 
 
-.. info block
+.. info
 .. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square
     :alt: License
     :target: https://github.com/Cielquan/python_test/blob/master/LICENSE.rst
@@ -91,7 +94,7 @@
     :alt: Poetry
 
 
-.. tests block
+.. tests
 .. .image:: https://travis-ci.com/Cielquan/python_test.svg?branch=master
 .. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=flat-square&logo=travis-ci&logoColor=FBE072
     :alt: Travis - Build Status
@@ -118,61 +121,61 @@
     :target: https://requires.io/github/Cielquan/python_test/requirements/?branch=master
 
 
-.. PyPI block
-.. |py_versions| image:: https://img.shields.io/pypi/pyversions/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
-    :alt: PyPI - Python versions supported
-    :target: https://pypi.org/project/python_test_cielquan/
-
-.. |implementations| image:: https://img.shields.io/pypi/implementation/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
-    :alt: PyPI - Implementations supported
-    :target: https://pypi.org/project/python_test_cielquan/
-
-.. |status| image:: https://img.shields.io/pypi/status/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :alt: PyPI - Package stability
-    :target: https://pypi.org/project/python_test_cielquan/
-
-.. |pypi| image:: https://img.shields.io/pypi/v/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. PyPI
+.. |pypi_release| image:: https://img.shields.io/pypi/v/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :alt: PyPI - Package latest release
     :target: https://pypi.org/project/python_test_cielquan/
 
-.. |format| image:: https://img.shields.io/pypi/format/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. |pypi_py_versions| image:: https://img.shields.io/pypi/pyversions/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
+    :alt: PyPI - Supported Python Versions
+    :target: https://pypi.org/project/python_test_cielquan/
+
+.. |pypi_implementations| image:: https://img.shields.io/pypi/implementation/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
+    :alt: PyPI - Supported Implementations
+    :target: https://pypi.org/project/python_test_cielquan/
+
+.. |pypi_status| image:: https://img.shields.io/pypi/status/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+    :alt: PyPI - Stability
+    :target: https://pypi.org/project/python_test_cielquan/
+
+.. |pypi_format| image:: https://img.shields.io/pypi/format/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :alt: PyPI - Format
     :target: https://pypi.org/project/python_test_cielquan/
 
-.. |wheel| image:: https://img.shields.io/pypi/wheel/DoTH-DNS.svg?style=flat-square
+.. |pypi_wheel| image:: https://img.shields.io/pypi/wheel/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :alt: PyPI - Wheel
     :target: https://pypi.org/project/python_test_cielquan/
 
-.. |downloads| image:: https://img.shields.io/pypi/dm/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. |pypi_downloads| image:: https://img.shields.io/pypi/dm/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :target: https://pypi.org/project/python_test_cielquan/
     :alt: PyPI - Monthly downloads
 
 
-.. Github block
-.. |release| image:: https://img.shields.io/github/v/release/Cielquan/python_test.svg?style=flat-square&logo=github
-    :alt: Github Latest Release
+.. Github
+.. |gh_release| image:: https://img.shields.io/github/v/release/Cielquan/python_test.svg?style=flat-square&logo=github
+    :alt: Github - Latest Release
     :target: https://github.com/Cielquan/python_test/releases/latest
 
-.. |commits_since| image:: https://img.shields.io/github/commits-since/Cielquan/python_test/latest.svg?style=flat-square&logo=github
-    :alt: GitHub commits since latest release
+.. |gh_commits_since| image:: https://img.shields.io/github/commits-since/Cielquan/python_test/latest.svg?style=flat-square&logo=github
+    :alt: GitHub - Commits since latest release
     :target: https://github.com/Cielquan/python_test/commits/master
 
-.. |last_commit| image:: https://img.shields.io/github/last-commit/Cielquan/python_test.svg?style=flat-square&logo=github
-    :alt: GitHub last commit
+.. |gh_last_commit| image:: https://img.shields.io/github/last-commit/Cielquan/python_test.svg?style=flat-square&logo=github
+    :alt: GitHub - Last Commit
     :target: https://github.com/Cielquan/python_test/commits/master
 
-.. |stars| image:: https://img.shields.io/github/stars/Cielquan/python_test.svg?style=flat-square&logo=github
-    :alt: Github stars
+.. |gh_stars| image:: https://img.shields.io/github/stars/Cielquan/python_test.svg?style=flat-square&logo=github
+    :alt: Github - Stars
     :target: https://github.com/Cielquan/python_test/stargazers
 
-.. |forks| image:: https://img.shields.io/github/forks/Cielquan/python_test.svg?style=flat-square&logo=github
-    :alt: Github forks
+.. |gh_forks| image:: https://img.shields.io/github/forks/Cielquan/python_test.svg?style=flat-square&logo=github
+    :alt: Github - Forks
     :target: https://github.com/Cielquan/python_test/network/members
 
-.. |contributors| image:: https://img.shields.io/github/contributors/Cielquan/python_test.svg?style=flat-square&logo=github
-    :alt: Github Contributors
+.. |gh_contributors| image:: https://img.shields.io/github/contributors/Cielquan/python_test.svg?style=flat-square&logo=github
+    :alt: Github - Contributors
     :target: https://github.com/Cielquan/python_test/graphs/contributors
 
-.. |watchers| image:: https://img.shields.io/github/watchers/Cielquan/python_test.svg?style=flat-square&logo=github
-    :alt: Github Watchers
+.. |gh_watchers| image:: https://img.shields.io/github/watchers/Cielquan/python_test.svg?style=flat-square&logo=github
+    :alt: Github - Watchers
     :target: https://github.com/Cielquan/python_test/watchers/
