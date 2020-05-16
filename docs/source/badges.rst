@@ -16,10 +16,6 @@
 |               | |stars| |forks| |contributors| |watchers|       |
 +---------------+-------------------------------------------------+
 
-.. docs made with: sphinx
-.. tests made with: pytest
-.. packageing made with: poetry
-
 
 | |license| |black| |pre-commit|
 | |maintained-yes| |maintained-no| |unmaintained|
@@ -80,6 +76,10 @@
 .. |pytest| image:: https://img.shields.io/badge/Test%20suite-pytest-brightgreen.svg?style=flat-square
     :target: https://docs.pytest.org/en/latest/
     :alt: Pytest
+
+.. |tox| image:: https://img.shields.io/badge/Test%20automation-tox-brightgreen.svg?style=flat-square
+    :target: https://tox.readthedocs.io/en/latest/
+    :alt: tox
 
 .. |sphinx| image:: https://img.shields.io/badge/Doc%20builder-sphinx-brightgreen.svg?style=flat-square
     :target: https://www.sphinx-doc.org/en/latest/
