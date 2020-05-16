@@ -41,22 +41,22 @@
 .. General
 .. |maintained-yes| image:: https://img.shields.io/badge/Maintained-yes-brightgreen.svg?style=flat-square
     :target: https://github.com/Cielquan/python_test/graphs/commit-activity
-    :alt: Maintained? yes
+    :alt: Maintained - yes
 
 .. |maintained-no| image:: https://img.shields.io/badge/Maintained-no-red.svg?style=flat-square
     :target: https://github.com/Cielquan/python_test/graphs/commit-activity
-    :alt: Maintained? no
+    :alt: Maintained - no
 
 .. |maintained-may| image:: https://img.shields.io/badge/Maintained-not%20intended-red.svg?style=flat-square
     :target: http://unmaintained.tech
-    :alt: No Maintenance Intended
+    :alt: Maintenance - not intended
 
 .. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square&label=License
     :alt: License
     :target: https://github.com/Cielquan/python_test/blob/master/LICENSE.rst
 
 .. |black| image:: https://img.shields.io/badge/Code%20Style-black-000000.svg?style=flat-square
-    :alt: Code Style: Black
+    :alt: Code Style - Black
     :target: https://github.com/psf/black
 
 .. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
