@@ -20,7 +20,7 @@
 | |license| |black| |pre-commit|
 | |maintained-yes| |maintained-no| |unmaintained|
 | |webside| |signed| |pgp-key| |vcs|
-| |pytest| |sphinx| |poetry|
+| |pytest| |tox| |sphinx| |poetry|
 
 | |travis| |appveyor| |codecov|
 | |docs| |reqs|
