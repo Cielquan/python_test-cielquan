@@ -95,30 +95,21 @@
 
 
 .. tests
-.. .image:: https://travis-ci.com/Cielquan/python_test.svg?branch=master
 .. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=flat-square&logo=travis-ci&logoColor=FBE072
     :alt: Travis - Build Status
     :target: https://travis-ci.com/Cielquan/python_test
 
-.. .image:: https://ci.appveyor.com/api/projects/status/github/Cielquan/python_test?branch=master&svg=true
 .. |appveyor| image:: https://img.shields.io/appveyor/ci/Cielquan/python_test/master.svg?style=flat-square&logo=appveyor
     :alt: AppVeyor - Build Status
     :target: https://ci.appveyor.com/project/Cielquan/pytest-cov
 
-.. .image:: https://codecov.io/gh/Cielquan/python_test/branch/master/graph/badge.svg
 .. |codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=flat-square&logo=codecov
     :alt: Codecov - Test Coverage
     :target: https://codecov.io/gh/Cielquan/python_test
 
-.. .image:: https://readthedocs.org/projects/python-test-cielquan/badge/?version=latest
 .. |docs| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white
     :alt: Read the Docs (latest) - Status
     :target: https://python-test-cielquan.readthedocs.io/en/latest/?badge=latest
-
-.. .image:: https://requires.io/github/Cielquan/python_test/requirements.svg?branch=master
-.. |reqs| image:: https://img.shields.io/requires/github/Cielquan/python_test.svg?style=flat-square
-    :alt: Requires.io - Requirements status
-    :target: https://requires.io/github/Cielquan/python_test/requirements/?branch=master
 
 
 .. PyPI
