@@ -17,18 +17,17 @@
 +---------------+----------------------------------------------------------------------+
 
 
-| |license|
-| |maintained-yes| |maintained-no| |unmaintained|
+| |license| |black| |maintained-yes|
+| |maintained-no| |unmaintained|
 | |poetry|
 |
-| |black|
+| |pytest| |tox| |sphinx| |pre-commit|
 |
 | |vcs| |signed| |pgp-key|
 |
-| |pytest| |tox| |pre-commit|
 | |travis| |appveyor| |codecov|
 |
-| |sphinx| |rtd|
+| |rtd|
 |
 | |pypi_release| |pypi_py_versions| |pypi_implementations|
 | |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|
