@@ -20,10 +20,14 @@
 +---------------+----------------------------------------------------------------------+
 
 
-| |license| |black|
+| |license|
 | |maintained-yes| |maintained-no| |unmaintained|
-| |webside| |signed| |pgp-key| |vcs|
+| |webside|
 | |poetry|
+|
+| |black|
+|
+| |vcs| |signed| |pgp-key|
 |
 | |pytest| |tox| |pre-commit|
 | |travis| |appveyor| |codecov|
