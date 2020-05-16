@@ -51,8 +51,8 @@
     :target: https://github.com/Cielquan/python_test/graphs/commit-activity
     :alt: Maintained - no
 
-.. |maintained-maybe| image:: https://img.shields.io/badge/Maintained-not%20intended-red.svg?style=flat-square
-    :target: http://unmaintained.tech
+.. |maintained-maybe| image:: https://img.shields.io/badge/No%20Maintenance%20Intended-X-green.svg?style=flat-square
+    :target: http://unmaintained.tech/
     :alt: Maintenance - not intended
 
 .. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square&label=License
