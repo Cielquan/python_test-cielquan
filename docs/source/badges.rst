@@ -1,5 +1,5 @@
 +---------------+----------------------------------------------------------------------+
-| **General**   | |maintained-notactive| |license| |black| |rtd|                       |
+| **General**   | |maintained-maybe| |license| |black| |rtd|                           |
 +---------------+----------------------------------------------------------------------+
 | **CI/CD**     | |travis| |appveyor| |codecov|                                        |
 +---------------+----------------------------------------------------------------------+
@@ -21,7 +21,7 @@
 |
 |
 |
-| |maintained-notactive| |license| |black| |rtd|
+| |maintained-maybe| |license| |black| |rtd|
 |
 | |travis| |appveyor| |codecov|
 |
