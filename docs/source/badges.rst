@@ -8,7 +8,7 @@
 +---------------+----------------------------------------------------------------------+
 | **Tests**     | |travis| |appveyor| |codecov|                                        |
 |               +----------------------------------------------------------------------+
-|               | |docs| |reqs|                                                        |
+|               | |docs|                                                               |
 +---------------+----------------------------------------------------------------------+
 | **PyPI**      | |pypi_release| |pypi_py_versions| |pypi_implementations|             |
 |               +----------------------------------------------------------------------+
@@ -26,7 +26,7 @@
 | |pytest| |tox| |sphinx| |poetry|
 |
 | |travis| |appveyor| |codecov|
-| |docs| |reqs|
+| |docs|
 |
 | |pypi_release| |pypi_py_versions| |pypi_implementations|
 | |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|
@@ -142,7 +142,7 @@
     :alt: PyPI - Monthly downloads
 
 
-.. Github
+.. GitHub
 .. |gh_release| image:: https://img.shields.io/github/v/release/Cielquan/python_test.svg?style=flat-square&logo=github
     :alt: Github - Latest Release
     :target: https://github.com/Cielquan/python_test/releases/latest
