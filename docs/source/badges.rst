@@ -20,12 +20,13 @@
 +---------------+----------------------------------------------------------------------+
 
 
-| |license| |black| |pre-commit|
+| |license| |black|
 | |maintained-yes| |maintained-no| |unmaintained|
 | |webside| |signed| |pgp-key| |vcs|
 | |poetry|
 |
-| |pytest| |tox| |travis| |appveyor| |codecov|
+| |pytest| |tox| |codecov| |pre-commit|
+| |travis| |appveyor|
 |
 | |sphinx| |rtd|
 |
