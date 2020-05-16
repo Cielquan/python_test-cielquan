@@ -5,7 +5,7 @@
 +---------------+----------------------------------------------------------------------+
 | **Tools**     | |poetry| |tox| |pytest| |sphinx|                                     |
 +---------------+----------------------------------------------------------------------+
-| **VCS**       | |vcs| |signed| |pgp-key| |pre-commit|                                |
+| **VCS**       | |vcs| |signed| |pre-commit|                                          |
 +---------------+----------------------------------------------------------------------+
 | **Github**    | |gh_release| |gh_commits_since| |gh_last_commit|                     |
 |               +----------------------------------------------------------------------+
@@ -27,7 +27,7 @@
 |
 | |poetry| |tox| |pytest| |sphinx|
 |
-| |vcs| |signed| |pgp-key| |pre-commit|
+| |vcs| |signed| |pre-commit|
 |
 | |gh_release| |gh_commits_since| |gh_last_commit|
 | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|
