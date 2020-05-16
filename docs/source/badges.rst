@@ -108,7 +108,7 @@
     :alt: Codecov - Test Coverage
     :target: https://codecov.io/gh/Cielquan/python_test
 
-.. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Docs%20build
+.. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
     :alt: Read the Docs - Build Status (latest)
     :target: https://python-test-cielquan.readthedocs.io/en/latest/?badge=latest
 
