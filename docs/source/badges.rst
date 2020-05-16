@@ -13,7 +13,7 @@
 +---------------+----------------------------------------------------------------------+
 | **PyPI**      | |pypi_release| |pypi_py_versions| |pypi_implementations|             |
 |               +----------------------------------------------------------------------+
-|               | |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|            |
+|               | |pypi_status| |pypi_format| |pypi_downloads|                         |
 +---------------+----------------------------------------------------------------------+
 
 | .
@@ -33,7 +33,7 @@
 | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|
 |
 | |pypi_release| |pypi_py_versions| |pypi_implementations|
-| |pypi_status| |pypi_format| |pypi_wheel| |pypi_downloads|
+| |pypi_status| |pypi_format| |pypi_downloads|
 |
 |
 
@@ -155,10 +155,6 @@
 
 .. |pypi_format| image:: https://img.shields.io/pypi/format/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :alt: PyPI - Format
-    :target: https://pypi.org/project/python_test_cielquan/
-
-.. |pypi_wheel| image:: https://img.shields.io/pypi/wheel/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :alt: PyPI - Wheel
     :target: https://pypi.org/project/python_test_cielquan/
 
 .. |pypi_downloads| image:: https://img.shields.io/pypi/dm/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
