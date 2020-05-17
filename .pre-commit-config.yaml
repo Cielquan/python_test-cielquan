@@ -59,6 +59,7 @@ repos:
     hooks:
       - id: isort
         args: [--apply, --recursive]
+        additional_dependencies: [toml>=0.10.1]
 
   #: blacken-docs - black for python code in docs
   - repo: https://github.com/asottile/blacken-docs
@@ -87,6 +88,16 @@ repos:
     rev: 3.8.1
     hooks:
       - id: flake8
+        args: [
+          --count,
+          --statistics,
+          "--extend-exclude=*venv*/,*.egg,build/",
+          --extend-ignore=E203,
+          --max-line-length=88,
+          --max-complexity=20,
+          --pytest-fixture-no-parentheses,
+          "--format=${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${green_bold}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s",
+        ]
         additional_dependencies:
           #: Colored output - needs custom format
           - "flake8-colors"
@@ -140,15 +151,13 @@ repos:
     hooks:
       #: pylint - python linter
       - id: pylint
-        args: [--rcfile=tox.ini, --ignore=version.py]
         name: pylint
         entry: ./.pre-commit-scripts/run_pylint
         language: system
         types: [python]
       #: mypy - python type checker
       - id: mypy
-        args: ["--config-file", "tox.ini"]
-        # args: ["--config-file", "tox.ini", --no-strict-optional, --scripts-are-modules, --ignore-missing-imports]
+        args: ["--warn-unused-ignores"] # , --scripts-are-modules, --ignore-missing-imports]
         name: mypy
         entry: ./.pre-commit-scripts/run_mypy
         language: system
