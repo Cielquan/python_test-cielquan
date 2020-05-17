@@ -1,11 +1,11 @@
 +---------------+----------------------------------------------------------------------+
-| **General**   | |maintenance| |license| |black| |rtd| |semver|                       |
+| **General**   | |maintenance| |license| |black| |rtd|                                |
 +---------------+----------------------------------------------------------------------+
 | **Pipeline**  | |travis| |appveyor| |codecov|                                        |
 +---------------+----------------------------------------------------------------------+
 | **Tools**     | |poetry| |tox| |pytest| |sphinx|                                     |
 +---------------+----------------------------------------------------------------------+
-| **VC**        | |vcs| |gpg| |pre-commit|                                             |
+| **VC**        | |vcs| |gpg| |semver| |pre-commit|                                    |
 +---------------+----------------------------------------------------------------------+
 | **Github**    | |gh_release| |gh_commits_since| |gh_last_commit|                     |
 |               +----------------------------------------------------------------------+
@@ -27,7 +27,7 @@
 |
 | |poetry| |tox| |pytest| |sphinx|
 |
-| |vcs| |gpg| |pre-commit|
+| |vcs| |gpg| |semver| |pre-commit|
 |
 | |gh_release| |gh_commits_since| |gh_last_commit|
 | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|
