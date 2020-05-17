@@ -1,11 +1,11 @@
 +---------------+----------------------------------------------------------------------+
-| **General**   | |maintenance| |license| |black| |rtd|                                |
+| **General**   | |maintenance| |license| |black| |rtd| |semver|                       |
 +---------------+----------------------------------------------------------------------+
 | **Pipeline**  | |travis| |appveyor| |codecov|                                        |
 +---------------+----------------------------------------------------------------------+
 | **Tools**     | |poetry| |tox| |pytest| |sphinx|                                     |
 +---------------+----------------------------------------------------------------------+
-| **VCS**       | |vcs| |gpg| |pre-commit|                                             |
+| **VC**        | |vcs| |gpg| |pre-commit|                                             |
 +---------------+----------------------------------------------------------------------+
 | **Github**    | |gh_release| |gh_commits_since| |gh_last_commit|                     |
 |               +----------------------------------------------------------------------+
@@ -54,6 +54,10 @@
 .. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
     :alt: Read the Docs - Build Status (latest)
     :target: https://python-test-cielquan.readthedocs.io/en/latest/?badge=latest
+
+.. |semver| image:: https://img.shields.io/badge/Versioning-semantic-brightgreen.svg?style=flat-square
+    :alt: Versioning - semantic
+    :target: https://semver.org/
 
 
 .. Tests
