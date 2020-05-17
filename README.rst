@@ -238,4 +238,3 @@ Lastly install the hook:
 .. code-block:: console
 
     $ pre-commit install -t commit-msg
-
