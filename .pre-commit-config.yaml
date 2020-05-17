@@ -88,6 +88,8 @@ repos:
     hooks:
       - id: flake8
         additional_dependencies:
+          #: Colored output - needs custom format
+          - "flake8-colors"
           #: Check for python builtins being used as variables or parameters.
           #: A001-A002
           - "flake8-builtins==1.5.2"
@@ -140,7 +142,7 @@ repos:
       - id: pylint
         args: [--rcfile=tox.ini, --ignore=version.py]
         name: pylint
-        entry: ./.pre-commit-scripts/run-pylint
+        entry: ./.pre-commit-scripts/run_pylint
         language: system
         types: [python]
       #: mypy - python type checker
@@ -148,7 +150,7 @@ repos:
         args: ["--config-file", "tox.ini"]
         # args: ["--config-file", "tox.ini", --no-strict-optional, --scripts-are-modules, --ignore-missing-imports]
         name: mypy
-        entry: ./.pre-commit-scripts/run-mypy
+        entry: ./.pre-commit-scripts/run_mypy
         language: system
         types: [python]
         exclude: >
