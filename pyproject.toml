@@ -11,6 +11,40 @@ write_to = "src/python_test/version.py"
 write_to_template = "__version__ = {version!r}"
 
 
+# -- TOWNCRIER CONFIG ----------------------------------------------------------------------
+[tool.towncrier]
+package = "python_test"
+package_dir = "src"
+# single_file = true  # if false, filename is formatted like `title_format`.
+filename = "CHANGELOG_auto.rst"
+directory = "docs/.changelog"
+template = "docs/.changelog/template.jinja2"
+# start_line = "start of generated content"
+title_format = "v{version} ({project_date})"
+issue_format = "`#{issue} <https://github.com/tox-dev/tox/issues/{issue}>`_"
+underlines = ["-", "~"]
+wrap = false  # Wrap text to 79 characters
+all_bullets = true  # make all fragments bullet points
+
+[[tool.towncrier.type]]
+directory = "deprecation"
+name = "Deprecations (removal in next major release)"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "breaking"
+name = "Backward incompatible changes"
+showcontent = true
+
+[[tool.towncrier.type]]
+directory = "misc"
+name = "Miscellaneous"
+showcontent = true
+
+[[tool.towncrier.section]]
+path = ""
+
+
 # -- BLACK CONFIG ----------------------------------------------------------------------
 [tool.black]
 line-length = 88
