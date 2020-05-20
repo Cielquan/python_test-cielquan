@@ -1,0 +1,44 @@
+{# Template source: https://github.com/tox-dev/tox/blob/master/docs/changelog/template.jinja2 #}
+{#
+{% if versiondata.name %} 
+{{ versiondata.name }} {{ versiondata.version }} ({{ versiondata.date }}) 
+{{ top_underline * ((versiondata.name + versiondata.version + versiondata.date)|length + 4)}} 
+{% else %} 
+{{ versiondata.version }} ({{ versiondata.date }}) {{ top_underline * ((versiondata.version + versiondata.date)|length + 3)}} 
+{% endif %} 
+#}
+
+{% for section, _ in sections.items() %} {# FOR 1 #}
+{% set underline = underlines[0] %}
+{% if section %} {# IF 1 #}
+{{section}}
+{{ underline * section|length }}
+{% set underline = underlines[1] %}
+{% endif %}  {# IF 1 #}
+
+{% if sections[section] %}  {# IF 2 #}
+{% for category, val in definitions.items() if category in sections[section] %}  {# FOR 2 #}
+{{ definitions[category]["name"] }}
+{{ underline * definitions[category]["name"]|length }}
+{% if definitions[category]["showcontent"] %}  {# IF 3 #}
+
+{% for text, values in sections[section][category].items() %}  {# FOR 3 #}
+- {{ text }}
+  {{ values|join(",\n  ") }} {# default template: in para behind text#}
+{#  {{ get_indent(text) }}({{values|join(', ') }}) {# single-file-no-bullets #}
+{% endfor %}  {# FOR 3 #}
+
+{% else %}  {# IF 3 #}
+- {{ sections[section][category][""]|join(", ") }}
+{% endif %}  {# IF 3 #}
+
+{% if sections[section][category]|length == 0 %}  {# IF 4 #}
+No significant changes.
+{% endif %} {# IF 4 #}
+{% endfor %}  {# FOR 2 #}
+
+{% else %}  {# IF 2 #}
+No significant changes.
+{% endif %}  {# IF 2 #}
+{% endfor %}  {# FOR 1 #}
+{#---- {# hr-between-versions #}
