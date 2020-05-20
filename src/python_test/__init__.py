@@ -28,6 +28,7 @@
     ::copyright: (c) Christian Riedel
     :license: MIT, see LICENSE for more details
 """
+# importlib-metadata = {version = "^1.6", python = "<3.8"}
 try:
     from importlib.metadata import version
 except ModuleNotFoundError:
