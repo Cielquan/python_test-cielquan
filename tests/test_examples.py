@@ -10,15 +10,14 @@ def test_sheet_count(self, monkeypatch, mocker):
     assert "too less sheets" in str(exc)
 
 
-from pathlib import Path
-
-import pytest  # type: ignore
-
-from mock import call, mock_open
-
-from spotinkcalc import calc  # type: ignore
-from spotinkcalc.parser import exceptions as parser_exc  # type: ignore
-from spotinkcalc.parser import output_csv_parser as out_csv  # type: ignore
+# from pathlib import Path
+# from unittest.mock import call, mock_open
+#
+# import pytest  # type: ignore
+#
+# from spotinkcalc import calc  # type: ignore
+# from spotinkcalc.parser import exceptions as parser_exc  # type: ignore
+# from spotinkcalc.parser import output_csv_parser as out_csv  # type: ignore
 
 
 class TestParserFile:  # pylint: disable=R0201
