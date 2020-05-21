@@ -1,11 +1,11 @@
 {# Template source: https://github.com/tox-dev/tox/blob/master/docs/changelog/template.jinja2 #}
 {#
-{% if versiondata.name %} 
-{{ versiondata.name }} {{ versiondata.version }} ({{ versiondata.date }}) 
-{{ top_underline * ((versiondata.name + versiondata.version + versiondata.date)|length + 4)}} 
-{% else %} 
-{{ versiondata.version }} ({{ versiondata.date }}) {{ top_underline * ((versiondata.version + versiondata.date)|length + 3)}} 
-{% endif %} 
+{% if versiondata.name %}
+{{ versiondata.name }} {{ versiondata.version }} ({{ versiondata.date }})
+{{ top_underline * ((versiondata.name + versiondata.version + versiondata.date)|length + 4)}}
+{% else %}
+{{ versiondata.version }} ({{ versiondata.date }}) {{ top_underline * ((versiondata.version + versiondata.date)|length + 3)}}
+{% endif %}
 #}
 
 {% for section, _ in sections.items() %} {# FOR 1 #}
