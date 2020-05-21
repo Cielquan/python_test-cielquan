@@ -15,6 +15,7 @@ This a test documentation.
 
    installation
    usage
+   badges
 
 
 .. toctree::
