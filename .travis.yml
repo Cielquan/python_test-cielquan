@@ -14,3 +14,19 @@ script:
   - tox
 
 after_success: coverage combine && codecov
+
+# TODO check deployment with travis
+## Assuming you have installed the travis-ci CLI tool, after you
+## create the Github repo and add it to Travis, run the
+## following command to finish PyPI deployment setup:
+## $ travis encrypt --add deploy.password
+#deploy:
+#  provider: pypi
+#  distributions: sdist bdist_wheel
+#  user: {{ cookiecutter.pypi_username }}
+#  password:
+#    secure: PLEASE_REPLACE_ME
+#  on:
+#    tags: true
+#    repo: {{ cookiecutter.github_username }}/{{ cookiecutter.project_lower_case }}
+#    python: 3.8
