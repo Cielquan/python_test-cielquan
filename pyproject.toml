@@ -10,6 +10,34 @@ build-backend = 'setuptools.build_meta'
 write_to = "src/python_test/version.py"
 write_to_template = "__version__ = {version!r}"
 
+[tool.poetry]
+name = "python_test"
+version = "0.3.0"
+description = "test stufff"
+authors = ["Cielquan <cielquan@protonmail.com>"]
+license = "GPL-3.0-or-later"
+repository = "https://github.com/Cielquan/python_test"
+readme = "README.rst"
+
+[tool.poetry.dependencies]
+python = "^3.6.1"
+toml = {version = "^0.10.1", optional = true}
+pytest = {version = "^5.4.2", optional = true}
+pytest-cov = {version = "^2.8.1", optional = true}
+sphinx = {version = "^2", optional = true}
+sphinx-rtd-theme = {version = "^0.4", optional = true}
+pre-commit = {version = "^2.4", optional = true}
+mypy = {version = "0.770", optional = true}
+pylint = {version = "^2.4", optional = true}
+
+[tool.poetry.dev-dependencies]
+devtools = {version = "^0.5", extras = ["pygments"]}
+
+[tool.poetry.extras]
+testing = ["pytest", "pytest-cov", "toml"]
+docs = ["sphinx", "sphinx-rtd-theme"]
+pre-commit = ["pre-commit", "mypy", "pylint"]
+
 
 # -- TOWNCRIER CONFIG ----------------------------------------------------------------------
 [tool.towncrier]
@@ -57,7 +85,7 @@ multi_line_output = 3
 include_trailing_comma = true
 lines_after_imports = 2
 lines_between_types = 1
-known_first_party = ["color_space_visualizer", "tests"]
+known_first_party = ["python_test", "tests"]
 known_third_party = ["setuptools", "sphinx_rtd_theme"]
 skip = ["venv"]
 
@@ -97,12 +125,12 @@ omit = [
 ]
 [tool.coverage.paths]
 source = [
-    "src/color_space_visualizer",
-     "*/.tox/*/lib/python*/site-packages/color_space_visualizer",
-     "*/.tox/pypy*/site-packages/color_space_visualizer",
-     "*/.tox\\*\\Lib\\site-packages\\color_space_visualizer",
-     "*/src/color_space_visualizer",
-     "*\\src\\color_space_visualizer",
+    "src/python_test",
+     "*/.tox/*/lib/python*/site-packages/python_test",
+     "*/.tox/pypy*/site-packages/python_test",
+     "*/.tox\\*\\Lib\\site-packages\\python_test",
+     "*/src/python_test",
+     "*\\src\\python_test",
 ]
 
 
