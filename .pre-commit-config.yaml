@@ -150,14 +150,14 @@ repos:
       #: pylint - python linter
       - id: pylint
         name: pylint
-        entry: ./pre_commit_runner.py pylint pre-commit,dev
+        entry: ./.pre-commit-tool-runner.py pylint pre-commit,dev
         language: system
         types: [python]
       #: mypy - python type checker
       - id: mypy
         args: ["--warn-unused-ignores"] # , --scripts-are-modules, --ignore-missing-imports]
         name: mypy
-        entry: ./pre_commit_runner.py mypy pre-commit,dev
+        entry: ./.pre-commit-tool-runner.py mypy pre-commit,dev
         language: system
         types: [python]
         exclude: >
