@@ -4,12 +4,18 @@
 
 version: 2
 
+formats: all
+
+python:
+  version: 3.7
+  system_packages: false
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
+
 sphinx:
   configuration: docs/source/conf.py
   fail_on_warning: true
   builder: htmldir
-
-python:
-   version: 3.7
-   system_packages: false
-   pip_install: true
