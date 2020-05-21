@@ -1,140 +1,152 @@
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+    requires = ["poetry>=0.12"]
+    build-backend = "poetry.masonry.api"
 
 
 [tool.poetry]
-name = "python_test"
-version = "0.3.0"
-description = "test stufff"
-authors = ["Cielquan <cielquan@protonmail.com>"]
-license = "GPL-3.0-or-later"
-repository = "https://github.com/Cielquan/python_test"
-readme = "README.rst"
-packages = [
-    { include = "python_test", from = "src" },
-]
+    name = "python_test"
+    version = "0.3.0"
+    description = "test stufff"
+    authors = ["Cielquan <cielquan@protonmail.com>"]
+    license = "GPL-3.0-or-later"
+    repository = "https://github.com/Cielquan/python_test"
+    readme = "README.rst"
+    packages = [
+        { include = "python_test", from = "src" },
+    ]
 
-[tool.poetry.dependencies]
-python = "^3.6.1"
-importlib-metadata = {version = "^1.6", python = "<3.8"}
-toml = {version = "^0.10.1", optional = true}
-pytest = {version = "^5.4.2", optional = true}
-pytest-cov = {version = "^2.8.1", optional = true}
-sphinx = {version = "^2", optional = true}
-sphinx-rtd-theme = {version = "^0.4", optional = true}
-pre-commit = {version = "^2.4", optional = true}
-mypy = {version = "0.770", optional = true}
-pylint = {version = "^2.4", optional = true}
+    [tool.poetry.dependencies]
+        python = "^3.6.1"
+        importlib-metadata = {version = "^1.6", python = "<3.8"}
+        toml = {version = "^0.10.1", optional = true}
+        pytest = {version = "^5.4.2", optional = true}
+        pytest-cov = {version = "^2.8.1", optional = true}
+        sphinx = {version = "^2", optional = true}
+        sphinx-rtd-theme = {version = "^0.4", optional = true}
+        pre-commit = {version = "^2.4", optional = true}
+        mypy = {version = "0.770", optional = true}
+        pylint = {version = "^2.4", optional = true}
 
-[tool.poetry.dev-dependencies]
-devtools = {version = "^0.5", extras = ["pygments"]}
+    [tool.poetry.dev-dependencies]
+        devtools = {version = "^0.5", extras = ["pygments"]}
 
-[tool.poetry.extras]
-testing = ["pytest", "pytest-cov", "toml"]
-docs = ["sphinx", "sphinx-rtd-theme"]
-pre-commit = ["pre-commit", "mypy", "pylint"]
+    [tool.poetry.extras]
+        testing = ["pytest", "pytest-cov", "toml"]
+        docs = ["sphinx", "sphinx-rtd-theme"]
+        pre-commit = ["pre-commit", "mypy", "pylint"]
 
 
 # -- TOWNCRIER CONFIG ----------------------------------------------------------------------
 [tool.towncrier]
-package = "python_test"
-package_dir = "src"
-# single_file = true  # if false, filename is formatted like `title_format`.
-filename = "CHANGELOG_auto.rst"
-directory = "docs/.changelog"
-template = "docs/.changelog/template.jinja2"
-# start_line = "start of generated content"
-title_format = "v{version} ({project_date})"
-issue_format = "`#{issue} <https://github.com/tox-dev/tox/issues/{issue}>`_"
-underlines = ["-", "~"]
-wrap = false  # Wrap text to 79 characters
-all_bullets = true  # make all fragments bullet points
+    package = "python_test"
+    package_dir = "src"
+    # single_file = true  # if false, filename is formatted like `title_format`.
+    filename = "CHANGELOG.rst"
+    directory = ".changes"
+    template = ".changes/template.jinja2"
+    # start_line = "start of generated content" # u".. towncrier release notes start\n"
+    title_format = "v{version} ({project_date})"
+    issue_format = "`#{issue} <https://github.com/tox-dev/tox/issues/{issue}>`_"
+    underlines = ["-", "~"]
+    wrap = false  # Wrap text to 79 characters
+    all_bullets = true  # make all fragments bullet points
 
-[[tool.towncrier.type]]
-directory = "deprecation"
-name = "Deprecations (removal in next major release)"
-showcontent = true
+    [[tool.towncrier.type]]
+        directory = "bugfix"
+        name = "Bugfixes"
+        showcontent = true
 
-[[tool.towncrier.type]]
-directory = "breaking"
-name = "Backward incompatible changes"
-showcontent = true
+    [[tool.towncrier.type]]
+        directory = "feature"
+        name = "New Features"
+        showcontent = true
 
-[[tool.towncrier.type]]
-directory = "misc"
-name = "Miscellaneous"
-showcontent = true
+    [[tool.towncrier.type]]
+        directory = "breaking"
+        name = "Backwards incompatible changes"
+        showcontent = true
 
-[[tool.towncrier.section]]
-path = ""
+    [[tool.towncrier.type]]
+        directory = "deprecation"
+        name = "Deprecations (removal in next major release)"
+        showcontent = true
+
+    [[tool.towncrier.type]]
+        directory = "doc"
+        name = "Documentation"
+        showcontent = true
+
+    [[tool.towncrier.type]]
+        directory = "misc"
+        name = "Miscellaneous"
+        showcontent = true
 
 
 # -- BLACK CONFIG ----------------------------------------------------------------------
 [tool.black]
-line-length = 88
-exclude = "venv/"
+    line-length = 88
+    exclude = "venv/"
 
 
 # -- ISORT CONFIG ----------------------------------------------------------------------
 [tool.isort]
-multi_line_output = 3
-include_trailing_comma = true
-lines_after_imports = 2
-lines_between_types = 1
-known_first_party = ["python_test", "tests"]
-known_third_party = ["setuptools", "sphinx_rtd_theme"]
-skip = ["venv"]
+    multi_line_output = 3
+    include_trailing_comma = true
+    lines_after_imports = 2
+    lines_between_types = 1
+    known_first_party = ["python_test", "tests"]
+    known_third_party = ["sphinx_rtd_theme"]
+    skip = ["venv"]
 
 
 # -- PYTEST CONFIG ---------------------------------------------------------------------
 # support for pyproject.toml for 5.5 planned
 #[tool.pytest]
-#addopts = ["-ra", "--showlocals"]
-#mock_use_standalone_module = true
+#    addopts = ["-ra", "--showlocals"]
+#    mock_use_standalone_module = true
 
 
 # -- COVERAGE CONFIG -------------------------------------------------------------------
 [tool.coverage.run]
-branch = true
-parallel = true
-source = ["src/"]
+    branch = true
+    parallel = true
+    source = ["src/"]
 [tool.coverage.report]
-fail_under = 100
-skip_covered = false
-show_missing = true
-exclude_lines = [
-    "pragma: no cover",
-    "def __str__",
-    "def __repr__",
-    "if self.debug:",
-    "if settings.DEBUG",
-    "raise AssertionError",
-    "raise NotImplementedError",
-    "if 0:",
-    "if __name__ == .__main__.:",
-]
-omit = [
-    "venv/*",
-    "tests/*",
-    "setup.py",
-    "*/__main__.py",
-]
+    fail_under = 100
+    skip_covered = false
+    show_missing = true
+    exclude_lines = [
+        "pragma: no cover",
+        "def __str__",
+        "def __repr__",
+        "if self.debug:",
+        "if settings.DEBUG",
+        "raise AssertionError",
+        "raise NotImplementedError",
+        "if 0:",
+        "if __name__ == .__main__.:",
+    ]
+    omit = [
+        "venv/*",
+        "tests/*",
+        "setup.py",
+        "*/__main__.py",
+    ]
 [tool.coverage.paths]
-source = [
-    "src/python_test",
-     "*/.tox/*/lib/python*/site-packages/python_test",
-     "*/.tox/pypy*/site-packages/python_test",
-     "*/.tox\\*\\Lib\\site-packages\\python_test",
-     "*/src/python_test",
-     "*\\src\\python_test",
-]
+    source = [
+        "src/python_test",
+         "*/.tox/*/lib/python*/site-packages/python_test",
+         "*/.tox/pypy*/site-packages/python_test",
+         "*/.tox\\*\\Lib\\site-packages\\python_test",
+         "*/src/python_test",
+         "*\\src\\python_test",
+    ]
 
 
 # -- PYLINT CONFIG ---------------------------------------------------------------------
 [tool.pylint."MESSAGES CONTROL"]
-disable = [
-    "C0330", # Indentation | deactivated for black
+    disable = [
+        "C0330", # Indentation | deactivated for black
 #        print-statement, #E1601
 #        parameter-unpacking, #E1602
 #        unpacking-in-except, #E1603
@@ -216,21 +228,21 @@ disable = [
 #        comprehension-escape, #W1662
 #        C0330,
 #        F0010,
-]
+    ]
 
 
 # -- FLAKE8 CONFIG ---------------------------------------------------------------------
 #: Currently not supported - settings set via CLI call in .pre-commit-config.yaml
 #[tool.flake8]
-#count = true
-#statistics = true
-#extend-exclude = [
-#    "*venv*/",
-#    "*.egg",
-#    "build/"
-#]
-#extend-ignore = ["E203"]
-#max-line-length = 88
-#max-complexity = 20
-#pytest-fixture-no-parentheses = true
-#format = "${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${green_bold}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s"
+#    count = true
+#    statistics = true
+#    extend-exclude = [
+#        "*venv*/",
+#        "*.egg",
+#        "build/"
+#    ]
+#    extend-ignore = ["E203"]
+#    max-line-length = 88
+#    max-complexity = 20
+#    pytest-fixture-no-parentheses = true
+#    format = "${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${green_bold}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s"
