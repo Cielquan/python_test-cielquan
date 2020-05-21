@@ -50,7 +50,6 @@ repos:
     hooks:
       - id: seed-isort-config
         args: [--application-directories, "src:."]
-        additional_dependencies: [toml>=0.10.1]
 
   #: isort - sort imports
   - repo: https://github.com/timothycrosley/isort
