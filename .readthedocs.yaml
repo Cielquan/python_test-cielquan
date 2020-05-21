@@ -4,7 +4,7 @@
 
 version: 2
 
-formats: all
+#formats: all
 
 python:
   version: 3.7
