@@ -7,4 +7,4 @@
 License
 =======
 
-.. include:: ../../LICENSE.rst
+.. literalinclude:: ../../LICENSE
