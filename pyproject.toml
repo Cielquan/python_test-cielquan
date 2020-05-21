@@ -145,8 +145,7 @@
 
 # -- PYLINT CONFIG ---------------------------------------------------------------------
 [tool.pylint."MESSAGES CONTROL"]
-    disable = [
-        "C0330", # Indentation | deactivated for black
+    disable = "C0330" # Indentation | deactivated for black
 #        print-statement, #E1601
 #        parameter-unpacking, #E1602
 #        unpacking-in-except, #E1603
@@ -228,7 +227,6 @@
 #        comprehension-escape, #W1662
 #        C0330,
 #        F0010,
-    ]
 
 
 # -- FLAKE8 CONFIG ---------------------------------------------------------------------
