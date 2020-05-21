@@ -27,8 +27,8 @@ def main():
 
     if cmd is None:
         print(
-            "No 'pylint' executable found. Make sure one of the "
-            "following `tox` envs is accessible: {}".format(envs)
+            "No '{}' executable found. Make sure one of the "
+            "following `tox` envs is accessible: {}".format(sys.argv[1], envs)
         )
         return 1
 
