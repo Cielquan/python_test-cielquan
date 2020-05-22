@@ -20,8 +20,3 @@
 # Github: https://github.com/Cielquan/
 # ==============================================================================
 """docstring"""
-
-
-def hello():
-    """docstring"""
-    return "hi"
