@@ -29,6 +29,7 @@
 
     [tool.poetry.dev-dependencies]
         devtools = {version = "^0.5", extras = ["pygments"]}
+        towncrier = {version = "19.9.0rc1"}
 
     [tool.poetry.extras]
         testing = ["pytest", "pytest-cov", "toml"]
