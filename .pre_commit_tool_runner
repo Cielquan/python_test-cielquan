@@ -9,7 +9,7 @@ All other arguments after are passed to the tool on call.
 
 The script considers OS and calls the tool accordingly.
 """
-import subprocess
+import subprocess  # nosec
 import sys
 
 from pathlib import Path
@@ -40,7 +40,7 @@ def main():
         )
         return 1
 
-    return subprocess.call(cmd)
+    return subprocess.call(cmd)  # nosec
 
 
 if __name__ == "__main__":
