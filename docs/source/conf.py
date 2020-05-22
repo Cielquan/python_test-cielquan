@@ -36,7 +36,7 @@ from typing import List
 
 import sphinx_rtd_theme  # type: ignore
 
-from python_test import __version__
+from python_test import __version__  # type: ignore
 
 
 #: Add Repo to path
@@ -45,19 +45,23 @@ sys.path.insert(0, os.path.abspath("../.."))
 #: Vars
 CONF_DIR = Path(__file__)
 TODAY = datetime.today()
+YEAR = f"{TODAY.year}"
 
 
 #: -- PROJECT INFORMATION --------------------------------------------------------------
 
 project = "python_test"
 author = "Christian Riedel"
-copyright = f"2020-{TODAY.year}, " + author  #: pylint: disable=W0622  #: CHANGEME
+release_year = 2019
+copyright = (  #: pylint: disable=W0622  # noqa:A001,VNE003
+    f"{release_year}{('-' + YEAR) if YEAR != release_year else ''}, " + author
+)
 #: The full version, including alpha/beta/rc tags
 release = __version__
 #: Major version like (X.Y)
 version = __version__[0:3]
 #: Release date
-release_date = f"{TODAY}"  #: CHANGEME
+release_date = f"{TODAY}"
 
 
 #: -- SPHINX CONFIG --------------------------------------------------------------------
