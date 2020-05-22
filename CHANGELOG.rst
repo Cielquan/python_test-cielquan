@@ -15,4 +15,9 @@ Release 1.0.0
 -------------
 *Released: 03.08.2019* *Unreleased*
 
-- Initial release (`commit <https://github.com/Cielquan/python_test/commit/>`__)
+- commit
+  https://github.com/Cielquan/python_test/commit/cc550d90754b5b5b662db29bd9d200db921fec08
+- pr
+  https://github.com/Cielquan/python_test/pull/2
+- user
+  https://github.com/Cielquan
