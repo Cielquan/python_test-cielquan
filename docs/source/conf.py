@@ -65,11 +65,31 @@ release_date = f"{TODAY}"  #: CHANGEME
 #: Add any Sphinx extension module names here, as strings.
 extensions = [
     "sphinx_rtd_theme",
+    "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
-    "sphinx.ext.autodoc",
+    "sphinx.ext.viewcode",
+    # "sphinx.ext.autodoc",
+    # "sphinx_autodoc_typehints", # sphinx-autodoc-typehints
+    # "sphinx_click.ext", # sphinx-click
 ]
 
+
+#: -- LINKS ----------------------------------------------------------------------------
+
+#: Linkcheck - 1 Worker 5 Retries to fix 429 error
+linkcheck_workers = 1
+linkcheck_retries = 5
+linkcheck_timeout = 30
+
+tls_cacerts = os.getenv("SSL_CERT_FILE")
+
 intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
+
+extlinks = {
+    "issue": ("https://github.com/Cielquan/python_test/issues/%s", "#"),
+    "pull": ("https://github.com/Cielquan/python_test/pull/%s", "p"),
+    "user": ("https://github.com/%s", "@"),
+}
 
 
 #: -- FILES ----------------------------------------------------------------------------
