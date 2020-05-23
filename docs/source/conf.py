@@ -36,7 +36,7 @@ from typing import List
 
 import sphinx_rtd_theme  # type: ignore
 
-from python_test import __version__  # type: ignore
+from python_test import __version__
 
 
 #: Add Repo to path
