@@ -48,7 +48,7 @@ badges
 
 .. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square&label=License
     :alt: License
-    :target: https://github.com/Cielquan/python_test/blob/master/LICENSE.rst
+    :target: https://github.com/Cielquan/python_test/blob/master/LICENSE.txt
 
 .. |black| image:: https://img.shields.io/badge/Code%20Style-black-000000.svg?style=flat-square
     :alt: Code Style - Black
@@ -58,10 +58,6 @@ badges
     :alt: Read the Docs - Build Status (latest)
     :target: https://python-test-cielquan.readthedocs.io/en/latest/?badge=latest
 
-.. |semver| image:: https://img.shields.io/badge/Versioning-semantic-brightgreen.svg?style=flat-square
-    :alt: Versioning - semantic
-    :target: https://semver.org/
-
 
 .. Tests
 .. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=flat-square&logo=travis-ci&logoColor=FBE072&label=Travis%20CI
@@ -70,7 +66,7 @@ badges
 
 .. |appveyor| image:: https://img.shields.io/appveyor/ci/Cielquan/python_test/master.svg?style=flat-square&logo=appveyor&label=AppVeyor
     :alt: AppVeyor - Build Status
-    :target: https://ci.appveyor.com/project/Cielquan/pytest-cov
+.. .    :target: https://ci.appveyor.com/project/Cielquan/pytest-cov
 
 .. |codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=flat-square&logo=codecov&label=Codecov
     :alt: Codecov - Test Coverage
@@ -103,6 +99,10 @@ badges
 .. |gpg| image:: https://img.shields.io/badge/GPG-signed-blue.svg?style=flat-square&logo=gnu-privacy-guard
     :target: https://gnupg.org/
     :alt: Website
+
+.. |semver| image:: https://img.shields.io/badge/Versioning-semantic-brightgreen.svg?style=flat-square
+    :alt: Versioning - semantic
+    :target: https://semver.org/
 
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
     :target: https://github.com/pre-commit/pre-commit
@@ -142,24 +142,24 @@ badges
 .. PyPI
 .. |pypi_release| image:: https://img.shields.io/pypi/v/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :alt: PyPI - Package latest release
-    :target: https://pypi.org/project/python_test_cielquan/
+    :target: https://pypi.org/project/doth-dns/
 
 .. |pypi_py_versions| image:: https://img.shields.io/pypi/pyversions/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
     :alt: PyPI - Supported Python Versions
-    :target: https://pypi.org/project/python_test_cielquan/
+    :target: https://pypi.org/project/doth-dns/
 
 .. |pypi_implementations| image:: https://img.shields.io/pypi/implementation/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
     :alt: PyPI - Supported Implementations
-    :target: https://pypi.org/project/python_test_cielquan/
+    :target: https://pypi.org/project/doth-dns/
 
 .. |pypi_status| image:: https://img.shields.io/pypi/status/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :alt: PyPI - Stability
-    :target: https://pypi.org/project/python_test_cielquan/
+    :target: https://pypi.org/project/doth-dns/
 
 .. |pypi_format| image:: https://img.shields.io/pypi/format/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :alt: PyPI - Format
-    :target: https://pypi.org/project/python_test_cielquan/
+    :target: https://pypi.org/project/doth-dns/
 
 .. |pypi_downloads| image:: https://img.shields.io/pypi/dm/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :target: https://pypi.org/project/python_test_cielquan/
+    :target: https://pypi.org/project/doth-dns/
     :alt: PyPI - Monthly downloads
