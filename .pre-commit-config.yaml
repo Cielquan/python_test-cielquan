@@ -153,6 +153,7 @@ repos:
         entry: ./.pre_commit_tool_runner mypy pre-commit,dev
         language: system
         types: [python]
+        require_serial: true
 
 
   #: Meta hooks
