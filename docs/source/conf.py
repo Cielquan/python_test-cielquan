@@ -69,6 +69,7 @@ release_date = f"{TODAY}"
 #: Add any Sphinx extension module names here, as strings.
 extensions = [
     "sphinx_rtd_theme",
+    "sphinx.ext.autosectionlabel",
     "sphinx.ext.extlinks",
     "sphinx.ext.intersphinx",
     "sphinx.ext.viewcode",
@@ -97,6 +98,8 @@ extlinks = {
 
 
 #: -- FILES ----------------------------------------------------------------------------
+
+source_suffix = [".rst"]
 
 #: Index source file
 master_doc = "index"
@@ -135,3 +138,19 @@ pygments_style = "sphinx"
 # .. |br| raw:: html
 #   <br/>
 # """.format(release=release, release_date=release_date)
+
+
+#: -- ADDITIONAL SETUP -----------------------------------------------------------------
+
+def remove_module_docstring(
+    app, what, name, obj, options, lines
+):  # pylint: disable=R0913,W0613
+    """Remove module docstring."""
+    if what == "module":
+        del lines[:]
+
+
+def setup(app):
+    """Connect custom func to sphinx events."""
+    if "sphinx.ext.autodoc" in extensions:
+        app.connect("autodoc-process-docstring", remove_module_docstring)
