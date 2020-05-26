@@ -113,11 +113,6 @@ venv.bak/
 # Versioning
 version.py
 
-# Backup stuff
-*.bak
-_backupfiles
-.backupfiles
-
 # Configs
 *.list
 .htpasswd
@@ -129,3 +124,10 @@ _backupfiles
 *.ext
 *.key
 *.srl
+
+# Backup files
+*.bak
+
+# Local backup dir
+_backupfiles
+.backupfiles
