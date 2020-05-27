@@ -42,10 +42,10 @@ badges
 
 
 .. [![Build Status](https://dev.azure.com/asottile/asottile/_apis/build/status/pre-commit.pre-commit?branchName=master)]
-(https://dev.azure.com/asottile/asottile/_build/latest?definitionId=21&branchName=master)
+.. (https://dev.azure.com/asottile/asottile/_build/latest?definitionId=21&branchName=master)
 
 .. [![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/asottile/asottile/21/master.svg)]
-(https://dev.azure.com/asottile/asottile/_build/latest?definitionId=21&branchName=master)
+.. (https://dev.azure.com/asottile/asottile/_build/latest?definitionId=21&branchName=master)
 
 
 .. General
