@@ -16,7 +16,7 @@ from pathlib import Path
 
 
 def main():
-    """Call given `tool` form given `tox` env"""
+    """Call given `tool` from given `tox` env"""
     tool = sys.argv[1]
 
     if sys.platform == "win32":
