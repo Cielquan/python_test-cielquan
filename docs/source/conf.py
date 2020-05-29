@@ -28,6 +28,7 @@
 """
 #: pylint: disable=C0103
 import os
+import re
 import sys
 
 from datetime import datetime
@@ -60,41 +61,10 @@ copyright = (  #: pylint: disable=W0622  # noqa:A001,VNE003
 release = __version__
 #: Major version like (X.Y)
 version = __version__[0:3]
+#: only tags like alpha/beta/rc
+release_level = re.findall(r"^[v]?\d+\.\d+\.\d+[+-]?([a-zA-Z]*)\d*", __version__)
 #: Release date
 release_date = f"{TODAY}"
-
-
-#: -- SPHINX CONFIG --------------------------------------------------------------------
-
-#: Add any Sphinx extension module names here, as strings.
-extensions = [
-    "sphinx_rtd_theme",
-    "sphinx.ext.autosectionlabel",
-    "sphinx.ext.extlinks",
-    "sphinx.ext.intersphinx",
-    "sphinx.ext.viewcode",
-    # "sphinx.ext.autodoc",
-    # "sphinx_autodoc_typehints", # sphinx-autodoc-typehints
-    # "sphinx_click.ext", # sphinx-click
-]
-
-
-#: -- LINKS ----------------------------------------------------------------------------
-
-#: Linkcheck - 1 Worker 5 Retries to fix 429 error
-linkcheck_workers = 1
-linkcheck_retries = 5
-linkcheck_timeout = 30
-
-tls_cacerts = os.getenv("SSL_CERT_FILE")
-
-intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
-
-extlinks = {
-    "issue": ("https://github.com/Cielquan/python_test/issues/%s", "#"),
-    "pull": ("https://github.com/Cielquan/python_test/pull/%s", "p"),
-    "user": ("https://github.com/%s", "@"),
-}
 
 
 #: -- FILES ----------------------------------------------------------------------------
@@ -118,15 +88,7 @@ if Path(CONF_DIR, "_templates").exists():
     templates_path = ["_templates"]
 
 
-#: -- HTML OUTPUT ----------------------------------------------------------------------
-
-#: Theme
-html_theme = "sphinx_rtd_theme"
-html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-html_last_updated_fmt = TODAY.isoformat()
-
-#: Add links to *.rst source files on HTML pages
-html_show_sourcelink = True
+#: -- CONFIGS --------------------------------------------------------------------------
 
 #: Pygments syntax highlighting style
 pygments_style = "sphinx"
@@ -139,8 +101,66 @@ pygments_style = "sphinx"
 #   <br/>
 # """.format(release=release, release_date=release_date)
 
+#: Linkcheck - 1 Worker 5 Retries to fix 429 error
+linkcheck_workers = 1
+linkcheck_retries = 5
+linkcheck_timeout = 30
 
-#: -- ADDITIONAL SETUP -----------------------------------------------------------------
+tls_cacerts = os.getenv("SSL_CERT_FILE")
+
+
+#: -- EXTENSIONS -----------------------------------------------------------------------
+
+#: Default extensions
+extensions = [
+    "sphinx.ext.duration",
+    "sphinx.ext.coverage", #: sphinx-build -b coverage ...    
+]
+
+
+#: -- DOCTEST --------------------------------------------------------------------------
+# https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html
+extensions.append("sphinx.ext.doctest")
+
+
+#: -- IFCONFIG -------------------------------------------------------------------------
+extensions.append("sphinx.ext.ifconfig")
+# https://www.sphinx-doc.org/en/master/usage/extensions/ifconfig.html
+
+
+#: -- VIEWCODE -------------------------------------------------------------------------
+extensions.append("sphinx.ext.viewcode")
+
+
+#: -- AUTOSECTIONLABEL -----------------------------------------------------------------
+extensions.append("sphinx.ext.autosectionlabel")
+autosectionlabel_prefix_document = True
+
+
+#: -- INTERSPHINX ----------------------------------------------------------------------
+extensions.append("sphinx.ext.intersphinx")
+intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
+
+
+#: -- EXTLINKS -------------------------------------------------------------------------
+extensions.append("sphinx.ext.extlinks")
+extlinks = {
+    "issue": ("https://github.com/Cielquan/python_test/issues/%s", "#"),
+    "pull": ("https://github.com/Cielquan/python_test/pull/%s", "pr"),
+    "user": ("https://github.com/%s", "@"),
+}
+
+
+#: -- AUTODOC --------------------------------------------------------------------------
+ext_autodoc = [
+    # "sphinx.ext.autodoc",
+    # "sphinx_autodoc_typehints", #: install: sphinx-autodoc-typehints
+    # "sphinx_click.ext", #: install: sphinx-click
+]
+extensions.extend(ext_autodoc)
+autodoc_member_order = "bysource"
+autodoc_typehints = "signature" # TODO: 'signature' – Show typehints as its signature (default) # 'description' – Show typehints as content of function or method
+
 
 def remove_module_docstring(
     app, what, name, obj, options, lines
@@ -150,7 +170,23 @@ def remove_module_docstring(
         del lines[:]
 
 
+#: -- HTML OUTPUT ----------------------------------------------------------------------
+
+#: Theme
+extensions.append("sphinx_rtd_theme") #: install: "sphinx-rtd-theme"
+html_theme = "sphinx_rtd_theme"
+html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_last_updated_fmt = TODAY.isoformat()
+
+#: Add links to *.rst source files on HTML pages
+html_show_sourcelink = True
+
+
+#: -- SETUP ----------------------------------------------------------------------------
+
 def setup(app):
     """Connect custom func to sphinx events."""
     if "sphinx.ext.autodoc" in extensions:
         app.connect("autodoc-process-docstring", remove_module_docstring)
+    
+    app.add_config_value('release_level', '', 'env')
