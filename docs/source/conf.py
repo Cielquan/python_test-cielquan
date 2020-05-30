@@ -162,10 +162,14 @@ html_theme_options = {"style_external_links": True}
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 html_last_updated_fmt = today_fmt
 html_show_sourcelink = True  #: Add links to *.rst source files on HTML pages
+html_logo = None  # CHANGE ME
+html_favicon = None  # CHANGE ME
 
 
 #: -- LaTeX OUTPUT ---------------------------------------------------------------------
-
+latex_logo = html_logo
+latex_show_pagerefs = True
+latex_show_urls = "footnote"
 
 
 #: -- FINAL SETUP ----------------------------------------------------------------------
