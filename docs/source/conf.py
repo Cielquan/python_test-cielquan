@@ -39,6 +39,7 @@ import sphinx_rtd_theme  # type: ignore
 
 from python_test import __version__  # CHANGE ME
 
+
 sys.path.insert(0, str(Path(__file__).parents[2]))  #: Add Repo to path
 needs_sphinx = "2.0"  #: Minimum Sphinx version to build the docs
 
@@ -81,10 +82,19 @@ exclude_patterns: List[str] = []  #: Files to exclude for source of doc
 html_static_path = ["_static"] if Path(CONF_DIR, "_static").exists() else []
 templates_path = ["_templates"] if Path(CONF_DIR, "_templates").exists() else []
 
+rst_prolog = f"""
+.. ifconfig:: RELEASE_LEVEL in ('alpha', 'beta', 'rc')
+
+   .. warning::
+      The here documented release |release| is a prerelease.
+      Keep in mind that breaking changes can occur till the final release.
+
+      You may want to use the latest stable release instead.
+"""
+
 rst_epilog = f"""
 .. |release_date| replace:: {RELEASE_DATE}
 .. |br| raw:: html
-
   <br/>
 """
 
@@ -99,52 +109,38 @@ linkcheck_timeout = 30
 
 
 #: -- DEFAULT EXTENSIONS ---------------------------------------------------------------
+#: Global
 extensions.append("sphinx.ext.duration")
 extensions.append("sphinx.ext.coverage")  #: sphinx-build -b coverage ...
+extensions.append("sphinx.ext.doctest")  #: sphinx-build -b doctest ...
 
-
-#: -- DOCTEST --------------------------------------------------------------------------
-# https://www.sphinx-doc.org/en/master/usage/extensions/doctest.html
-extensions.append("sphinx.ext.doctest")
-
-
-#: -- IFCONFIG -------------------------------------------------------------------------
-extensions.append("sphinx.ext.ifconfig")
-# https://www.sphinx-doc.org/en/master/usage/extensions/ifconfig.html
-
-
-#: -- VIEWCODE -------------------------------------------------------------------------
-extensions.append("sphinx.ext.viewcode")
-
-
-#: -- AUTOSECTIONLABEL -----------------------------------------------------------------
+#: ReStructuredText
 extensions.append("sphinx.ext.autosectionlabel")
 autosectionlabel_prefix_document = True
+extensions.append("sphinx.ext.ifconfig")
+extensions.append("sphinx.ext.viewcode")
 
-
-#: -- INTERSPHINX ----------------------------------------------------------------------
+#: Links
 extensions.append("sphinx.ext.intersphinx")
 intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 
-
-#: -- EXTLINKS -------------------------------------------------------------------------
 extensions.append("sphinx.ext.extlinks")
 extlinks = {
-    "issue": ("https://github.com/Cielquan/python_test/issues/%s", "#"),
-    "pull": ("https://github.com/Cielquan/python_test/pull/%s", "pr"),
+    "issue": ("https://github.com/Cielquan/python_test/issues/%s", "#"),  # CHANGE ME
+    "pull": ("https://github.com/Cielquan/python_test/pull/%s", "pr"),  # CHANGE ME
     "user": ("https://github.com/%s", "@"),
 }
 
 
 #: -- AUTODOC --------------------------------------------------------------------------
-ext_autodoc: List[str] = [
-    # "sphinx.ext.autodoc",
-    # "sphinx_autodoc_typehints", #: needs install: sphinx-autodoc-typehints
-    # "sphinx_click.ext", #: needs install: sphinx-click
-]
-extensions.extend(ext_autodoc)
+# extensions.append("sphinx.ext.autodoc")  # CHANGE ME
+autodoc_typehints = "description"
 autodoc_member_order = "bysource"
-autodoc_typehints = "signature"  # TODO: 'signature' – Show typehints as its signature (default) # 'description' – Show typehints as content of function or method
+autodoc_mock_imports: List[str] = []
+autodoc_default_options = {"members": True}
+
+if "sphinx.ext.autodoc" in extensions:
+    extensions.append("sphinx_autodoc_typehints")
 
 
 def remove_module_docstring(
@@ -155,11 +151,20 @@ def remove_module_docstring(
         del lines[:]
 
 
-#: -- HTML OUTPUT ----------------------------------------------------------------------
-extensions.append("sphinx_rtd_theme")  #: needs install: "sphinx-rtd-theme"
+#: -- CLICK ----------------------------------------------------------------------------
+#: needs install: sphinx-click
+# extensions.append("sphinx_click.ext")  # CHANGE ME
+
+
+#: -- HTML THEME -----------------------------------------------------------------------
+#: needs install: "sphinx-rtd-theme"
+extensions.append("sphinx_rtd_theme")
 html_theme = "sphinx_rtd_theme"
 html_theme_options = {"style_external_links": True}
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+
+
+#: -- HTML OUTPUT ----------------------------------------------------------------------
 html_last_updated_fmt = today_fmt
 html_show_sourcelink = True  #: Add links to *.rst source files on HTML pages
 html_logo = None  # CHANGE ME
