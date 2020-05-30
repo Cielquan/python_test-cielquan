@@ -33,89 +33,74 @@ import sys
 
 from datetime import datetime
 from pathlib import Path
-from typing import List
+from typing import List, Optional
 
 import sphinx_rtd_theme  # type: ignore
 
-from python_test import __version__
+from python_test import __version__  # CHANGE ME
+
+sys.path.insert(0, str(Path(__file__).parents[2]))  #: Add Repo to path
+needs_sphinx = "2.0"  #: Minimum Sphinx version to build the docs
 
 
-#: Add Repo to path
-sys.path.insert(0, os.path.abspath("../.."))
-
-#: Vars
+#: -- GLOB VARS ------------------------------------------------------------------------
 CONF_DIR = Path(__file__)
 TODAY = datetime.today()
 YEAR = f"{TODAY.year}"
 
 
+#: -- UTILS ----------------------------------------------------------------------------
+def get_release_level(version: str) -> Optional[str]:
+    """Extract release tag from version string"""
+    tag = re.search(r"^[v]?\d+\.\d+\.\d+[+-]?([a-zA-Z]*)\d*", version)
+    if tag:
+        return tag.group(1)
+    return ""
+
+
 #: -- PROJECT INFORMATION --------------------------------------------------------------
-
-project = "python_test"
-author = "Christian Riedel"
-release_year = 2019
+project = "python_test"  # CHANGE ME
+author = "Christian Riedel"  # CHANGE ME
+RELEASE_YEAR = 2019  # CHANGE ME
+RELEASE_DATE = f"{TODAY}"
 copyright = (  #: pylint: disable=W0622  # noqa:A001,VNE003
-    f"{release_year}{('-' + YEAR) if YEAR != release_year else ''}, " + author
+    f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
 )
-#: The full version, including alpha/beta/rc tags
-release = __version__
-#: Major version like (X.Y)
-version = __version__[0:3]
-#: only tags like alpha/beta/rc
-release_level = re.findall(r"^[v]?\d+\.\d+\.\d+[+-]?([a-zA-Z]*)\d*", __version__)
-#: Release date
-release_date = f"{TODAY}"
+release = __version__  #: The full version, including alpha/beta/rc tags
+version = __version__[0:3]  #: Major + Minor version like (X.Y)
+RELEASE_LEVEL = get_release_level(__version__)  #: only tags like alpha/beta/rc
 
 
-#: -- FILES ----------------------------------------------------------------------------
+#: -- GENERAL CONFIG -------------------------------------------------------------------
+extensions = []
+today = TODAY.isoformat()
+today_fmt = "%Y-%m-%d"
+exclude_patterns: List[str] = []  #: Files to exclude for source of doc
 
-source_suffix = [".rst"]
+#: Added dirs for static and template files if they exist
+html_static_path = ["_static"] if Path(CONF_DIR, "_static").exists() else []
+templates_path = ["_templates"] if Path(CONF_DIR, "_templates").exists() else []
 
-#: Index source file
-master_doc = "index"
+rst_epilog = f"""
+.. |release_date| replace:: {RELEASE_DATE}
+.. |br| raw:: html
 
-#: Files to exclude for source of doc
-exclude_patterns: List[str] = []
-
-#: Folder for static files, if folder exists
-html_static_path = []
-if Path(CONF_DIR, "_static").exists():
-    html_static_path = ["_static"]
-
-#: Folder for template files, if folder exists
-templates_path = []
-if Path(CONF_DIR, "_templates").exists():
-    templates_path = ["_templates"]
-
-
-#: -- CONFIGS --------------------------------------------------------------------------
-
-#: Pygments syntax highlighting style
-pygments_style = "sphinx"
-
-# rst_epilog = """
-# .. |release_date| replace:: {release_date}
-# .. |coverage-equals-release| replace:: coverage=={release}
-# .. |doc-url| replace:: https://coverage.readthedocs.io/en/coverage-{release}
-# .. |br| raw:: html
-#   <br/>
-# """.format(release=release, release_date=release_date)
-
-#: Linkcheck - 1 Worker 5 Retries to fix 429 error
-linkcheck_workers = 1
-linkcheck_retries = 5
-linkcheck_timeout = 30
+  <br/>
+"""
 
 tls_cacerts = os.getenv("SSL_CERT_FILE")
 
 
-#: -- EXTENSIONS -----------------------------------------------------------------------
+#: -- LINKCHECK CONFIG -----------------------------------------------------------------
+#: 1 Worker 5 Retries to fix 429 error
+linkcheck_workers = 1
+linkcheck_retries = 5
+linkcheck_timeout = 30
 
-#: Default extensions
-extensions = [
-    "sphinx.ext.duration",
-    "sphinx.ext.coverage", #: sphinx-build -b coverage ...    
-]
+
+#: -- DEFAULT EXTENSIONS ---------------------------------------------------------------
+extensions.append("sphinx.ext.duration")
+extensions.append("sphinx.ext.coverage")  #: sphinx-build -b coverage ...
 
 
 #: -- DOCTEST --------------------------------------------------------------------------
@@ -152,14 +137,14 @@ extlinks = {
 
 
 #: -- AUTODOC --------------------------------------------------------------------------
-ext_autodoc = [
+ext_autodoc: List[str] = [
     # "sphinx.ext.autodoc",
-    # "sphinx_autodoc_typehints", #: install: sphinx-autodoc-typehints
-    # "sphinx_click.ext", #: install: sphinx-click
+    # "sphinx_autodoc_typehints", #: needs install: sphinx-autodoc-typehints
+    # "sphinx_click.ext", #: needs install: sphinx-click
 ]
 extensions.extend(ext_autodoc)
 autodoc_member_order = "bysource"
-autodoc_typehints = "signature" # TODO: 'signature' – Show typehints as its signature (default) # 'description' – Show typehints as content of function or method
+autodoc_typehints = "signature"  # TODO: 'signature' – Show typehints as its signature (default) # 'description' – Show typehints as content of function or method
 
 
 def remove_module_docstring(
@@ -171,22 +156,22 @@ def remove_module_docstring(
 
 
 #: -- HTML OUTPUT ----------------------------------------------------------------------
-
-#: Theme
-extensions.append("sphinx_rtd_theme") #: install: "sphinx-rtd-theme"
+extensions.append("sphinx_rtd_theme")  #: needs install: "sphinx-rtd-theme"
 html_theme = "sphinx_rtd_theme"
+html_theme_options = {"style_external_links": True}
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-html_last_updated_fmt = TODAY.isoformat()
-
-#: Add links to *.rst source files on HTML pages
-html_show_sourcelink = True
+html_last_updated_fmt = today_fmt
+html_show_sourcelink = True  #: Add links to *.rst source files on HTML pages
 
 
-#: -- SETUP ----------------------------------------------------------------------------
+#: -- LaTeX OUTPUT ---------------------------------------------------------------------
 
+
+
+#: -- FINAL SETUP ----------------------------------------------------------------------
 def setup(app):
     """Connect custom func to sphinx events."""
     if "sphinx.ext.autodoc" in extensions:
         app.connect("autodoc-process-docstring", remove_module_docstring)
-    
-    app.add_config_value('release_level', '', 'env')
+
+    app.add_config_value("RELEASE_LEVEL", "", "env")
