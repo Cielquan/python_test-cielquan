@@ -31,7 +31,7 @@ import os
 import re
 import sys
 
-from datetime import datetime
+from datetime import date
 from pathlib import Path
 from typing import List, Optional
 
@@ -46,8 +46,7 @@ needs_sphinx = "2.0"  #: Minimum Sphinx version to build the docs
 
 #: -- GLOB VARS ------------------------------------------------------------------------
 CONF_DIR = Path(__file__)
-TODAY = datetime.today()
-YEAR = f"{TODAY.year}"
+YEAR = f"{date.today().year}"
 
 
 #: -- UTILS ----------------------------------------------------------------------------
@@ -63,7 +62,6 @@ def get_release_level(version: str) -> Optional[str]:
 project = "python_test"  # CHANGE ME
 author = "Christian Riedel"  # CHANGE ME
 RELEASE_YEAR = 2019  # CHANGE ME
-RELEASE_DATE = f"{TODAY}"
 copyright = (  #: pylint: disable=W0622  # noqa:A001,VNE003
     f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
 )
@@ -74,7 +72,6 @@ RELEASE_LEVEL = get_release_level(__version__)  #: only tags like alpha/beta/rc
 
 #: -- GENERAL CONFIG -------------------------------------------------------------------
 extensions = []
-today = TODAY.isoformat()
 today_fmt = "%Y-%m-%d"
 exclude_patterns: List[str] = []  #: Files to exclude for source of doc
 
@@ -92,10 +89,10 @@ rst_prolog = f"""
       You may want to use the latest stable release instead.
 """
 
-rst_epilog = f"""
-.. |release_date| replace:: {RELEASE_DATE}
+rst_epilog = """
 .. |br| raw:: html
-  <br/>
+
+    <br/>
 """
 
 tls_cacerts = os.getenv("SSL_CERT_FILE")
