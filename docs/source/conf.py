@@ -41,7 +41,7 @@ from python_test import __version__  # CHANGE ME
 
 
 sys.path.insert(0, str(Path(__file__).parents[2]))  #: Add Repo to path
-needs_sphinx = "2.0"  #: Minimum Sphinx version to build the docs
+needs_sphinx = "3.0"  #: Minimum Sphinx version to build the docs
 
 
 #: -- GLOB VARS ------------------------------------------------------------------------
