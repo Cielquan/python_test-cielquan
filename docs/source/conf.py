@@ -109,6 +109,8 @@ linkcheck_timeout = 30
 #: Global
 extensions.append("sphinx.ext.duration")
 extensions.append("sphinx.ext.coverage")  #: sphinx-build -b coverage ...
+coverage_write_headline = False
+coverage_show_missing_items = True
 extensions.append("sphinx.ext.doctest")  #: sphinx-build -b doctest ...
 
 #: ReStructuredText
@@ -129,14 +131,29 @@ extlinks = {
 }
 
 
+#: -- APIDOC ---------------------------------------------------------------------------
+try:
+    import sphinxcontrib.apidoc  # type: ignore
+except ModuleNotFoundError:
+    print("## 'sphinxcontrib-apidoc' extension not loaded - not installed")
+else:
+    extensions.append("sphinxcontrib.apidoc")
+apidoc_separate_modules = True
+apidoc_module_first = True
+
+
 #: -- AUTODOC --------------------------------------------------------------------------
-# extensions.append("sphinx.ext.autodoc")  # CHANGE ME
+extensions.append("sphinx.ext.autodoc")
 autodoc_typehints = "description"
 autodoc_member_order = "bysource"
 autodoc_mock_imports: List[str] = []
 autodoc_default_options = {"members": True}
 
-if "sphinx.ext.autodoc" in extensions:
+try:
+    import sphinx_autodoc_typehints  # type: ignore
+except ModuleNotFoundError:
+    print("## 'sphinx-autodoc-typehints' extension not loaded - not installed")
+else:
     extensions.append("sphinx_autodoc_typehints")
 
 
@@ -149,8 +166,12 @@ def remove_module_docstring(
 
 
 #: -- CLICK ----------------------------------------------------------------------------
-#: needs install: sphinx-click
-# extensions.append("sphinx_click.ext")  # CHANGE ME
+try:
+    import sphinx_click.ext  # type: ignore
+except ModuleNotFoundError:
+    print("## 'sphinx-click' extension not loaded - not installed")
+else:
+    extensions.append("sphinx_click.ext")
 
 
 #: -- HTML THEME -----------------------------------------------------------------------
@@ -177,7 +198,6 @@ latex_show_urls = "footnote"
 #: -- FINAL SETUP ----------------------------------------------------------------------
 def setup(app):
     """Connect custom func to sphinx events."""
-    if "sphinx.ext.autodoc" in extensions:
-        app.connect("autodoc-process-docstring", remove_module_docstring)
+    app.connect("autodoc-process-docstring", remove_module_docstring)
 
     app.add_config_value("RELEASE_LEVEL", "", "env")
