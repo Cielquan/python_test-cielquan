@@ -67,6 +67,7 @@ repos:
         args: [--safe]
 
 # TODO: 16.04.2020: Currently bandit is unusable with pre-commit .. wait for fix .. remove in tox then
+# TODO: 02.06.2020: flask-bandit?
 #  #: bandit - python code security analyzer
 #  - repo: https://github.com/PyCQA/bandit
 #    rev: 1.6.2
