@@ -66,7 +66,8 @@ repos:
       - id: black
         args: [--safe]
 
-#  #: bandit - python code security analyzer
+  #: bandit - python code security analyzer
+  #: Inline skip: `# nosec`
   - repo: https://github.com/PyCQA/bandit
     rev: 1.6.2
     hooks:
@@ -75,6 +76,7 @@ repos:
         exclude: tests/.*$
 
   #: flake8 - python linter
+  #: Inline skip: `# noqa` or `# noqa:CODE`
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.8.1
     hooks:
@@ -141,12 +143,14 @@ repos:
   - repo: local
     hooks:
       #: pylint - python linter
+      #: Inline skip: `# pylint: disable=CODE`
       - id: pylint
         name: pylint
         entry: ./.tox_env_exe_runner pylint pre-commit,dev
         language: system
         types: [python]
       #: mypy - python type checker
+      #: Inline skip: `# type: ignore`
       - id: mypy
         args: ["--warn-unused-ignores"] # , --scripts-are-modules, --ignore-missing-imports]
         name: mypy
