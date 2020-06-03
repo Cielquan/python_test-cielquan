@@ -45,8 +45,25 @@
         towncrier = {version = "19.9.0rc1"}
 
     [tool.poetry.extras]
-        testing = ["pytest", "pytest-cov", "covdefaults", "toml"]
-        docs = ["sphinx", "sphinx-rtd-theme"]
+        testing = [
+            "pytest",
+            "pytest-cov",
+            "coverage-conditional-plugin",
+            "pytest-sugar",
+            "pytest-randomly",
+            "faker",
+            "pytest-factoryboy",
+            "pytest-bdd",
+            "toml"
+        ]
+        docs = [
+            "sphinx",
+            "sphinx-rtd-theme",
+            "sphinx-autodoc-typehints",
+            "sphinxcontrib-apidoc",
+            "sphinx-click",
+            "sphinxcontrib-confluencebuilder"
+        ]
         pre-commit = ["pre-commit", "mypy", "pylint"]
 
 
