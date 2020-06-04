@@ -89,6 +89,7 @@ repos:
           --max-line-length=88,
           --max-complexity=20,
           --pytest-fixture-no-parentheses,
+          --min-python-version=3.6.1,
           "--format=${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${green_bold}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s",
         ]
         additional_dependencies:
@@ -105,8 +106,7 @@ repos:
           - "flake8-comprehensions==3.2.2"
           #: Check docstrings with PEP257
           #: D100-D107 | D200-D215 | D300-D302 | D400-D417
-# TODO: 16.04.2020: Wait for https://github.com/PyCQA/pydocstyle/pull/446 to fix problem with noqa before module docstrings
-          # - "flake8-docstrings==1.5.0"
+          - "flake8-docstrings==1.5.0"
           #: Find dead/out-commented code
           #: E800
           - "flake8-eradicate==0.3.0"
