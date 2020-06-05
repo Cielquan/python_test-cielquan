@@ -118,6 +118,7 @@
 [tool.black]
     line-length = 88
     exclude = "venv/"
+    include = '\.pyi?$'
 
 
 # -- ISORT CONFIG ----------------------------------------------------------------------
