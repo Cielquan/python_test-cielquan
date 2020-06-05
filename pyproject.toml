@@ -195,5 +195,5 @@ known_third_party = ["sphinx_rtd_theme"]
              "*\\src\\python_test",
         ]
 
-                                [tool.coverage.coverage_conditional_plugin.rules]
+    [tool.coverage.coverage_conditional_plugin.rules]
         is_win = "sys_platform == 'win32'"
