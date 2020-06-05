@@ -2,6 +2,23 @@ minimum_pre_commit_version: "1.15"
 default_stages: [commit, push]
 
 repos:
+#: -----------------------------------------------------------------------------
+#: Meta hooks
+#: -----------------------------------------------------------------------------
+  #: Meta hooks provided by pre-commit
+  - repo: meta
+    hooks:
+      - id: identity
+        stages: [manual]
+      - id: check-hooks-apply
+        stages: [manual]
+      - id: check-useless-excludes
+        stages: [manual]
+
+
+#: -----------------------------------------------------------------------------
+#: Commit hooks
+#: -----------------------------------------------------------------------------
   #: code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.5.0
@@ -28,7 +45,6 @@ repos:
     hooks:
       - id: python-no-log-warn
       - id: python-no-eval
-
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
@@ -60,6 +76,7 @@ repos:
         additional_dependencies: [black==19.10b0]
 
   #: black - python formatter
+  #: Inline skip: `# fmt: off` begin, `# fmt: on` end of block (same indent)
   - repo: https://github.com/psf/black
     rev: 19.10b0
     hooks:
@@ -158,14 +175,3 @@ repos:
         language: system
         types: [python]
         require_serial: true
-
-
-  #: Meta hooks
-  - repo: meta
-    hooks:
-      - id: identity
-        stages: [manual]
-      - id: check-hooks-apply
-        stages: [manual]
-      - id: check-useless-excludes
-        stages: [manual]
