@@ -50,7 +50,7 @@ repos:
     hooks:
       - id: isort
         args: [--apply, --recursive]
-        additional_dependencies: [toml>=0.10.1]
+        additional_dependencies: [toml]  #: def like extra
 
   #: blacken-docs - black for python code in docs
   - repo: https://github.com/asottile/blacken-docs
