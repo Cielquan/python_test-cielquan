@@ -65,6 +65,7 @@ repos:
     hooks:
       - id: black
         args: [--safe]
+        additional_dependencies: ["colorama>=0.4.3"]
 
   #: bandit - python code security analyzer
   #: Inline skip: `# nosec`

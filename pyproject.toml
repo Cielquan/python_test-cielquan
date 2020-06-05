@@ -37,7 +37,7 @@
         sphinx-autodoc-typehints = {version = "^1.10.3", optional = true}
         sphinxcontrib-apidoc = {version = "^0.3.0", optional = true}
         sphinx-click = {version = "^2.3.2", optional = true}
-        sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
+#        sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
         # Code check
         pre-commit = {version = "^2.4", optional = true}
         mypy = {version = "0.770", optional = true}
@@ -126,9 +126,37 @@
     include_trailing_comma = true
     lines_after_imports = 2
     lines_between_types = 1
+    force_grid_wrap = 0
+    use_parentheses = true
+    line_length = 88
     skip = ["venv"]
 known_first_party = ["python_test", "tests"]
 known_third_party = ["sphinx_rtd_theme"]
+
+
+# -- PYLINT CONFIG ---------------------------------------------------------------------
+[tool.pylint.messages_control]
+    disable = "C0330, C0326"  #: deactivated for black
+
+[tool.pylint.format]
+    max-line-length = "88"
+
+
+# -- FLAKE8 CONFIG ---------------------------------------------------------------------
+#: Currently not supported - settings set via CLI call in .pre-commit-config.yaml
+#[tool.flake8]
+#    count = true
+#    statistics = true
+#    extend-exclude = [
+#        "*venv*/",
+#        "*.egg",
+#        "build/"
+#    ]
+#    extend-ignore = ["E203"]
+#    max-line-length = 88
+#    max-complexity = 20
+#    pytest-fixture-no-parentheses = true
+#    format = "${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${green_bold}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s"
 
 
 # -- PYTEST CONFIG ---------------------------------------------------------------------
@@ -169,25 +197,3 @@ known_third_party = ["sphinx_rtd_theme"]
 
                                 [tool.coverage.coverage_conditional_plugin.rules]
         is_win = "sys_platform == 'win32'"
-
-
-# -- PYLINT CONFIG ---------------------------------------------------------------------
-[tool.pylint."MESSAGES CONTROL"]
-    disable = "C0330" # Indentation | deactivated for black
-
-
-# -- FLAKE8 CONFIG ---------------------------------------------------------------------
-#: Currently not supported - settings set via CLI call in .pre-commit-config.yaml
-#[tool.flake8]
-#    count = true
-#    statistics = true
-#    extend-exclude = [
-#        "*venv*/",
-#        "*.egg",
-#        "build/"
-#    ]
-#    extend-ignore = ["E203"]
-#    max-line-length = 88
-#    max-complexity = 20
-#    pytest-fixture-no-parentheses = true
-#    format = "${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${green_bold}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s"
