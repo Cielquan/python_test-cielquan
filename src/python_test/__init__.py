@@ -11,6 +11,6 @@
 try:
     from importlib.metadata import version
 except ModuleNotFoundError:
-    from importlib_metadata import version  # type: ignore[import]
+    from importlib_metadata import version  # type: ignore[import,no-redef]
 
 __version__ = version(__name__)
