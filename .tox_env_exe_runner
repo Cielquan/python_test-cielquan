@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Script to call executables in `tox` envs
+"""Script to call executables in `tox` envs.
 
 The script takes two mandatory arguments:
 1. the executable to call like e.g. `pylint`
@@ -16,7 +16,7 @@ from pathlib import Path
 
 
 def main():
-    """Call given `tool` from given `tox` env"""
+    """Call given `tool` from given `tox` env."""
     tool = sys.argv[1]
 
     if sys.platform == "win32":
