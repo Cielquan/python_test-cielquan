@@ -61,6 +61,7 @@ repos:
         args: [--application-directories, "src:."]
 
   #: isort - sort imports
+  #: Inline skip: `# isort:skip`
   - repo: https://github.com/timothycrosley/isort
     rev: 4.3.21
     hooks:
