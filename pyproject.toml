@@ -132,6 +132,7 @@
     use_parentheses = true
     line_length = 88
     skip = ["venv"]
+# TODO: 06.06.2020: fix intendtation when https://github.com/asottile/seed-isort-config/pull/63
 known_first_party = ["python_test", "tests"]
 known_third_party = ["sphinx_rtd_theme"]
 

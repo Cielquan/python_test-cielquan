@@ -96,6 +96,7 @@ repos:
   #: flake8 - python linter
   #: File skip: `# flake8: noqa`
   #: Inline skip: `# noqa` or `# noqa: CODE,...`
+  # TODO: 06.06.2020: move config to pyproject.toml when supported
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.8.1
     hooks:
@@ -157,6 +158,16 @@ repos:
           #: YTT101-YTT103 | YTT201-YTT204 | YTT301-YTT303
           - "flake8-2020==1.6.0"
 
+# TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/issues/2457
+  #: poetry - dependency and packaging management
+  - repo: https://github.com/Cielquan/poetry
+    rev: 1121d06a52aceecae7edfdd9d12bee50b15bc80a
+    hooks:
+      #: Check config file
+      - id: poetry-check
+      #: Update lock file
+      - id: poetry-lock
+
 
   #: Hooks managed via tox `pre-commit` venv
   - repo: local
@@ -173,6 +184,7 @@ repos:
       #: mypy - python type checker
       #: Skip file: `# type: ignore` at top
       #: Inline skip: `# type: ignore` or `# type: ignore[CODE, ...]`
+      # TODO: 06.06.2020: move config to pyproject.toml when supported
       - id: mypy
         args: ["--warn-unused-ignores", "--show-error-codes"] # , --scripts-are-modules, --ignore-missing-imports]
         name: mypy
