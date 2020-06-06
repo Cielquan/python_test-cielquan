@@ -22,7 +22,7 @@
         #: Testing
         pytest = {version = "^5.4.2", optional = true}
         pytest-cov = {version = "^2.8.1", optional = true}
-        coverage = {extras = ["toml"], version = "^5.1"}
+        coverage = {extras = ["toml"], version = "^5.1", optional = true}
         coverage-conditional-plugin = {version = "^0.3", optional = true}
         pytest-sugar = {version = "^0.9.3", optional = true}
         pytest-randomly = {version = "^3.4", optional = true}
