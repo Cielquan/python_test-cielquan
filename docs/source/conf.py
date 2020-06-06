@@ -8,7 +8,7 @@
     :copyright: 2020 (c) Christian Riedel
     :license: MIT, see LICENSE.rst for more details
 """
-# pylint: disable=C0103
+# pylint: disable=C0103,W0611
 import os
 import re
 import sys
@@ -17,7 +17,7 @@ from datetime import date
 from pathlib import Path
 from typing import List, Optional
 
-import sphinx_rtd_theme  # type: ignore
+import sphinx_rtd_theme  # type: ignore[import]
 
 from python_test import __version__  # CHANGE ME
 
@@ -115,7 +115,7 @@ extlinks = {
 
 #: -- APIDOC ---------------------------------------------------------------------------
 try:
-    import sphinxcontrib.apidoc  # type: ignore  # pylint: disable=W0611  # noqa: F401
+    import sphinxcontrib.apidoc  # type: ignore[import]  # noqa: F401
 except ModuleNotFoundError:
     print("## 'sphinxcontrib-apidoc' extension not loaded - not installed")
 else:
@@ -132,7 +132,7 @@ autodoc_mock_imports: List[str] = []
 autodoc_default_options = {"members": True}
 
 try:
-    import sphinx_autodoc_typehints  # type: ignore # pylint: disable=W0611 # noqa: F401
+    import sphinx_autodoc_typehints  # type: ignore[import]  # noqa: F401
 except ModuleNotFoundError:
     print("## 'sphinx-autodoc-typehints' extension not loaded - not installed")
 else:
@@ -149,7 +149,7 @@ def remove_module_docstring(
 
 #: -- CLICK ----------------------------------------------------------------------------
 try:
-    import sphinx_click.ext  # type: ignore  # pylint: disable=W0611  # noqa: F401
+    import sphinx_click.ext  # type: ignore[import]  # noqa: F401
 except ModuleNotFoundError:
     print("## 'sphinx-click' extension not loaded - not installed")
 else:
