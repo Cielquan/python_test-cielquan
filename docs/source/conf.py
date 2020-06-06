@@ -26,7 +26,7 @@
     :copyright: 2020 (c) Christian Riedel
     :license: MIT, see LICENSE.rst for more details
 """
-#: pylint: disable=C0103
+# pylint: disable=C0103
 import os
 import re
 import sys
@@ -62,7 +62,7 @@ def get_release_level(version: str) -> Optional[str]:
 project = "python_test"  # CHANGE ME
 author = "Christian Riedel"  # CHANGE ME
 RELEASE_YEAR = 2019  # CHANGE ME
-copyright = (  #: pylint: disable=W0622  # noqa:A001,VNE003
+copyright = (  # pylint: disable=W0622  # noqa: A001,VNE003
     f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
