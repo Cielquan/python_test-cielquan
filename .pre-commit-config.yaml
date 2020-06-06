@@ -166,6 +166,7 @@ repos:
       #: Inline change: `# pylint: disable|enable=CODE|NAME`
       - id: pylint
         name: pylint
+        description: run pylint over the installed version if available
         entry: ./.tox_env_exe_runner pylint pre-commit,dev
         language: system
         types: [python]
@@ -175,6 +176,7 @@ repos:
       - id: mypy
         args: ["--warn-unused-ignores", "--show-error-codes"] # , --scripts-are-modules, --ignore-missing-imports]
         name: mypy
+        description: run mypy over the installed version if available
         entry: ./.tox_env_exe_runner mypy pre-commit,dev
         language: system
         types: [python]
