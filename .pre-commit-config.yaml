@@ -54,8 +54,11 @@ repos:
         args: [--py36-plus]
 
   #: seed-isort-config - fill isort's known_third_party config
-  - repo: https://github.com/asottile/seed-isort-config
-    rev: v2.1.1
+#  - repo: https://github.com/asottile/seed-isort-config
+#    rev: v2.1.1
+# TODO: 06.06.2020: change back to source after merge and new release https://github.com/asottile/seed-isort-config/pull/63
+  - repo: https://github.com/Cielquan/seed-isort-config
+    rev: 04d831c2233b31e31ba2a77b705aff701ce14ecc
     hooks:
       - id: seed-isort-config
         args: [--application-directories, "src:."]
