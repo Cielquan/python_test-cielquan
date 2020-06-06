@@ -3,6 +3,7 @@
     build-backend = "poetry.masonry.api"
 
 
+#: -- POETRY CONFIG --------------------------------------------------------------------
 [tool.poetry]
     name = "python_test"
     version = "0.3.0"
@@ -18,7 +19,7 @@
     [tool.poetry.dependencies]
         python = "^3.6.1"
         importlib-metadata = {version = "^1.6", python = "<3.8"}
-        # Testing
+        #: Testing
         pytest = {version = "^5.4.2", optional = true}
         pytest-cov = {version = "^2.8.1", optional = true}
         coverage = {extras = ["toml"], version = "^5.1"}
@@ -31,14 +32,14 @@
         pytest-factoryboy = {version = "^2.0.3", optional = true}
 #        pytest-bdd = {version = "^3.3.0", optional = true}
 #        behave = {version = "^1.2.6", optional = true}
-        # Docs
+        #: Docs
         sphinx = {version = "^3", optional = true}
         sphinx-rtd-theme = {version = "^0.4", optional = true}
         sphinx-autodoc-typehints = {version = "^1.10.3", optional = true}
         sphinxcontrib-apidoc = {version = "^0.3.0", optional = true}
         sphinx-click = {version = "^2.3.2", optional = true}
 #        sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
-        # Code check
+        #: Code check
         pre-commit = {version = "^2.4", optional = true}
         mypy = {version = "0.770", optional = true}
         pylint = {version = "^2.4", optional = true}
@@ -68,7 +69,7 @@
         pre-commit = ["pre-commit", "mypy", "pylint"]
 
 
-# -- TOWNCRIER CONFIG ----------------------------------------------------------------------
+#: -- TOWNCRIER CONFIG -----------------------------------------------------------------
 [tool.towncrier]
     package = "python_test"
     package_dir = "src"
@@ -114,14 +115,14 @@
         showcontent = true
 
 
-# -- BLACK CONFIG ----------------------------------------------------------------------
+#: -- BLACK CONFIG ---------------------------------------------------------------------
 [tool.black]
     line-length = 88
     exclude = "venv/"
     include = '\.pyi?$'
 
 
-# -- ISORT CONFIG ----------------------------------------------------------------------
+#: -- ISORT CONFIG ---------------------------------------------------------------------
 [tool.isort]
     multi_line_output = 3
     include_trailing_comma = true
@@ -135,7 +136,7 @@ known_first_party = ["python_test", "tests"]
 known_third_party = ["sphinx_rtd_theme"]
 
 
-# -- PYLINT CONFIG ---------------------------------------------------------------------
+#: -- PYLINT CONFIG --------------------------------------------------------------------
 [tool.pylint.messages_control]
     disable = "C0330, C0326"  #: deactivated for black
 
@@ -143,7 +144,7 @@ known_third_party = ["sphinx_rtd_theme"]
     max-line-length = "88"
 
 
-# -- FLAKE8 CONFIG ---------------------------------------------------------------------
+#: -- FLAKE8 CONFIG --------------------------------------------------------------------
 #: Currently not supported - settings set via CLI call in .pre-commit-config.yaml
 #[tool.flake8]
 #    count = true
@@ -160,14 +161,14 @@ known_third_party = ["sphinx_rtd_theme"]
 #    format = "${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${green_bold}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s"
 
 
-# -- PYTEST CONFIG ---------------------------------------------------------------------
-# support for pyproject.toml for 5.5 planned
+#: -- PYTEST CONFIG --------------------------------------------------------------------
+#: support for pyproject.toml for 5.5 planned
 #[tool.pytest]
 #    addopts = ["-ra", "--showlocals"]
 #    mock_use_standalone_module = true
 
 
-# -- COVERAGE CONFIG -------------------------------------------------------------------
+#: -- COVERAGE CONFIG ------------------------------------------------------------------
 [tool.coverage]
     [tool.coverage.run]
         plugins = ["coverage_conditional_plugin"]
