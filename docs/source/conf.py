@@ -50,9 +50,9 @@ YEAR = f"{date.today().year}"
 
 
 #: -- UTILS ----------------------------------------------------------------------------
-def get_release_level(version: str) -> Optional[str]:
+def get_release_level(version_str: str) -> Optional[str]:
     """Extract release tag from version string"""
-    tag = re.search(r"^[v]?\d+\.\d+\.\d+[+-]?([a-zA-Z]*)\d*", version)
+    tag = re.search(r"^[v]?\d+\.\d+\.\d+[+-]?([a-zA-Z]*)\d*", version_str)
     if tag:
         return tag.group(1)
     return ""
@@ -79,7 +79,7 @@ exclude_patterns: List[str] = []  #: Files to exclude for source of doc
 html_static_path = ["_static"] if Path(CONF_DIR, "_static").exists() else []
 templates_path = ["_templates"] if Path(CONF_DIR, "_templates").exists() else []
 
-rst_prolog = f"""
+rst_prolog = """
 .. ifconfig:: RELEASE_LEVEL in ('alpha', 'beta', 'rc')
 
    .. warning::
@@ -133,7 +133,7 @@ extlinks = {
 
 #: -- APIDOC ---------------------------------------------------------------------------
 try:
-    import sphinxcontrib.apidoc  # type: ignore
+    import sphinxcontrib.apidoc  # type: ignore  # pylint: disable=W0611
 except ModuleNotFoundError:
     print("## 'sphinxcontrib-apidoc' extension not loaded - not installed")
 else:
@@ -150,7 +150,7 @@ autodoc_mock_imports: List[str] = []
 autodoc_default_options = {"members": True}
 
 try:
-    import sphinx_autodoc_typehints  # type: ignore
+    import sphinx_autodoc_typehints  # type: ignore  # pylint: disable=W0611
 except ModuleNotFoundError:
     print("## 'sphinx-autodoc-typehints' extension not loaded - not installed")
 else:
@@ -167,7 +167,7 @@ def remove_module_docstring(
 
 #: -- CLICK ----------------------------------------------------------------------------
 try:
-    import sphinx_click.ext  # type: ignore
+    import sphinx_click.ext  # type: ignore  # pylint: disable=W0611
 except ModuleNotFoundError:
     print("## 'sphinx-click' extension not loaded - not installed")
 else:
