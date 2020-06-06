@@ -99,22 +99,11 @@ repos:
   #: flake8 - python linter
   #: File skip: `# flake8: noqa`
   #: Inline skip: `# noqa` or `# noqa: CODE,...`
-  # TODO: 06.06.2020: move config to pyproject.toml when supported
   - repo: https://gitlab.com/pycqa/flake8
     rev: 3.8.1
     hooks:
       - id: flake8
-        args: [
-          --count,
-          --statistics,
-          "--extend-exclude=*venv*/,*.egg,build/",
-          --extend-ignore=E203,
-          --max-line-length=88,
-          --max-complexity=20,
-          --pytest-fixture-no-parentheses,
-          --min-python-version=3.6.1,
-          "--format=${cyan}%(path)s${reset}:${yellow_bold}%(row)d${reset}:${green_bold}%(col)d${reset}: ${red_bold}%(code)s${reset} %(text)s",
-        ]
+        args: [--min-python-version=3.6.1]
         additional_dependencies:
           #: Colored output - needs custom format
           - "flake8-colors"
@@ -187,9 +176,8 @@ repos:
       #: mypy - python type checker
       #: Skip file: `# type: ignore` at top
       #: Inline skip: `# type: ignore` or `# type: ignore[CODE, ...]`
-      # TODO: 06.06.2020: move config to pyproject.toml when supported
       - id: mypy
-        args: ["--warn-unused-ignores", "--show-error-codes"] # , --scripts-are-modules, --ignore-missing-imports]
+        args: ["--config-file=tox.ini"]
         name: mypy
         description: run mypy over the installed version if available
         entry: ./.tox_env_exe_runner mypy pre-commit,dev
