@@ -19,17 +19,17 @@
 #
 # Github: https://github.com/Cielquan/
 # ==============================================================================
-"""docstring"""
+"""docstring."""
 import python_test
 
 from python_test.python_tester import testus
 
 
 def test_something():
-    """docstring"""
+    """docstring."""
     assert testus(1) == 2
 
 
 def test_init():
-    """docstring"""
+    """docstring."""
     assert python_test.__version__
