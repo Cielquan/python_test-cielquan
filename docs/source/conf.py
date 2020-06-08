@@ -8,12 +8,13 @@
     :copyright: 2020 (c) Christian Riedel
     :license: MIT, see LICENSE.rst for more details
 """
-# pylint: disable=C0103,W0611
+# pylint: disable=C0103
 import os
 import re
 import sys
 
 from datetime import date
+from importlib.util import find_spec
 from pathlib import Path
 from typing import List, Optional
 
@@ -29,6 +30,7 @@ needs_sphinx = "3.0"  #: Minimum Sphinx version to build the docs
 #: -- GLOB VARS ------------------------------------------------------------------------
 CONF_DIR = Path(__file__)
 YEAR = f"{date.today().year}"
+NOT_LOADED_MSG = []
 
 
 #: -- UTILS ----------------------------------------------------------------------------
@@ -114,12 +116,12 @@ extlinks = {
 
 
 #: -- APIDOC ---------------------------------------------------------------------------
-try:
-    import sphinxcontrib.apidoc  # type: ignore[import]  # noqa: F401
-except ModuleNotFoundError:
-    print("## 'sphinxcontrib-apidoc' extension not loaded - not installed")
-else:
+if find_spec("sphinxcontrib.apidoc") is not None:
     extensions.append("sphinxcontrib.apidoc")
+else:
+    NOT_LOADED_MSG.append(
+        "## 'sphinxcontrib-apidoc' extension not loaded - not installed"
+    )
 apidoc_separate_modules = True
 apidoc_module_first = True
 
@@ -131,12 +133,12 @@ autodoc_member_order = "bysource"
 autodoc_mock_imports: List[str] = []
 autodoc_default_options = {"members": True}
 
-try:
-    import sphinx_autodoc_typehints  # type: ignore[import]  # noqa: F401
-except ModuleNotFoundError:
-    print("## 'sphinx-autodoc-typehints' extension not loaded - not installed")
-else:
+if find_spec("sphinx_autodoc_typehints") is not None:
     extensions.append("sphinx_autodoc_typehints")
+else:
+    NOT_LOADED_MSG.append(
+        "## 'sphinx-autodoc-typehints' extension not loaded - not installed"
+    )
 
 
 def remove_module_docstring(
@@ -148,12 +150,12 @@ def remove_module_docstring(
 
 
 #: -- CLICK ----------------------------------------------------------------------------
-try:
-    import sphinx_click.ext  # type: ignore[import]  # noqa: F401
-except ModuleNotFoundError:
-    print("## 'sphinx-click' extension not loaded - not installed")
-else:
+if find_spec("sphinx_click") is not None and find_spec("click") is not None:
     extensions.append("sphinx_click.ext")
+else:
+    NOT_LOADED_MSG.append(
+        "## 'sphinx-click' extension not loaded - extension or 'click' not installed"
+    )
 
 
 #: -- HTML THEME -----------------------------------------------------------------------
@@ -183,3 +185,7 @@ def setup(app):
     app.connect("autodoc-process-docstring", remove_module_docstring)
 
     app.add_config_value("RELEASE_LEVEL", "", "env")
+
+
+for msg in NOT_LOADED_MSG:
+    print(msg)
