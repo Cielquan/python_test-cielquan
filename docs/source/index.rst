@@ -22,7 +22,7 @@ This a test documentation.
    :maxdepth: 2
    :caption: API Reference:
 
-   api
+   api/modules
 
 
 .. toctree::
