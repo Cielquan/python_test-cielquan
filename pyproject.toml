@@ -158,6 +158,8 @@
             "tests/*",
             "docs/*",
         ]
+        context = "static-context"
+#        dynamic_context = "test_function"
 
     [tool.coverage.paths]
         combine = [
@@ -172,7 +174,7 @@
     [tool.coverage.report]
         fail_under = 100
         show_missing = true
-        skip_covered = true
+#        skip_covered = true
         exclude_lines = [
             "# pragma: no cover",
             "if __name__ == ['\"]__main__['\"]:",
