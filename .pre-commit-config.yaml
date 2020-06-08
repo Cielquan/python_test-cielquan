@@ -24,7 +24,11 @@ repos:
     rev: v2.5.0
     hooks:
       - id: no-commit-to-branch
-        args: [--branch, staging, --branch, master, --pattern, release/.*]
+        args: [
+          --branch, staging,
+#          --branch, master,
+          --pattern, release/.*,
+        ]
       - id: check-case-conflict
       - id: name-tests-test
         args: ["--django"]
@@ -150,7 +154,7 @@ repos:
 # TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/issues/2457
   #: poetry - dependency and packaging management
   - repo: https://github.com/Cielquan/poetry
-    rev: 1121d06a52aceecae7edfdd9d12bee50b15bc80a
+    rev: 4c3338d18d319fb7edea02d653d2c65622d84ff2
     hooks:
       #: Check config file
       - id: poetry-check
