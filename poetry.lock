@@ -945,7 +945,7 @@ pre-commit = ["pre-commit", "mypy", "pylint"]
 testing = ["pytest", "pytest-xdist", "pytest-cov", "coverage", "coverage-conditional-plugin", "pytest-sugar", "pytest-randomly", "pytest-mock", "mock", "faker", "pytest-factoryboy"]
 
 [metadata]
-content-hash = "e3b9f85430fd1692c9fb6a64cabf62a31e4aff6bb9d9f45cdb05e1bf8588efb0"
+content-hash = "f179fe40399c05e88fef934640a0386076ed3ac2581cac92f7636c3f130e3665"
         python-versions = "^3.6.1"
 
 [metadata.files]
