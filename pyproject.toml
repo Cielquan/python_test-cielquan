@@ -159,7 +159,7 @@
             "docs/*",
         ]
         context = "static-context"
-#        dynamic_context = "test_function"
+        dynamic_context = "test_function"
 
     [tool.coverage.paths]
         combine = [
@@ -172,7 +172,7 @@
         ]
 
     [tool.coverage.report]
-        fail_under = 100
+#        fail_under = 100
         show_missing = true
 #        skip_covered = true
         exclude_lines = [
@@ -187,6 +187,8 @@
             "if TYPE_CHECKING:",
             "if MYPY:",
         ]
+    [tool.coverage.html]
+        show_contexts = true
 
     [tool.coverage.coverage_conditional_plugin.rules]
         # use with: # pragma: <KEY>
