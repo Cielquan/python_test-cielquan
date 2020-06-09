@@ -152,14 +152,13 @@
         plugins = ["coverage_conditional_plugin"]
         branch = true
         parallel = true
+        context = "static-context"
+#        dynamic_context = "test_function"
 #        relative_files = true
-        include = ["src/*"]
         omit = [
             "tests/*",
             "docs/*",
         ]
-        context = "static-context"
-        dynamic_context = "test_function"
 
     [tool.coverage.paths]
         combine = [
@@ -172,9 +171,8 @@
         ]
 
     [tool.coverage.report]
-#        fail_under = 100
+        fail_under = 100
         show_missing = true
-#        skip_covered = true
         exclude_lines = [
             "# pragma: no cover",
             "if __name__ == ['\"]__main__['\"]:",
@@ -187,6 +185,7 @@
             "if TYPE_CHECKING:",
             "if MYPY:",
         ]
+
     [tool.coverage.html]
         show_contexts = true
 
