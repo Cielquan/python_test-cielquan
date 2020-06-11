@@ -131,3 +131,6 @@ version.py
 # Local backup dir
 _backupfiles
 .backupfiles
+
+# Python debugger config
+.pdbrc
