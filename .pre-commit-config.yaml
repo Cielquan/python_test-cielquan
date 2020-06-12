@@ -21,7 +21,7 @@ repos:
 #: -----------------------------------------------------------------------------
   #: code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.5.0
+    rev: ebc15addedad713c86ef18ae9632c88e187dd0af  # frozen: v3.1.0
     hooks:
       - id: no-commit-to-branch
         args: [
@@ -45,21 +45,21 @@ repos:
 
   #: several python code regex hooks
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: v1.5.1
+    rev: 0d7d077d6ed5624854f93ac601739c1804ebeb98  # frozen: v1.5.1
     hooks:
       - id: python-no-log-warn
       - id: python-no-eval
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: v2.4.1
+    rev: 7187ad61625472088070201708bf5d71d3552fb1  # frozen: v2.6.1
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
 
   #: seed-isort-config - fill isort's known_third_party config
   - repo: https://github.com/asottile/seed-isort-config
-    rev: v2.2.0
+    rev: ae09e01635e596c87bd9ca33565a65134200881c  # frozen: v2.2.0
     hooks:
       - id: seed-isort-config
         args: [--application-directories, "src:."]
@@ -67,7 +67,7 @@ repos:
   #: isort - sort imports
   #: Inline skip: `# isort: skip`
   - repo: https://github.com/timothycrosley/isort
-    rev: 4.3.21
+    rev: 7c29dd9d55161704cfc45998c6f5c2c43d39264b  # frozen: 4.3.21
     hooks:
       - id: isort
         args: [--apply, --recursive]
@@ -75,7 +75,7 @@ repos:
 
   #: blacken-docs - black for python code in docs
   - repo: https://github.com/asottile/blacken-docs
-    rev: v1.7.0
+    rev: 7636ee99ad98b63b282cb0ae9d42cf2ef6f17001  # frozen: v1.7.0
     hooks:
       - id: blacken-docs
         additional_dependencies: [black==19.10b0]
@@ -83,7 +83,7 @@ repos:
   #: black - python formatter
   #: Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
   - repo: https://github.com/psf/black
-    rev: 19.10b0
+    rev: 6bedb5c58a7d8c25aa9509f8217bc24e9797e90d  # frozen: 19.10b0
     hooks:
       - id: black
         args: [--safe]
@@ -91,7 +91,7 @@ repos:
   #: bandit - python code security analyzer
   #: Inline skip: `# nosec`
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.6.2
+    rev: d25f3fc5f0f2bd8a251f252e9d81118c4947ae0e  # frozen: 1.6.2
     hooks:
       - id: bandit
         require_serial: true
@@ -101,7 +101,7 @@ repos:
   #: File skip: `# flake8: noqa`
   #: Inline skip: `# noqa` or `# noqa: CODE,...`
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 3.8.1
+    rev: 05f6544aef321e2fee03a1277ce2eef8880fb927  # frozen: 3.8.3
     hooks:
       - id: flake8
         args: [--min-python-version=3.6.1]
