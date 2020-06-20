@@ -151,7 +151,7 @@ repos:
 # TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/issues/2457
   #: poetry - dependency and packaging management
   - repo: https://github.com/Cielquan/poetry
-    rev: 4c3338d18d319fb7edea02d653d2c65622d84ff2
+    rev: 901008fd458066b613b42baf617cfa28ef602cbc
     hooks:
       #: Check config file
       - id: poetry-check
