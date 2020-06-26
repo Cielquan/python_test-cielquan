@@ -42,7 +42,7 @@
 #        sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
         #: Code check
         pre-commit = {version = "^2.4", optional = true}
-        mypy = {version = "0.770", optional = true}
+        mypy = {version = "0.782", optional = true}
         pylint = {version = "^2.4", optional = true}
 
 
