@@ -163,11 +163,11 @@
     [tool.coverage.paths]
         combine = [
             "src/python_test",
-             "*/.tox/*/lib/python*/site-packages/python_test",
-             "*/.tox/pypy*/site-packages/python_test",
-             "*/.tox\\*\\Lib\\site-packages\\python_test",
-             "*/src/python_test",
-             "*\\src\\python_test",
+            "*/.tox/*/lib/python*/site-packages/python_test",
+            "*/.tox/pypy*/site-packages/python_test",
+            "*/.tox\\*\\Lib\\site-packages\\python_test",
+            "*/src/python_test",
+            "*\\src\\python_test",
         ]
 
     [tool.coverage.report]
