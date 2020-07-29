@@ -96,14 +96,6 @@ def get_env_var(
     return rv_type(env_var)
 
 
-def get_release_level(version_str: str) -> str:
-    """Extract release tag from version string."""
-    tag = re.search(r"^[v]?\d+\.\d+\.\d+[+-]?([a-zA-Z]*)\d*", version_str)
-    if tag:
-        return tag.group(1)
-    return ""
-
-
 #: -- PROJECT INFORMATION --------------------------------------------------------------
 project = "python_test"  # CHANGE ME
 author = "Christian Riedel"  # CHANGE ME
@@ -113,7 +105,8 @@ copyright = (  # pylint: disable=W0622  # noqa: A001,VNE003
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
 version = ".".join(__version__.split(".")[0:2])  #: Major + Minor version like (X.Y)
-RELEASE_LEVEL = get_release_level(__version__)  #: only tags like alpha/beta/rc
+tag = re.search(r"^[v]?\d+\.\d+\.\d+[+-]?([a-zA-Z]*)\d*", __version__)
+RELEASE_LEVEL = "" if not tag else tag.group(1)  #: only tags like alpha/beta/rc
 
 
 #: -- GENERAL CONFIG -------------------------------------------------------------------
