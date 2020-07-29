@@ -25,7 +25,7 @@ from dotenv import find_dotenv, load_dotenv
 from python_test import __version__
 
 
-needs_sphinx = "3.0"  #: Minimum Sphinx version to build the docs
+needs_sphinx = "3.1"  #: Minimum Sphinx version to build the docs
 sys.path.insert(0, str(Path(__file__).parents[2]))  #: Add Repo to PATH
 
 
