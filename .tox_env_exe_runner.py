@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Script to call executables in `tox` envs.
 
 The script takes two mandatory arguments:
