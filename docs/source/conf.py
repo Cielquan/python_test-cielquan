@@ -104,9 +104,15 @@ copyright = (  # pylint: disable=W0622  # noqa: A001,VNE003
     f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
-version = ".".join(__version__.split(".")[0:2])  #: Major + Minor version like (X.Y)
-tag = re.search(r"^[v]?\d+\.\d+\.\d+[+-]?([a-zA-Z]*)\d*", __version__)
-RELEASE_LEVEL = "" if not tag else tag.group(1)  #: only tags like alpha/beta/rc
+version_parts = re.search(
+    r"^[v]?(?P<version>\d+\.\d+)\.\d+[+-]?(?P<tag>[a-zA-Z]*)\d*", __version__
+)
+version = (
+    None if not version_parts else version_parts.group("version")
+)  #: Major + Minor version like (X.Y)
+RELEASE_LEVEL = (
+    None if not version_parts else version_parts.group("tag")
+)  #: only tags like alpha/beta/rc
 
 
 #: -- GENERAL CONFIG -------------------------------------------------------------------
