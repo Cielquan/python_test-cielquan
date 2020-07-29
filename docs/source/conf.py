@@ -31,7 +31,7 @@ sys.path.insert(0, str(Path(__file__).parents[2]))  #: Add Repo to PATH
 
 #: -- GLOB VARS ------------------------------------------------------------------------
 CONF_DIR = Path(__file__)
-NOT_LOADED_MSG = []
+NOT_LOADED_MSGS = []
 YEAR = f"{date.today().year}"
 
 
@@ -112,7 +112,7 @@ copyright = (  # pylint: disable=W0622  # noqa: A001,VNE003
     f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
-version = __version__[0:3]  #: Major + Minor version like (X.Y)
+version = ".".join(__version__.split(".")[0:2])  #: Major + Minor version like (X.Y)
 RELEASE_LEVEL = get_release_level(__version__)  #: only tags like alpha/beta/rc
 
 
@@ -181,7 +181,7 @@ extlinks = {
 if find_spec("sphinxcontrib.apidoc") is not None:
     extensions.append("sphinxcontrib.apidoc")
 else:
-    NOT_LOADED_MSG.append(
+    NOT_LOADED_MSGS.append(
         "## 'sphinxcontrib-apidoc' extension not loaded - not installed"
     )
 apidoc_separate_modules = True
@@ -199,7 +199,7 @@ autodoc_default_options = {"members": True}
 if find_spec("sphinx_autodoc_typehints") is not None:
     extensions.append("sphinx_autodoc_typehints")
 else:
-    NOT_LOADED_MSG.append(
+    NOT_LOADED_MSGS.append(
         "## 'sphinx-autodoc-typehints' extension not loaded - not installed"
     )
 
@@ -216,7 +216,7 @@ def remove_module_docstring(
 if find_spec("sphinx_click") is not None and find_spec("click") is not None:
     extensions.append("sphinx_click.ext")
 else:
-    NOT_LOADED_MSG.append(
+    NOT_LOADED_MSGS.append(
         "## 'sphinx-click' extension not loaded - extension or 'click' not installed"
     )
 
@@ -236,7 +236,7 @@ confluence_timeout = 30
 confluence_purge = True
 # confluence_publish_postfix = "-test-0"  # TODO: remove
 
-if tags.has("builder_confluence"):
+if tags.has("builder_confluence"):  # type: ignore # noqa
     extensions.remove("sphinx.ext.viewcode")
 
 
@@ -269,5 +269,5 @@ def setup(app):
     app.add_config_value("RELEASE_LEVEL", "", "env")
 
 
-for msg in NOT_LOADED_MSG:
+for msg in NOT_LOADED_MSGS:
     print(msg)
