@@ -192,3 +192,10 @@
     [tool.coverage.coverage_conditional_plugin.rules]
         # use with: # pragma: <KEY>
         is_win = "sys_platform == 'win32'"
+
+
+#: -- PYTEST CONFIG --------------------------------------------------------------------
+[tool.pytest.ini_options]
+    addopts = "-ra --showlocals"
+    mock_use_standalone_module = true
+    junit_family = "xunit2"
