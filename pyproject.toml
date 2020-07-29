@@ -144,6 +144,9 @@
 
 
 #: -- PYLINT CONFIG --------------------------------------------------------------------
+[tool.pylint.master]
+    additional-builtins = "tags"
+
 [tool.pylint.messages_control]
     disable = "C0330, C0326"  #: deactivated for black
 
