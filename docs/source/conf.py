@@ -116,7 +116,7 @@ RELEASE_LEVEL = (
 
 
 #: -- GENERAL CONFIG -------------------------------------------------------------------
-extensions = []
+extensions: List[str] = []
 today_fmt = "%Y-%m-%d"
 exclude_patterns: List[str] = []  #: Files to exclude for source of doc
 
