@@ -52,25 +52,17 @@ repos:
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 7187ad61625472088070201708bf5d71d3552fb1  # frozen: v2.6.1
+    rev: f766c29ec4bb6cf2674b81959871e59d5400380a  # frozen: v2.7.2
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
 
-  #: seed-isort-config - fill isort's known_third_party config
-  - repo: https://github.com/asottile/seed-isort-config
-    rev: ae09e01635e596c87bd9ca33565a65134200881c  # frozen: v2.2.0
-    hooks:
-      - id: seed-isort-config
-        args: [--application-directories, "src:."]
-
   #: isort - sort imports
   #: Inline skip: `# isort: skip`
   - repo: https://github.com/timothycrosley/isort
-    rev: 7c29dd9d55161704cfc45998c6f5c2c43d39264b  # frozen: 4.3.21
+    rev: 444c4ee0f6be426ab6ce51c8385a9dbc7ef6374b  # frozen: 5.2.1
     hooks:
       - id: isort
-        args: [--apply, --recursive]
         additional_dependencies: [toml]  #: def like extra
 
   #: blacken-docs - black for python code in docs
