@@ -63,7 +63,6 @@ repos:
     rev: 444c4ee0f6be426ab6ce51c8385a9dbc7ef6374b  # frozen: 5.2.1
     hooks:
       - id: isort
-        additional_dependencies: [toml]  #: def like extra
 
   #: blacken-docs - black for python code in docs
   - repo: https://github.com/asottile/blacken-docs
