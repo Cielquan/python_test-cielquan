@@ -51,7 +51,7 @@
 
 
     [tool.poetry.dev-dependencies]
-        devtools = {version = "^0.5", extras = ["pygments"]}
+        devtools = {version = "^0.6", extras = ["pygments"]}
         towncrier = {version = "19.9.0rc1"}
         ipython = "^7.15.0"
 
@@ -131,16 +131,10 @@
 
 #: -- ISORT CONFIG ---------------------------------------------------------------------
 [tool.isort]
-    multi_line_output = 3
-    include_trailing_comma = true
+    profile = "black"
     lines_after_imports = 2
     lines_between_types = 1
-    force_grid_wrap = 0
-    use_parentheses = true
-    line_length = 88
-    skip = ["venv"]
-    known_first_party = ["python_test", "tests"]
-    known_third_party = ["dotenv", "sphinx_rtd_theme"]
+    skip_gitignore = true
 
 
 #: -- PYLINT CONFIG --------------------------------------------------------------------
