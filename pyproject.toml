@@ -48,6 +48,7 @@
         flake8 = {version = "^3.8.3", optional = true}
         bandit = {version = "^1.6.2", optional = true}
         pydocstyle = {version = "^5.0.2", optional = true}
+        rstcheck = {version = "^3.3.1", optional = true}
 
 
     [tool.poetry.dev-dependencies]
@@ -73,7 +74,10 @@
             "sphinxcontrib-confluencebuilder"
         ]
         pre-commit = ["pre-commit", "mypy", "pylint"]
-        linter = ["mypy", "pylint", "flake8", "bandit", "pydocstyle"]  #: for VSCode
+        linter = [
+            "mypy", "pylint", "flake8", "bandit",
+            "pydocstyle", "rstcheck"
+            ]  #: for VSCode
 
 
 #: -- TOWNCRIER CONFIG -----------------------------------------------------------------
