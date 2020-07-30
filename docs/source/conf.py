@@ -186,6 +186,7 @@ else:
 apidoc_separate_modules = True
 apidoc_module_first = True
 apidoc_module_dir = f"../../src/{project}"
+apidoc_output_dir = "autoapi"
 
 
 #: -- AUTODOC --------------------------------------------------------------------------
