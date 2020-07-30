@@ -3,4 +3,4 @@ API
 ===
 
 .. toctree::
-    api/modules.rst
+    autoapi/modules.rst
