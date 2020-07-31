@@ -223,7 +223,12 @@ else:
 
 #: -- CONFLUENCE BUILDER ---------------------------------------------------------------
 #: needs install: "sphinxcontrib-confluencebuilder"
-extensions.append("sphinxcontrib.confluencebuilder")
+if find_spec("sphinxcontrib.confluencebuilder") is not None:
+    extensions.append("sphinxcontrib.confluencebuilder")
+else:
+    NOT_LOADED_MSGS.append(
+        "## 'confluencebuilder' extension not loaded - not installed"
+    )
 confluence_publish = True
 confluence_server_url = "https://siegwerk.atlassian.net/wiki/"
 confluence_server_user = get_env_var("CONFLUENCE_SERVER_USER")
@@ -267,6 +272,10 @@ def setup(app):
     app.connect("autodoc-process-docstring", remove_module_docstring)
 
     app.add_config_value("RELEASE_LEVEL", "", "env")
+
+    if not tags.has("builder_confluence"):  # type: ignore # noqa
+        from sphinx.directives import SeeAlso
+        app.add_directive("jira_issue", SeeAlso)
 
 
 for msg in NOT_LOADED_MSGS:
