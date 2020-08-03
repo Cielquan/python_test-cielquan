@@ -230,7 +230,7 @@ else:
         "## 'confluencebuilder' extension not loaded - not installed"
     )
 confluence_publish = True
-confluence_server_url = "https://siegwerk.atlassian.net/wiki/"
+confluence_server_url = get_env_var("CONFLUENCE_SERVER_URL")
 confluence_server_user = get_env_var("CONFLUENCE_SERVER_USER")
 confluence_server_pass = get_env_var("CONFLUENCE_SERVER_PASS")
 confluence_space_name = "SWFPTOOL"
