@@ -223,26 +223,19 @@ else:
 
 #: -- CONFLUENCE BUILDER ---------------------------------------------------------------
 #: needs install: "sphinxcontrib-confluencebuilder"
-if find_spec("sphinxcontrib.confluencebuilder") is not None:
+if tags.has("builder_confluence"):  # type: ignore # noqa
+    extensions.remove("sphinx.ext.viewcode")
     extensions.append("sphinxcontrib.confluencebuilder")
-else:
-    NOT_LOADED_MSGS.append(
-        "## 'confluencebuilder' extension not loaded - not installed"
-    )
 confluence_publish = True
 confluence_server_url = get_env_var("CONFLUENCE_SERVER_URL")
 confluence_server_user = get_env_var("CONFLUENCE_SERVER_USER")
 confluence_server_pass = get_env_var("CONFLUENCE_SERVER_PASS")
 confluence_space_name = "SWFPTOOL"
-confluence_parent_page = "SPHINXTEST"  # "SPHINXTEST"
+confluence_parent_page = "SPHINXTEST"
 confluence_page_hierarchy = True
 confluence_prev_next_buttons_location = "bottom"
 confluence_timeout = 30
 confluence_purge = True
-# confluence_publish_postfix = "-test-0"  # TODO: remove
-
-if tags.has("builder_confluence"):  # type: ignore # noqa
-    extensions.remove("sphinx.ext.viewcode")
 
 
 #: -- HTML THEME -----------------------------------------------------------------------
