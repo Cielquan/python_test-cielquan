@@ -173,6 +173,7 @@ extlinks = {
     "issue": ("https://github.com/Cielquan/python_test/issues/%s", "#"),  # CHANGE ME
     "pull": ("https://github.com/Cielquan/python_test/pull/%s", "pr"),  # CHANGE ME
     "user": ("https://github.com/%s", "@"),
+    "jira_issue": (f"{get_env_var('JIRA_LINK')}%s", ""),
 }
 
 
@@ -267,8 +268,14 @@ def setup(app):
     app.add_config_value("RELEASE_LEVEL", "", "env")
 
     if not tags.has("builder_confluence"):  # type: ignore # noqa
-        from sphinx.directives import SeeAlso
-        app.add_directive("jira_issue", SeeAlso)
+        from sphinx.directives.other import SeeAlso
+
+        class _SeeAlso(SeeAlso):
+            def run(self):
+                self.content[0] = "JIRA issue: " + f":jira_issue:`{self.content[0]}`"
+                return super().run()
+
+        app.add_directive("jira_issue", _SeeAlso)
 
 
 for msg in NOT_LOADED_MSGS:
