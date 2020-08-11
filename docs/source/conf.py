@@ -268,7 +268,7 @@ def setup(app):
     app.add_config_value("RELEASE_LEVEL", "", "env")
 
     if not tags.has("builder_confluence"):  # noqa
-        from sphinx.directives.other import SeeAlso
+        from sphinx.directives.other import SeeAlso  # pylint: disable=C0415
 
         class _SeeAlso(SeeAlso):
             def run(self):
