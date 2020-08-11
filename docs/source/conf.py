@@ -267,7 +267,7 @@ def setup(app):
 
     app.add_config_value("RELEASE_LEVEL", "", "env")
 
-    if not tags.has("builder_confluence"):  # type: ignore # noqa
+    if not tags.has("builder_confluence"):  # noqa
         from sphinx.directives.other import SeeAlso
 
         class _SeeAlso(SeeAlso):
