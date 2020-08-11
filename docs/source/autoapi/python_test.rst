@@ -13,3 +13,4 @@ Submodules
    :maxdepth: 4
 
    python_test.python_tester
+   python_test.sphinx_doc_flask
