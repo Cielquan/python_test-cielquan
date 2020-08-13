@@ -99,7 +99,7 @@ def get_env_var(
 #: -- PROJECT INFORMATION --------------------------------------------------------------
 project = "python_test"  # CHANGE ME
 author = "Christian Riedel"  # CHANGE ME
-RELEASE_YEAR = 2019  # CHANGE ME
+RELEASE_YEAR = "2019"  # CHANGE ME
 copyright = (  # pylint: disable=W0622  # noqa: A001,VNE003
     f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
 )
