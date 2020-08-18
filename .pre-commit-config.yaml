@@ -45,7 +45,7 @@ repos:
 
   #: several python code regex hooks
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: 20b9ac745c5adaab12b845b3564c773dcc051d0e  # frozen: v1.5.2
+    rev: eae6397e4c259ed3d057511f6dd5330b92867e62  # frozen: v1.6.0
     hooks:
       - id: python-no-log-warn
       - id: python-no-eval
@@ -60,13 +60,13 @@ repos:
   #: isort - sort imports
   #: Inline skip: `# isort: skip`
   - repo: https://github.com/timothycrosley/isort
-    rev: 9ae09866e278fbc6ec0383ccb16b5c84e78e6e4d  # frozen: 5.3.2
+    rev: 377d260ffa6f746693f97b46d95025afc4bd8275  # frozen: 5.4.2
     hooks:
       - id: isort
 
   #: blacken-docs - black for python code in docs
   - repo: https://github.com/asottile/blacken-docs
-    rev: 7636ee99ad98b63b282cb0ae9d42cf2ef6f17001  # frozen: v1.7.0
+    rev: 6d80883e826e3490b002dcf90c6807f85d42c871  # frozen: v1.8.0
     hooks:
       - id: blacken-docs
         additional_dependencies: [black==19.10b0]
@@ -149,6 +149,13 @@ repos:
       - id: poetry-check
       #: Update lock file
       - id: poetry-lock
+
+  #: rstcheck
+  - repo: https://github.com/myint/rstcheck
+    rev: 3f92957478422df87bd730abde66f089cc1ee19b  # bleeding edge
+    hooks:
+      - id: rstcheck
+        args: ["--config ./tox.ini"]
 
 
   #: Hooks managed via tox `pre-commit` venv
