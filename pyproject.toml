@@ -51,11 +51,11 @@
         pydocstyle = {version = "^5.0.2", optional = true}
         rstcheck = {git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b", optional = true}  #: bleeding edge
 
-
     [tool.poetry.dev-dependencies]
         devtools = {version = "^0.6", extras = ["pygments"]}
         towncrier = {version = "19.9.0rc1"}
         ipython = "^7.15.0"
+        sphinx-autobuild = "^0.7.1"
 
     [tool.poetry.extras]
         testing = [
