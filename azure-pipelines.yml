@@ -17,7 +17,6 @@ resources:
      name: cielquan/azure-pipelines-template
      ref: master
 
-
 jobs:
 - template: run-tox.yml@cielquan
   parameters:
