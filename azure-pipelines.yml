@@ -23,7 +23,8 @@ jobs:
     checkout_submodules: false
     tox_version: ''
     configs:
-      tox_envs: [py39, doc]
-      os: [linux]
-      architectures: [x64, x86]
+      test:
+        tox_envs: [py39, doc]
+        os: [linux]
+        architectures: [x64, x86]
  
