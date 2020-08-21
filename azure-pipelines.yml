@@ -70,3 +70,4 @@ jobs:
     tox_envs: [py39]
     os: [linux]
     architectures: [x64, x86]
+
