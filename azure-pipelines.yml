@@ -22,6 +22,7 @@ jobs:
   parameters:
     checkout_submodules: false
     tox_version: ''
+    default_python: '3.7'
     configs:
       test:
         tox_envs: [py39, doc]
