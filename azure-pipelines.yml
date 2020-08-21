@@ -13,34 +13,69 @@
 #      ref: master # refs/tags/VERSION
 
 
+# trigger:
+# - master
+
+# pool:
+#   vmImage: 'ubuntu-latest'
+# strategy:
+#   matrix:
+#     Python27:
+#       python.version: '2.7'
+#     Python35:
+#       python.version: '3.5'
+#     Python36:
+#       python.version: '3.6'
+#     Python37:
+#       python.version: '3.7'
+
+# steps:
+# - task: UsePythonVersion@0
+#   inputs:
+#     versionSpec: '$(python.version)'
+#   displayName: 'Use Python $(python.version)'
+
+# - script: |
+#     python -m pip install --upgrade pip
+#     pip install -r requirements.txt
+#   displayName: 'Install dependencies'
+
+# - script: |
+#     pip install pytest pytest-azurepipelines
+#     pytest
+#   displayName: 'pytest'
+
+
+
 trigger:
-- master
+  branches:
+    include: [master, test-me-*]
+  tags:
+    include: ['*']
 
-pool:
-  vmImage: 'ubuntu-latest'
-strategy:
-  matrix:
-    Python27:
-      python.version: '2.7'
-    Python35:
-      python.version: '3.5'
-    Python36:
-      python.version: '3.6'
-    Python37:
-      python.version: '3.7'
+resources:
+  repositories:
+    - repository: asottile
+      type: github
+      endpoint: github
+      name: asottile/azure-pipeline-templates
+      ref: refs/tags/v2.0.0
 
-steps:
-- task: UsePythonVersion@0
-  inputs:
-    versionSpec: '$(python.version)'
-  displayName: 'Use Python $(python.version)'
 
-- script: |
-    python -m pip install --upgrade pip
-    pip install -r requirements.txt
-  displayName: 'Install dependencies'
-
-- script: |
-    pip install pytest pytest-azurepipelines
-    pytest
-  displayName: 'pytest'
+jobs:
+- template: job--pre-commit.yml@asottile
+- template: job--python-tox.yml@asottile
+  parameters:
+    toxenvs: [py37]
+    os: windows
+    architectures: [x64, x86]
+    pre_test:
+- template: job--python-tox.yml@asottile
+  parameters:
+    toxenvs: [py37]
+    os: linux
+    architectures: [x64, x86]
+- template: job--python-tox.yml@asottile
+  parameters:
+    toxenvs: [pypy3, py36, py37, py38, py39]
+    os: linux
