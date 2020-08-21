@@ -56,28 +56,17 @@ trigger:
     include: ['*']
 
 resources:
-  repositories:
-    - repository: asottile
-      type: github
-      endpoint: github
-      name: asottile/azure-pipeline-templates
-      ref: refs/tags/v2.0.0
+ repositories:
+   - repository: cielquan
+     type: github
+     endpoint: github
+     name: cielquan/azure-pipelines-template
+     ref: master
 
 
 jobs:
-- template: job--pre-commit.yml@asottile
-- template: job--python-tox.yml@asottile
+- template: run-tox.yml@cielquan
   parameters:
-    toxenvs: [py37]
-    os: windows
+    tox_envs: [py39]
+    os: [linux]
     architectures: [x64, x86]
-- template: job--python-tox.yml@asottile
-  parameters:
-    name_postfix: '_lin_arch'
-    toxenvs: [py37]
-    os: linux
-    architectures: [x64, x86]
-- template: job--python-tox.yml@asottile
-  parameters:
-    toxenvs: [pypy3, py36, py37, py38, py39]
-    os: linux
