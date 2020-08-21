@@ -26,3 +26,11 @@ jobs:
     os: lin
     tox_envs: [doc, py39]
 
+- template: run-tox.yml@cielquan
+  parameters:
+    tox_version: '3.15.0'
+    checkout_submodules: false
+    default_python: '3.6'
+    os: win
+    tox_envs: [doc, py39]
+
