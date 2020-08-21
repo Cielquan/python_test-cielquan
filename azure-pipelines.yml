@@ -20,6 +20,8 @@ resources:
 jobs:
 - template: run-tox.yml@cielquan
   parameters:
-    tox_envs: [py39, doc]
-    os: [linux]
-    architectures: [x64, x86]
+    configs:
+      tox_envs: [py39, doc]
+      os: [linux]
+      architectures: [x64, x86]
+      checkout_submodules: false
