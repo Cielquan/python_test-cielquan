@@ -21,6 +21,7 @@ jobs:
 - template: run-tox.yml@cielquan
   parameters:
     tox_version: '3.15.0'
+    tox_python: '3.7'
     checkout_submodules: true
     default_python: '3.7'
     os: lin
