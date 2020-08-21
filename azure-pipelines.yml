@@ -25,3 +25,4 @@ jobs:
       os: [linux]
       architectures: [x64, x86]
       checkout_submodules: false
+ 
