@@ -25,11 +25,12 @@ jobs:
     checkout_submodules: true
     default_python: '3.7'
     os: lin
-    tox_envs: [doc, py39]
+    tox_envs: [py39]
+#     tox_envs: [doc, py39]
 
-- template: run-tox.yml@cielquan
-  parameters:
-    checkout_submodules: false
-    os: win
-    tox_envs: [doc, py39]
-    architectures: [x64, x86]
+# - template: run-tox.yml@cielquan
+#   parameters:
+#     checkout_submodules: false
+#     os: win
+#     tox_envs: [doc, py39]
+#     architectures: [x64, x86]
