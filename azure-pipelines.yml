@@ -70,8 +70,7 @@ jobs:
   parameters:
     toxenvs: [py37]
     os: windows
-    architectures: [x64]
-    pre_test:
+    architectures: [x64, x86]
 - template: job--python-tox.yml@asottile
   parameters:
     toxenvs: [py37]
