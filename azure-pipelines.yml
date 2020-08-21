@@ -27,4 +27,7 @@ jobs:
         tox_envs: [py39, doc]
         os: [linux]
         architectures: [x64, x86]
- 
+      test_win:
+        tox_envs: [py37]
+        os: windows
+        architectures: [x64, x86]
