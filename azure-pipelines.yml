@@ -32,4 +32,4 @@ jobs:
     checkout_submodules: false
     os: win
     tox_envs: [doc, py39]
-
+    architectures: [x64, x86]
