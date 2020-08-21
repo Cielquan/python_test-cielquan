@@ -23,5 +23,5 @@ jobs:
     checkout_submodules: false
     default_python: '3.7'
     os: lin
-      tox_envs: [py39, doc]
+    tox_envs: [py39, doc]
 
