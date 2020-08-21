@@ -73,9 +73,10 @@ jobs:
     architectures: [x64, x86]
 - template: job--python-tox.yml@asottile
   parameters:
+    name_postfix: '_lin_arch'
     toxenvs: [py37]
     os: linux
-    architectures: [x64]
+    architectures: [x64, x86]
 - template: job--python-tox.yml@asottile
   parameters:
     toxenvs: [pypy3, py36, py37, py38, py39]
