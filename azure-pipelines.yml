@@ -26,7 +26,7 @@ jobs:
     default_python: '3.7'
     os: lin
 #     tox_envs: [py39]
-    tox_envs: [doc, py39]
+    tox_envs: [py36, py37, py38]
 
 # - template: run-tox.yml@cielquan
 #   parameters:
