@@ -67,3 +67,13 @@ jobs:
     toxenvs: [py36, py37, py38]
     os: linux
     coverage: true
+- template: job--python-tox.yml@asottile
+  parameters:
+    toxenvs: [py36, py37, py38]
+    os: windows
+    coverage: true
+- template: job--python-tox.yml@asottile
+  parameters:
+    toxenvs: [py36, py37, py38]
+    os: macos
+    coverage: true
