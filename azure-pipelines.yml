@@ -27,6 +27,8 @@ jobs:
     os: lin
 #     tox_envs: [py39]
     tox_envs: [py36, py37, py38]
+    coverage:
+      for_envs: [py36, py37, py38]
 
 # - template: run-tox.yml@cielquan
 #   parameters:
