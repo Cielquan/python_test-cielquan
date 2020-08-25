@@ -29,26 +29,41 @@ trigger:
 #     coverage:
 #       with_toxenv: 'coverage'
 #       for_envs: [py36, py37, py38]
+############# tox
+# resources:
+#   repositories:
+#   - repository: tox
+#     type: github
+#     endpoint: github
+#     name: tox-dev/azure-pipelines-template
+#     ref: master
 
+# jobs:
+# - template: run-tox-env.yml@tox
+#   parameters:
+#     tox_version: 'tox'
+#     jobs:
+#       py37:
+#         image: [linux, windows, macOs]
+#       py36:
+#         image: [linux, windows, macOs]
+#       py38:
+#         image: [linux, windows, macOs]
+#     coverage:
+#       with_toxenv: 'coverage'
+#       for_envs: [py37, py36, py38]
+############# aso
 resources:
   repositories:
-  - repository: tox
-    type: github
-    endpoint: github
-    name: tox-dev/azure-pipelines-template
-    ref: master
+    - repository: asottile
+      type: github
+      endpoint: github
+      name: asottile/azure-pipeline-templates
+      ref: refs/tags/v2.0.0
 
 jobs:
-- template: run-tox-env.yml@tox
+- template: job--python-tox.yml@asottile
   parameters:
-    tox_version: 'tox'
-    jobs:
-      py37:
-        image: [linux, windows, macOs]
-      py36:
-        image: [linux, windows, macOs]
-      py38:
-        image: [linux, windows, macOs]
-    coverage:
-      with_toxenv: 'coverage'
-      for_envs: [py37, py36, py38]
+    toxenvs: [py36, py37, py38]
+    os: linux
+    coverage: true
