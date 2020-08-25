@@ -9,30 +9,44 @@ trigger:
   tags:
     include: ['*']
 
-resources:
- repositories:
-   - repository: cielquan
-     type: github
-     endpoint: github
-     name: cielquan/azure-pipelines-template
-     ref: master
+# resources:
+#  repositories:
+#    - repository: cielquan
+#      type: github
+#      endpoint: github
+#      name: cielquan/azure-pipelines-template
+#      ref: master
 
-jobs:
-- template: run-tox.yml@cielquan
-  parameters:
-    tox_version: '3.15.0'
-    tox_python: '3.7'
-    checkout_submodules: true
-    default_python: '3.7'
-    os: lin
-    tox_envs: [py36, py37, py38]
-    coverage:
-      with_toxenv: 'coverage'
-      for_envs: [py36, py37, py38]
-
+# jobs:
 # - template: run-tox.yml@cielquan
 #   parameters:
-#     checkout_submodules: false
-#     os: win
-#     tox_envs: [doc, py39]
-#     architectures: [x64, x86]
+#     tox_version: '3.15.0'
+#     tox_python: '3.7'
+#     checkout_submodules: true
+#     default_python: '3.7'
+#     os: lin
+#     tox_envs: [py36, py37, py38]
+#     coverage:
+#       with_toxenv: 'coverage'
+#       for_envs: [py36, py37, py38]
+
+resources:
+  repositories:
+  - repository: tox
+    type: github
+    endpoint: github
+    name: tox-dev/azure-pipelines-template
+    ref: refs/tags/0.2
+
+jobs:
+- template: run-tox-env.yml@tox
+  parameters:
+    tox_version: ''
+    jobs:
+      py37:
+        image: [linux, windows, macOs]
+      py36:
+        image: [linux, windows, macOs]
+    coverage:
+      with_toxenv: 'coverage'
+      for_envs: [py37, py36]
