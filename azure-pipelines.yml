@@ -41,7 +41,7 @@ resources:
 jobs:
 - template: run-tox-env.yml@tox
   parameters:
-    tox_version: ''
+    tox_version: 'tox'
     jobs:
       py37:
         image: [linux, windows, macOs]
