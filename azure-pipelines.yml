@@ -28,7 +28,7 @@ jobs:
     tox_envs: [py36, py37, py38]
     coverage:
       with_toxenv: 'coverage'
-      for_envs: [py36, py37, py38]
+      for_envs: [py36_x64, py37_x64, py38_x64]
 - template: run-tox.yml@cielquan
   parameters:
     name_postfix: '_docs'
