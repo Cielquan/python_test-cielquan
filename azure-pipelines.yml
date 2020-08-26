@@ -24,63 +24,13 @@ jobs:
     tox_python: '3.7'
     checkout_submodules: true
     default_python: '3.7'
-    os: lin
-    tox_envs: [py36, py37, py38]
+    tox_envs:
+      py37:
+        os: [linux, windows, macOs]
+      py36:
+        os: [linux, windows, macOs]
+      py38:
+        os: [linux, windows, macOs]
     coverage:
       with_toxenv: 'coverage'
-      for_envs: [tox_lin]
-- template: run-tox.yml@cielquan
-  parameters:
-    name_postfix: '_docs'
-    os: lin
-    tox_envs: [docs]
-
-# ############# tox
-# resources:
-#   repositories:
-#   - repository: tox
-#     type: github
-#     endpoint: github
-#     name: tox-dev/azure-pipelines-template
-#     ref: master
-
-# jobs:
-# - template: run-tox-env.yml@tox
-#   parameters:
-#     tox_version: 'tox'
-#     jobs:
-#       py37:
-#         image: [linux, windows, macOs]
-#       py36:
-#         image: [linux, windows, macOs]
-#       py38:
-#         image: [linux, windows, macOs]
-#     coverage:
-#       with_toxenv: 'coverage'
-#       for_envs: [py37, py36, py38]
-
-# ############# aso
-# resources:
-#   repositories:
-#     - repository: asottile
-#       type: github
-#       endpoint: github
-#       name: asottile/azure-pipeline-templates
-#       ref: refs/tags/v2.0.0
-
-# jobs:
-# - template: job--python-tox.yml@asottile
-#   parameters:
-#     toxenvs: [py36, py37, py38]
-#     os: linux
-#     coverage: true
-# - template: job--python-tox.yml@asottile
-#   parameters:
-#     toxenvs: [py36, py37, py38]
-#     os: windows
-#     coverage: true
-# - template: job--python-tox.yml@asottile
-#   parameters:
-#     toxenvs: [py36, py37, py38]
-#     os: macos
-#     coverage: true
+      for_envs: [py37, py36, py38]
