@@ -9,8 +9,6 @@ python_test Change Log
 
 .. towncrier release notes start
 
-.. _changelog__100:
-
 Release 1.0.0
 -------------
 *Released: 03.08.2019* *Unreleased*
