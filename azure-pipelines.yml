@@ -35,7 +35,8 @@ jobs:
         os: [linux, windows, macOs]
       pypy3:
         os: [linux, windows, macOs]
-      pre-commit: null
+      pre-commit:
+        display_name: pre_commit
       safety:
         os: [linux, windows, macOs]
       package:
