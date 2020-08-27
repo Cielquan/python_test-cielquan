@@ -31,6 +31,16 @@ jobs:
         os: [linux, windows, macOs]
       py38:
         os: [linux, windows, macOs]
+      py39:
+        os: [linux, windows, macOs]
+      pypy3:
+        os: [linux, windows, macOs]
+      pre-commit: null
+      safety:
+        os: [linux, windows, macOs]
+      package:
+        os: [linux, windows, macOs]
+      docs-test-{html,linkcheck,coverage,doctest}: null
     coverage:
       with_toxenv: 'coverage'
-      for_envs: [py37, py36, py38]
+      for_envs: [py37, py36, py38, py39, pypy3]
