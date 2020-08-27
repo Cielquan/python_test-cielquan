@@ -25,6 +25,9 @@ jobs:
     checkout_submodules: true
     default_python: '3.7'
     tox_envs:
+      pre-commit:
+        display_name: pre_commit
+      safety: null
       py37:
         os: [linux, windows, macOs]
       py36:
@@ -34,10 +37,6 @@ jobs:
       py39:
         os: [linux, windows, macOs]
       pypy3:
-        os: [linux, windows, macOs]
-      pre-commit:
-        display_name: pre_commit
-      safety:
         os: [linux, windows, macOs]
       package:
         os: [linux, windows, macOs]
