@@ -156,6 +156,8 @@ repos:
     hooks:
       - id: rstcheck
         args: ["--config=tox.ini"]
+        additional_dependencies:
+          - "sphinx"
 
 
   #: Hooks managed via tox `pre-commit` venv
