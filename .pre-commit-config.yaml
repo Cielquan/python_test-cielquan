@@ -155,7 +155,7 @@ repos:
     rev: 3f92957478422df87bd730abde66f089cc1ee19b  # bleeding edge
     hooks:
       - id: rstcheck
-        args: ["--config ./tox.ini"]
+        args: ["--config=tox.ini"]
 
 
   #: Hooks managed via tox `pre-commit` venv
