@@ -40,10 +40,14 @@ jobs:
         os: [linux, windows, macOs]
       package:
         os: [linux, windows, macOs]
-      docs-test-html: null
-      docs-test-linkcheck: null
-      docs-test-coverage: null
-      docs-test-doctest: null
+      docs-test-html:
+        display_name: docs_test_html
+      docs-test-linkcheck:
+        display_name: docs_test_linkcheck
+      docs-test-coverage:
+        display_name: docs_test_coverage
+      docs-test-doctest:
+        display_name: docs_test_doctest
     coverage:
       with_toxenv: 'coverage'
       for_envs: [py37, py36, py38, py39, pypy3]
