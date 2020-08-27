@@ -63,7 +63,7 @@ badges
 
 .. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
     :alt: Read the Docs - Build Status (latest)
-    :target: https://python-test-cielquan.readthedocs.io/en/latest/?badge=latest
+    :target: https://python-test-cielquan.readthedocs.io/en/latest/
 
 
 .. Tests
@@ -86,15 +86,15 @@ badges
     :alt: Poetry
 
 .. |tox| image:: https://img.shields.io/badge/Automation-tox-brightgreen.svg?style=flat-square
-    :target: https://tox.readthedocs.io/en/latest/
+    :target: https://tox.readthedocs.io/
     :alt: tox
 
 .. |pytest| image:: https://img.shields.io/badge/Test%20framework-pytest-brightgreen.svg?style=flat-square
-    :target: https://docs.pytest.org/en/latest/
+    :target: https://docs.pytest.org/
     :alt: Pytest
 
 .. |sphinx| image:: https://img.shields.io/badge/Doc%20builder-sphinx-brightgreen.svg?style=flat-square
-    :target: https://www.sphinx-doc.org/en/latest/
+    :target: https://www.sphinx-doc.org/
     :alt: Sphinx
 
 
