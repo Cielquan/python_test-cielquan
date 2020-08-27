@@ -134,3 +134,6 @@ _backupfiles
 
 # Python debugger config
 .pdbrc
+
+# auto generated API docs
+docs/source/autoapi
