@@ -34,8 +34,7 @@ jobs:
         os: [linux, windows, macOs]
       py38:
         os: [linux, windows, macOs]
-      py39:
-        os: [linux, windows, macOs]
+      py39: null
       pypy3:
         os: [linux, windows, macOs]
       package:
