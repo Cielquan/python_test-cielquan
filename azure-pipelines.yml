@@ -1,13 +1,17 @@
-# Python package
-# Create and test a Python package on multiple Python versions.
-# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
 
 trigger:
+  batch: true
   branches:
     include: [master, test-me-*]
   tags:
     include: ['*']
+
+pr:
+  branches:
+    include:
+    - master
+    - development
 
 resources:
   repositories:
@@ -16,6 +20,10 @@ resources:
       endpoint: github
       name: cielquan/azure-pipelines-template
       ref: master
+
+variables:
+  PYTEST_ADDOPTS: "-v -v -ra --showlocals"
+  PYTEST_XDIST_PROC_NR: '0'
 
 jobs:
 - template: run-tox.yml@cielquan
