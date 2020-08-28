@@ -1,4 +1,4 @@
-name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
+# name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
 
 trigger:
   batch: true
@@ -38,7 +38,7 @@ jobs:
           os: [linux, windows, macOs]
         py39: null
         pypy3:
-          os: [linux, windows, macOs]
+          os: [linux, macOs]
         package:
           os: [linux, windows, macOs]
         docs-test-html:
