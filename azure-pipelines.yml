@@ -24,7 +24,7 @@ variables:
   PYTEST_XDIST_PROC_NR: '0'
 
 jobs:
-  - template: run-tox.yml@cielquan
+  - template: jobs/run-tox.yml@cielquan
     parameters:
       tox_envs:
         pre-commit:
