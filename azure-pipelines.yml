@@ -58,7 +58,7 @@ jobs:
   #     parameters:
   #       external_feed: ''
   #       pypi_remote: ''
-  #       dependsOn: 
+  #       dependsOn:
   #         - pre_commit
   #         - safety
   #         - package
