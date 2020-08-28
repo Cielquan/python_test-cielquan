@@ -9,9 +9,7 @@ trigger:
 
 pr:
   branches:
-    include:
-    - master
-    - development
+    include: [master, development]
 
 resources:
   repositories:
@@ -26,31 +24,52 @@ variables:
   PYTEST_XDIST_PROC_NR: '0'
 
 jobs:
-- template: run-tox.yml@cielquan
-  parameters:
-    tox_envs:
-      pre-commit:
-        display_name: pre_commit
-      safety: null
-      py37:
-        os: [linux, windows, macOs]
-      py36:
-        os: [linux, windows, macOs]
-      py38:
-        os: [linux, windows, macOs]
-      py39: null
-      pypy3:
-        os: [linux, windows, macOs]
-      package:
-        os: [linux, windows, macOs]
-      docs-test-html:
-        display_name: docs_test_html
-      docs-test-linkcheck:
-        display_name: docs_test_linkcheck
-      docs-test-coverage:
-        display_name: docs_test_coverage
-      docs-test-doctest:
-        display_name: docs_test_doctest
-    coverage:
-      with_toxenv: 'coverage'
-      for_envs: [py37, py36, py38, py39, pypy3]
+  - template: run-tox.yml@cielquan
+    parameters:
+      tox_envs:
+        pre-commit:
+          display_name: pre_commit
+        safety: null
+        py37:
+          os: [linux, windows, macOs]
+        py36:
+          os: [linux, windows, macOs]
+        py38:
+          os: [linux, windows, macOs]
+        py39: null
+        pypy3:
+          os: [linux, windows, macOs]
+        package:
+          os: [linux, windows, macOs]
+        docs-test-html:
+          display_name: docs_test_html
+        docs-test-linkcheck:
+          display_name: docs_test_linkcheck
+        docs-test-coverage:
+          display_name: docs_test_coverage
+        docs-test-doctest:
+          display_name: docs_test_doctest
+      coverage:
+        with_toxenv: 'coverage'
+        for_envs: [py37, py36, py38, py39, pypy3]
+
+  # - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
+  #   - template: publish-pypi.yml@cielquan
+  #     parameters:
+  #       external_feed: ''
+  #       pypi_remote: ''
+  #       dependsOn: 
+  #         - pre_commit
+  #         - safety
+  #         - package
+  #         - dev
+  #         - py36
+  #         - py37
+  #         - py38
+  #         - py39
+  #         - pypy3
+  #         - report_coverage
+  #         - docs_test_html
+  #         - docs_test_linkcheck
+  #         - docs_test_coverage
+  #         - docs_test_doctest
