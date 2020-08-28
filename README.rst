@@ -140,9 +140,11 @@ TODO:
     :target: https://codecov.io/gh/Cielquan/python_test
 
 .. |azure_pipeline| image:: https://img.shields.io/azure-devops/build/cielquan/b6aee80c-ebd7-443c-9679-70e990729db6/1?style=for-the-badge&logo=azure-pipelines&label=Azure%20Pipelines
+    :target: https://dev.azure.com/cielquan/python_test/_build/latest?definitionId=1&branchName=master
     :alt: Azure DevOps builds
 
 .. |azure_coverage| image:: https://img.shields.io/azure-devops/coverage/cielquan/python_test/1?style=for-the-badge&logo=azure-pipelines&label=Coverage
+    :target: https://dev.azure.com/cielquan/python_test/_build/latest?definitionId=1&branchName=master
     :alt: Azure DevOps Coverage
 
 .. .image:: https://readthedocs.org/projects/python-test-cielquan/badge/?version=latest
