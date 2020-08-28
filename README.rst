@@ -4,7 +4,7 @@ python_test
 
 | |license| |black|
 |
-| |travis| |appveyor| |codecov|
+| |azure_pipeline| |azure_coverage|
 | |docs| |reqs|
 |
 | |py_versions| |implementations|
@@ -125,19 +125,25 @@ TODO:
 
 .. tests block
 .. .image:: https://travis-ci.com/Cielquan/python_test.svg?branch=master
-.. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=for-the-badge&logo=travis-ci&logoColor=FBE072
+.. .|travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=for-the-badge&logo=travis-ci&logoColor=FBE072
     :alt: Travis - Build Status
     :target: https://travis-ci.com/Cielquan/python_test
 
 .. .image:: https://ci.appveyor.com/api/projects/status/github/Cielquan/python_test?branch=master&svg=true
-.. |appveyor| image:: https://img.shields.io/appveyor/ci/Cielquan/python_test/master.svg?style=for-the-badge&logo=appveyor
+.. .|appveyor| image:: https://img.shields.io/appveyor/ci/Cielquan/python_test/master.svg?style=for-the-badge&logo=appveyor
     :alt: AppVeyor - Build Status
     :target: https://ci.appveyor.com/project/Cielquan/pytest-cov
 
 .. .image:: https://codecov.io/gh/Cielquan/python_test/branch/master/graph/badge.svg
-.. |codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=for-the-badge&logo=codecov
+.. .|codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=for-the-badge&logo=codecov
     :alt: Codecov - Test Coverage
     :target: https://codecov.io/gh/Cielquan/python_test
+
+.. |azure_pipeline| image:: https://img.shields.io/azure-devops/build/cielquan/b6aee80c-ebd7-443c-9679-70e990729db6/1?style=for-the-badge&logo=azure-pipelines&label=Azure%20Pipelines
+    :alt: Azure DevOps builds
+
+.. |azure_coverage| image:: https://img.shields.io/azure-devops/coverage/cielquan/python_test/1?style=for-the-badge&logo=azure-pipelines&label=Coverage
+    :alt: Azure DevOps Coverage
 
 .. .image:: https://readthedocs.org/projects/python-test-cielquan/badge/?version=latest
 .. |docs| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=for-the-badge&logo=read-the-docs&logoColor=white
