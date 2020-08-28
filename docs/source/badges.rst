@@ -5,6 +5,8 @@ badges
 | **General**   | |maintenance| |license| |black| |rtd|                                |
 +---------------+----------------------------------------------------------------------+
 | **Pipeline**  | |travis| |appveyor| |codecov|                                        |
+|               +----------------------------------------------------------------------+
+|               | |azure_pipeline| |azure_coverage|                                    |
 +---------------+----------------------------------------------------------------------+
 | **Tools**     | |poetry| |tox| |pytest| |sphinx|                                     |
 +---------------+----------------------------------------------------------------------+
@@ -27,6 +29,7 @@ badges
 | |maintenance| |license| |black| |rtd|
 |
 | |travis| |appveyor| |codecov|
+| |azure_pipeline| |azure_coverage|
 |
 | |poetry| |tox| |pytest| |sphinx|
 |
@@ -39,13 +42,6 @@ badges
 | |pypi_status| |pypi_format| |pypi_downloads|
 |
 |
-
-
-.. [![Build Status](https://dev.azure.com/asottile/asottile/_apis/build/status/pre-commit.pre-commit?branchName=master)]
-.. (https://dev.azure.com/asottile/asottile/_build/latest?definitionId=21&branchName=master)
-
-.. [![Azure DevOps coverage](https://img.shields.io/azure-devops/coverage/asottile/asottile/21/master.svg)]
-.. (https://dev.azure.com/asottile/asottile/_build/latest?definitionId=21&branchName=master)
 
 
 .. General
@@ -78,6 +74,16 @@ badges
 .. |codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=flat-square&logo=codecov&label=Codecov
     :alt: Codecov - Test Coverage
     :target: https://codecov.io/gh/Cielquan/python_test
+
+
+.. .. |azure_pipeline| image:: https://dev.azure.com/cielquan/python_test/_apis/build/status/cielquan.python_test?branchName=master
+    :target: https://dev.azure.com/cielquan/python_test/_build/latest?definitionId=1&branchName=master
+
+.. |azure_pipeline| image:: https://img.shields.io/azure-devops/build/cielquan/b6aee80c-ebd7-443c-9679-70e990729db6/1?style=flat-square&logo=azure-pipelines&label=Azure%20Pipelines
+    :alt: Azure DevOps builds
+
+.. |azure_coverage| image:: https://img.shields.io/azure-devops/coverage/cielquan/python_test/1?style=flat-square&logo=azure-pipelines&label=Coverage
+    :alt: Azure DevOps Coverage
 
 
 .. Tools
