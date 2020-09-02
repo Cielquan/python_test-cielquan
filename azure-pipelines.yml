@@ -52,24 +52,3 @@ jobs:
       coverage:
         with_toxenv: 'coverage'
         for_envs: [py37, py36, py38, py39, pypy3]
-
-  # - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
-  #   - template: publish-pypi.yml@cielquan
-  #     parameters:
-  #       external_feed: ''
-  #       pypi_remote: ''
-  #       dependsOn:
-  #         - pre_commit
-  #         - safety
-  #         - package
-  #         - dev
-  #         - py36
-  #         - py37
-  #         - py38
-  #         - py39
-  #         - pypy3
-  #         - report_coverage
-  #         - docs_test_html
-  #         - docs_test_linkcheck
-  #         - docs_test_coverage
-  #         - docs_test_doctest
