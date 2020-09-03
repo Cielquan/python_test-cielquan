@@ -22,7 +22,7 @@ import sphinx_rtd_theme  # type: ignore[import]
 
 from dotenv import find_dotenv, load_dotenv
 
-from python_test import __version__
+from python_test_cielquan import __version__
 
 
 needs_sphinx = "3.1"  #: Minimum Sphinx version to build the docs
@@ -97,7 +97,7 @@ def get_env_var(
 
 
 #: -- PROJECT INFORMATION --------------------------------------------------------------
-project = "python_test"  # CHANGE ME
+project = "python_test_cielquan"  # CHANGE ME
 author = "Christian Riedel"  # CHANGE ME
 RELEASE_YEAR = "2019"  # CHANGE ME
 copyright = (  # pylint: disable=W0622  # noqa: A001,VNE003
