@@ -20,9 +20,9 @@
 # Github: https://github.com/Cielquan/
 # ==============================================================================
 """docstring."""
-import python_test
+import python_test_cielquan
 
-from python_test.python_tester import testus
+from python_test_cielquan.python_tester import testus
 
 
 def test_something():
