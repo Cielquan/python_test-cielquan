@@ -32,4 +32,4 @@ def test_something():
 
 def test_init():
     """docstring."""
-    assert python_test.__version__
+    assert python_test_cielquan.__version__
