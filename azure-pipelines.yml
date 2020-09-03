@@ -24,12 +24,12 @@ variables:
   PYTEST_XDIST_PROC_NR: '0'
 
 jobs:
-#   - template: jobs/run-tox.yml@cielquan
-#     parameters:
-#       tox_envs:
+  - template: jobs/run-tox.yml@cielquan
+    parameters:
+      tox_envs:
 #         pre-commit:
 #           display_name: pre_commit
-#         safety: null
+        safety: null
 #         py37:
 #           os: [linux, windows, macOs]
 #         py36:
@@ -57,9 +57,9 @@ jobs:
     - template: jobs/publish-pypi-poetry.yml@cielquan
       parameters:
         custom_repository_url: https://test.pypi.org/
-#         dependsOn:
+        dependsOn:
 #           - pre_commit
-#           - safety
+          - safety
 #           - package
 # #           - dev
 #           - py36
