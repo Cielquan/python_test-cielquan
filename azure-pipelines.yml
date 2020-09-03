@@ -60,14 +60,14 @@ jobs:
           - pre_commit
           - safety
           - package
-          - dev
+#           - dev
           - py36
           - py37
           - py38
           - py39
           - pypy3
           - report_coverage
-          - docs_test_html
-          - docs_test_linkcheck
-          - docs_test_coverage
-          - docs_test_doctest
+#           - docs_test_html
+#           - docs_test_linkcheck
+#           - docs_test_coverage
+#           - docs_test_doctest
