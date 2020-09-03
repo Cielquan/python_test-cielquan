@@ -55,7 +55,8 @@ jobs:
 
   - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
     - template: jobs/publish-pypi-poetry.yml@cielquan
-      parameters: null
+      parameters:
+        custom_repository_url: https://test.pypi.org/
 #         dependsOn:
 #           - pre_commit
 #           - safety
