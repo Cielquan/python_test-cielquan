@@ -17,7 +17,7 @@ resources:
       type: github
       endpoint: github
       name: cielquan/azure-pipelines-template
-      ref: master
+      ref: publish-on-pypi
 
 variables:
   PYTEST_ADDOPTS: "-v -v -ra --showlocals"
