@@ -13,7 +13,7 @@
     repository = "https://github.com/Cielquan/python_test"
     readme = "README.rst"
     packages = [
-        { include = "python_test", from = "src" },
+        { include = "python_test_cielquan", from = "src" },
     ]
 
     [tool.poetry.dependencies]
@@ -83,7 +83,7 @@
 
 #: -- TOWNCRIER CONFIG -----------------------------------------------------------------
 [tool.towncrier]
-    package = "python_test"
+    package = "python_test_cielquan"
     package_dir = "src"
     # single_file = true  # if false, filename is formatted like `title_format`.
     filename = "CHANGELOG.rst"
@@ -169,12 +169,12 @@
 
     [tool.coverage.paths]
         combine = [
-            "src/python_test",
-            "*/.tox/*/lib/python*/site-packages/python_test",
-            "*/.tox/pypy*/site-packages/python_test",
-            "*/.tox\\*\\Lib\\site-packages\\python_test",
-            "*/src/python_test",
-            "*\\src\\python_test",
+            "src/python_test_cielquan",
+            "*/.tox/*/lib/python*/site-packages/python_test_cielquan",
+            "*/.tox/pypy*/site-packages/python_test_cielquan",
+            "*/.tox\\*\\Lib\\site-packages\\python_test_cielquan",
+            "*/src/python_test_cielquan",
+            "*\\src\\python_test_cielquan",
         ]
 
     [tool.coverage.report]
