@@ -60,7 +60,7 @@ repos:
   #: isort - sort imports
   #: Inline skip: `# isort: skip`
   - repo: https://github.com/timothycrosley/isort
-    rev: 377d260ffa6f746693f97b46d95025afc4bd8275  # frozen: 5.4.2
+    rev: 491b3461d572249de71a7b2572af281322d4f40b  # frozen: 5.6.3
     hooks:
       - id: isort
 
@@ -74,7 +74,7 @@ repos:
   #: black - python formatter
   #: Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
   - repo: https://github.com/psf/black
-    rev: 6bedb5c58a7d8c25aa9509f8217bc24e9797e90d  # frozen: 19.10b0
+    rev: e66be67b9b6811913470f70c28b4d50f94d05b22  # frozen: 20.8b1
     hooks:
       - id: black
         args: [--safe]
@@ -92,19 +92,28 @@ repos:
   #: File skip: `# flake8: noqa`
   #: Inline skip: `# noqa` or `# noqa: CODE,...`
   - repo: https://gitlab.com/pycqa/flake8
-    rev: 05f6544aef321e2fee03a1277ce2eef8880fb927  # frozen: 3.8.3
+    rev: bb6a530e28acab8d3551043b3e8709db8bcbac6b  # frozen: 3.8.4
     hooks:
       - id: flake8
         args: [--min-python-version=3.6.1]
         additional_dependencies:
           #: Colored output - needs custom format
           - "flake8-colors"
+          #: Check for missing type annotations
+          #: ANN001-ANN003, ANN101-ANN102, ANN201-ANN206, ANN301
+          - "flake8-annotations==2.4.1"
+          #: Forbid walrus operator
+          #: ASN001
+          - "flake8-walrus==1.1.0"
           #: Finding likely bugs and design problems
           #: B001-B014 | B301-B306 | B901-B903,B950
           - "flake8-bugbear==20.1.4"
           #: Write better list/set/dict comprehensions
           #: C400-C416
           - "flake8-comprehensions==3.2.2"
+          #: Check cognitive complexity
+          #: CCR001
+          - "flake8-cognitive-complexity==0.1.0"
           #: Check docstrings with PEP257
           #: D100-D107 | D200-D215 | D300-D302 | D400-D417
           - "flake8-docstrings==1.5.0"
@@ -127,6 +136,9 @@ repos:
           #: Check common style issues or inconsistencies with pytest-based tests
           #: PT001-PT019
           - "flake8-pytest-style==1.1.1"
+          #: Check for possible code simplifications
+          #: SIM101-SIM108, SIM201-SIM208, SIM210-SIM212, SIM220-SIM223
+          - "flake8-simplify==0.7.0"
           #: Check if typing imports are properly guarded
           #: TYP001 - TYP006
           - "flake8-typing-imports==1.9.0"
