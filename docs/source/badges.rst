@@ -2,11 +2,13 @@ badges
 ======
 
 +-------------------+----------------------------------------------------------------------+
-| **General**       | |maintenance| |license|                                              |
+| **General**       | |maintenance| |license| |dependabot|                                 |
 +-------------------+----------------------------------------------------------------------+
 | **Documentation** | |rtd| |sphinx|                                                       |
 +-------------------+----------------------------------------------------------------------+
 | **Pipeline**      | |azure_pipeline| |azure_coverage|                                    |
+|                   +----------------------------------------------------------------------+
+|                   | |codeclimate_maintain| |codeclimate_cov|                             |
 +-------------------+----------------------------------------------------------------------+
 | **Testing**       | |tox| |pytest|                                                       |
 +-------------------+----------------------------------------------------------------------+
@@ -14,7 +16,7 @@ badges
 +-------------------+----------------------------------------------------------------------+
 | **VC**            | |vcs| |gpg| |semver|                                                 |
 +-------------------+----------------------------------------------------------------------+
-| **Releases**      | |poetry|                                                             |
+| **Releases**      | |poetry| |semantic_release|                                          |
 +-------------------+----------------------------------------------------------------------+
 | **Github**        | |gh_release| |gh_commits_since| |gh_last_commit|                     |
 |                   +----------------------------------------------------------------------+
@@ -24,6 +26,7 @@ badges
 |                   +----------------------------------------------------------------------+
 |                   | |pypi_status| |pypi_format| |pypi_downloads|                         |
 +-------------------+----------------------------------------------------------------------+
+
 
 +---------------+----------------------------------------------------------------------+
 | **General**   | |maintenance| |license| |black| |isort| |bandit| |rtd|               |
@@ -66,6 +69,32 @@ badges
 | |pypi_status| |pypi_format| |pypi_downloads|
 |
 |
+
+
+
+.. new
+
+.. |codeclimate_maintain| image:: https://img.shields.io/codeclimate/maintainability/andreoliwa/nitpick?style=flat-square
+    :alt: Code Climate maintainability
+    :target: https://codeclimate.com/github/andreoliwa/nitpick
+
+.. |codeclimate_cov| image:: https://img.shields.io/codeclimate/coverage/andreoliwa/nitpick?style=flat-square
+    :alt: Code Climate coverage
+    :target: https://codeclimate.com/github/andreoliwa/nitpick
+
+.. |dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=andreoliwa/nitpick
+    :alt: Dependabot status
+    :target: https://dependabot.com
+
+.. |semantic_release| image:: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-Semantic--release-e10079.svg?style=flat-square
+    :alt: Semantic release
+    :target: https://github.com/semantic-release/semantic-release
+
+.. [![Maintainability](https://api.codeclimate.com/v1/badges/61e0cdc48e24e76a0460/maintainability)]()
+.. [![Test Coverage](https://api.codeclimate.com/v1/badges/61e0cdc48e24e76a0460/test_coverage)](https://codeclimate.com/github/andreoliwa/nitpick)
+.. [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=andreoliwa/nitpick)](https://dependabot.com)
+.. [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 
 
 .. General
