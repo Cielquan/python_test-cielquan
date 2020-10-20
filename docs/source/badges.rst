@@ -2,7 +2,7 @@ badges
 ======
 
 +---------------+----------------------------------------------------------------------+
-| **General**   | |maintenance| |license| |black| |isort| |rtd|                        |
+| **General**   | |maintenance| |license| |black| |isort| |bandit| |rtd|               |
 +---------------+----------------------------------------------------------------------+
 | **Pipeline**  | |travis| |appveyor| |codecov|                                        |
 |               +----------------------------------------------------------------------+
@@ -26,7 +26,7 @@ badges
 |
 |
 |
-| |maintenance| |license| |black| |isort| |rtd|
+| |maintenance| |license| |black| |isort| |bandit| |rtd|
 |
 | |travis| |appveyor| |codecov|
 | |azure_pipeline| |azure_coverage|
@@ -59,8 +59,11 @@ badges
 
 .. |isort| image:: https://img.shields.io/badge/%20Imports-isort-%231674b1?style=flat-square&labelColor=ef8336
     :alt: Imports - isort
-    :target: https://pycqa.github.io/isort/
+    :target: https://pycqa.github.io/isort
 
+.. |bandit| image:: https://img.shields.io/badge/Security-bandit-yellow.svg?style=flat-square
+    :target: https://github.com/PyCQA/bandit
+    :alt: Security - bandit
 
 .. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
     :alt: Read the Docs - Build Status (latest)
