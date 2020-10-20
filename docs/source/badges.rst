@@ -2,7 +2,7 @@ badges
 ======
 
 +---------------+----------------------------------------------------------------------+
-| **General**   | |maintenance| |license| |black| |rtd|                                |
+| **General**   | |maintenance| |license| |black| |isort| |rtd|                        |
 +---------------+----------------------------------------------------------------------+
 | **Pipeline**  | |travis| |appveyor| |codecov|                                        |
 |               +----------------------------------------------------------------------+
@@ -26,7 +26,7 @@ badges
 |
 |
 |
-| |maintenance| |license| |black| |rtd|
+| |maintenance| |license| |black| |isort| |rtd|
 |
 | |travis| |appveyor| |codecov|
 | |azure_pipeline| |azure_coverage|
@@ -54,8 +54,13 @@ badges
     :target: https://github.com/Cielquan/python_test/blob/master/LICENSE.txt
 
 .. |black| image:: https://img.shields.io/badge/Code%20Style-black-000000.svg?style=flat-square
-    :alt: Code Style - Black
+    :alt: Code Style - black
     :target: https://github.com/psf/black
+
+.. |isort| image:: https://img.shields.io/badge/%20Imports-isort-%231674b1?style=flat-square&labelColor=ef8336
+    :alt: Imports - isort
+    :target: https://pycqa.github.io/isort/
+
 
 .. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
     :alt: Read the Docs - Build Status (latest)
