@@ -26,7 +26,7 @@ repos:
       - id: no-commit-to-branch
         args: [
           --branch, staging,
-#          --branch, master,
+          --branch, master,
           --pattern, release/.*,
         ]
       - id: check-case-conflict
@@ -60,7 +60,7 @@ repos:
   #: isort - sort imports
   #: Inline skip: `# isort: skip`
   - repo: https://github.com/timothycrosley/isort
-    rev: 491b3461d572249de71a7b2572af281322d4f40b  # frozen: 5.6.3
+    rev: 6bb47b7acc1554ecb59d2855e9110c447162f674  # frozen: 5.6.4
     hooks:
       - id: isort
 
@@ -69,7 +69,7 @@ repos:
     rev: 6d80883e826e3490b002dcf90c6807f85d42c871  # frozen: v1.8.0
     hooks:
       - id: blacken-docs
-        additional_dependencies: [black==19.10b0]
+        additional_dependencies: [black==20.8b1]
 
   #: black - python formatter
   #: Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -120,7 +120,7 @@ repos:
           - "pydocstyle==5.0.2"
           #: Find dead/out-commented code
           #: E800
-          - "flake8-eradicate==0.3.0"
+          - "flake8-eradicate==1.0.0"
           #: Validate (lack of) logging format strings
           #: G001-G004, G010 | G100 | G200-G202
           - "flake8-logging-format==0.6.0"
