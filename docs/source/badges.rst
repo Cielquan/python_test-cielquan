@@ -14,9 +14,9 @@ badges
 +-------------------+----------------------------------------------------------------------+
 | **Code**          | |pre-commit| |black| |isort| |bandit|                                |
 +-------------------+----------------------------------------------------------------------+
-| **VC**            | |vcs| |gpg| |semver| |conventional_commits|                          |
+| **VC**            | |vcs| |gpg| |conventional_commits|                                   |
 +-------------------+----------------------------------------------------------------------+
-| **Releases**      | |poetry| |semantic_release|                                          |
+| **Releases**      | |semver| |semantic_release| |poetry|                                 |
 +-------------------+----------------------------------------------------------------------+
 | **Github**        | |gh_release| |gh_commits_since| |gh_last_commit|                     |
 |                   +----------------------------------------------------------------------+
@@ -181,8 +181,8 @@ badges
     :target: https://gnupg.org/
     :alt: Website
 
-.. |semver| image:: https://img.shields.io/badge/Versioning-semantic-brightgreen.svg?style=flat-square
-    :alt: Versioning - semantic
+.. |semver| image:: https://img.shields.io/badge/Semantic%20Versioning-2.0.0-brightgreen.svg?style=flat-square
+    :alt: Semantic Versioning - 2.0.0
     :target: https://semver.org/
 
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
