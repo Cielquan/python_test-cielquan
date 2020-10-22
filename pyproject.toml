@@ -203,6 +203,8 @@
     mock_use_standalone_module = true
     junit_family = "xunit2"
 
+
+#: -- COMMITIZEN CONFIG ----------------------------------------------------------------
 [tool.commitizen]
     name = "cz_conventional_commits"
     version = "0.5.2"
