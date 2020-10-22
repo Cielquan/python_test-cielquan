@@ -191,9 +191,10 @@
     [tool.coverage.html]
         show_contexts = true
 
-    [tool.coverage.coverage_conditional_plugin.rules]
-        # use with: # pragma: <KEY>
-        is_win = "sys_platform == 'win32'"
+    [tool.coverage.coverage_conditional_plugin]
+        [tool.coverage.coverage_conditional_plugin.rules]
+            # use with: # pragma: <KEY>
+            is_win = "sys_platform == 'win32'"
 
 
 #: -- PYTEST CONFIG --------------------------------------------------------------------
