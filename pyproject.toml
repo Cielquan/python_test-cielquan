@@ -6,7 +6,7 @@
 #: -- POETRY CONFIG --------------------------------------------------------------------
 [tool.poetry]
     name = "python_test_cielquan"
-    version = "0.5.0.3"
+    version = "0.5.2"
     description = "test stufff"
     authors = ["Cielquan <cielquan@protonmail.com>"]
     license = "GPL-3.0-or-later"
@@ -44,7 +44,7 @@
         # sphinxcontrib-confluencebuilder = {git = "https://github.com/sphinx-contrib/confluencebuilder.git", rev = "6e6edbb64260ea09858eb844dd46c79c7697267e", optional = true}
         #: Code check
         pre-commit = {version = "^2.4", optional = true}
-        mypy = {version = "0.782", optional = true}
+        mypy = {version = "0.790", optional = true}
         pylint = {version = "^2.5.3", optional = true}
 
     [tool.poetry.dev-dependencies]
@@ -135,14 +135,15 @@
 
 
 #: -- PYLINT CONFIG --------------------------------------------------------------------
-[tool.pylint.master]
-    additional-builtins = "tags"
+[tool.pylint]
+    [tool.pylint.master]
+        additional-builtins = "tags"
 
-[tool.pylint.messages_control]
-    disable = "C0330, C0326"  #: deactivated for black
+    [tool.pylint.messages_control]
+        disable = "C0330, C0326"  #: deactivated for black
 
-[tool.pylint.format]
-    max-line-length = "88"
+    [tool.pylint.format]
+        max-line-length = "88"
 
 
 #: -- COVERAGE CONFIG ------------------------------------------------------------------
@@ -198,3 +199,11 @@
     addopts = "-ra --showlocals"
     mock_use_standalone_module = true
     junit_family = "xunit2"
+
+[tool.commitizen]
+    name = "cz_conventional_commits"
+    version = "0.5.2"
+    tag_format = "$version"
+    version_files = [
+        "pyproject.toml:version",
+    ]
