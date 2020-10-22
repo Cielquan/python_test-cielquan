@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 
 
-def main():
+def main() -> int:
     """Call given `tool` from given `tox` env."""
     tool = sys.argv[1]
 
