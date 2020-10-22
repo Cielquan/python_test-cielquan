@@ -25,11 +25,11 @@ import python_test_cielquan
 from python_test_cielquan.python_tester import testus
 
 
-def test_something():
+def test_something() -> None:
     """docstring."""
     assert testus(1) == 2
 
 
-def test_init():
+def test_init() -> None:
     """docstring."""
     assert python_test_cielquan.__version__
