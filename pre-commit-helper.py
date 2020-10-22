@@ -18,6 +18,7 @@ from typing import List, Optional
 
 
 with suppress(ModuleNotFoundError):
+    from gitlint.git import GitCommit  # type: ignore[import]
     from gitlint.rules import (  # type: ignore[import]
         CommitMessageTitle,
         LineRule,
@@ -30,10 +31,10 @@ with suppress(ModuleNotFoundError):
         """Enforce jira issue tag in title."""
 
         name = "jira-issue-in-title"
-        id = "JI1"
+        id = "JI1"  # noqa: VNE003
         target = CommitMessageTitle
 
-        def validate(self, line, commit) -> List[Optional[RuleViolation]]:
+        def validate(self, line: str, _: GitCommit) -> List[Optional[RuleViolation]]:
             """Validate commit message."""
             if JIRA_ISSUE_TAG:
                 regex = re.compile(r"^.*\(" + JIRA_ISSUE_TAG + r"[-]?\d+\)$")
@@ -42,7 +43,7 @@ with suppress(ModuleNotFoundError):
             if regex.search(line):
                 return []
 
-            msg = "Title does not contain an 'issue tag' in paratheses at the end"
+            msg = "Title does not contain an 'issue tag' in parentheses at the end"
             return [RuleViolation(self.id, msg, line_nr=1)]
 
 
@@ -57,8 +58,8 @@ def tox_env_exe_runner() -> int:
 
     tox = Path(".tox")
     envs = sys.argv[2].split(",")
-
     cmd = None
+
     for env in envs:
         path = Path(tox / env / exe)
         if path.is_file():
