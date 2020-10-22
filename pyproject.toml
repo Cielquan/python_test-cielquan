@@ -209,6 +209,4 @@
     name = "cz_conventional_commits"
     version = "0.5.2"
     tag_format = "$version"
-    version_files = [
-        "pyproject.toml:version",
-    ]
+    version_files = ["pyproject.toml:version"]
