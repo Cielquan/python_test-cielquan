@@ -19,7 +19,7 @@ from typing import List, Optional
 
 
 #: Config
-JIRA_PROJECT_TAG = ""  # CHANGE ME
+JIRA_PROJECT_TAG = "SWAT"  # CHANGE ME
 
 
 with suppress(ModuleNotFoundError):
@@ -50,7 +50,13 @@ with suppress(ModuleNotFoundError):
             if regex.search(line):
                 return []
 
-            msg = "Title does not contain an 'issue tag' in parentheses at the end"
+            if JIRA_PROJECT_TAG:
+                msg = (
+                    "Title does not contain a jira '{JIRA_PROJECT_TAG}'"
+                    " issue link in parentheses at the end"
+                )
+            else:
+                msg = "Title does not contain an issue link in parentheses at the end"
             return [RuleViolation(self.id, msg, line_nr=1)]
 
 
