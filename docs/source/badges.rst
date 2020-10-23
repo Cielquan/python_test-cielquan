@@ -82,7 +82,7 @@ badges
     :alt: Code Climate coverage
     :target: https://codeclimate.com/github/andreoliwa/nitpick
 
-.. |dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=andreoliwa/nitpick
+.. |dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=cielquan/python_test-cielquan
     :alt: Dependabot status
     :target: https://dependabot.com
 
@@ -244,3 +244,15 @@ badges
 .. |pypi_downloads| image:: https://img.shields.io/pypi/dm/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :target: https://pypi.org/project/doth-dns/
     :alt: PyPI - Monthly downloads
+
+
+.. equal to project name with - and _
+    github
+    pypi
+    dependabot
+    (azure)
+
+.. links are only -
+    rtd
+
+.. ?: codeclimate
