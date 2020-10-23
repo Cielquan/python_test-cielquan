@@ -1,12 +1,13 @@
-"""Script to call executables in `tox` envs.
+# pylint: disable=invalid-name
+# noqa: D205,D208,D400
+"""
+    pre-commit-helper
+    ~~~~~~~~~~~~~~~~~
 
-The script takes two mandatory arguments:
-1. the executable to call like e.g. `pylint`
-2. a string with comma separated `tox` envs to check for the executable
+    Collection of helper functions for pre-commit.
 
-All other arguments after are passed to the tool on call.
-
-The script considers OS and calls the tool accordingly.
+    :copyright: 2020 (c) Christian Riedel
+    :license: GPLv3, see LICENSE file for more details
 """
 import re
 import subprocess  # nosec
@@ -17,6 +18,10 @@ from pathlib import Path
 from typing import List, Optional
 
 
+#: Config
+JIRA_PROJECT_TAG = ""  # CHANGE ME
+
+
 with suppress(ModuleNotFoundError):
     from gitlint.git import GitCommit  # type: ignore[import]
     from gitlint.rules import (  # type: ignore[import]
@@ -25,19 +30,21 @@ with suppress(ModuleNotFoundError):
         RuleViolation,
     )
 
-    JIRA_ISSUE_TAG = ""  # CHANGE ME
-
-    class JiraIssueInTitle(LineRule):
-        """Enforce jira issue tag in title."""
+    class IssueLinkInTitle(LineRule):  # pylint: disable=R0903
+        """Enforce issue links in title."""
 
         name = "jira-issue-in-title"
         id = "JI1"  # noqa: VNE003
         target = CommitMessageTitle
 
         def validate(self, line: str, _: GitCommit) -> List[Optional[RuleViolation]]:
-            """Validate commit message."""
-            if JIRA_ISSUE_TAG:
-                regex = re.compile(r"^.*\(" + JIRA_ISSUE_TAG + r"[-]?\d+\)$")
+            """Validate commit message.
+
+            :param line: Commit message line to validate
+            :param _: Whole commit object (not needed here)
+            """
+            if JIRA_PROJECT_TAG:
+                regex = re.compile(r"^.*\(" + JIRA_PROJECT_TAG + r"[-]?\d+\)$")
             else:
                 regex = re.compile(r"^.*\(#\d+\)$")
             if regex.search(line):
@@ -48,20 +55,28 @@ with suppress(ModuleNotFoundError):
 
 
 def tox_env_exe_runner() -> int:
-    """Call given `tool` from given `tox` env."""
+    """Call given `tool` from given `tox` env.
+
+    Script to call executables in `tox` envs considering OS.
+
+    The script takes two mandatory arguments:
+    1. The executable to call like e.g. `pylint`.
+    2. A string with comma separated `tox` envs to check for the executable.
+        The envs are checked in given order.
+
+    All other arguments after are passed to the tool on call.
+
+    Returns exit code 1 if no executable is found or the exit code of the called cmd.
+    """
+    is_win = sys.platform == "win32"
+
     tool = sys.argv[1]
-
-    if sys.platform == "win32":
-        exe = Path("Scripts/" + tool + ".exe")
-    else:
-        exe = Path("bin/" + tool)
-
-    tox = Path(".tox")
+    exe = Path(f"Scripts/{tool}.exe") if is_win else Path(f"bin/{tool}")
     envs = sys.argv[2].split(",")
     cmd = None
 
     for env in envs:
-        path = Path(tox / env / exe)
+        path = Path(".tox") / env / exe
         if path.is_file():
             cmd = (str(path), *sys.argv[3:])
 
