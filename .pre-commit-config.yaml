@@ -160,7 +160,7 @@ repos:
       #: Check config file
       - id: poetry-check
       #: Update lock file
-      - id: poetry-lock
+      # - id: poetry-lock
 
   #: rstcheck
   - repo: https://github.com/myint/rstcheck
