@@ -8,7 +8,7 @@
     :copyright: 2020 (c) Christian Riedel
     :license: MIT, see LICENSE.rst for more details
 """
-# pylint: disable=C0103
+# pylint: disable=invalid-name
 import os
 import re
 import sys
