@@ -1,52 +1,35 @@
 badges
 ======
 
-+-------------------+----------------------------------------------------------------------+
-| **General**       | |maintenance| |license| |dependabot|                                 |
-+-------------------+----------------------------------------------------------------------+
-| **Documentation** | |rtd| |sphinx|                                                       |
-+-------------------+----------------------------------------------------------------------+
-| **Pipeline**      | |azure_pipeline| |azure_coverage|                                    |
-|                   +----------------------------------------------------------------------+
-|                   | |codeclimate_maintain| |codeclimate_cov|                             |
-+-------------------+----------------------------------------------------------------------+
-| **Testing**       | |tox| |pytest|                                                       |
-+-------------------+----------------------------------------------------------------------+
-| **Code**          | |pre-commit| |black| |isort| |bandit|                                |
-+-------------------+----------------------------------------------------------------------+
-| **VC**            | |vcs| |gpg| |conventional_commits|                                   |
-+-------------------+----------------------------------------------------------------------+
-| **Releases**      | |semver| |semantic_release| |poetry|                                 |
-+-------------------+----------------------------------------------------------------------+
-| **Github**        | |gh_release| |gh_commits_since| |gh_last_commit|                     |
-|                   +----------------------------------------------------------------------+
-|                   | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|                |
-+-------------------+----------------------------------------------------------------------+
-| **PyPI**          | |pypi_release| |pypi_py_versions| |pypi_implementations|             |
-|                   +----------------------------------------------------------------------+
-|                   | |pypi_status| |pypi_format| |pypi_downloads|                         |
-+-------------------+----------------------------------------------------------------------+
-
-
-+---------------+----------------------------------------------------------------------+
-| **General**   | |maintenance| |license| |black| |isort| |bandit| |rtd|               |
-+---------------+----------------------------------------------------------------------+
-| **Pipeline**  | |travis| |appveyor| |codecov|                                        |
-|               +----------------------------------------------------------------------+
-|               | |azure_pipeline| |azure_coverage|                                    |
-+---------------+----------------------------------------------------------------------+
-| **Tools**     | |poetry| |tox| |pytest| |sphinx|                                     |
-+---------------+----------------------------------------------------------------------+
-| **VC**        | |vcs| |gpg| |semver| |pre-commit|                                    |
-+---------------+----------------------------------------------------------------------+
-| **Github**    | |gh_release| |gh_commits_since| |gh_last_commit|                     |
-|               +----------------------------------------------------------------------+
-|               | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|                |
-+---------------+----------------------------------------------------------------------+
-| **PyPI**      | |pypi_release| |pypi_py_versions| |pypi_implementations|             |
-|               +----------------------------------------------------------------------+
-|               | |pypi_status| |pypi_format| |pypi_downloads|                         |
-+---------------+----------------------------------------------------------------------+
++-------------------+------------------------------------------------------------------+
+| **General**       | |maintenance| |license| |dependabot|                             |
++-------------------+------------------------------------------------------------------+
+| **Documentation** | |rtd| |sphinx|                                                   |
++-------------------+------------------------------------------------------------------+
+| **Pipeline**      | |azure_pipeline| |azure_coverage|                                |
+|                   +------------------------------------------------------------------+
+|                   | |azure_pipeline_o|                                               |
+|                   +------------------------------------------------------------------+
+|                   | |codeclimate_maintain| |codeclimate_cov|                         |
+|                   +------------------------------------------------------------------+
+|                   | |codeclimate_maintain_o| |codeclimate_cov_o|                     |
++-------------------+------------------------------------------------------------------+
+| **Testing**       | |tox| |pytest|                                                   |
++-------------------+------------------------------------------------------------------+
+| **Code**          | |pre-commit| |black| |isort| |bandit|                            |
++-------------------+------------------------------------------------------------------+
+| **VC**            | |vcs| |gpg| |conventional_commits|                               |
++-------------------+------------------------------------------------------------------+
+| **Releases**      | |semver| |semantic_release| |poetry|                             |
++-------------------+------------------------------------------------------------------+
+| **Github**        | |gh_release| |gh_commits_since| |gh_last_commit|                 |
+|                   +------------------------------------------------------------------+
+|                   | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|            |
++-------------------+------------------------------------------------------------------+
+| **PyPI**          | |pypi_release| |pypi_py_versions| |pypi_implementations|         |
+|                   +------------------------------------------------------------------+
+|                   | |pypi_status| |pypi_format| |pypi_downloads|                     |
++-------------------+------------------------------------------------------------------+
 
 | .
 |
@@ -55,7 +38,6 @@ badges
 |
 | |maintenance| |license| |black| |isort| |bandit| |rtd|
 |
-| |travis| |appveyor| |codecov|
 | |azure_pipeline| |azure_coverage|
 |
 | |poetry| |tox| |pytest| |sphinx|
@@ -72,92 +54,62 @@ badges
 
 
 
-.. new
-
-.. |codeclimate_maintain| image:: https://img.shields.io/codeclimate/maintainability/andreoliwa/nitpick?style=flat-square
-    :alt: Code Climate maintainability
-    :target: https://codeclimate.com/github/andreoliwa/nitpick
-
-.. |codeclimate_cov| image:: https://img.shields.io/codeclimate/coverage/andreoliwa/nitpick?style=flat-square
-    :alt: Code Climate coverage
-    :target: https://codeclimate.com/github/andreoliwa/nitpick
-
-.. |dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=cielquan/python_test-cielquan
-    :alt: Dependabot status
-    :target: https://dependabot.com
-
-.. |semantic_release| image:: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-Semantic--release-e10079.svg?style=flat-square
-    :alt: Semantic release
-    :target: https://github.com/semantic-release/semantic-release
-
-.. |conventional_commits| image:: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square
-    :alt: Conventional Commits
-    :target: https://conventionalcommits.org
-
-.. [![Maintainability](https://api.codeclimate.com/v1/badges/61e0cdc48e24e76a0460/maintainability)]()
-.. [![Test Coverage](https://api.codeclimate.com/v1/badges/61e0cdc48e24e76a0460/test_coverage)](https://codeclimate.com/github/andreoliwa/nitpick)
-.. [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=andreoliwa/nitpick)](https://dependabot.com)
-.. [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
-.. [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg)](https://conventionalcommits.org)
-
-
-
 .. General
+
 .. |maintenance| image:: https://img.shields.io/badge/No%20Maintenance%20Intended-X-red.svg?style=flat-square
     :target: http://unmaintained.tech/
     :alt: Maintenance - not intended
 
-.. |license| image:: https://img.shields.io/github/license/Cielquan/python_test.svg?style=flat-square&label=License
+.. |license| image:: https://img.shields.io/github/license/Cielquan/python_test-cielquan.svg?style=flat-square&label=License
+    :target: https://github.com/Cielquan/python_test-cielquan/blob/master/LICENSE.txt
     :alt: License
-    :target: https://github.com/Cielquan/python_test/blob/master/LICENSE.txt
 
-.. |black| image:: https://img.shields.io/badge/Code%20Style-black-000000.svg?style=flat-square
-    :alt: Code Style - black
-    :target: https://github.com/psf/black
+.. |dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=cielquan/python_test-cielquan
+    :target: https://dependabot.com
+    :alt: Dependabot status
 
-.. |isort| image:: https://img.shields.io/badge/%20Imports-isort-%231674b1?style=flat-square&labelColor=ef8336
-    :alt: Imports - isort
-    :target: https://pycqa.github.io/isort
-
-.. |bandit| image:: https://img.shields.io/badge/Security-bandit-yellow.svg?style=flat-square
-    :target: https://github.com/PyCQA/bandit
-    :alt: Security - bandit
+.. Documentation
 
 .. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
-    :alt: Read the Docs - Build Status (latest)
     :target: https://python-test-cielquan.readthedocs.io/en/latest/
+    :alt: Read the Docs - Build Status (latest)
 
+.. |sphinx| image:: https://img.shields.io/badge/Doc%20builder-sphinx-brightgreen.svg?style=flat-square
+    :target: https://www.sphinx-doc.org/
+    :alt: Sphinx
 
-.. Tests
-.. |travis| image:: https://img.shields.io/travis/com/Cielquan/python_test/master.svg?style=flat-square&logo=travis-ci&logoColor=FBE072&label=Travis%20CI
-    :alt: Travis - Build Status
-    :target: https://travis-ci.com/Cielquan/python_test
-
-.. |appveyor| image:: https://img.shields.io/appveyor/ci/Cielquan/python_test/master.svg?style=flat-square&logo=appveyor&label=AppVeyor
-    :alt: AppVeyor - Build Status
-.. .    :target: https://ci.appveyor.com/project/Cielquan/pytest-cov
-
-.. |codecov| image:: https://img.shields.io/codecov/c/github/Cielquan/python_test/master.svg?style=flat-square&logo=codecov&label=Codecov
-    :alt: Codecov - Test Coverage
-    :target: https://codecov.io/gh/Cielquan/python_test
-
-
-.. .. |azure_pipeline| image:: https://dev.azure.com/cielquan/python_test/_apis/build/status/cielquan.python_test?branchName=master
-    :target: https://dev.azure.com/cielquan/python_test/_build/latest?definitionId=1&branchName=master
+.. Pipeline
 
 .. |azure_pipeline| image:: https://img.shields.io/azure-devops/build/cielquan/b6aee80c-ebd7-443c-9679-70e990729db6/1?style=flat-square&logo=azure-pipelines&label=Azure%20Pipelines
-    :target: https://dev.azure.com/cielquan/python_test/_build/latest?definitionId=1&branchName=master
-    :alt: Azure DevOps builds
+    :target: https://dev.azure.com/cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
+    :alt: Azure DevOps - Builds
 
-.. |azure_coverage| image:: https://img.shields.io/azure-devops/coverage/cielquan/python_test/1?style=flat-square&logo=azure-pipelines&label=Coverage
-    :target: https://dev.azure.com/cielquan/python_test/_build/latest?definitionId=1&branchName=master
-    :alt: Azure DevOps Coverage
+.. |azure_pipeline_o| image:: https://dev.azure.com/cielquan/python_test-cielquan/_apis/build/status/Cielquan.python_test-cielquan?repoName=Cielquan%2Fpython_test-cielquan&branchName=master
+    :target: https://dev.azure.com/cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
+    :alt: Azure DevOps - Builds
+
+.. |azure_coverage| image:: https://img.shields.io/azure-devops/coverage/cielquan/python_test-cielquan/1?style=flat-square&logo=azure-pipelines&label=Coverage
+    :target: https://dev.azure.com/cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
+    :alt: Azure DevOps - Coverage
+
+.. |codeclimate_maintain| image:: https://img.shields.io/codeclimate/maintainability/cielquan/python_test-cielquan?style=flat-square&logo=code-climate
+    :target: https://codeclimate.com/github/cielquan/python_test-cielquan
+    :alt: Code Climate - Maintainability
+
+.. |codeclimate_cov| image:: https://img.shields.io/codeclimate/coverage/cielquan/python_test-cielquan?style=flat-square&logo=code-climate
+    :target: https://codeclimate.com/github/cielquan/python_test-cielquan
+    :alt: Code Climate - Coverage
+
+.. |codeclimate_maintain_o| image:: https://api.codeclimate.com/v1/badges/dd84c2e0ec53f19156dd/maintainability
+    :target: https://codeclimate.com/github/Cielquan/python_test-cielquan/maintainability
+    :alt: Maintainability
+
+.. |codeclimate_cov_o| image:: https://api.codeclimate.com/v1/badges/dd84c2e0ec53f19156dd/test_coverage
+    :target: https://codeclimate.com/github/Cielquan/python_test-cielquan/test_coverage
+    :alt: Test Coverage
 
 
-.. Tools
-.. |poetry| image:: https://img.shields.io/badge/Packaging-poetry-brightgreen.svg?style=flat-square
-    :target: https://python-poetry.org/
-    :alt: Poetry
+.. Testing
 
 .. |tox| image:: https://img.shields.io/badge/Automation-tox-brightgreen.svg?style=flat-square
     :target: https://tox.readthedocs.io/
@@ -167,82 +119,106 @@ badges
     :target: https://docs.pytest.org/
     :alt: Pytest
 
-.. |sphinx| image:: https://img.shields.io/badge/Doc%20builder-sphinx-brightgreen.svg?style=flat-square
-    :target: https://www.sphinx-doc.org/
-    :alt: Sphinx
+.. Code
 
+.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
+    :target: https://github.com/pre-commit/pre-commit
+    :alt: pre-commit
 
-.. VCS
+.. |black| image:: https://img.shields.io/badge/Code%20Style-black-000000.svg?style=flat-square
+    :target: https://github.com/psf/black
+    :alt: Code Style - black
+
+.. |isort| image:: https://img.shields.io/badge/%20Imports-isort-%231674b1?style=flat-square&labelColor=ef8336
+    :target: https://pycqa.github.io/isort
+    :alt: Imports - isort
+
+.. |bandit| image:: https://img.shields.io/badge/Security-bandit-yellow.svg?style=flat-square
+    :target: https://github.com/PyCQA/bandit
+    :alt: Security - bandit
+
+.. VC
+
 .. |vcs| image:: https://img.shields.io/badge/VCS-git-orange.svg?style=flat-square&logo=git
     :target: https://git-scm.com/
     :alt: VCS
 
 .. |gpg| image:: https://img.shields.io/badge/GPG-signed-blue.svg?style=flat-square&logo=gnu-privacy-guard
     :target: https://gnupg.org/
-    :alt: Website
+    :alt: GPG
+
+.. |conventional_commits| image:: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square
+    :target: https://conventionalcommits.org
+    :alt: Conventional Commits - 1.0.0
+
+.. Releases
 
 .. |semver| image:: https://img.shields.io/badge/Semantic%20Versioning-2.0.0-brightgreen.svg?style=flat-square
-    :alt: Semantic Versioning - 2.0.0
     :target: https://semver.org/
+    :alt: Semantic Versioning - 2.0.0
 
-.. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?style=flat-square&logo=pre-commit&logoColor=yellow
-    :target: https://github.com/pre-commit/pre-commit
-    :alt: pre-commit
+.. |semantic_release| image:: https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-Semantic--release-e10079.svg?style=flat-square
+    :target: https://github.com/semantic-release/semantic-release
+    :alt: Semantic release
 
+.. |poetry| image:: https://img.shields.io/badge/Packaging-poetry-brightgreen.svg?style=flat-square
+    :target: https://python-poetry.org/
+    :alt: Poetry
 
 .. GitHub
-.. |gh_release| image:: https://img.shields.io/github/v/release/Cielquan/python_test.svg?style=flat-square&logo=github
+
+.. |gh_release| image:: https://img.shields.io/github/v/release/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
+    :target: https://github.com/Cielquan/python_test-cielquan/releases/latest
     :alt: Github - Latest Release
-    :target: https://github.com/Cielquan/python_test/releases/latest
 
-.. |gh_commits_since| image:: https://img.shields.io/github/commits-since/Cielquan/python_test/latest.svg?style=flat-square&logo=github
+.. |gh_commits_since| image:: https://img.shields.io/github/commits-since/Cielquan/python_test-cielquan/latest.svg?style=flat-square&logo=github
+    :target: https://github.com/Cielquan/python_test-cielquan/commits/master
     :alt: GitHub - Commits since latest release
-    :target: https://github.com/Cielquan/python_test/commits/master
 
-.. |gh_last_commit| image:: https://img.shields.io/github/last-commit/Cielquan/python_test.svg?style=flat-square&logo=github
+.. |gh_last_commit| image:: https://img.shields.io/github/last-commit/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
+    :target: https://github.com/Cielquan/python_test-cielquan/commits/master
     :alt: GitHub - Last Commit
-    :target: https://github.com/Cielquan/python_test/commits/master
 
-.. |gh_stars| image:: https://img.shields.io/github/stars/Cielquan/python_test.svg?style=flat-square&logo=github
+.. |gh_stars| image:: https://img.shields.io/github/stars/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
+    :target: https://github.com/Cielquan/python_test-cielquan/stargazers
     :alt: Github - Stars
-    :target: https://github.com/Cielquan/python_test/stargazers
 
-.. |gh_forks| image:: https://img.shields.io/github/forks/Cielquan/python_test.svg?style=flat-square&logo=github
+.. |gh_forks| image:: https://img.shields.io/github/forks/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
+    :target: https://github.com/Cielquan/python_test-cielquan/network/members
     :alt: Github - Forks
-    :target: https://github.com/Cielquan/python_test/network/members
 
-.. |gh_contributors| image:: https://img.shields.io/github/contributors/Cielquan/python_test.svg?style=flat-square&logo=github
+.. |gh_contributors| image:: https://img.shields.io/github/contributors/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
+    :target: https://github.com/Cielquan/python_test-cielquan/graphs/contributors
     :alt: Github - Contributors
-    :target: https://github.com/Cielquan/python_test/graphs/contributors
 
-.. |gh_watchers| image:: https://img.shields.io/github/watchers/Cielquan/python_test.svg?style=flat-square&logo=github
+.. |gh_watchers| image:: https://img.shields.io/github/watchers/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
+    :target: https://github.com/Cielquan/python_test-cielquan/watchers/
     :alt: Github - Watchers
-    :target: https://github.com/Cielquan/python_test/watchers/
-
 
 .. PyPI
+
 .. |pypi_release| image:: https://img.shields.io/pypi/v/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+    :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Package latest release
-    :target: https://pypi.org/project/doth-dns/
 
 .. |pypi_py_versions| image:: https://img.shields.io/pypi/pyversions/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
+    :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Supported Python Versions
-    :target: https://pypi.org/project/doth-dns/
 
 .. |pypi_implementations| image:: https://img.shields.io/pypi/implementation/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
+    :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Supported Implementations
-    :target: https://pypi.org/project/doth-dns/
 
 .. |pypi_status| image:: https://img.shields.io/pypi/status/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+    :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Stability
-    :target: https://pypi.org/project/doth-dns/
 
 .. |pypi_format| image:: https://img.shields.io/pypi/format/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+    :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Format
-    :target: https://pypi.org/project/doth-dns/
 
 .. |pypi_downloads| image:: https://img.shields.io/pypi/dm/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :target: https://pypi.org/project/doth-dns/
+    :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Monthly downloads
 
 
@@ -255,4 +231,4 @@ badges
 .. links are only -
     rtd
 
-.. ?: codeclimate
+.. codeclimate ?
