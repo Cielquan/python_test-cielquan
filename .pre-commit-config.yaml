@@ -117,7 +117,7 @@ repos:
           #: Check docstrings with PEP257
           #: D100-D107 | D200-D215 | D300-D302 | D400-D417
           - "flake8-docstrings==1.5.0"
-          - "pydocstyle==5.0.2"
+          - "pydocstyle==5.1.1"
           #: Find dead/out-commented code
           #: E800
           - "flake8-eradicate==1.0.0"
@@ -160,7 +160,7 @@ repos:
       #: Check config file
       - id: poetry-check
       #: Update lock file
-      - id: poetry-lock
+#      - id: poetry-lock
 
   #: rstcheck
   - repo: https://github.com/myint/rstcheck
