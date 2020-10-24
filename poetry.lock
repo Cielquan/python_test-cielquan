@@ -180,7 +180,7 @@ python-versions = ">=2.6, !=3.0.*, !=3.1.*"
 
 [[package]]
 name = "devtools"
-version = "0.6"
+version = "0.6.1"
 description = "Python's missing debug print command and other development tools."
 category = "dev"
 optional = false
@@ -1276,7 +1276,7 @@ testing = ["pytest", "pytest-xdist", "pytest-cov", "coverage", "coverage-conditi
 
 [metadata]
 lock-version = "1.1"
-        python-versions = "^3.6.1"
+python-versions = "^3.6.1"
 content-hash = "00c35f0c1d583cae3182c8ce0055dcae0910bdc590d144ae701c05ac552a8205"
 
 [metadata.files]
@@ -1388,8 +1388,8 @@ decorator = [
     {file = "decorator-4.4.2.tar.gz", hash = "sha256:e3a62f0520172440ca0dcc823749319382e377f37f140a0b99ef45fecb84bfe7"},
 ]
 devtools = [
-    {file = "devtools-0.6-py3-none-any.whl", hash = "sha256:bba4886df5adbcedafa2ec0e5fb2c255a82ce94ec822a12aa16f1f104e9eed36"},
-    {file = "devtools-0.6.tar.gz", hash = "sha256:3f2d4eb2de2a8501c41330524414b495d7bbf3066384b3cec5fa784a0d07099b"},
+    {file = "devtools-0.6.1-py3-none-any.whl", hash = "sha256:7334183972a8d04e81d08b7f62126abca9b6f4de51d825c5fdcb9c88f252601a"},
+    {file = "devtools-0.6.1.tar.gz", hash = "sha256:a054307594d35d28fae8df7629967363e851ae0ac7b2152640a8a401c39d42d7"},
 ]
 distlib = [
     {file = "distlib-0.3.1-py2.py3-none-any.whl", hash = "sha256:8c09de2c67b3e7deef7184574fc060ab8a793e7adbb183d942c389c8b13c52fb"},
