@@ -14,8 +14,6 @@ python_test
 | |stars| |forks| |contributors|
 |
 
-.. include:: docs/source/badges.rst
-
 
 Info
 ----
