@@ -2,9 +2,9 @@ minimum_pre_commit_version: "1.15"
 default_stages: [commit, push]
 
 repos:
-#: -----------------------------------------------------------------------------
+#: -------------------------------------------------------------------------------------
 #: Meta hooks
-#: -----------------------------------------------------------------------------
+#: -------------------------------------------------------------------------------------
   #: Meta hooks provided by pre-commit
   - repo: meta
     hooks:
@@ -16,12 +16,12 @@ repos:
         stages: [manual]
 
 
-#: -----------------------------------------------------------------------------
+#: -------------------------------------------------------------------------------------
 #: Commit hooks
-#: -----------------------------------------------------------------------------
+#: -------------------------------------------------------------------------------------
   #: code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: e1668fe86af3810fbca72b8653fe478e66a0afdc  # frozen: v3.2.0
+    rev: 9136088a246768144165fcc3ecc3d31bb686920a  # frozen: v3.3.0
     hooks:
       - id: no-commit-to-branch
         args: [
@@ -52,7 +52,7 @@ repos:
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: f766c29ec4bb6cf2674b81959871e59d5400380a  # frozen: v2.7.2
+    rev: 6f441f2ee6a61659b821d14a2611688e9b761ecf  # frozen: v2.7.3
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -91,7 +91,7 @@ repos:
   #: flake8 - python linter
   #: File skip: `# flake8: noqa`
   #: Inline skip: `# noqa` or `# noqa: CODE,...`
-  - repo: https://gitlab.com/pycqa/flake8
+  - repo: https://github.com/pycqa/flake8
     rev: bb6a530e28acab8d3551043b3e8709db8bcbac6b  # frozen: 3.8.4
     hooks:
       - id: flake8
@@ -117,7 +117,7 @@ repos:
           #: Check docstrings with PEP257
           #: D100-D107 | D200-D215 | D300-D302 | D400-D417
           - "flake8-docstrings==1.5.0"
-          - "pydocstyle==5.1.1"
+          - "pydocstyle==5.0.2"
           #: Find dead/out-commented code
           #: E800
           - "flake8-eradicate==1.0.0"
@@ -160,7 +160,7 @@ repos:
       #: Check config file
       - id: poetry-check
       #: Update lock file
-      # - id: poetry-lock
+      - id: poetry-lock
 
   #: rstcheck
   - repo: https://github.com/myint/rstcheck
