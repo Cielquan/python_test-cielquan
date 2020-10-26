@@ -40,31 +40,32 @@ jobs:
   - template: jobs/run-tox.yml@cielquan
     parameters:
       tox_envs:
-        pre-commit:
-          display_name: pre_commit
-        safety: null
-        py37:
-          os: [linux, windows, macOs]
+#        pre-commit:
+#          display_name: pre_commit
+#        safety: null
         py36:
           os: [linux, windows, macOs]
-        py38:
-          os: [linux, windows, macOs]
-        py39: null
-        pypy3:
-          os: [linux, macOs]
-        package:
-          os: [linux, windows, macOs]
-        docs-test-html:
-          display_name: docs_test_html
-        docs-test-linkcheck:
-          display_name: docs_test_linkcheck
-        docs-test-coverage:
-          display_name: docs_test_coverage
-        docs-test-doctest:
-          display_name: docs_test_doctest
+#        py37:
+#          os: [linux, windows, macOs]
+#        py38:
+#          os: [linux, windows, macOs]
+#        py39: null
+#        pypy3:
+#          os: [linux, macOs]
+#        package:
+#          os: [linux, windows, macOs]
+#        docs-test-html:
+#          display_name: docs_test_html
+#        docs-test-linkcheck:
+#          display_name: docs_test_linkcheck
+#        docs-test-coverage:
+#          display_name: docs_test_coverage
+#        docs-test-doctest:
+#          display_name: docs_test_doctest
       coverage:
         with_toxenv: 'coverage'
-        for_envs: [py37, py36, py38, py39, pypy3]
+        for_envs: [py36]
+#        for_envs: [py36, py37, py38, py39, pypy3]
       send_cov_to_codeclimate: true
 
   - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
