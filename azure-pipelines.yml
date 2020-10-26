@@ -35,7 +35,6 @@ variables:
   GIT_COMMIT_SHA: $(Build.SourceVersion)
   PYTEST_ADDOPTS: "-v -v -ra --showlocals"
   PYTEST_XDIST_N: '0'
-  send_cov_to_codeclimate: false
 
 jobs:
   - template: jobs/run-tox.yml@cielquan
