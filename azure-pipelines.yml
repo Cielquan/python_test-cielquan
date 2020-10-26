@@ -30,7 +30,7 @@ variables:
   "System.PreferGit": true
   CI_NAME: Azure Pipelines
   CI_BUILD_ID: $(Build.BuildId)
-  CI_BUILD_URL: "https://toxdev.visualstudio.com/tox/_build/results?buildId=$(Build.BuildId)"
+  CI_BUILD_URL: "https://dev.azure.com/cielquan/python_test-cielquan/_build/results?buildId=$(Build.BuildId)"
   GIT_BRANCH: $(Build.SourceBranch)
   GIT_COMMIT_SHA: $(Build.SourceVersion)
   PYTEST_ADDOPTS: "-v -v -ra --showlocals"
