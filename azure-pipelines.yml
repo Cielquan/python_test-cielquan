@@ -43,8 +43,8 @@ jobs:
 #        pre-commit:
 #          display_name: pre_commit
 #        safety: null
-        py36: null
-#          os: [linux, windows, macOs]
+        py36:
+          os: [linux, windows, macOs]
 #        py37:
 #          os: [linux, windows, macOs]
 #        py38:
