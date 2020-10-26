@@ -65,7 +65,7 @@ jobs:
       coverage:
         with_toxenv: 'coverage'
         for_envs: [py37, py36, py38, py39, pypy3]
-#      send_cov_to_codeclimate: true
+      send_cov_to_codeclimate: true
 
   - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
     - template: jobs/publish-pypi-poetry.yml@cielquan
