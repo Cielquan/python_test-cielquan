@@ -92,11 +92,11 @@ badges
     :target: https://dev.azure.com/cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
     :alt: Azure DevOps - Coverage
 
-.. |codeclimate_maintain| image:: https://img.shields.io/codeclimate/maintainability/cielquan/python_test-cielquan?style=flat-square&logo=code-climate
+.. |codeclimate_maintain| image:: https://img.shields.io/codeclimate/maintainability/Cielquan/python_test-cielquan?style=flat-square&logo=code-climate
     :target: https://codeclimate.com/github/cielquan/python_test-cielquan
     :alt: Code Climate - Maintainability
 
-.. |codeclimate_cov| image:: https://img.shields.io/codeclimate/coverage/cielquan/python_test-cielquan?style=flat-square&logo=code-climate
+.. |codeclimate_cov| image:: https://img.shields.io/codeclimate/coverage/Cielquan/python_test-cielquan?style=flat-square&logo=code-climate
     :target: https://codeclimate.com/github/cielquan/python_test-cielquan
     :alt: Code Climate - Coverage
 
