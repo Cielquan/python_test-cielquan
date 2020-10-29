@@ -24,7 +24,7 @@ resources:
       type: github
       endpoint: github
       name: cielquan/azure-pipelines-template
-      ref: 0.4.1
+      ref: 0.4.2
 
 variables:
   "System.PreferGit": true
