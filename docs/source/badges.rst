@@ -64,7 +64,7 @@ badges
     :target: https://github.com/Cielquan/python_test-cielquan/blob/master/LICENSE.txt
     :alt: License
 
-.. |dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=cielquan/python_test-cielquan
+.. |dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=Cielquan/python_test-cielquan
     :target: https://dependabot.com
     :alt: Dependabot status
 
