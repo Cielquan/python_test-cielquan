@@ -8,7 +8,7 @@ trigger:
     include: ['*']
   paths:
     exclude:
-    - readthedocs.yml
+    - .readthedocs.yml
     - LICENSE.txt
     - .gitignore
     - .gitattributes
