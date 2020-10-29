@@ -70,7 +70,7 @@ badges
 
 .. Documentation
 
-.. |rtd| image:: https://img.shields.io/readthedocs/python_test_cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
+.. |rtd| image:: https://img.shields.io/readthedocs/python_test-cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
     :target: https://python-test-cielquan.readthedocs.io/en/latest/
     :alt: Read the Docs - Build Status (latest)
 
@@ -80,24 +80,24 @@ badges
 
 .. Pipeline
 
-.. |azure_pipeline| image:: https://img.shields.io/azure-devops/build/cielquan/b6aee80c-ebd7-443c-9679-70e990729db6/1?style=flat-square&logo=azure-pipelines&label=Azure%20Pipelines
-    :target: https://dev.azure.com/cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
+.. |azure_pipeline| image:: https://img.shields.io/azure-devops/build/Cielquan/b6aee80c-ebd7-443c-9679-70e990729db6/1?style=flat-square&logo=azure-pipelines&label=Azure%20Pipelines
+    :target: https://dev.azure.com/Cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
     :alt: Azure DevOps - Builds
 
-.. |azure_pipeline_o| image:: https://dev.azure.com/cielquan/python_test-cielquan/_apis/build/status/Cielquan.python_test-cielquan?repoName=Cielquan%2Fpython_test-cielquan&branchName=master
-    :target: https://dev.azure.com/cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
+.. |azure_pipeline_o| image:: https://dev.azure.com/Cielquan/python_test-cielquan/_apis/build/status/Cielquan.python_test-cielquan?repoName=Cielquan%2Fpython_test-cielquan&branchName=master
+    :target: https://dev.azure.com/Cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
     :alt: Azure DevOps - Builds
 
-.. |azure_coverage| image:: https://img.shields.io/azure-devops/coverage/cielquan/python_test-cielquan/1?style=flat-square&logo=azure-pipelines&label=Coverage
-    :target: https://dev.azure.com/cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
+.. |azure_coverage| image:: https://img.shields.io/azure-devops/coverage/Cielquan/python_test-cielquan/1?style=flat-square&logo=azure-pipelines&label=Coverage
+    :target: https://dev.azure.com/Cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
     :alt: Azure DevOps - Coverage
 
 .. |codeclimate_maintain| image:: https://img.shields.io/codeclimate/maintainability/Cielquan/python_test-cielquan?style=flat-square&logo=code-climate
-    :target: https://codeclimate.com/github/cielquan/python_test-cielquan
+    :target: https://codeclimate.com/github/Cielquan/python_test-cielquan
     :alt: Code Climate - Maintainability
 
 .. |codeclimate_cov| image:: https://img.shields.io/codeclimate/coverage/Cielquan/python_test-cielquan?style=flat-square&logo=code-climate
-    :target: https://codeclimate.com/github/cielquan/python_test-cielquan
+    :target: https://codeclimate.com/github/Cielquan/python_test-cielquan
     :alt: Code Climate - Coverage
 
 .. |codeclimate_maintain_o| image:: https://api.codeclimate.com/v1/badges/dd84c2e0ec53f19156dd/maintainability
@@ -197,27 +197,27 @@ badges
 
 .. PyPI
 
-.. |pypi_release| image:: https://img.shields.io/pypi/v/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. |pypi_release| image:: https://img.shields.io/pypi/v/python_test-cielquan.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Package latest release
 
-.. |pypi_py_versions| image:: https://img.shields.io/pypi/pyversions/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
+.. |pypi_py_versions| image:: https://img.shields.io/pypi/pyversions/python_test-cielquan.svg?style=flat-square&logo=python&logoColor=FBE072
     :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Supported Python Versions
 
-.. |pypi_implementations| image:: https://img.shields.io/pypi/implementation/DoTH-DNS.svg?style=flat-square&logo=python&logoColor=FBE072
+.. |pypi_implementations| image:: https://img.shields.io/pypi/implementation/python_test-cielquan.svg?style=flat-square&logo=python&logoColor=FBE072
     :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Supported Implementations
 
-.. |pypi_status| image:: https://img.shields.io/pypi/status/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. |pypi_status| image:: https://img.shields.io/pypi/status/python_test-cielquan.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Stability
 
-.. |pypi_format| image:: https://img.shields.io/pypi/format/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. |pypi_format| image:: https://img.shields.io/pypi/format/python_test-cielquan.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Format
 
-.. |pypi_downloads| image:: https://img.shields.io/pypi/dm/DoTH-DNS.svg?style=flat-square&logo=pypi&logoColor=FBE072
+.. |pypi_downloads| image:: https://img.shields.io/pypi/dm/python_test-cielquan.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :target: https://pypi.org/project/python_test-cielquan/
     :alt: PyPI - Monthly downloads
 
@@ -226,9 +226,8 @@ badges
     github
     pypi
     dependabot
+    codeclimate
     (azure)
 
 .. links are only -
     rtd
-
-.. codeclimate ?
