@@ -197,28 +197,30 @@ badges
 
 .. PyPI
 
+.. REMOVE TEST
+
 .. |pypi_release| image:: https://img.shields.io/pypi/v/python_test-cielquan.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :target: https://pypi.org/project/python_test-cielquan/
+    :target: https://test.pypi.org/project/python_test-cielquan/
     :alt: PyPI - Package latest release
 
 .. |pypi_py_versions| image:: https://img.shields.io/pypi/pyversions/python_test-cielquan.svg?style=flat-square&logo=python&logoColor=FBE072
-    :target: https://pypi.org/project/python_test-cielquan/
+    :target: https://test.pypi.org/project/python_test-cielquan/
     :alt: PyPI - Supported Python Versions
 
 .. |pypi_implementations| image:: https://img.shields.io/pypi/implementation/python_test-cielquan.svg?style=flat-square&logo=python&logoColor=FBE072
-    :target: https://pypi.org/project/python_test-cielquan/
+    :target: https://test.pypi.org/project/python_test-cielquan/
     :alt: PyPI - Supported Implementations
 
 .. |pypi_status| image:: https://img.shields.io/pypi/status/python_test-cielquan.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :target: https://pypi.org/project/python_test-cielquan/
+    :target: https://test.pypi.org/project/python_test-cielquan/
     :alt: PyPI - Stability
 
 .. |pypi_format| image:: https://img.shields.io/pypi/format/python_test-cielquan.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :target: https://pypi.org/project/python_test-cielquan/
+    :target: https://test.pypi.org/project/python_test-cielquan/
     :alt: PyPI - Format
 
 .. |pypi_downloads| image:: https://img.shields.io/pypi/dm/python_test-cielquan.svg?style=flat-square&logo=pypi&logoColor=FBE072
-    :target: https://pypi.org/project/python_test-cielquan/
+    :target: https://test.pypi.org/project/python_test-cielquan/
     :alt: PyPI - Monthly downloads
 
 
