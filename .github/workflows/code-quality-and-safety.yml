@@ -11,6 +11,8 @@ env:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
+    env:
+      TOXENV: pre-commit
     steps:
       - uses: actions/checkout@v2
 
@@ -42,11 +44,13 @@ jobs:
         run: tox --notest -vv --skip-missing-interpreters false
 
       - name: Run pre-commit via tox
-        run: tox -e pre-commit
+        run: tox
         if: steps.is-merge.outcome == 'failure'
 
   safety:
     runs-on: ubuntu-latest
+    env:
+      TOXENV: safety
     steps:
       - uses: actions/checkout@v2
 
@@ -63,4 +67,4 @@ jobs:
         run: tox --notest -vv --skip-missing-interpreters false
 
       - name: Run safety via tox
-        run: tox -e safety
+        run: tox

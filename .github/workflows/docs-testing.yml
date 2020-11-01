@@ -11,6 +11,8 @@ env:
 jobs:
   doc-tests:
     name: 'Docu test: ${{ matrix.test }}'
+    env:
+      TOXENV: docs-test-${{ matrix.test }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -31,4 +33,4 @@ jobs:
         run: tox --notest -vv --skip-missing-interpreters false
 
       - name: 'Run sphinx builder: ${{ matrix.test }}'
-        run: tox -e docs-test-${{ matrix.test }}
+        run: tox

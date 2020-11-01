@@ -48,6 +48,8 @@ jobs:
   coverage:
     needs: code-tests
     runs-on: ubuntu-latest
+    env:
+      TOXENV: coverage
     steps:
       - uses: actions/checkout@v2
 
@@ -61,7 +63,7 @@ jobs:
           pip install tox
 
       - name: Generate tox env
-        run: tox --notest -vv --skip-missing-interpreters false
+        run: tox -e coverage --notest -vv --skip-missing-interpreters false
 
       - name: Download coverage artifacts
         uses: actions/download-artifact@v2
