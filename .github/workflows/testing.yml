@@ -85,6 +85,7 @@ jobs:
 
           artifact_dir = Path("coverage-artifacts")
           cov_dir = Path(".coverage_cache")
+          cov_dir.mkdir()
           for coverage_file in artifact_dir.glob("*/.coverage*"):
               destination = cov_dir / f".coverage.{coverage_file.parent.name[9:]}"
               print(f"{coverage_file} copy to {destination}")
