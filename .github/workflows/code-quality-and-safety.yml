@@ -38,6 +38,9 @@ jobs:
         run: SKIP=no-commit-to-branch tox -e pre-commit
         if: steps.is-merge.outcome == 'success'
 
+      - name: Generate tox env
+        run: tox --notest -vv --skip-missing-interpreters false
+
       - name: Run pre-commit via tox
         run: tox -e pre-commit
         if: steps.is-merge.outcome == 'failure'
@@ -55,6 +58,9 @@ jobs:
         run: |
           python -m pip install -U pip
           pip install tox
+
+      - name: Generate tox env
+        run: tox --notest -vv --skip-missing-interpreters false
 
       - name: Run safety via tox
         run: tox -e safety
