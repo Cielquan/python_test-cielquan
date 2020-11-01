@@ -1,0 +1,63 @@
+name: Code testing
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+env:
+  default_python_version: 3.8 # CHANGE ME
+
+jobs:
+  code-tests:
+    name: ${{ matrix.os }} / ${{ matrix.python_version }}
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        os: [Ubuntu, MacOS, Windows]
+        python_version: [3.6, 3.7, 3.8, 3.9] # CHANGE ME
+    env:
+      PYTEST_ADDOPTS: "-v -v -ra --showlocals"
+      PYTEST_XDIST_N: '0'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up python ${{ matrix.python_version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python_version }}
+
+      - name: Install tox
+        run: |
+          python -m pip install -U pip
+          pip install tox tox-gh-actions
+
+      - name: Run tox with python${{ matrix.python_version }}
+        run: tox
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: .coverage.py${{ matrix.python_version }}
+          path: .tox/.coverage.*
+          if-no-files-found: error
+
+#  coverage:
+#    needs: code-tests
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: actions/setup-python@v2
+#        with:
+#          python-version: ${{ env.default_python_version }}
+#
+#      - name: Install dependencies
+#        run: |
+#          python -m pip install -U pip
+#          pip install tox
+#
+#      - name: Download coverage artifacts
+#        uses: actions/download-artifact@v2
+#        with:
+#
