@@ -24,14 +24,15 @@ jobs:
       run: |
         last_merge_commit_sha=$(git log --merges -1 --pretty=format:"%H")
         if [[ $last_merge_commit_sha == ${{ github.sha }} ]]; then
-          # echo "SKIP=no-commit-to-branch" >> $GITHUB_ENV
-          echo "::save-state name=SKIP::no-commit-to-branch"
+          echo "SKIP=no-commit-to-branch" >> $GITHUB_ENV
+          # echo "::save-state name=SKIP::no-commit-to-branch"
         else
-          # echo "SKIP=" >> $GITHUB_ENV
-          echo "::save-state name=SKIP::"
+          echo "SKIP=" >> $GITHUB_ENV
+          # echo "::save-state name=SKIP::"
         fi
     - name: Run pre-commit via tox
-      run: SKIP=${{ process.env.STATE_SKIP }} tox -e pre-commit
+      run: SKIP=${{ env.SKIP }} tox -e pre-commit
+#      run: SKIP=${{ process.env.STATE_SKIP }} tox -e pre-commit
 
   safety:
     runs-on: ubuntu-latest
