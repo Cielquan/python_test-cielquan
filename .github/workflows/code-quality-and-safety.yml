@@ -21,5 +21,3 @@ jobs:
         pip install tox
     - name: Run ${{ matrix.name }} via tox
       run: tox -e ${{ matrix.name }}
-# remove
-    - run: .tox/${{ matrix.name }}/bin/pip list
