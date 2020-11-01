@@ -33,8 +33,6 @@ jobs:
     - name: test env var
       run: echo ${{ env.SKIP }}
     - name: test env var
-      run: echo ${{ SKIP }}
-    - name: test env var
       run: echo $SKIP
 #    - name: Run pre-commit via tox
 #      run: SKIP=${{ env.SKIP }} tox -e pre-commit
