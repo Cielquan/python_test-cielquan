@@ -42,14 +42,14 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: coverage-${{ matrix.os }}-py${{ matrix.python_version }}
-          path: .tox/.coverage*
+          path: .coverage_cache/.coverage*
           if-no-files-found: error
 
       - name: Upload junit artifact
         uses: actions/upload-artifact@v2
         with:
           name: junit-${{ matrix.os }}-py${{ matrix.python_version }}
-          path: .tox/junit*.xml
+          path: .junit_cache/junit*.xml
           if-no-files-found: error
 
   coverage:
@@ -84,9 +84,9 @@ jobs:
           import shutil
 
           artifact_dir = Path("coverage-artifacts")
-          tox_dir = Path(".tox")
+          cov_dir = Path(".coverage_cache")
           for coverage_file in artifact_dir.glob("*/.coverage*"):
-              destination = tox_dir / f".coverage.{coverage_file.parent.name[9:]}"
+              destination = cov_dir / f".coverage.{coverage_file.parent.name[9:]}"
               print(f"{coverage_file} copy to {destination}")
               shutil.copy(str(coverage_file), str(destination))
         shell: python
@@ -101,7 +101,7 @@ jobs:
         with:
           name: total-coverage
           path: |
-            .tox/coverage.xml
-            .tox/.coverage
-            .tox/htmlcov/
+            .coverage_cache/coverage.xml
+            .coverage_cache/.coverage
+            .coverage_cache/htmlcov/
           if-no-files-found: error
