@@ -7,15 +7,14 @@ on:
 
 env:
   default_python_version: 3.8 # CHANGE ME
-  docs_tests: '[html, linkcheck, coverage, doctest, confluence]'
 
 jobs:
   doc-test:
-    name: ${{ matrix.test }}
+    name: 'Docu test: ${{ matrix.test }}'
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        test: ${{ env.docs_tests }}
+        test: [html, linkcheck, coverage, doctest] # CHANGE ME
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
