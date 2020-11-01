@@ -99,7 +99,7 @@ jobs:
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v2
         with:
-          name: total-coverage
+          name: coverage-merged
           path: |
             .coverage_cache/coverage.xml
             .coverage_cache/.coverage
