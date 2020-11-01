@@ -45,6 +45,13 @@ jobs:
           path: .tox/.coverage*
           if-no-files-found: error
 
+      - name: Upload junit artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: junit-${{ matrix.os }}-py${{ matrix.python_version }}
+          path: .tox/junit*.xml
+          if-no-files-found: error
+
   coverage:
     needs: code-tests
     if: always()
@@ -88,3 +95,13 @@ jobs:
         run: tox
         env:
           MIN_COVERAGE: 100
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: total-coverage
+          path: |
+            .tox/.coverage
+            .tox/htmlcov/
+            coverage.xml
+          if-no-files-found: error
