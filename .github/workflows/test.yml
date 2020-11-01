@@ -1,0 +1,13 @@
+name: Test
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+jobs:
+  test-cross:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      if: jobs.pre-commit.outcome == 'failure'
