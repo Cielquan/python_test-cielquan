@@ -1,0 +1,29 @@
+name: Documentation testing
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+
+env:
+  default_python_version: 3.8 # CHANGE ME
+  docs_tests: [html, linkcheck, coverage, doctest, confluence]
+
+jobs:
+  doc-test:
+    name: ${{ matrix.test }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        test: ${{ env.docs_tests }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+      with:
+        python-version: ${{ env.default_python_version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install -U pip
+        pip install tox
+    - name: 'Run sphinx builder: ${{ matrix.test }}'
+      run: tox -e docs-test-${{ matrix.test }}
