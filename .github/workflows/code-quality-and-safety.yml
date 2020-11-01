@@ -13,13 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
     - uses: actions/setup-python@v2
       with:
         python-version: ${{ env.default_python_version }}
+
     - name: Install dependencies
       run: |
         python -m pip install -U pip
         pip install tox
+
     - name: Is merge commit?
       id: is-merge
       continue-on-error: true
@@ -30,9 +33,11 @@ jobs:
         else
           exit 1
         fi
+
     - name: Run pre-commit via tox (skip no-commit-to-branch)
       run: SKIP=no-commit-to-branch tox -e pre-commit
       if: steps.is-merge.outcome == 'success'
+
     - name: Run pre-commit via tox
       run: tox -e pre-commit
       if: steps.is-merge.outcome == 'failure'
@@ -41,12 +46,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+
     - uses: actions/setup-python@v2
       with:
         python-version: ${{ env.default_python_version }}
+
     - name: Install dependencies
       run: |
         python -m pip install -U pip
         pip install tox
+
     - name: Run safety via tox
       run: tox -e safety
