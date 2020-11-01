@@ -34,7 +34,7 @@ jobs:
       if: failure()
     - name: Run pre-commit via tox
       run: tox -e pre-commit
-      if: skipped()
+      if: cancelled()
 
   safety:
     runs-on: ubuntu-latest
