@@ -22,20 +22,20 @@ jobs:
         pip install tox
     - name: Is merge commit?
       id: is-merge
+      continue-on-error: true
       run: |
         last_merge_commit_sha=$(git log --merges -1 --pretty=format:"%H")
-        if [[ $last_merge_commit_sha != ${{ github.sha }} ]]; then
-          exit 1
-        else
+        if [[ $last_merge_commit_sha == ${{ github.sha }} ]]; then
           exit 0
+        else
+          exit 1
         fi
-      continue-on-error: true
     - name: Run pre-commit via tox (skip no-commit-to-branch)
       run: SKIP=no-commit-to-branch tox -e pre-commit
-      if: steps.is-merge.outcome == 'failure'
+      if: steps.is-merge.outcome == 'success'
     - name: Run pre-commit via tox
       run: tox -e pre-commit
-      if: steps.is-merge.outcome == 'success'
+      if: steps.is-merge.outcome == 'failure'
 
   safety:
     runs-on: ubuntu-latest
