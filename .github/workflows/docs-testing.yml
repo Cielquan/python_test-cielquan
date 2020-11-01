@@ -7,7 +7,7 @@ on:
 
 env:
   default_python_version: 3.8 # CHANGE ME
-  docs_tests: [html, linkcheck, coverage, doctest, confluence]
+  docs_tests: '[html, linkcheck, coverage, doctest, confluence]'
 
 jobs:
   doc-test:
@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        test: ${{ env.docs_tests }}
+        test: ${{ toJson(env.docs_tests) }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-python@v2
