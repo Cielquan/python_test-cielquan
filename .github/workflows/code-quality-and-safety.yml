@@ -23,7 +23,7 @@ jobs:
     - name: Is merge commit?
       run: |
         last_merge_commit_sha=$(git log --merges -1 --pretty=format:"%H")
-        if [[ $last_merge_commit_sha == ${{ github.sha }} ]]; then
+        if [[ $last_merge_commit_sha != ${{ github.sha }} ]]; then
           echo "SKIP=no-commit-to-branch" >> $GITHUB_ENV
           # echo "::save-state name=SKIP::no-commit-to-branch"
         else
