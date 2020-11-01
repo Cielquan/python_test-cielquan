@@ -1,4 +1,7 @@
 name: Code testing
+# TODO: add code-climate upload
+# TODO: add pkg test before code-tests
+# TODO: let code-tests jobs fail when corresponding os pkg fails
 
 on:
   pull_request:
