@@ -9,7 +9,7 @@ env:
   default_python_version: 3.8 # CHANGE ME
 
 jobs:
-  doc-test:
+  doc-tests:
     name: 'Docu test: ${{ matrix.test }}'
     runs-on: ubuntu-latest
     strategy:
