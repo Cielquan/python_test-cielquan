@@ -41,8 +41,8 @@ jobs:
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v2
         with:
-          name: .coverage.${{ matrix.os }}.py${{ matrix.python_version }}
-          path: .tox/.coverage.*
+          name: coverage-${{ matrix.os }}-py${{ matrix.python_version }}
+          path: .tox/.coverage*
           if-no-files-found: error
 
   coverage:
@@ -63,18 +63,28 @@ jobs:
           python -m pip install -U pip
           pip install tox
 
-      - name: print toxwirkdir
-        run: tox -e test
-
       - name: Generate tox env
-        run: tox -e coverage --notest -vv --skip-missing-interpreters false
+        run: tox --notest -vv --skip-missing-interpreters false
 
       - name: Download coverage artifacts
         uses: actions/download-artifact@v2
         with:
-          path: .tox/
+          path: coverage-artifacts/
+
+      - name: Move coverage files to .tox/
+        run: |
+          from pathlib import Path
+          import shutil
+
+          artifact_dir = Path("coverage-artifacts")
+          tox_dir = Path(".tox")
+          for coverage_file in artifact_dir.glob("*/.coverage*"):
+            destination = tox_dir / f".coverage.{coverage_file.parent.name[9:]}"
+            print(f"{coverage_file} copy to {destination}")
+            shutil.copy(str(coverage_file), str(destination))'
+        shell: python
 
       - name: Merge coverage data
-        run: tox -e coverage
+        run: tox
         env:
           MIN_COVERAGE: 100
