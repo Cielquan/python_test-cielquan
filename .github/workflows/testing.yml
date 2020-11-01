@@ -47,6 +47,7 @@ jobs:
 
   coverage:
     needs: code-tests
+    if: always()
     runs-on: ubuntu-latest
     env:
       TOXENV: coverage
