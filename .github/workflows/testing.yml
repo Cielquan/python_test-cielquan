@@ -86,9 +86,9 @@ jobs:
           artifact_dir = Path("coverage-artifacts")
           tox_dir = Path(".tox")
           for coverage_file in artifact_dir.glob("*/.coverage*"):
-            destination = tox_dir / f".coverage.{coverage_file.parent.name[9:]}"
-            print(f"{coverage_file} copy to {destination}")
-            shutil.copy(str(coverage_file), str(destination))'
+              destination = tox_dir / f".coverage.{coverage_file.parent.name[9:]}"
+              print(f"{coverage_file} copy to {destination}")
+              shutil.copy(str(coverage_file), str(destination))
         shell: python
 
       - name: Merge coverage data
