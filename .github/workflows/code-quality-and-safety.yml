@@ -9,7 +9,7 @@ env:
   default_python_version: 3.8 # CHANGE ME
 
 jobs:
-  last-merge-sha:
+  is-merge:
     runs-on: ubuntu-latest
     outputs:
       is-merge: ${{ steps.is-merge.outputs.is-merge }}
