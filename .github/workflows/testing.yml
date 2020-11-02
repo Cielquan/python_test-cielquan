@@ -41,7 +41,14 @@ jobs:
 
       - name: Run package test via tox
         id: test
-        run: tox
+#        run: tox
+        # TODO: remove test code
+        run: |
+          if [[ ${{ matrix.os }} == ubuntu ]]; then
+            tox
+          else
+            exit 1
+          fi
 
       - name: Set result variable
         id: set-result
