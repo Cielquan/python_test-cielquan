@@ -1,7 +1,6 @@
 name: Code testing
-# TODO: add code-climate upload
-# TODO: add pkg test before code-tests
 # TODO: let code-tests jobs fail when corresponding os pkg fails
+# TODO: add code-climate upload
 
 on:
   pull_request:
@@ -12,12 +11,38 @@ env:
   default_python_version: 3.8 # CHANGE ME
 
 jobs:
+  package-tests:
+    name: Package test on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      matrix:
+        os: [ubuntu, macos, windows]
+    env:
+      TOXENV: package
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Install tox
+        run: |
+          python -m pip install -U pip
+          pip install tox
+
+      - name: Generate tox env
+        run: tox --notest -vv --skip-missing-interpreters false
+
+      - name: Run package test via tox
+        run: tox
+
   code-tests:
     name: ${{ matrix.os }} / python ${{ matrix.python_version }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
-        os: [Ubuntu, MacOS, Windows]
+        os: [ubuntu, macos, windows]
         python_version: [3.6, 3.7, 3.8, 3.9] # CHANGE ME
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
