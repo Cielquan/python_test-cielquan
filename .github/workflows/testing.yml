@@ -1,5 +1,4 @@
 name: Code testing
-# TODO: let code-tests jobs fail when corresponding os pkg fails
 # TODO: add code-climate upload
 # TODO: set up dep cache
 
