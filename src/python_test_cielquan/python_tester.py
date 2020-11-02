@@ -20,5 +20,10 @@ def testus(zahl: int = 2) -> int:
     return 2 * zahl
 
 
+def addi() -> int:
+    """Bla."""
+    return 1 + 1
+
+
 if __name__ == "__main__":
     testus()
