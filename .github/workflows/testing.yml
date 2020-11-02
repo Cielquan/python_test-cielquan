@@ -62,10 +62,6 @@ jobs:
   code-tests:
     name: ${{ matrix.os }} / python ${{ matrix.python_version }}
     needs: package-tests
-    if: |
-      ${{ matrix.os }} == ubuntu && needs.package-tests.outputs.ubuntu-success == true ||
-      ${{ matrix.os }} == macos && needs.package-tests.outputs.macos-success == true ||
-      ${{ matrix.os }} == windows && needs.package-tests.outputs.windows-success == true
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
@@ -75,6 +71,19 @@ jobs:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
     steps:
+      - name: Abort if package test failed
+        shell: bash
+        run: |
+          if [[ ${{ matrix.os }} == ubuntu && ${{ needs.package-tests.outputs.ubuntu-success }} == true ]]; then
+            exit 0
+          elif [[ ${{ matrix.os }} == macos && ${{ needs.package-tests.outputs.macos-success }} == true ]]; then
+            exit 0
+          elif [[ ${{ matrix.os }} == windows && ${{ needs.package-tests.outputs.windows-success }} == true ]]; then
+            exit 0
+          else
+            exit 1
+          fi
+
       - uses: actions/checkout@v2
 
       - name: Set up python ${{ matrix.python_version }}
