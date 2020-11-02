@@ -9,7 +9,20 @@ env:
   default_python_version: 3.8 # CHANGE ME
 
 jobs:
+  last-merge-sha:
+    runs-on: ubuntu-latest
+    outputs:
+      latest-merge-sha: ${{ steps.get-sha.outputs.sha }}
+    steps:
+      - name: Clone repo
+        run: git clone https://github.com/${{ github.repository }}.git
+
+      - name: Get latest merge commit
+        id: get-sha
+        run: echo "::set-output name=test::$(git log --merges -1 --pretty=format:"%H")"
+
   pre-commit:
+    needs: last-merge-sha
     runs-on: ubuntu-latest
     env:
       TOXENV: pre-commit
@@ -32,7 +45,7 @@ jobs:
         continue-on-error: true
         shell: bash
         run: |
-          if [[ $(git log --merges -1 --pretty=format:"%H") == ${{ github.sha }} ]]; then
+          if [[ ${{ needs.last-merge-sha.outputs.latest-merge-sha }} == ${{ github.sha }} ]]; then
             exit 0
           else
             exit 1
