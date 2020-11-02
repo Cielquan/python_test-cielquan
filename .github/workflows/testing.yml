@@ -42,31 +42,37 @@ jobs:
 
       - name: Run package test via tox
         id: test
-#        run: tox
-        # TODO: remove test code
-        shell: bash
-        run: |
-          if [[ ${{ matrix.os }} == ubuntu ]]; then
-            tox
-          else
-            exit 1
-          fi
+        run: tox
 
+#      - name: Set result variable
+#        id: set-result
+#        shell: bash
+#        run: |
+#          if [[ ${{ steps.test.outcome }} != success  ]]; then
+#            exit 1
+#          else
+#            if [[ ${{ matrix.os }} == ubuntu ]]; then
+#              echo "::set-output name=ubuntu-success::true"
+#            elif [[ ${{ matrix.os }} == macos ]]; then
+#              echo "::set-output name=macos-success::true"
+#            elif [[ ${{ matrix.os }} == windows ]]; then
+#              echo "::set-output name=windows-success::true"
+#            fi
+#          fi
       - name: Set result variable
         id: set-result
-        shell: bash
+        shell: python
         run: |
-          if [[ ${{ steps.test.outcome }} != success  ]]; then
-            exit 1
+          import sys
+          if "${{ steps.test.outcome }}" != "success":
+            sys.exit(1)
           else
-            if [[ ${{ matrix.os }} == ubuntu ]]; then
-              echo "::set-output name=ubuntu-success::true"
-            elif [[ ${{ matrix.os }} == macos ]]; then
-              echo "::set-output name=macos-success::true"
-            elif [[ ${{ matrix.os }} == windows ]]; then
-              echo "::set-output name=windows-success::true"
-            fi
-          fi
+            if "${{ matrix.os }}" == "ubuntu":
+              print("::set-output name=ubuntu-success::true")
+            elif "${{ matrix.os }}" == "macos":
+              print("::set-output name=macos-success::true")
+            elif "${{ matrix.os }}" == "windows":
+              print("::set-output name=windows-success::true")
 
   code-tests:
     name: ${{ matrix.os }} / python ${{ matrix.python_version }}
