@@ -64,8 +64,8 @@ jobs:
     needs: package-tests
     if: |
       ${{ matrix.os }} == ubuntu && needs.package-tests.outputs.ubuntu-success == true ||
-      ${{ matrix.os }} == macos && needs.package-tests.outputs.ubuntu-success == true ||
-      ${{ matrix.os }} == windows && needs.package-tests.outputs.ubuntu-success == true
+      ${{ matrix.os }} == macos && needs.package-tests.outputs.macos-success == true ||
+      ${{ matrix.os }} == windows && needs.package-tests.outputs.windows-success == true
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
