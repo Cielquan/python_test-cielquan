@@ -57,11 +57,11 @@ jobs:
 
       - name: Run pre-commit via tox (skip no-commit-to-branch)
         run: SKIP=no-commit-to-branch tox
-        if: needs.is-merge.outputs.is-merge == true
+        if: needs.is-merge.outputs.is-merge == 'true'
 
       - name: Run pre-commit via tox
         run: tox
-        if: needs.is-merge.outputs.is-merge == false
+        if: needs.is-merge.outputs.is-merge == 'false'
 
   safety:
     runs-on: ubuntu-latest
