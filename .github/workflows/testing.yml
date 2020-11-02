@@ -43,12 +43,13 @@ jobs:
         id: test
         run: tox
 
-      - name: Set result
+      - name: Set result variable
         id: set-result
+        shell: bash
         run: |
           if [[ ${{ steps.test.outcome }} != success  ]]; then
             exit 1
-          elif
+          else
             if [[ ${{ matrix.os }} == ubuntu ]]; then
               echo "::set-output name=ubuntu-success::true"
             elif [[ ${{ matrix.os }} == macos ]]; then
