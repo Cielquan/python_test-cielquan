@@ -13,7 +13,7 @@ env:
 
 jobs:
   package-tests:
-#    name: Test package / ${{ matrix.os }}
+    name: Test package / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
@@ -69,6 +69,7 @@ jobs:
   code-tests:
     name: ${{ matrix.os }} / python ${{ matrix.python_version }}
     needs: package-tests
+    if: always()
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
