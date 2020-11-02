@@ -43,6 +43,7 @@ jobs:
         id: test
 #        run: tox
         # TODO: remove test code
+        shell: bash
         run: |
           if [[ ${{ matrix.os }} == ubuntu ]]; then
             tox
@@ -82,11 +83,11 @@ jobs:
       - name: Abort if package test failed
         shell: bash
         run: |
-          if [[ ${{ matrix.os }} == ubuntu && ${{ needs.package-tests.outputs.ubuntu-success }} == true ]]; then
+          if [[ ${{ matrix.os }} == ubuntu && '${{ needs.package-tests.outputs.ubuntu-success }}' == 'true' ]]; then
             exit 0
-          elif [[ ${{ matrix.os }} == macos && ${{ needs.package-tests.outputs.macos-success }} == true ]]; then
+          elif [[ ${{ matrix.os }} == macos && '${{ needs.package-tests.outputs.macos-success }}' == 'true' ]]; then
             exit 0
-          elif [[ ${{ matrix.os }} == windows && ${{ needs.package-tests.outputs.windows-success }} == true ]]; then
+          elif [[ ${{ matrix.os }} == windows && '${{ needs.package-tests.outputs.windows-success }}' == 'true' ]]; then
             exit 0
           else
             exit 1
