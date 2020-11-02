@@ -30,6 +30,7 @@ jobs:
         continue-on-error: true
         run: |
           last_merge_commit_sha=$(git log --merges -1 --pretty=format:"%H")
+          echo $last_merge_commit_sha
           if [[ $last_merge_commit_sha == ${{ github.sha }} ]]; then
             exit 0
           else
