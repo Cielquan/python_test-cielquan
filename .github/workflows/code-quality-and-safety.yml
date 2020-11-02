@@ -17,14 +17,21 @@ jobs:
       - name: Clone repo
         run: git clone https://github.com/${{ github.repository }}.git
 
+      - name: Get repo dir name
+        id: repo-dir
+        run: |
+        repo-dir = $(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
+        echo "::set-output name=repo-dir::$repo-dir"
+
       - name: Is merge commit?
         id: is-merge
         shell: bash
+        working-directory: ${{ steps.repo-dir.outputs.repo-dir }}
         run: |
           if [[ $(git log --merges -1 --pretty=format:"%H") == ${{ github.sha }} ]]; then
-            run: echo "::set-output name=is-merge::true"
+            echo "::set-output name=is-merge::true"
           else
-            run: echo "::set-output name=is-merge::false"
+            echo "::set-output name=is-merge::false"
           fi
 
   pre-commit:
