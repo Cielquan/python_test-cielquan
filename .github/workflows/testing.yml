@@ -46,7 +46,7 @@ jobs:
       - name: Set result
         id: set-result
         run: |
-          if [[ ${{ steps.test.outcome }} != 'success'  ]]; then
+          if [[ ${{ steps.test.outcome }} != success  ]]; then
             exit 1
           elif
             if [[ ${{ matrix.os }} == 'ubuntu' ]]; then
