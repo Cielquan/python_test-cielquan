@@ -1,6 +1,7 @@
 name: Code testing
 # TODO: let code-tests jobs fail when corresponding os pkg fails
 # TODO: add code-climate upload
+# TODO: set up dep cache
 
 on:
   pull_request:
@@ -12,7 +13,8 @@ env:
 
 jobs:
   package-tests:
-    name: Package test on ${{ matrix.os }}
+    name: Test package / ${{ matrix.os }}
+    id: pkg-test-${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
@@ -39,6 +41,11 @@ jobs:
 
   code-tests:
     name: ${{ matrix.os }} / python ${{ matrix.python_version }}
+    needs: package-tests
+    if: |
+      ${{ matrix.os }} == 'ubuntu' && needs.pkg-test-ubuntu.result == 'success' ||
+      ${{ matrix.os }} == 'macos' && needs.pkg-test-macos.result == 'success' ||
+      ${{ matrix.os }} == 'windows' && needs.pkg-test-windows.result == 'success'
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:

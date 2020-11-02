@@ -10,7 +10,7 @@ env:
 
 jobs:
   doc-tests:
-    name: 'Documentation test: ${{ matrix.test }}'
+    name: 'Test documentation / ${{ matrix.test }}'
     env:
       TOXENV: docs-test-${{ matrix.test }}
     runs-on: ubuntu-latest
