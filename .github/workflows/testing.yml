@@ -82,6 +82,7 @@ jobs:
           path: coverage-artifacts/
 
       - name: Move coverage files to .tox/
+        shell: python
         run: |
           from pathlib import Path
           import shutil
@@ -93,7 +94,6 @@ jobs:
               destination = cov_dir / f".coverage.{coverage_file.parent.name[9:]}"
               print(f"{coverage_file} copy to {destination}")
               shutil.copy(str(coverage_file), str(destination))
-        shell: python
 
       - name: Merge coverage data
         run: tox
