@@ -25,7 +25,7 @@ jobs:
           python -m pip install -U pip
           pip install tox
 
-      - run: echo $(git log --merges -1 --pretty=format:"%H")
+      - run: echo 'last commit is:' $(git log --merges -1 --pretty=format:"%H")
 
       - name: Is merge commit?
         id: is-merge
