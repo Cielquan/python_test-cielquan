@@ -19,9 +19,10 @@ jobs:
 
       - name: Get repo dir name
         id: repo-dir
+        shell: bash
         run: |
-          repo-dir = $(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
-          echo "::set-output name=repo-dir::$repo-dir"
+          repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
+          echo "::set-output name=repo-dir::$repo_dir"
 
       - name: Is merge commit?
         id: is-merge
