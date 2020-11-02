@@ -15,8 +15,8 @@ jobs:
   package-tests:
     name: Test package / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
-    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
     env:
@@ -72,9 +72,9 @@ jobs:
     name: ${{ matrix.os }} / python ${{ matrix.python_version }}
     needs: package-tests
     if: always()
-    continue-on-error: true
     runs-on: ${{ matrix.os }}-latest
     strategy:
+      fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
         python_version: [3.6, 3.7, 3.8, 3.9] # CHANGE ME
