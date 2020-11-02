@@ -62,10 +62,10 @@ jobs:
   code-tests:
     name: ${{ matrix.os }} / python ${{ matrix.python_version }}
     needs: package-tests
-#    if: |
-#      ${{ matrix.os }} == 'ubuntu' && needs.pkg-test-ubuntu.result == 'success' ||
-#      ${{ matrix.os }} == 'macos' && needs.pkg-test-macos.result == 'success' ||
-#      ${{ matrix.os }} == 'windows' && needs.pkg-test-windows.result == 'success'
+    if: |
+      ${{ matrix.os }} == ubuntu && needs.package-tests.outputs.ubuntu-success == true ||
+      ${{ matrix.os }} == macos && needs.package-tests.outputs.ubuntu-success == true ||
+      ${{ matrix.os }} == windows && needs.package-tests.outputs.ubuntu-success == true
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
