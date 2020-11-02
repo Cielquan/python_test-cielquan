@@ -14,13 +14,16 @@ env:
 jobs:
   package-tests:
     name: Test package / ${{ matrix.os }}
-    id: pkg-test-${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
         os: [ubuntu, macos, windows]
     env:
       TOXENV: package
+    outputs:
+      ubuntu-success: ${{ steps.set-result.outputs.ubuntu-success }}
+      macos-success: ${{ steps.set-result.outputs.macos-success }}
+      windows-success: ${{ steps.set-result.outputs.windows-success }}
     steps:
       - uses: actions/checkout@v2
 
@@ -37,15 +40,31 @@ jobs:
         run: tox --notest -vv --skip-missing-interpreters false
 
       - name: Run package test via tox
+        id: test
         run: tox
+
+      - name: Set result
+        id: set-result
+        run: |
+          if [[ ${{ steps.test.outcome }} != 'success'  ]]; then
+            exit 1
+          elif
+            if [[ ${{ matrix.os }} == 'ubuntu' ]]; then
+              echo "::set-output name=ubuntu-success::true"
+            elif [[ ${{ matrix.os }} == 'macos' ]]; then
+              echo "::set-output name=macos-success::true"
+            elif [[ ${{ matrix.os }} == 'windows' ]]; then
+              echo "::set-output name=windows-success::true"
+            fi
+          fi
 
   code-tests:
     name: ${{ matrix.os }} / python ${{ matrix.python_version }}
     needs: package-tests
-    if: |
-      ${{ matrix.os }} == 'ubuntu' && needs.pkg-test-ubuntu.result == 'success' ||
-      ${{ matrix.os }} == 'macos' && needs.pkg-test-macos.result == 'success' ||
-      ${{ matrix.os }} == 'windows' && needs.pkg-test-windows.result == 'success'
+#    if: |
+#      ${{ matrix.os }} == 'ubuntu' && needs.pkg-test-ubuntu.result == 'success' ||
+#      ${{ matrix.os }} == 'macos' && needs.pkg-test-macos.result == 'success' ||
+#      ${{ matrix.os }} == 'windows' && needs.pkg-test-windows.result == 'success'
     runs-on: ${{ matrix.os }}-latest
     strategy:
       matrix:
