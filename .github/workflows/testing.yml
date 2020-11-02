@@ -49,11 +49,11 @@ jobs:
           if [[ ${{ steps.test.outcome }} != success  ]]; then
             exit 1
           elif
-            if [[ ${{ matrix.os }} == 'ubuntu' ]]; then
+            if [[ ${{ matrix.os }} == ubuntu ]]; then
               echo "::set-output name=ubuntu-success::true"
-            elif [[ ${{ matrix.os }} == 'macos' ]]; then
+            elif [[ ${{ matrix.os }} == macos ]]; then
               echo "::set-output name=macos-success::true"
-            elif [[ ${{ matrix.os }} == 'windows' ]]; then
+            elif [[ ${{ matrix.os }} == windows ]]; then
               echo "::set-output name=windows-success::true"
             fi
           fi
