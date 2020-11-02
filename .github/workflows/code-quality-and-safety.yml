@@ -12,17 +12,23 @@ jobs:
   last-merge-sha:
     runs-on: ubuntu-latest
     outputs:
-      latest-merge-sha: ${{ steps.get-sha.outputs.sha }}
+      is-merge: ${{ steps.is-merge.outputs.is-merge }}
     steps:
       - name: Clone repo
         run: git clone https://github.com/${{ github.repository }}.git
 
-      - name: Get latest merge commit
-        id: get-sha
-        run: echo "::set-output name=test::$(git log --merges -1 --pretty=format:"%H")"
+      - name: Is merge commit?
+        id: is-merge
+        shell: bash
+        run: |
+          if [[ $(git log --merges -1 --pretty=format:"%H") == ${{ github.sha }} ]]; then
+            run: echo "::set-output name=is-merge::true"
+          else
+            run: echo "::set-output name=is-merge::false"
+          fi
 
   pre-commit:
-    needs: last-merge-sha
+    needs: is-merge
     runs-on: ubuntu-latest
     env:
       TOXENV: pre-commit
@@ -38,29 +44,16 @@ jobs:
           python -m pip install -U pip
           pip install tox
 
-      - run: echo 'last commit is:' $(git log --merges -1 --pretty=format:"%H")
-
-      - name: Is merge commit?
-        id: is-merge
-        continue-on-error: true
-        shell: bash
-        run: |
-          if [[ ${{ needs.last-merge-sha.outputs.latest-merge-sha }} == ${{ github.sha }} ]]; then
-            exit 0
-          else
-            exit 1
-          fi
-
-      - name: Run pre-commit via tox (skip no-commit-to-branch)
-        run: SKIP=no-commit-to-branch tox -e pre-commit
-        if: steps.is-merge.outcome == 'success'
-
       - name: Generate tox env
         run: tox --notest -vv --skip-missing-interpreters false
 
+      - name: Run pre-commit via tox (skip no-commit-to-branch)
+        run: SKIP=no-commit-to-branch tox
+        if: needs.is-merge.outputs.is-merge == true
+
       - name: Run pre-commit via tox
         run: tox
-        if: steps.is-merge.outcome == 'failure'
+        if: needs.is-merge.outputs.is-merge == false
 
   safety:
     runs-on: ubuntu-latest
