@@ -53,7 +53,9 @@ jobs:
 
       - uses: actions/cache@v2
         with:
-          path: ~/.cache/pre-commit
+          path: |
+            ~/.cache/pre-commit
+            ~/.cache/pypoetry
           key: pre-commit|${{ env.PY_VER }}|${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Install tox
