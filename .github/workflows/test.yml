@@ -29,9 +29,9 @@ jobs:
         run: tox --notest -vv --skip-missing-interpreters false
 
       - name: ls
-        run: ls
+        run: ls -ahlF
 
       - name: cd ls
         run: |
           cd ..
-          ls
+          ls -ahlF
