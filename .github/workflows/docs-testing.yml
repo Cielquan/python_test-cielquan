@@ -31,14 +31,14 @@ jobs:
 
       - name: Set python version hash
         shell: bash
-        run: echo "PY_VER=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+        run: echo "PYTHON_VERSION_SHA=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
-      - name: Set up cache
+      - name: Load tox-env from cache
         uses: actions/cache@v2
         id: cache
         with:
           path: .tox/${{ env.TOXENV }}
-          key: tox-env|${{ env.TOXENV }}|${{ runner.os }}|${{ env.PY_VER }}|${{ hashFiles('**/poetry.lock') }}
+          key: tox-env|${{ env.TOXENV }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
 
       - name: Ensure cache is healthy
         if: steps.cache.outputs.cache-hit == 'true'

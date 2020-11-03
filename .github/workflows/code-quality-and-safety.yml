@@ -54,7 +54,7 @@ jobs:
 
       - name: Set python version hash
         shell: bash
-        run: echo "PY_VER=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+        run: echo "PYTHON_VERSION_SHA=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
       - name: Load pre-commit/poetry cache
         uses: actions/cache@v2
@@ -62,7 +62,7 @@ jobs:
           path: |
             ~/.cache/pre-commit
             ~/.cache/pypoetry
-          key: pre-commit|${{ env.PY_VER }}|${{ hashFiles('.pre-commit-config.yaml') }}
+          key: pre-commit|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Generate tox env
         run: tox --notest -vv --skip-missing-interpreters false

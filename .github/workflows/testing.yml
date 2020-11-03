@@ -97,6 +97,22 @@ jobs:
           python -m pip install -U pip
           pip install tox tox-gh-actions
 
+      - name: Set python version hash
+        shell: bash
+        run: echo "PYTHON_VERSION_SHA=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+
+      - name: Load tox-env from cache
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: .tox/${{ env.TOXENV }}
+          key: tox-env|${{ env.TOXENV }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
+
+      - name: Ensure cache is healthy
+        if: steps.cache.outputs.cache-hit == 'true'
+        shell: bash
+        run: timeout 10s .tox/${{ env.TOXENV }}/bin/pip --version || rm -rf .tox
+
       - name: Generate tox env
         run: tox --notest -vv --skip-missing-interpreters false
 
