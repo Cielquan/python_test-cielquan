@@ -33,5 +33,5 @@ jobs:
 
       - name: cd ls
         run: |
-        cd ..
-        ls
+          cd ..
+          ls
