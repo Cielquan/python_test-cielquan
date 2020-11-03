@@ -15,8 +15,8 @@ jobs:
       TOXENV: safety
     continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
-        fail-fast: false
         env: [dev, pre-commit]
     steps:
       - uses: actions/checkout@v2
