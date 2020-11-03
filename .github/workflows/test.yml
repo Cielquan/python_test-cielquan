@@ -29,25 +29,8 @@ jobs:
         run: tox --notest -vv --skip-missing-interpreters false
 
       - name: ls
-        run: ls -ahlF
+        run: ls -ahlF /home/runner/.cache/
 
-      - name: cd ... ls
-        run: |
-          cd ..
-          cd ..
-          ls -ahlF
 
-      - name: cd .... ls
-        run: |
-          cd ..
-          cd ..
-          cd ..
-          ls -ahlF
-
-      - name: cd ..... ls
-        run: |
-          cd ..
-          cd ..
-          cd ..
-          cd ..
-          ls -ahlF
+# /home/runner/work/python_test-cielquan/python_test-cielquan/
+# /home/runner/.cache/pip
