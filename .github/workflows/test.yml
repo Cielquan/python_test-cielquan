@@ -46,6 +46,10 @@ jobs:
         run: ls -ahlF /home/runner/.cache/pre-commit
         continue-on-error: true
 
+      - name: ls pre-commit ~
+        run: ls -ahlF ~/.cache/pre-commit
+        continue-on-error: true
+
       - name: ls pypoetry
         run: ls -ahlF /home/runner/.cache/pypoetry
         continue-on-error: true
