@@ -29,22 +29,21 @@ jobs:
           python -m pip install -U pip
           pip install tox
 
-      - name: Get full Python version
-        id: full-python-version
+      - name: Set python version hash
         shell: bash
-        run: echo ::set-output name=version::$(python -c "import sys; print('-'.join(str(v) for v in sys.version_info))")
+        run: echo "PY_VER=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
       - name: Set up cache
         uses: actions/cache@v2
         id: cache
         with:
           path: .tox/${{ env.TOXENV }}
-          key: tox-env_${{ env.TOXENV }}_${{ runner.os }}_${{ steps.full-python-version.outputs.version }}_${{ hashFiles('**/poetry.lock') }}
-#
+          key: tox-env|${{ env.TOXENV }}|${{ runner.os }}|${{ env.PY_VER }}|${{ hashFiles('**/poetry.lock') }}
+
       - name: Ensure cache is healthy
         if: steps.cache.outputs.cache-hit == 'true'
         shell: bash
-        run: timeout 10s python -m .tox/${{ env.TOXENV }}/bin/pip --version || rm -rf .tox
+        run: timeout 10s .tox/${{ env.TOXENV }}/bin/pip --version || rm -rf .tox
 
       - name: Generate tox env
         run: tox --notest -vv --skip-missing-interpreters false
