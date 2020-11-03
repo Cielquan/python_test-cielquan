@@ -36,15 +36,19 @@ jobs:
 
       - name: ls cache
         run: ls -ahlF /home/runner/.cache
+        continue-on-error: true
 
       - name: ls pip
         run: ls -ahlF /home/runner/.cache/pip
+        continue-on-error: true
 
-      - name: ls pip
+      - name: ls pre-commit
         run: ls -ahlF /home/runner/.cache/pre-commit
+        continue-on-error: true
 
-      - name: ls pip
+      - name: ls pypoetry
         run: ls -ahlF /home/runner/.cache/pypoetry
+        continue-on-error: true
 
 # /home/runner/work/python_test-cielquan/python_test-cielquan/
 # /home/runner/.cache/pip
