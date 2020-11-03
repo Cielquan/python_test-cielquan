@@ -87,7 +87,7 @@ jobs:
 
       - name: Set TOXENV variable
         shell: bash
-        run: echo "TOXENV=py$(echo ${{ matrix.python_version }} | sed -e 's/\.//g') >> $GITHUB_ENV
+        run: echo "TOXENV=py$(echo ${{ matrix.python_version }} | sed -e 's/\.//g')" >> $GITHUB_ENV
 
       - uses: actions/checkout@v2
 
