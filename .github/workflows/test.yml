@@ -26,7 +26,7 @@ jobs:
           pip install tox
 
       - name: Generate tox env
-        run: tox --notest -vv --skip-missing-interpreters false
+        run: tox -e dev,pre-commit
 
       - name: ls
         run: ls -ahlF /home/runner/.cache/
