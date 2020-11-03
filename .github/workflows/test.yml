@@ -31,7 +31,23 @@ jobs:
       - name: ls
         run: ls -ahlF
 
-      - name: cd ls
+      - name: cd ... ls
         run: |
+          cd ..
+          cd ..
+          ls -ahlF
+
+      - name: cd .... ls
+        run: |
+          cd ..
+          cd ..
+          cd ..
+          ls -ahlF
+
+      - name: cd ..... ls
+        run: |
+          cd ..
+          cd ..
+          cd ..
           cd ..
           ls -ahlF
