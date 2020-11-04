@@ -22,7 +22,7 @@ jobs:
       - name: Upload reporter binary as artifact
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ runner.os }}|cc-test-reporter
+          name: ${{ runner.os }}_cc-test-reporter
           path: ./cc-test-reporter
 
       - name: Notify code-climate
@@ -216,7 +216,7 @@ jobs:
       - name: Download reporter binary artifact
         uses: actions/download-artifact@v2
         with:
-          name: ${{ runner.os }}|cc-test-reporter
+          name: ${{ runner.os }}_cc-test-reporter
           path: ./cc-test-reporter
 
       - name: Ensure healthy binary, else download new
