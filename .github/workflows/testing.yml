@@ -235,10 +235,8 @@ jobs:
               print(f"{coverage_file} copy to {destination}")
               shutil.copy(str(coverage_file), str(destination))
 
-      - name: Merge coverage data
+      - name: Merge and report coverage data
         run: tox
-        env:
-          MIN_COVERAGE: 100
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v2
