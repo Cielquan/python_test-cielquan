@@ -23,7 +23,6 @@ jobs:
         id: set-GIT_COMMIT_SHA
         shell: python
         run: |
-          sha =
           if ${{ github.event_name }} == "push":
               print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
           elif ${{ github.event_name }} == "pull_request":
