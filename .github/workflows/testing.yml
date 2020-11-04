@@ -5,13 +5,49 @@ on:
   pull_request:
   push:
     branches: [master]
+    tags:
+      - '!*' # Do not execute on tag push
 
 env:
   default_python_version: 3.8 # CHANGE ME
 
 jobs:
-  notify-code-climate:
+  set-git-env-vars:
+    # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
+    id: git-envvars
     runs-on: ubuntu-latest
+    outputs:
+      GIT_COMMIT_SHA: ${{ steps.set-GIT_COMMIT_SHA.outputs.GIT_COMMIT_SHA }}
+      GIT_BRANCH: ${{ steps.set-GIT_BRANCH.outputs.GIT_BRANCH }}
+    steps:
+      - name: Set GIT_COMMIT_SHA
+        id: set-GIT_COMMIT_SHA
+        shell: python
+        run: |
+          sha =
+          if ${{ github.event_name }} == "push":
+              print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
+          elif ${{ github.event_name }} == "pull_request":
+              # Fix here: https://github.com/paambaati/codeclimate-action/issues/140
+              # env.GIT_COMMIT_SHA = context.payload.pull_request?.['head']?.['sha'];
+              print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
+
+      - name: Set GIT_BRANCH
+        id: set-GIT_BRANCH
+        shell: python
+        run: |
+          branch = "${{ github.ref }}".lstrip("refs/heads/")
+          if ${{ github.event_name }} == "pull_request":
+              head_ref = "${{ github.head_ref }}"
+              if head_ref:
+                  branch = head_ref
+          print(f"::set-output name=GIT_BRANCH::{branch}")
+
+  notify-code-climate:
+    needs: [set-git-env-vars]
+    runs-on: ubuntu-latest
+    env:
+      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
     steps:
       - name: Download reporter
         shell: bash
@@ -67,18 +103,18 @@ jobs:
         run: |
           import sys
           if "${{ steps.test.outcome }}" != "success":
-            sys.exit(1)
+              sys.exit(1)
           else:
-            if "${{ matrix.os }}" == "ubuntu":
-              print("::set-output name=ubuntu-success::true")
-            elif "${{ matrix.os }}" == "macos":
-              print("::set-output name=macos-success::true")
-            elif "${{ matrix.os }}" == "windows":
-              print("::set-output name=windows-success::true")
+              if "${{ matrix.os }}" == "ubuntu":
+                  print("::set-output name=ubuntu-success::true")
+              elif "${{ matrix.os }}" == "macos":
+                  print("::set-output name=macos-success::true")
+              elif "${{ matrix.os }}" == "windows":
+                  print("::set-output name=windows-success::true")
 
   code-tests:
     name: ${{ matrix.os }} / python ${{ matrix.python_version }}
-    needs: package-tests
+    needs: [notify-code-climate, package-tests]
     if: always()
     runs-on: ${{ matrix.os }}-latest
     strategy:
@@ -95,13 +131,13 @@ jobs:
         run: |
           import sys
           if "${{ matrix.os }}" == "ubuntu" and "${{ needs.package-tests.outputs.ubuntu-success }}" == "true":
-            sys.exit(0)
+              sys.exit(0)
           elif "${{ matrix.os }}" == "macos" and "${{ needs.package-tests.outputs.macos-success }}" == "true":
-            sys.exit(0)
+              sys.exit(0)
           elif "${{ matrix.os }}" == "windows" and "${{ needs.package-tests.outputs.windows-success }}" == "true":
-            sys.exit(0)
+              sys.exit(0)
           else:
-            sys.exit(1)
+              sys.exit(1)
 
       - name: Set TOXENV variable
         shell: bash
@@ -211,8 +247,10 @@ jobs:
           if-no-files-found: error
 
   push-coverage-to-code-climate:
-    needs: coverage
+    needs: [notify-code-climate, coverage]
     runs-on: ubuntu-latest
+    env:
+      CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
     steps:
       - name: Download reporter binary artifact
         uses: actions/download-artifact@v2

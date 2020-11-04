@@ -4,6 +4,8 @@ on:
   pull_request:
   push:
     branches: [master]
+    tags:
+      - '!*' # Do not execute on tag push
 
 env:
   default_python_version: 3.8 # CHANGE ME
