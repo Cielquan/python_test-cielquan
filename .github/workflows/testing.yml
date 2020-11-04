@@ -19,6 +19,10 @@ jobs:
       GIT_COMMIT_SHA: ${{ steps.set-GIT_COMMIT_SHA.outputs.GIT_COMMIT_SHA }}
       GIT_BRANCH: ${{ steps.set-GIT_BRANCH.outputs.GIT_BRANCH }}
     steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
       - name: Set GIT_COMMIT_SHA
         id: set-GIT_COMMIT_SHA
         shell: python
@@ -29,6 +33,8 @@ jobs:
               # Fix here: https://github.com/paambaati/codeclimate-action/issues/140
               # env.GIT_COMMIT_SHA = context.payload.pull_request?.['head']?.['sha'];
               print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
+          else:
+            print("GIT_COMMIT_SHA could not be set.")
 
       - name: Set GIT_BRANCH
         id: set-GIT_BRANCH
