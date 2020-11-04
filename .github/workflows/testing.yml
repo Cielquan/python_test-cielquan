@@ -14,7 +14,6 @@ env:
 jobs:
   set-git-env-vars:
     # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
-    id: git-envvars
     runs-on: ubuntu-latest
     outputs:
       GIT_COMMIT_SHA: ${{ steps.set-GIT_COMMIT_SHA.outputs.GIT_COMMIT_SHA }}
@@ -247,10 +246,12 @@ jobs:
           if-no-files-found: error
 
   push-coverage-to-code-climate:
-    needs: [notify-code-climate, coverage]
+    needs: [set-git-env-vars, notify-code-climate, coverage]
     runs-on: ubuntu-latest
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      GIT_COMMIT_SHA: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
+      GIT_BRANCH: ${{ needs.set-git-env-vars.outputs.GIT_BRANCH }}
     steps:
       - name: Download reporter binary artifact
         uses: actions/download-artifact@v2
