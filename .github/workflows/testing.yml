@@ -1,6 +1,5 @@
 name: Code testing
 # TODO: add code-climate upload
-# TODO: set up dep cache
 
 on:
   pull_request:
@@ -11,6 +10,25 @@ env:
   default_python_version: 3.8 # CHANGE ME
 
 jobs:
+  notify-code-climate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download reporter
+        shell: bash
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+
+      - name: Upload reporter binary as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ runner.os }}|cc-test-reporter
+          path: ./cc-test-reporter
+
+      - name: Notify code-climate
+        shell: bash
+        run: ./cc-test-reporter before-build -d
+
   package-tests:
     name: Test package / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
@@ -191,3 +209,40 @@ jobs:
             .coverage_cache/.coverage
             .coverage_cache/htmlcov/
           if-no-files-found: error
+
+  push-coverage-to-code-climate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download reporter binary artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ${{ runner.os }}|cc-test-reporter
+          path: ./cc-test-reporter
+
+      - name: Ensure healthy binary, else download new
+        shell: bash
+        run: |
+          timeout 10s ./cc-test-reporter --version || \
+          (rm -rf cc-test-reporter && \
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter && \
+          chmod +x ./cc-test-reporter)
+
+      - name: Download coverage-merged artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-merged
+          path: .coverage_cache/
+
+      - name: Format coverage data
+        shell: bash
+        run: |
+          ./cc-test-reporter --debug format-coverage \
+          .coverage_cache/coverage.xml \
+          --input-type coverage.py \
+          --output .coverage_cache/code-climate.json
+
+      - name: Upload coverage data
+        shell: bash
+        run: |
+          ./cc-test-reporter --debug upload-coverage \
+          --input .coverage_cache/code-climate.json
