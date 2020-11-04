@@ -23,9 +23,9 @@ jobs:
         id: set-GIT_COMMIT_SHA
         shell: python
         run: |
-          if ${{ github.event_name }} == "push":
+          if "${{ github.event_name }}" == "push":
               print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
-          elif ${{ github.event_name }} == "pull_request":
+          elif "${{ github.event_name }}" == "pull_request":
               # Fix here: https://github.com/paambaati/codeclimate-action/issues/140
               # env.GIT_COMMIT_SHA = context.payload.pull_request?.['head']?.['sha'];
               print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
@@ -35,7 +35,7 @@ jobs:
         shell: python
         run: |
           branch = "${{ github.ref }}".lstrip("refs/heads/")
-          if ${{ github.event_name }} == "pull_request":
+          if "${{ github.event_name }}" == "pull_request":
               head_ref = "${{ github.head_ref }}"
               if head_ref:
                   branch = head_ref
