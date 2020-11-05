@@ -28,10 +28,14 @@ jobs:
           echo base_ref ${{ github.base_ref }}
           echo head_ref ${{ github.head_ref }}
           echo ref ${{ github.ref }}
+          echo ${GITHUB_REF}
           # Only ok for push ... NOT PRs
           echo sha ${{ github.sha }}
           echo ${GITHUB_SHA}
-          echo ${GITHUB_REF}
+
+      - run: git remote
+
+      - run: git show
 
       - name: Get GIT_COMMIT_SHA for PRs
         # Based on: https://github.com/deivid-rodriguez/pry-byebug/blob/377e5b7d229a157bb896f21d776f71fc389a5c00/.github/workflows/ubuntu.yml#L46
