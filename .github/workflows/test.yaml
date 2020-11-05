@@ -35,7 +35,7 @@ jobs:
 
       - run: git remote
     
-      - run: git log --oneline
+      - run: git log --oneline -n 5
 
       - run: git show
 
