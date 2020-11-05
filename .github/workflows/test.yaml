@@ -96,21 +96,43 @@ jobs:
 #workspace            /home/runner/work/python_test-cielquan/python_test-cielquan
 
 
-# INTERNAL PR
-#action                run1
+# INTERNAL PR - test-pr
+# REAL SHA f3f4e7e921805e6b2d7856f3bfd0135027a25c77
+#action               run1
 #action_path
-#actor                 Cielquan
-#base_ref              master
-#event                 Object
-#event_name            pull_request
-#event_path            /home/runner/work/_temp/_github_workflow/event.json
-#head_ref              test-pr
-#job                   et-git-env-vars
-#ref                   refs/pull/24/merge
-#repository            Cielquan/python_test-cielquan
-#repository_owner      Cielquan
-#run_id                347817880
-#run_number            2
-#sha                   0fde7fc66baf3c32b92ba9dbd38fd768ef07f0ea
-#workflow              Code testing
-#workspace             /home/runner/work/python_test-cielquan/python_test-cielquan
+#actor                Cielquan
+#base_ref             master
+#event                Object
+#event_name           pull_request
+#event_path           /home/runner/work/_temp/_github_workflow/event.json
+#head_ref             test-pr
+#job                  et-git-env-vars
+#ref                  refs/pull/24/merge
+#repository           Cielquan/python_test-cielquan
+#repository_owner     Cielquan
+#run_id               347817880
+#run_number           2
+#sha                  0fde7fc66baf3c32b92ba9dbd38fd768ef07f0ea
+#workflow             Code testing
+#workspace            /home/runner/work/python_test-cielquan/python_test-cielquan
+
+
+# EXTERNAL PR - patch-1
+# REAL SHA 9b4a25c553b9dfb07f55de402644d2236fe3984a
+#action               run1
+#action_path
+#actor                Cielquan2
+#base_ref             master
+#event                Object
+#event_name           pull_request
+#event_path           /home/runner/work/_temp/_github_workflow/event.json
+#head_ref             patch-1
+#job                  set-git-env-vars
+#ref                  refs/pull/25/merge
+#repository           Cielquan/python_test-cielquan
+#repository_owner     Cielquan
+#run_id               347830264
+#run_number           5
+#sha                  50b281eddb961350190ac74283753550d95511a5
+#workflow             Code testing
+#workspace            /home/runner/work/python_test-cielquan/python_test-cielquan
