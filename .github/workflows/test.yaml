@@ -1,0 +1,76 @@
+name: Code testing
+
+on:
+  pull_request:
+  push:
+    branches: [master]
+    tags:
+      - '!*' # Do not execute on tag push
+
+env:
+  default_python_version: 3.8 # CHANGE ME
+
+jobs:
+  set-git-env-vars:
+    continue-on-error: true
+    # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: all vars
+        run: |
+          echo action ${{ github.action }}
+          echo action_path ${{ github.action_path }}
+          echo actor ${{ github.actor }}
+          echo base_ref ${{ github.base_ref }}
+          echo event ${{ github.event }}
+          echo event_name ${{ github.event_name }}
+          echo event_path ${{ github.event_path }}
+          echo head_ref ${{ github.head_ref }}
+          echo job ${{ github.job }}
+          echo ref ${{ github.ref }}
+          echo repository ${{ github.repository }}
+          echo repository_owner ${{ github.repository_owner }}
+          echo run_id ${{ github.run_id }}
+          echo run_number ${{ github.run_number }}
+          echo sha ${{ github.sha }}
+          echo workflow ${{ github.workflow }}
+          echo workspace ${{ github.workspace }}
+
+      - name: Get GIT_COMMIT_SHA for PRs
+        # Based on: https://github.com/deivid-rodriguez/pry-byebug/blob/377e5b7d229a157bb896f21d776f71fc389a5c00/.github/workflows/ubuntu.yml#L46
+        # https://github.com/codeclimate/test-reporter/issues/406#issuecomment-578483422
+        # Does not work for external forks
+        # TODO: test if works for PRs
+        id: get-pr-sha
+        shell: bash
+        run: |
+          git fetch --no-tags --prune --depth=1 origin +refs/heads/$GITHUB_HEAD_REF:refs/remotes/origin/$GITHUB_HEAD_REF
+          echo "::set-output name=GIT_COMMIT_SHA::$(git rev-parse origin/$GITHUB_HEAD_REF)"
+        if: github.event_name == 'pull_request'
+
+      - name: Set GIT_COMMIT_SHA
+        id: set-GIT_COMMIT_SHA
+        shell: python
+        run: |
+          if "${{ github.event_name }}" == "pull_request":
+              sha = "${{ steps.get-pr-sha.outputs.GIT_COMMIT_SHA }}"
+              print("::set-output name=GIT_COMMIT_SHA::{sha}")
+          else:
+              print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
+
+      - name: Set GIT_BRANCH
+        id: set-GIT_BRANCH
+        shell: python
+        run: |
+          branch = "${{ github.ref }}".lstrip("refs/heads/")
+          if "${{ github.event_name }}" == "pull_request":
+              head_ref = "${{ github.head_ref }}"
+              if head_ref:
+                  branch = head_ref
+          print(f"::set-output name=GIT_BRANCH::{branch}")
