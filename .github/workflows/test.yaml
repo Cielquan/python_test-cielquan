@@ -39,7 +39,7 @@ jobs:
 
       - run: git log --oneline -n 5
 
-      - run: git log --oneline -n 5 HEAD~1
+      - run: git log -n 5 HEAD~1
 
       - run: git show
 
