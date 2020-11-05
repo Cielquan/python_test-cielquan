@@ -34,6 +34,8 @@ jobs:
           echo ${GITHUB_SHA}
 
       - run: git remote
+    
+      - run: git log --oneline
 
       - run: git show
 
