@@ -34,9 +34,9 @@ jobs:
           echo ${GITHUB_SHA}
 
       - run: git remote
+        
+      - run: git branch
     
-      - run: git fetch
-
       - run: git log --oneline -n 5
 
       - run: git log -n 5
