@@ -39,6 +39,8 @@ jobs:
 
       - run: git log --oneline -n 5
 
+      - run: git log --oneline -n 5 HEAD~1
+
       - run: git show
 
       - name: Get GIT_COMMIT_SHA for PRs
