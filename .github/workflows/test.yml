@@ -17,3 +17,4 @@ jobs:
     steps:
       - run: |
           echo ${{ github.run_id }}
+          echo ${{ github.run_number }}
