@@ -28,6 +28,7 @@ jobs:
         run: echo "::set-output name=COMMIT_MSG::$(git log --oneline -n 1 --format='%s')"
 
       - name: Extract commit sha from commit message
+        id: commit-sha
         shell: python
         run: |
           import re
@@ -40,6 +41,8 @@ jobs:
               print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
           else:
               sys.exit(1)
+
+      - run: echo ${{ steps.commit-sha.outputs.COMMIT_SHA }}
 
       - name: all vars
         run: |
