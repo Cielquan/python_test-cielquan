@@ -36,20 +36,20 @@ jobs:
 #        if: github.event_name == 'pull_request'
 
       - name: Get merge commit message
-        id: commit-msg
+        id: merge-commit-msg
         shell: bash
         run: echo "::set-output name=COMMIT_MSG::$(git log --oneline -n 1 --format='%s')"
         if: github.event_name == 'pull_request'
 
       - name: Extract commit sha from merge commit msg
-        id: commit-sha
+        id: merge-commit-sha
         shell: python
         run: |
           import re
           import sys
           sha = re.fullmatch(
               r"^Merge ([a-z0-9]{40}) into [a-z0-9]{40}$",
-              "${{ steps.commit-msg.outputs.COMMIT_MSG }}"
+              "${{ steps.merge-commit-msg.outputs.COMMIT_MSG }}"
           )
           if sha:
               print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
@@ -62,7 +62,7 @@ jobs:
         shell: python
         run: |
           if "${{ github.event_name }}" == "pull_request":
-              sha = "${{ steps.commit-sha.outputs.COMMIT_SHA }}"
+              sha = "${{ steps.merge-commit-sha.outputs.COMMIT_SHA }}"
               print("::set-output name=GIT_COMMIT_SHA::{sha}")
           else:
               print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
