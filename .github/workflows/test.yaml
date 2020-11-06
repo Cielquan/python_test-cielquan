@@ -22,6 +22,25 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
+      - name: Get commit message from current commit
+        id: commit-msg
+        shell: bash
+        run: echo "::set-output name=COMMIT_MSG::$(git log --oneline -n 1 --format='%s')"
+
+      - name: Extract commit sha from commit message
+        shell: python
+        run: |
+          import re
+          import sys
+          sha = re.fullmatch(
+              r"^Merge ([a-z0-9]{40}) into [a-z0-9]{40}$",
+              "${{ steps.commit-msg.outputs.COMMIT_MSG }}"
+          )
+          if sha:
+              print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
+          else:
+              sys.exit(1)
+
       - name: all vars
         run: |
           echo actor ${{ github.actor }}
