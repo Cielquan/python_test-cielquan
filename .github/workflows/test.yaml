@@ -61,8 +61,6 @@ jobs:
       
       - run: git log --oneline -n 1 --format="%s"
       
-      - run: git log --oneline -n 1 --format="%s" | awk "{print $1}"
-        
       - run: git branch
     
       - run: git log --oneline -n 5
@@ -103,6 +101,7 @@ jobs:
               if head_ref:
                   branch = head_ref
           print(f"::set-output name=GIT_BRANCH::{branch}")
+
 
 
 # patch-1 und patch-2 sha:
