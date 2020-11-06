@@ -1,6 +1,5 @@
 name: Code testing
 
-
 on:
   pull_request:
   push:
@@ -57,8 +56,6 @@ jobs:
           echo ${GITHUB_SHA}
 
       - run: git remote
-      
-      - run: git fetch
       
       - run: git describe --contains --all HEAD
       
