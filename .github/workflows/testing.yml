@@ -226,12 +226,12 @@ jobs:
           path: .junit_cache/junit*.xml
           if-no-files-found: error
 
-  coverage:
+  merge-coverage:
     needs: code-tests
     if: always()
     runs-on: ubuntu-latest
     env:
-      TOXENV: coverage
+      TOXENV: coverage-merge
     steps:
       - uses: actions/checkout@v2
 
@@ -279,8 +279,44 @@ jobs:
             .coverage_cache/htmlcov/
           if-no-files-found: error
 
+  report-coverage:
+    needs: merge-coverage
+    runs-on: ubuntu-latest
+    env:
+      TOXENV: coverage-report
+      MIN_COVERAGE: 100
+      MIN_DIFF_COVERAGE: 100
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Install tox
+        run: |
+          python -m pip install -U pip
+          pip install tox
+
+      - name: Generate tox env
+        run: tox --notest -vv --skip-missing-interpreters false
+
+      - name: Download coverage-merged artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: coverage-merged
+          path: .coverage_cache/
+
+      - name: Fetch origin/master
+        # https://github.com/Bachmann1234/diff_cover#troubleshooting
+        run: git fetch origin master:refs/remotes/origin/master
+
+      - name: Merge and report coverage data
+        run: tox
+
+
   push-coverage-to-code-climate:
-    needs: [set-git-env-vars, notify-code-climate, coverage]
+    needs: [set-git-env-vars, notify-code-climate, merge-coverage]
     runs-on: ubuntu-latest
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
