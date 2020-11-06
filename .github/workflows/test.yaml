@@ -34,6 +34,10 @@ jobs:
           echo ${GITHUB_SHA}
 
       - run: git remote
+      
+      - run: git fetch
+      
+      - run: git describe --contains --all HEAD
         
       - run: git branch
     
