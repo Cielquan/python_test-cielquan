@@ -25,5 +25,10 @@ def addi() -> int:
     return 1 + 1
 
 
+def substi() -> int:
+    """Bla."""
+    return 1 - 1
+
+
 if __name__ == "__main__":
     testus()
