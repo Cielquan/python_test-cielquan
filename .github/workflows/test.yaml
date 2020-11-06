@@ -28,10 +28,32 @@ jobs:
           echo base_ref ${{ github.base_ref }}
           echo head_ref ${{ github.head_ref }}
           echo ref ${{ github.ref }}
+          echo ${GITHUB_REF}
           # Only ok for push ... NOT PRs
           echo sha ${{ github.sha }}
           echo ${GITHUB_SHA}
-          echo ${GITHUB_REF}
+
+      - name: Get commit message from current commit
+        id: commit-msg
+        shell: bash
+        run: echo "::set-output name=COMMIT_MSG::$(git log --oneline -n 1 --format='%s')"
+
+      - name: Extract commit sha from commit message
+        id: commit-sha
+        shell: python
+        run: |
+          import re
+          import sys
+          sha = re.fullmatch(
+              r"^Merge ([a-z0-9]{40}) into [a-z0-9]{40}$",
+              "${{ steps.commit-msg.outputs.COMMIT_MSG }}"
+          )
+          if sha:
+              print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
+          else:
+              sys.exit(1)
+
+      - run: echo ${{ steps.commit-sha.outputs.COMMIT_SHA }}
 
       - name: Get GIT_COMMIT_SHA for PRs
         # Based on: https://github.com/deivid-rodriguez/pry-byebug/blob/377e5b7d229a157bb896f21d776f71fc389a5c00/.github/workflows/ubuntu.yml#L46
