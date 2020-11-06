@@ -25,17 +25,6 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
-#      - name: Get GIT_COMMIT_SHA for PRs
-#        # Based on: https://github.com/deivid-rodriguez/pry-byebug/blob/377e5b7d229a157bb896f21d776f71fc389a5c00/.github/workflows/ubuntu.yml#L46
-#        # Does not work for external forks
-#        id: get-pr-sha
-#        shell: bash
-#        run: |
-#          git fetch --no-tags --prune --depth=1 origin +refs/heads/$GITHUB_HEAD_REF:refs/remotes/origin/$GITHUB_HEAD_REF
-#          echo "::set-output name=GIT_COMMIT_SHA::$(git rev-parse origin/$GITHUB_HEAD_REF)"
-#        if: github.event_name == 'pull_request'
-
-      - name: Get merge commit message
         id: merge-commit-msg
         shell: bash
         run: echo "::set-output name=COMMIT_MSG::$(git log --oneline -n 1 --format='%s')"
