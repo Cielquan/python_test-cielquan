@@ -38,6 +38,10 @@ jobs:
       - run: git fetch
       
       - run: git describe --contains --all HEAD
+      
+      - run: git log --oneline -n 1 --format="%s"
+      
+      - run: git log --oneline -n 1 --format="%s" | awk "{print $1}"
         
       - run: git branch
     
