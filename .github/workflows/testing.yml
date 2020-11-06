@@ -319,6 +319,9 @@ jobs:
     needs: [set-git-env-vars, notify-code-climate, merge-coverage]
     runs-on: ubuntu-latest
     env:
+      CI_NAME: Github Actions
+      CI_BUILD_ID: ${{ github.run_id }}
+      CI_BUILD_URL: https://github.com/Cielquan/python_test-cielquan/actions/runs/${{ github.run_id }}
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       GIT_COMMIT_SHA: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
       GIT_BRANCH: ${{ needs.set-git-env-vars.outputs.GIT_BRANCH }}
