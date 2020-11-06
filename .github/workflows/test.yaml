@@ -22,6 +22,17 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
+      - name: all vars
+        run: |
+          echo actor ${{ github.actor }}
+          echo base_ref ${{ github.base_ref }}
+          echo head_ref ${{ github.head_ref }}
+          echo ref ${{ github.ref }}
+          echo ${GITHUB_REF}
+          # Only ok for push ... NOT PRs
+          echo sha ${{ github.sha }}
+          echo ${GITHUB_SHA}
+
       - name: Get commit message from current commit
         id: commit-msg
         shell: bash
@@ -43,17 +54,6 @@ jobs:
               sys.exit(1)
 
       - run: echo ${{ steps.commit-sha.outputs.COMMIT_SHA }}
-
-      - name: all vars
-        run: |
-          echo actor ${{ github.actor }}
-          echo base_ref ${{ github.base_ref }}
-          echo head_ref ${{ github.head_ref }}
-          echo ref ${{ github.ref }}
-          echo ${GITHUB_REF}
-          # Only ok for push ... NOT PRs
-          echo sha ${{ github.sha }}
-          echo ${GITHUB_SHA}
 
       - run: git remote
       
