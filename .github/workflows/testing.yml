@@ -311,7 +311,7 @@ jobs:
         # https://github.com/Bachmann1234/diff_cover#troubleshooting
         run: git fetch origin master:refs/remotes/origin/master
 
-      - name: Merge and report coverage data
+      - name: Report total and diff coverage against origin/master
         run: tox
 
 
