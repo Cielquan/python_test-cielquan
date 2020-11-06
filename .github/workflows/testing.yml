@@ -63,7 +63,7 @@ jobs:
         run: |
           if "${{ github.event_name }}" == "pull_request":
               sha = "${{ steps.merge-commit-sha.outputs.COMMIT_SHA }}"
-              print("::set-output name=GIT_COMMIT_SHA::{sha}")
+              print(f"::set-output name=GIT_COMMIT_SHA::{sha}")
           else:
               print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
 
@@ -324,10 +324,6 @@ jobs:
       GIT_BRANCH: ${{ needs.set-git-env-vars.outputs.GIT_BRANCH }}
     steps:
       - uses: actions/checkout@v2
-
-      - run: |
-          echo "'${GIT_COMMIT_SHA}'"
-          echo "'${GIT_BRANCH}'"
 
       - name: Download reporter binary artifact
         uses: actions/download-artifact@v2
