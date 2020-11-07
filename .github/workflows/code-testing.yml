@@ -171,7 +171,7 @@ jobs:
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
     needs: [set-test-matrix, notify-code-climate, package-tests]
-    if: needs.set-test-matrix.result == success
+    if: needs.set-test-matrix.result == "success"
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
