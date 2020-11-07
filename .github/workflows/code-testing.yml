@@ -316,6 +316,8 @@ jobs:
 
       - run: echo $DIFF_AGAINST
 
+      - run: git --version
+
 #      - name: Fetch DIFF_AGAINST if set
 #        run: |
 #          if [[ -z ${DIFF_AGAINST+x} ]]; then
