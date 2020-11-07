@@ -10,8 +10,8 @@ on:
 
 
 env:
-  default_python_version: 3.8 # CHANGE ME
-  CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+  default_python_version: 3.8  # CHANGE ME
+  CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  # CHANGE ME
 
 
 jobs:
@@ -154,7 +154,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        python_version: [3.6, 3.7, 3.8, 3.9, 3.10. pypy3] # CHANGE ME
+        python_version: [3.6, 3.7, 3.8, 3.9, 3.10. pypy3]  # CHANGE ME
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
@@ -324,7 +324,7 @@ jobs:
     env:
       CI_NAME: Github Actions
       CI_BUILD_ID: ${{ github.run_id }}
-      CI_BUILD_URL: https://github.com/Cielquan/python_test-cielquan/actions/runs/${{ github.run_id }}
+      CI_BUILD_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       GIT_COMMIT_SHA: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
       GIT_BRANCH: ${{ needs.set-git-env-vars.outputs.GIT_BRANCH }}
@@ -341,9 +341,9 @@ jobs:
         shell: bash
         run: |
           timeout 10s ./cc-test-reporter --version || \
-          (rm -rf cc-test-reporter && \
-          curl -L $CC_TEST_REPORTER_URL > ./cc-test-reporter && \
-          chmod +x ./cc-test-reporter)
+            (rm -rf cc-test-reporter && \
+            curl -L $CC_TEST_REPORTER_URL > ./cc-test-reporter && \
+            chmod +x ./cc-test-reporter)
 
       - name: Download coverage-merged artifact
         uses: actions/download-artifact@v2
@@ -355,12 +355,12 @@ jobs:
         shell: bash
         run: |
           ./cc-test-reporter --debug format-coverage \
-          .coverage_cache/coverage.xml \
-          --input-type coverage.py \
-          --output .coverage_cache/code-climate.json
+            .coverage_cache/coverage.xml \
+            --input-type coverage.py \
+            --output .coverage_cache/code-climate.json
 
       - name: Upload coverage data
         shell: bash
         run: |
           ./cc-test-reporter --debug upload-coverage \
-          --input .coverage_cache/code-climate.json
+            --input .coverage_cache/code-climate.json

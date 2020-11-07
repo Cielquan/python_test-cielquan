@@ -10,7 +10,7 @@ on:
 
 
 env:
-  default_python_version: 3.8 # CHANGE ME
+  default_python_version: 3.8  # CHANGE ME
 
 
 jobs:

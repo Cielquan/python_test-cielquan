@@ -10,7 +10,7 @@ on:
 
 
 env:
-  default_python_version: 3.8 # CHANGE ME
+  default_python_version: 3.8  # CHANGE ME
 
 
 jobs:
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        test: [html, linkcheck, coverage, doctest] # CHANGE ME
+        test: [html, linkcheck, coverage, doctest]  # CHANGE ME
     steps:
       - uses: actions/checkout@v2
 
