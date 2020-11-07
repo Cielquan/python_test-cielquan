@@ -146,16 +146,25 @@ jobs:
                   print("::set-output name=windows-success::true")
 
 
+  set-py-test-versions:
+    runs-on: ubuntu-latest
+    outputs:
+      - PYTHON_TEST_VERSIONS: ${{ steps..outputs.PYTHON_TEST_VERSIONS }}
+    steps:
+      - name: Set PYTHON_TEST_VERSIONS as output
+        run: echo "::set-output name=PYTHON_TEST_VERSIONS::${{ env.PYTHON_TEST_VERSIONS }}"
+
+
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
-    needs: [notify-code-climate, package-tests]
+    needs: [notify-code-climate, package-tests, set-py-test-versions]
     if: always()
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        python_version: ${{ fromJSON(env.PYTHON_TEST_VERSIONS) }}
+        python_version: ${{ fromJSON(needs.set-py-test-versions.outsputs.PYTHON_TEST_VERSIONS) }}
 #        python_version: [3.6, 3.7, 3.8, 3.9, 3.10, pypy3]  # CHANGE ME
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
