@@ -310,7 +310,6 @@ jobs:
           with open(os.environ["GITHUB_ENV"], "a") as env_file:
               env_file.write(DIFF_AGAINST)
               env_file.write(DIFF_AGAINST)
-        if: github.event_name == 'pull_request'
 
       - run: echo $DIFF_AGAINST
 
