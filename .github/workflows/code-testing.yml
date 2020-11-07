@@ -180,6 +180,11 @@ jobs:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
     steps:
+      - name: Set up python ${{ matrix.python_version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python_version }}
+
       - name: Abort if package test failed
         shell: python
         run: |
@@ -211,16 +216,7 @@ jobs:
           with open(gh_env_file, "a") as f:
               f.write(f"TOXENV={toxenv}\n")
 
-#      - name: Set TOXENV variable
-#        shell: bash
-#        run: echo "TOXENV=py$(echo ${{ matrix.python_version }} | sed -e 's/\.//')" >> $GITHUB_ENV
-
       - uses: actions/checkout@v2
-
-      - name: Set up python ${{ matrix.python_version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python_version }}
 
       - name: Install tox
         run: |
