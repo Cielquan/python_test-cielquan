@@ -167,13 +167,6 @@ jobs:
           }
           print(f"""::set-output name=matrix::{matrix}""")
 
-#      - name: Set TEST_MATRIX
-#        id: set-matrix
-#        shell: python
-#        run: print("""::set-output name=matrix::{"os":["ubuntu"],"python_version":["3.6"]}""")
-#
-#      - run: echo ${{ steps.set-matrix.outputs.matrix }}
-
 
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}

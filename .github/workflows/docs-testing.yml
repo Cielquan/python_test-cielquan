@@ -11,17 +11,37 @@ on:
 
 env:
   default_python_version: 3.8  # CHANGE ME
+  TEST_BUILDER: '[html, linkcheck, coverage, doctest]'  # CHANGE ME
 
 
 jobs:
+  set-test-matrix:
+    name: Set test matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Parse TEST_MATRIX
+        id: set-matrix
+        shell: python
+        run: |
+          matrix = {"test": "${{ env.TEST_BUILDER }}"[1:-1].split(", ")}
+          print(f"""::set-output name=matrix::{matrix}""")
+
+
   doc-tests:
     name: tox / docs-test-${{ matrix.test }}
+    needs: set-test-matrix
+    if: needs.set-test-matrix.result == 'success'
     env:
       TOXENV: docs-test-${{ matrix.test }}
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        test: [html, linkcheck, coverage, doctest]  # CHANGE ME
+      matrix: ${{ fromJson(needs.set-test-matrix.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v2
 
