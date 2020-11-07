@@ -17,8 +17,10 @@ except ModuleNotFoundError:
 md = dict(metadata(__name__))
 
 
+__author__ = md["Author"]
+__license__ = md["License"]
 __project__ = md["Name"]
 __version__ = md["Version"]
-__author__ = md["Author"]
+
 __gh_repository_link__ = md["Project-URL"].replace("Repository, ", "")
 __gh_repository__ = __gh_repository_link__.replace("https://github.com/", "")
