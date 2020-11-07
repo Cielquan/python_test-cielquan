@@ -25,6 +25,7 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
+      - name: Get merge commit message
         id: merge-commit-msg
         shell: bash
         run: echo "::set-output name=COMMIT_MSG::$(git log --oneline -n 1 --format='%s')"
@@ -295,6 +296,15 @@ jobs:
         with:
           name: coverage-merged
           path: .coverage_cache/
+
+      - name: Set DIFF_AGAINST if not master
+        shell: python
+        run: |
+          import os
+          base_ref = "${{ github.base_ref }}"
+          if base_ref:
+              os.environ["DIFF_AGAINST"] = f"origin/{base_ref}"
+        if: github.event_name == 'pull_request'
 
       - name: Fetch origin/master
         # https://github.com/Bachmann1234/diff_cover#troubleshooting
