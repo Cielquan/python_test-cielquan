@@ -302,10 +302,10 @@ jobs:
         run: |
           import os
           base_ref = "${{ github.head_ref }}"
-          if base_ref:
-              os.environ["DIFF_AGAINST"] = f"origin/{base_ref}"
-          else:
-              os.environ["DIFF_AGAINST"] = f"origin/master"
+          DIFF_AGAINST = "origin/master" if not base_ref else f"origin/{base_ref}"
+          with open(os.environ["$GITHUB_ENV"], "a") as env_file:
+              env_file.write(DIFF_AGAINST)
+              env_file.write(DIFF_AGAINST)
         if: github.event_name == 'pull_request'
 
       - run: echo $DIFF_AGAINST
