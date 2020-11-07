@@ -12,8 +12,8 @@ on:
 env:
   default_python_version: 3.8  # CHANGE ME
   CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  # CHANGE ME
-  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10, pypy3]'
-  TEST_OS: '[ubuntu, macos, windows]'
+  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10, pypy3]'  # CHANGE ME
+  TEST_OS: '[ubuntu, macos, windows]'  # CHANGE ME
 
 
 jobs:
@@ -164,7 +164,7 @@ jobs:
           py_ver_list = "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", ")
           os_list = "${{ env.TEST_OS }}"[1:-1].split(", ")
           matrix = {"os": os_list, "python_version": py_ver_list}
-          print(f"""::set-output name=TEST_MATRIX::{matrix}""")
+          print(f"""::set-output name=TEST_MATRIX::{matrix}""".replace("'", '"'))
 
 
   code-tests:
