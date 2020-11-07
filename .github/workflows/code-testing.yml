@@ -152,8 +152,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
-#      TEST_MATRIX: ${{ steps.set-matrix.outputs.test_matrix }}
-#      TEST_MATRIX: ${{ steps.parser.outputs.test_matrix }}
     steps:
       - uses: actions/setup-python@v2
         with:
@@ -177,13 +175,11 @@ jobs:
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
     needs: [set-test-matrix, notify-code-climate, package-tests]
-#    if: always()
     if: needs.set-test-matrix.result == 'success'
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.set-test-matrix.outputs.matrix)}}
-#      matrix: ${{ fromJSON(needs.set-test-matrix.outsputs.TEST_MATRIX) }}
+      matrix: ${{ fromJson(needs.set-test-matrix.outputs.matrix) }}
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
