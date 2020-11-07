@@ -151,8 +151,8 @@ jobs:
     name: Set test matrix
     runs-on: ubuntu-latest
     outputs:
-#      TEST_MATRIX: ${{ steps.set-matrix.outputs.test_matrix }}
-      TEST_MATRIX: ${{ steps.parser.outputs.test_matrix }}
+      TEST_MATRIX: ${{ steps.set-matrix.outputs.test_matrix }}
+#      TEST_MATRIX: ${{ steps.parser.outputs.test_matrix }}
     steps:
       - uses: actions/setup-python@v2
         with:

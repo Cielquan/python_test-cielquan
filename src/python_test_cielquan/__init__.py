@@ -14,3 +14,7 @@ except ModuleNotFoundError:
     from importlib_metadata import version  # type: ignore[import,no-redef]
 
 __version__ = version(__name__)
+
+from importlib import metadata as md
+print(md.author(__name__))
+print(md.name(__name__))
