@@ -150,8 +150,8 @@ jobs:
   set-test-matrix:
     name: Set test matrix
     runs-on: ubuntu-latest
-#    outputs:
-#      - TEST_MATRIX: ${{ steps.parser.outputs.TEST_MATRIX }}
+    outputs:
+      - TEST_MATRIX: ${{ steps.parser.outputs.TEST_MATRIX }}
     steps:
       - uses: actions/setup-python@v2
         with:
@@ -167,8 +167,6 @@ jobs:
           json_matrix = json.dumps({"os": os_list, "python_version": py_ver_list})
           print(f"""::set-output name=TEST_MATRIX::{json_matrix}""")
 
-      - run: echo ${{ steps.parser.outputs.TEST_MATRIX }}
-      - run: echo ${{ fromJSON(steps.parser.outputs.TEST_MATRIX) }}
 
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
