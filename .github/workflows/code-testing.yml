@@ -164,10 +164,11 @@ jobs:
           import json
           py_ver_list = "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", ")
           os_list = "${{ env.TEST_OS }}"[1:-1].split(", ")
-          json_matrix = json.dumps({"os": os_list,"python_version": py_ver_list})
+          json_matrix = json.dumps({"os": os_list, "python_version": py_ver_list})
           print(f"""::set-output name=TEST_MATRIX::{json_matrix}""")
 
       - run: echo ${{ steps.parser.outputs.TEST_MATRIX }}
+      - run: echo ${{ fromJSON(steps.parser.outputs.TEST_MATRIX) }}
 
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
