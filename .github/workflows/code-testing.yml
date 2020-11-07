@@ -147,12 +147,12 @@ jobs:
 
 
   set-py-test-versions:
-    name: PYTHON_TEST_VERSIONS parser
+    name: Parse PYTHON_TEST_VERSIONS
     runs-on: ubuntu-latest
 #    outputs:
 #      - PYTHON_TEST_VERSIONS: ${{ steps.parser.outputs.PYTHON_TEST_VERSIONS }}
     steps:
-      - name: parse PYTHON_TEST_VERSIONS
+      - name: Parse PYTHON_TEST_VERSIONS
         id: parser
         shell: python
         run: |
@@ -160,6 +160,7 @@ jobs:
           vers = ${{ env.PYTHON_TEST_VERSIONS }}
           print(type(vers))
           vers = json.dumps(vers)
+          print(type(vers))
           print("""${{ env.PYTHON_TEST_VERSIONS }}""")
           print("""::set-output name=PYTHON_TEST_VERSIONS::${{ env.PYTHON_TEST_VERSIONS }}""")
 
