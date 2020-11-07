@@ -204,7 +204,7 @@ jobs:
           import os
           import re
           import sys
-          gh_env_file = os.getenv["GITHUB_ENV"]
+          gh_env_file = os.environ["GITHUB_ENV"]
           py_ver = "${{ matrix.python_version }}"
           regex_result = re.search(r"^\d+\.\d+|^pypy\d+", py_ver)
           if not regex_result:
