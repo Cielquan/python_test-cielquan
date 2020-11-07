@@ -162,16 +162,15 @@ jobs:
         id: parser
         shell: python
         run: |
-          matrix = [{
+          matrix = {
               "os": "${{ env.TEST_OS }}"[1:-1].split(", "),
               "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", ")
-          }]
+          }
           print(f"""::set-output name=test_matrix::{matrix}""")
 
       - name: Set TEST_MATRIX
         id: set-matrix
-        run: echo "::set-output name=test_matrix::${{ steps.parser.outputs.test_matrix }}"
-#        run: echo "::set-output name=test_matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+        run: echo "::set-output name=test_matrix::{\"os\":[\"ubuntu\"],\"python_version\":[\"3.6\"]"}"
 
 
   code-tests:
