@@ -1,6 +1,7 @@
 name: Code testing
 # TODO: add pypy3 tests
 
+
 on:
   pull_request:
   push:
@@ -8,9 +9,11 @@ on:
     tags:
       - '!*' # Do not execute on tag push
 
+
 env:
   default_python_version: 3.8 # CHANGE ME
   CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64
+
 
 jobs:
   set-git-env-vars:
@@ -70,6 +73,7 @@ jobs:
                   branch = head_ref
           print(f"::set-output name=GIT_BRANCH::{branch}")
 
+
   notify-code-climate:
     name: Notify code-climate
     needs: [set-git-env-vars]
@@ -92,6 +96,7 @@ jobs:
       - name: 'Run "cc-test-reporter before-build"'
         shell: bash
         run: ./cc-test-reporter before-build -d
+
 
   package-tests:
     name: tox / package / ${{ matrix.os }}
@@ -139,6 +144,7 @@ jobs:
                   print("::set-output name=macos-success::true")
               elif "${{ matrix.os }}" == "windows":
                   print("::set-output name=windows-success::true")
+
 
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
@@ -219,6 +225,7 @@ jobs:
           path: .junit_cache/junit*.xml
           if-no-files-found: error
 
+
   merge-coverage:
     name: tox / coverage-merge
     needs: code-tests
@@ -273,6 +280,7 @@ jobs:
             .coverage_cache/htmlcov/
           if-no-files-found: error
 
+
   report-coverage:
     name: tox / coverage-report
     needs: merge-coverage
@@ -301,10 +309,6 @@ jobs:
         with:
           name: coverage-merged
           path: .coverage_cache/
-
-#      - name: Fetch base_ref
-#        # https://github.com/Bachmann1234/diff_cover#troubleshooting
-#        run: git fetch --no-tags origin +refs/heads/${{ github.base_ref }}
 
       - name: Fetch origin/master
         # https://github.com/Bachmann1234/diff_cover#troubleshooting

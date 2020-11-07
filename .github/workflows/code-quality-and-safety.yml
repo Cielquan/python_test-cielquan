@@ -1,5 +1,6 @@
 name: Code qualitiy and safety
 
+
 on:
   pull_request:
   push:
@@ -7,8 +8,10 @@ on:
     tags:
       - '!*' # Do not execute on tag push
 
+
 env:
   default_python_version: 3.8 # CHANGE ME
+
 
 jobs:
   is-merge:
@@ -37,6 +40,7 @@ jobs:
           else
             echo "::set-output name=is-merge::false"
           fi
+
 
   pre-commit:
     name: tox / pre-commit
@@ -78,6 +82,7 @@ jobs:
       - name: Run tox env
         run: tox
         if: needs.is-merge.outputs.is-merge == 'false'
+
 
   safety:
     name: tox / safety
