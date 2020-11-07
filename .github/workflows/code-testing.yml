@@ -282,10 +282,16 @@ jobs:
       MIN_COVERAGE: 100
       MIN_DIFF_COVERAGE: 100
     steps:
+      - run: git show
+
       - uses: actions/checkout@v2
+
+      - run: git show
 
       - name: Clone repo
         run: git clone https://github.com/${{ github.repository }}.git
+
+      - run: git show
 
       - uses: actions/setup-python@v2
         with:
