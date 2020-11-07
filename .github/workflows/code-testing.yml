@@ -147,8 +147,7 @@ jobs:
                   print("::set-output name=windows-success::true")
 
 
-  job1:
-#  set-test-matrix:
+  set-test-matrix:
     name: Set test matrix
     runs-on: ubuntu-latest
     outputs:
@@ -178,14 +177,14 @@ jobs:
 
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
-    needs: [job1, package-tests]
+    needs: [set-test-matrix, notify-code-climate, package-tests]
 #    needs: [set-test-matrix, notify-code-climate, package-tests]
     if: always()
 #    if: needs.set-test-matrix.result == 'success'
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
-      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+      matrix: ${{fromJson(needs.set-test-matrix.outputs.matrix)}}
 #      matrix: ${{ fromJSON(needs.set-test-matrix.outsputs.TEST_MATRIX) }}
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
