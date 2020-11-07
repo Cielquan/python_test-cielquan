@@ -8,9 +8,9 @@
     name = "python_test_cielquan"
     version = "0.5.2"
     description = "test stufff"
-    authors = ["Cielquan <cielquan@protonmail.com>", "Riied <Riied@protonmail.com>"]
+    authors = ["Cielquan <cielquan@protonmail.com>"]
     license = "GPL-3.0-or-later"
-    repository = "https://github.com/Cielquan/python_test"
+    repository = "https://github.com/Cielquan/python_test-cielquan"
     readme = "README.rst"
     packages = [
         { include = "python_test_cielquan", from = "src" },
