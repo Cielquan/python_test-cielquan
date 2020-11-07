@@ -326,11 +326,15 @@ jobs:
 
       - name: Fetch base_ref
         # https://github.com/Bachmann1234/diff_cover#troubleshooting
-        run: git fetch --no-tags --depth=0 origin +refs/heads/${{ github.base_ref }}
+        run: git fetch --no-tags origin +refs/heads/${{ github.base_ref }}
 
-#      - name: Fetch origin/master or DIFF_AGAINST if set
-#        # https://github.com/Bachmann1234/diff_cover#troubleshooting
-#        run: git fetch origin master:refs/remotes/origin/master
+      - name: Fetch origin/master
+        # https://github.com/Bachmann1234/diff_cover#troubleshooting
+        run: git fetch --no-tags origin master:refs/remotes/origin/master
+
+      - run: |
+          git fetch
+          git pull
 
       - name: Run tox env
         run: tox
