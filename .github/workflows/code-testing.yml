@@ -151,7 +151,8 @@ jobs:
     name: Set test matrix
     runs-on: ubuntu-latest
     outputs:
-      TEST_MATRIX: ${{ steps.set-matrix.outputs.TEST_MATRIX }}
+#      TEST_MATRIX: ${{ steps.set-matrix.outputs.test_matrix }}
+      TEST_MATRIX: ${{ steps.parser.outputs.test_matrix }}
     steps:
       - uses: actions/setup-python@v2
         with:
@@ -169,8 +170,8 @@ jobs:
 
       - name: Set TEST_MATRIX
         id: set-matrix
-#        run: echo "::set-output name=test_matrix::${{ steps.parser.outputs.matrix }}"
-        run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+#        run: echo "::set-output name=test_matrix::${{ steps.parser.outputs.test_matrix }}"
+        run: echo "::set-output name=test_matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
 
 
   code-tests:
