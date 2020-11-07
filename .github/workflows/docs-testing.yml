@@ -12,7 +12,7 @@ env:
 
 jobs:
   doc-tests:
-    name: 'Test documentation / ${{ matrix.test }}'
+    name: tox / docs-test-${{ matrix.test }}
     env:
       TOXENV: docs-test-${{ matrix.test }}
     runs-on: ubuntu-latest
@@ -50,5 +50,5 @@ jobs:
       - name: Generate tox env
         run: tox --notest -vv --skip-missing-interpreters false
 
-      - name: 'Run sphinx builder: ${{ matrix.test }}'
+      - name: Run tox env
         run: tox
