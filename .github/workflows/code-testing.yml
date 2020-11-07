@@ -12,6 +12,7 @@ on:
 env:
   default_python_version: 3.8  # CHANGE ME
   CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  # CHANGE ME
+  PYTHON_TEST_VERSIONS: "['3.6', '3.7', '3.8', '3.9', '3.10', 'pypy3']"
 
 
 jobs:
@@ -154,7 +155,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        python_version: [3.6, 3.7, 3.8, 3.9, 3.10, pypy3]  # CHANGE ME
+        python_version: ${{ fromJSON(env.PYTHON_TEST_VERSIONS) }}
+#        python_version: [3.6, 3.7, 3.8, 3.9, 3.10, pypy3]  # CHANGE ME
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
