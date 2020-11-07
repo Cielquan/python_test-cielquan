@@ -165,7 +165,12 @@ jobs:
         run: |
           matrix = {
               "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
-              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", ")
+              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
+              "include": [
+                  {"os": os, "python_version": v}
+                  for os in ${{ env.TEST_OS_PYPY }}
+                  for v in ${{ env.TEST_PYPY_VERSIONS }}
+              ]
           }
           print(f"""::set-output name=matrix::{matrix}""")
 #      - name: Set test matrix
