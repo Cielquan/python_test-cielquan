@@ -283,8 +283,9 @@ jobs:
       MIN_DIFF_COVERAGE: 100
     steps:
       - uses: actions/checkout@v2
-        with:
-          fetch_depth: 0
+
+      - name: Clone repo
+        run: git clone https://github.com/${{ github.repository }}.git
 
       - uses: actions/setup-python@v2
         with:
@@ -316,25 +317,19 @@ jobs:
 
       - run: echo $DIFF_AGAINST
 
-      - run: git --version
-
 #      - name: Fetch DIFF_AGAINST if set
 #        run: |
 #          if [[ -z ${DIFF_AGAINST+x} ]]; then
 #            git fetch origin ${DIFF_AGAINST#origin/}:refs/remotes/${DIFF_AGAINST}
 #          fi
 
-      - name: Fetch base_ref
-        # https://github.com/Bachmann1234/diff_cover#troubleshooting
-        run: git fetch --no-tags origin +refs/heads/${{ github.base_ref }}
-
-      - name: Fetch origin/master
-        # https://github.com/Bachmann1234/diff_cover#troubleshooting
-        run: git fetch --no-tags origin master:refs/remotes/origin/master
-
-      - run: |
-          git fetch
-#          git pull --ff-only
+#      - name: Fetch base_ref
+#        # https://github.com/Bachmann1234/diff_cover#troubleshooting
+#        run: git fetch --no-tags origin +refs/heads/${{ github.base_ref }}
+#
+#      - name: Fetch origin/master
+#        # https://github.com/Bachmann1234/diff_cover#troubleshooting
+#        run: git fetch --no-tags origin master:refs/remotes/origin/master
 
       - name: Run tox env
         run: tox
