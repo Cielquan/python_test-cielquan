@@ -147,11 +147,13 @@ jobs:
                   print("::set-output name=windows-success::true")
 
 
-  set-test-matrix:
+  job1:
+#  set-test-matrix:
     name: Set test matrix
     runs-on: ubuntu-latest
     outputs:
-      TEST_MATRIX: ${{ steps.set-matrix.outputs.test_matrix }}
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+#      TEST_MATRIX: ${{ steps.set-matrix.outputs.test_matrix }}
 #      TEST_MATRIX: ${{ steps.parser.outputs.test_matrix }}
     steps:
       - uses: actions/setup-python@v2
@@ -170,19 +172,21 @@ jobs:
 
       - name: Set TEST_MATRIX
         id: set-matrix
-        run: echo "::set-output name=test_matrix::{\"os\":[\"ubuntu\"],\"python_version\":[\"3.6\"]}"
+        run: echo "::set-output name=matrix::{\"os\":[\"ubuntu\"],\"python_version\":[\"3.6\"]}"
 #        run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
 
 
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
-    needs: [set-test-matrix, notify-code-climate, package-tests]
+    needs: [job1, package-tests]
+#    needs: [set-test-matrix, notify-code-climate, package-tests]
     if: always()
 #    if: needs.set-test-matrix.result == 'success'
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
-      matrix: ${{ fromJSON(needs.set-test-matrix.outsputs.TEST_MATRIX) }}
+      matrix: ${{fromJson(needs.job1.outputs.matrix)}}
+#      matrix: ${{ fromJSON(needs.set-test-matrix.outsputs.TEST_MATRIX) }}
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
