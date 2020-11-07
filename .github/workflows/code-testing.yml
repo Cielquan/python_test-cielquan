@@ -167,7 +167,7 @@ jobs:
 
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
-    needs: [notify-code-climate, package-tests, set-py-test-versions]
+    needs: [set-test-matrix, notify-code-climate, package-tests]
     if: always()
     runs-on: ${{ matrix.os }}-latest
     strategy:
