@@ -12,7 +12,7 @@ on:
 env:
   default_python_version: 3.8  # CHANGE ME
   CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  # CHANGE ME
-  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2, py3]'  # CHANGE ME
+  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2, pypy4]'  # CHANGE ME
   TEST_OS: '[ubuntu, macos, windows]'  # CHANGE ME
 
 
@@ -192,6 +192,16 @@ jobs:
               sys.exit(0)
           else:
               sys.exit(1)
+
+#      - name: Set TOXENV variable
+#        shell: python
+#        run: |
+#          import os
+#          import re
+#          gh_env_file = os.getenv["GITHUB_ENV"]
+#          py_ver = "${{ matrix.python_version }}"
+#          if py_ver.startwith("pypy"):
+#              toxenv
 
       - name: Set TOXENV variable
         shell: bash
