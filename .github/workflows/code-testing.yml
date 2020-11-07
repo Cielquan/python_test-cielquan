@@ -209,7 +209,7 @@ jobs:
           regex_result = re.search(r"^\d+\.\d+|^pypy\d+", py_ver)
           if not regex_result:
               sys.exit(1)
-          version = regex_result.group(0)
+          version = f"py{regex_result.group(0)}"
           if version.startswith("pypy"):
               version = version[2:]
           toxenv = version.replace(".", "")
