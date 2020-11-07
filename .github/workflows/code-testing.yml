@@ -157,12 +157,8 @@ jobs:
         shell: python
         run: |
           import json
-          vers = ${{ env.PYTHON_TEST_VERSIONS }}
-          print(type(vers))
-          vers = json.dumps(vers)
-          print(type(vers))
-          print("""${{ env.PYTHON_TEST_VERSIONS }}""")
-          print("""::set-output name=PYTHON_TEST_VERSIONS::${{ env.PYTHON_TEST_VERSIONS }}""")
+          vers = json.dumps(${{ env.PYTHON_TEST_VERSIONS }})
+          print(f"""::set-output name=PYTHON_TEST_VERSIONS::{vers}""")
 
       - run: echo ${{ steps.parser.outputs.PYTHON_TEST_VERSIONS }}
 
