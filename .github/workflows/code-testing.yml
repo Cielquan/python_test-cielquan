@@ -170,7 +170,8 @@ jobs:
 
       - name: Set TEST_MATRIX
         id: set-matrix
-        run: echo "::set-output name=test_matrix::{\"os\":[\"ubuntu\"],\"python_version\":[\"3.6\"]"}"
+        run: echo "::set-output name=test_matrix::{\"os\":[\"ubuntu\"],\"python_version\":[\"3.6\"]}"
+#        run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
 
 
   code-tests:
