@@ -147,12 +147,13 @@ jobs:
 
 
   set-py-test-versions:
+    name: PYTHON_TEST_VERSIONS parser
     runs-on: ubuntu-latest
-    outputs:
-      - PYTHON_TEST_VERSIONS: ${{ steps.output.outputs.PYTHON_TEST_VERSIONS }}
+#    outputs:
+#      - PYTHON_TEST_VERSIONS: ${{ steps.parser.outputs.PYTHON_TEST_VERSIONS }}
     steps:
-      - name: Set PYTHON_TEST_VERSIONS as output
-        id: output
+      - name: parse PYTHON_TEST_VERSIONS
+        id: parser
         shell: python
         run: |
           print("""${{ env.PYTHON_TEST_VERSIONS }}""")
@@ -168,8 +169,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-        python_version: ${{ fromJSON(needs.set-py-test-versions.outsputs.PYTHON_TEST_VERSIONS) }}
-#        python_version: [3.6, 3.7, 3.8, 3.9, 3.10, pypy3]  # CHANGE ME
+#        python_version: ${{ fromJSON(needs.set-py-test-versions.outsputs.PYTHON_TEST_VERSIONS) }}
+        python_version: [3.6, 3.7, 3.8, 3.9, 3.10, pypy3]  # CHANGE ME
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
