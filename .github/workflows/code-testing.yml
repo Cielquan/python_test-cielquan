@@ -12,7 +12,8 @@ on:
 env:
   default_python_version: 3.8  # CHANGE ME
   CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  # CHANGE ME
-  PYTHON_TEST_VERSIONS: '["3.6", "3.7", "3.8", "3.9", "3.10", "pypy3"]'
+  TEST_PYTHON_VERSIONS: '["3.6", "3.7", "3.8", "3.9", "3.10", "pypy3"]'
+  TEST_OS: '[ubuntu, macos, windows]'
 
 
 jobs:
@@ -146,21 +147,23 @@ jobs:
                   print("::set-output name=windows-success::true")
 
 
-  set-py-test-versions:
-    name: Parse PYTHON_TEST_VERSIONS
+  set-test-matrix:
+    name: Set test matrix
     runs-on: ubuntu-latest
 #    outputs:
-#      - PYTHON_TEST_VERSIONS: ${{ steps.parser.outputs.PYTHON_TEST_VERSIONS }}
+#      - TEST_MATRIX: ${{ steps.parser.outputs.TEST_MATRIX }}
     steps:
-      - name: Parse PYTHON_TEST_VERSIONS
+      - name: Set TEST_MATRIX
         id: parser
         shell: python
         run: |
           import json
-          vers = json.dumps(${{ env.PYTHON_TEST_VERSIONS }})
-          print(f"""::set-output name=PYTHON_TEST_VERSIONS::{vers}""")
+          py_ver_list = "${{TEST_PYTHON_VERSIONS}}"[1:-1].split(", ")
+          os_list = "${{TEST_OS}}"[1:-1].split(", ")
+          json_matrix = json.dumps({"os": os_list,"python_version": py_ver_list})
+          print(f"""::set-output name=TEST_MATRIX::{json_matrix}""")
 
-      - run: echo ${{ steps.parser.outputs.PYTHON_TEST_VERSIONS }}
+      - run: echo ${{ steps.parser.outputs.TEST_MATRIX }}
 
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
@@ -169,10 +172,7 @@ jobs:
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
-      matrix:
-        os: [ubuntu, macos, windows]
-#        python_version: ${{ fromJSON(needs.set-py-test-versions.outsputs.PYTHON_TEST_VERSIONS) }}
-        python_version: [3.6, 3.7, 3.8, 3.9, 3.10, pypy3]  # CHANGE ME
+      matrix: ${{ fromJSON(needs.set-test-matrix.outsputs.TEST_MATRIX) }}
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
