@@ -153,6 +153,10 @@ jobs:
 #    outputs:
 #      - TEST_MATRIX: ${{ steps.parser.outputs.TEST_MATRIX }}
     steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
       - name: Set TEST_MATRIX
         id: parser
         shell: python
@@ -161,8 +165,7 @@ jobs:
           py_ver_list = "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", ")
           os_list = "${{ env.TEST_OS }}"[1:-1].split(", ")
           json_matrix = json.dumps({"os": os_list,"python_version": py_ver_list})
-          print(json_matrix)
-          print(f'::set-output name=TEST_MATRIX::{json_matrix}')
+          print(f"""::set-output name=TEST_MATRIX::{json_matrix}""")
 
       - run: echo ${{ steps.parser.outputs.TEST_MATRIX }}
 
