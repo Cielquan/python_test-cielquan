@@ -12,6 +12,7 @@ env:
 
 jobs:
   is-merge:
+    name: Is current commit a merge commit?
     runs-on: ubuntu-latest
     outputs:
       is-merge: ${{ steps.is-merge.outputs.is-merge }}
@@ -38,6 +39,7 @@ jobs:
           fi
 
   pre-commit:
+    name: tox / pre-commit
     needs: is-merge
     runs-on: ubuntu-latest
     env:
@@ -69,15 +71,16 @@ jobs:
       - name: Generate tox env
         run: tox --notest -vv --skip-missing-interpreters false
 
-      - name: Run pre-commit via tox (skip no-commit-to-branch)
+      - name: Run tox env (skip no-commit-to-branch)
         run: SKIP=no-commit-to-branch tox
         if: needs.is-merge.outputs.is-merge == 'true'
 
-      - name: Run pre-commit via tox
+      - name: Run tox env
         run: tox
         if: needs.is-merge.outputs.is-merge == 'false'
 
   safety:
+    name: tox / safety
     runs-on: ubuntu-latest
     env:
       TOXENV: safety
@@ -96,5 +99,5 @@ jobs:
       - name: Generate tox env
         run: tox --notest -vv --skip-missing-interpreters false
 
-      - name: Run safety via tox
+      - name: Run tox env
         run: tox

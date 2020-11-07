@@ -13,6 +13,7 @@ env:
 
 jobs:
   set-git-env-vars:
+    name: Set GIT_COMMIT_SHA and GIT_BRANCH
     # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
     runs-on: ubuntu-latest
     outputs:
@@ -69,6 +70,7 @@ jobs:
           print(f"::set-output name=GIT_BRANCH::{branch}")
 
   notify-code-climate:
+    name: Notify code-climate
     needs: [set-git-env-vars]
     runs-on: ubuntu-latest
     env:
@@ -86,12 +88,12 @@ jobs:
           name: ${{ runner.os }}_cc-test-reporter
           path: ./cc-test-reporter
 
-      - name: Notify code-climate
+      - name: 'Run "cc-test-reporter before-build"'
         shell: bash
         run: ./cc-test-reporter before-build -d
 
   package-tests:
-    name: Test package / ${{ matrix.os }}
+    name: tox / package / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
@@ -118,7 +120,7 @@ jobs:
       - name: Generate tox env
         run: tox --notest -vv --skip-missing-interpreters false
 
-      - name: Run package test via tox
+      - name: Run tox env
         id: test
         run: tox
 
@@ -138,7 +140,7 @@ jobs:
                   print("::set-output name=windows-success::true")
 
   code-tests:
-    name: ${{ matrix.os }} / python ${{ matrix.python_version }}
+    name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
     needs: [notify-code-climate, package-tests]
     if: always()
     runs-on: ${{ matrix.os }}-latest
@@ -199,7 +201,7 @@ jobs:
       - name: Generate tox env
         run: tox --notest -vv --skip-missing-interpreters false
 
-      - name: Run tests via tox
+      - name: Run tox env
         run: tox
 
       - name: Upload coverage artifact
@@ -217,6 +219,7 @@ jobs:
           if-no-files-found: error
 
   merge-coverage:
+    name: tox / coverage-merge
     needs: code-tests
     if: always()
     runs-on: ubuntu-latest
@@ -256,7 +259,7 @@ jobs:
               print(f"{coverage_file} copy to {destination}")
               shutil.copy(str(coverage_file), str(destination))
 
-      - name: Merge and report coverage data
+      - name: Run tox env
         run: tox
 
       - name: Upload coverage artifact
@@ -270,6 +273,7 @@ jobs:
           if-no-files-found: error
 
   report-coverage:
+    name: tox / coverage-report
     needs: merge-coverage
     runs-on: ubuntu-latest
     env:
@@ -303,10 +307,9 @@ jobs:
           import os
           base_ref = "${{ github.head_ref }}"
           DIFF_AGAINST = "origin/master" if not base_ref else f"origin/{base_ref}"
-          with open(os.environ["$GITHUB_ENV"], "a") as env_file:
+          with open(os.environ["GITHUB_ENV"], "a") as env_file:
               env_file.write(DIFF_AGAINST)
               env_file.write(DIFF_AGAINST)
-        if: github.event_name == 'pull_request'
 
       - run: echo $DIFF_AGAINST
 
@@ -314,11 +317,12 @@ jobs:
         # https://github.com/Bachmann1234/diff_cover#troubleshooting
         run: git fetch origin master:refs/remotes/origin/master
 
-      - name: Report total and diff coverage against origin/master
+      - name: Run tox env
         run: tox
 
 
   push-coverage-to-code-climate:
+    name: Push coverage to code-climate
     needs: [set-git-env-vars, notify-code-climate, merge-coverage]
     runs-on: ubuntu-latest
     env:
