@@ -301,10 +301,14 @@ jobs:
         shell: python
         run: |
           import os
-          base_ref = "${{ github.base_ref }}"
+          base_ref = "${{ github.head_ref }}"
           if base_ref:
               os.environ["DIFF_AGAINST"] = f"origin/{base_ref}"
+          else:
+              os.environ["DIFF_AGAINST"] = f"origin/master"
         if: github.event_name == 'pull_request'
+
+      - run: echo $DIFF_AGAINST
 
       - name: Fetch origin/master
         # https://github.com/Bachmann1234/diff_cover#troubleshooting
