@@ -170,8 +170,8 @@ jobs:
 
       - name: Set TEST_MATRIX
         id: set-matrix
-#        run: echo "::set-output name=test_matrix::${{ steps.parser.outputs.test_matrix }}"
-        run: echo "::set-output name=test_matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
+        run: echo "::set-output name=test_matrix::${{ steps.parser.outputs.test_matrix }}"
+#        run: echo "::set-output name=test_matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
 
 
   code-tests:
