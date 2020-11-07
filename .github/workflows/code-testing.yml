@@ -284,13 +284,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: git show
-
-      - name: Clone repo
-        run: git clone https://github.com/${{ github.repository }}.git
-
-      - run: git show
-
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ env.default_python_version }}
@@ -309,31 +302,13 @@ jobs:
           name: coverage-merged
           path: .coverage_cache/
 
-      - name: Set DIFF_AGAINST if not master
-        shell: python
-        run: |
-          import os
-          base_ref = "${{ github.base_ref }}"
-          if base_ref and base_ref != "master":
-              diff_against = f"origin/{base_ref}"
-              with open(os.environ["GITHUB_ENV"], "a") as env_file:
-                  env_file.write(f"DIFF_AGAINST={diff_against}\n")
+      - name: Fetch base_ref
+        # https://github.com/Bachmann1234/diff_cover#troubleshooting
+        run: git fetch --no-tags origin +refs/heads/${{ github.base_ref }}
 
-      - run: echo $DIFF_AGAINST
-
-#      - name: Fetch DIFF_AGAINST if set
-#        run: |
-#          if [[ -z ${DIFF_AGAINST+x} ]]; then
-#            git fetch origin ${DIFF_AGAINST#origin/}:refs/remotes/${DIFF_AGAINST}
-#          fi
-
-#      - name: Fetch base_ref
-#        # https://github.com/Bachmann1234/diff_cover#troubleshooting
-#        run: git fetch --no-tags origin +refs/heads/${{ github.base_ref }}
-#
-#      - name: Fetch origin/master
-#        # https://github.com/Bachmann1234/diff_cover#troubleshooting
-#        run: git fetch --no-tags origin master:refs/remotes/origin/master
+      - name: Fetch origin/master
+        # https://github.com/Bachmann1234/diff_cover#troubleshooting
+        run: git fetch --no-tags origin master:refs/remotes/origin/master
 
       - name: Run tox env
         run: tox
