@@ -1,4 +1,5 @@
 name: Code testing
+# TODO: add pypy3 tests
 
 on:
   pull_request:
@@ -305,16 +306,22 @@ jobs:
         shell: python
         run: |
           import os
-          base_ref = "${{ github.head_ref }}"
-          diff_against = "origin/master" if not base_ref else f"origin/{base_ref}"
-          with open(os.environ["GITHUB_ENV"], "a") as env_file:
-              env_file.write(f"DIFF_AGAINST={diff_against}\n")
+          base_ref = "${{ github.base_ref }}"
+          if base_ref and base_ref != "master":
+              diff_against = f"origin/{base_ref}"
+              with open(os.environ["GITHUB_ENV"], "a") as env_file:
+                  env_file.write(f"DIFF_AGAINST={diff_against}\n")
 
       - run: echo $DIFF_AGAINST
 
-      - name: Fetch origin/master
+      - name: Fetch origin/master or DIFF_AGAINST if set
         # https://github.com/Bachmann1234/diff_cover#troubleshooting
-        run: git fetch origin master:refs/remotes/origin/master
+        run: |
+          if [[ -z ${DIFF_AGAINST+x} ]]; then
+            git fetch origin master:refs/remotes/origin/master
+          else
+            git fetch origin ${DIFF_AGAINST#origin/}:refs/remotes/${DIFF_AGAINST}
+          fi
 
       - name: Run tox env
         run: tox
