@@ -161,15 +161,16 @@ jobs:
         id: parser
         shell: python
         run: |
-          matrix = {
+          matrix = [{
               "os": "${{ env.TEST_OS }}"[1:-1].split(", "),
               "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", ")
-          }
+          }]
           print(f"""::set-output name=test_matrix::{matrix}""")
 
       - name: Set TEST_MATRIX
         id: set-matrix
         run: echo "::set-output name=test_matrix::${{ steps.parser.outputs.matrix }}"
+#        run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
 
 
   code-tests:
