@@ -172,15 +172,13 @@ jobs:
       - name: Set TEST_MATRIX
         id: set-matrix
         run: echo "::set-output name=matrix::{\"os\":[\"ubuntu\"],\"python_version\":[\"3.6\"]}"
-#        run: echo "::set-output name=matrix::{\"include\":[{\"project\":\"foo\",\"config\":\"Debug\"},{\"project\":\"bar\",\"config\":\"Release\"}]}"
 
 
   code-tests:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
     needs: [set-test-matrix, notify-code-climate, package-tests]
-#    needs: [set-test-matrix, notify-code-climate, package-tests]
-    if: always()
-#    if: needs.set-test-matrix.result == 'success'
+#    if: always()
+    if: needs.set-test-matrix.result == 'success'
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
