@@ -283,6 +283,8 @@ jobs:
       MIN_DIFF_COVERAGE: 100
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch_depth: 0
 
       - uses: actions/setup-python@v2
         with:
