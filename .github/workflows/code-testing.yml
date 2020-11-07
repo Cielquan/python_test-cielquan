@@ -12,7 +12,7 @@ on:
 env:
   default_python_version: 3.8  # CHANGE ME
   CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  # CHANGE ME
-  PYTHON_TEST_VERSIONS: "['3.6', '3.7', '3.8', '3.9', '3.10', 'pypy3']"
+  PYTHON_TEST_VERSIONS: ["3.6", "3.7", "3.8", "3.9", "3.10", "pypy3"]
 
 
 jobs:
@@ -154,7 +154,9 @@ jobs:
       - name: Set PYTHON_TEST_VERSIONS as output
         id: output
         shell: python
-        run: print("""::set-output name=PYTHON_TEST_VERSIONS::${{ env.PYTHON_TEST_VERSIONS }}""")
+        run: |
+          print("""${{ env.PYTHON_TEST_VERSIONS }}""")
+          print("""::set-output name=PYTHON_TEST_VERSIONS::${{ env.PYTHON_TEST_VERSIONS }}""")
 
 
   code-tests:
