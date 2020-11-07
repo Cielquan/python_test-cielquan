@@ -282,8 +282,6 @@ jobs:
       MIN_COVERAGE: 100
       MIN_DIFF_COVERAGE: 100
     steps:
-      - run: git show
-
       - uses: actions/checkout@v2
 
       - run: git show
