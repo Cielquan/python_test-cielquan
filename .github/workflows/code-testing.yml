@@ -12,8 +12,10 @@ on:
 env:
   default_python_version: 3.8  # CHANGE ME
   CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  # CHANGE ME
-  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2, pypy3]'  # CHANGE ME
-  TEST_OS: '[ubuntu, macos, windows]'  # CHANGE ME
+  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2]'  # CHANGE ME
+  TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
+  TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
+  TEST_OS_PYPY: '[ubuntu, macos]'  # CHANGE ME
 
 
 jobs:
@@ -157,15 +159,24 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
-      - name: Parse TEST_MATRIX
+      - name: Set test matrix
         id: set-matrix
         shell: python
         run: |
           matrix = {
-              "os": "${{ env.TEST_OS }}"[1:-1].split(", "),
+              "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
               "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", ")
           }
           print(f"""::set-output name=matrix::{matrix}""")
+#      - name: Set test matrix
+#        id: set-matrix
+#        shell: python
+#        run: |
+#          matrix = {
+#              "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
+#              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", ")
+#          }
+#          print(f"""::set-output name=matrix::{matrix}""")
 
 
   code-tests:
