@@ -153,7 +153,8 @@ jobs:
     steps:
       - name: Set PYTHON_TEST_VERSIONS as output
         id: output
-        run: echo "::set-output name=PYTHON_TEST_VERSIONS::${{ env.PYTHON_TEST_VERSIONS }}"
+        shell: python
+        run: print("""::set-output name=PYTHON_TEST_VERSIONS::${{ env.PYTHON_TEST_VERSIONS }}""")
 
 
   code-tests:
