@@ -334,7 +334,7 @@ jobs:
 
       - run: |
           git fetch
-          git pull --ff-only
+#          git pull --ff-only
 
       - name: Run tox env
         run: tox
