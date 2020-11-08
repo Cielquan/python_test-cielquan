@@ -1,0 +1,28 @@
+- TODO: Auto release
+    Test if possible:
+    After PR to release branch tests are triggered.
+    Add test that only master as head_ref allowed.
+    If they succeed -> auto-merge.
+    After merge trigger release pipeline (not needing tests anymore).
+
+- TODO: Release pipeline
+     Auto:
+     - version bump
+     - changelog update
+     - git tag create AND push
+     - build pkg
+     - publish pkg
+    Subtasks:
+    - TODO: Add commit msg linting
+        - TODO: Wait for fix in `commitlint`: https://github.com/conventional-changelog/commitlint/issues/2254
+    - TODO: Whl for different py-ver and os?!
+
+- TODO: Central config
+    Find a place for first release as config param to remove from docs/config.py
+
+- TODO: CI skip
+    Add CI skip workflow for necessary CI jobs for merges if they are not triggered.
+    Example: https://github.com/python-poetry/poetry/blob/master/.github/workflows/skip.yml
+
+- TODO: Update readme ?
+    Update readme for new step instruction ?

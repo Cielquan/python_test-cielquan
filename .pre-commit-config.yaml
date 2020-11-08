@@ -24,11 +24,7 @@ repos:
     rev: 9136088a246768144165fcc3ecc3d31bb686920a  # frozen: v3.3.0
     hooks:
       - id: no-commit-to-branch
-        args: [
-          --branch, staging,
-#          --branch, master,
-          --pattern, release/.*,
-        ]
+        args: [--branch, release-DO-NOT-PUSH-HERE]
       - id: check-case-conflict
       - id: name-tests-test
         args: ["--django"]
