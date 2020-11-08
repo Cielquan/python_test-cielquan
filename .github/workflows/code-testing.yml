@@ -1,4 +1,5 @@
 name: Code testing
+# DO NOT FORGET TO UPDATE `CI-skip.yml` TOO !!!
 
 
 env:

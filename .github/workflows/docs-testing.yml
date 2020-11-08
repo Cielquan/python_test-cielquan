@@ -1,5 +1,5 @@
 name: Documentation testing
-
+# DO NOT FORGET TO UPDATE `CI-skip.yml` TOO !!!
 
 env:
   default_python_version: 3.8  # CHANGE ME
