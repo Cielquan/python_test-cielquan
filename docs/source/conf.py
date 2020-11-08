@@ -24,7 +24,12 @@ from dotenv import find_dotenv, load_dotenv
 from formelsammlung.envvar import getenv_typed
 from sphinx.application import Sphinx
 
-from python_test_cielquan import __version__
+from python_test_cielquan import (
+    __author__,
+    __gh_repository_link__,
+    __project__,
+    __version__,
+)
 
 
 needs_sphinx = "3.1"  #: Minimum Sphinx version to build the docs
@@ -46,8 +51,8 @@ load_dotenv(find_dotenv())  #: Load .env file from project root
 
 
 #: -- PROJECT INFORMATION --------------------------------------------------------------
-project = "python_test_cielquan"  # CHANGE ME
-author = "Christian Riedel"  # CHANGE ME
+project = __project__.replace("-", "_")
+author = __author__
 RELEASE_YEAR = "2019"  # CHANGE ME
 copyright = (  # pylint: disable=W0622  # noqa: A001,VNE003
     f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
@@ -119,8 +124,8 @@ intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 
 extensions.append("sphinx.ext.extlinks")
 extlinks = {
-    "issue": ("https://github.com/Cielquan/python_test/issues/%s", "#"),  # CHANGE ME
-    "pull": ("https://github.com/Cielquan/python_test/pull/%s", "pr"),  # CHANGE ME
+    "issue": (f"{__gh_repository_link__}/issues/%s", "#"),
+    "pull": (f"{__gh_repository_link__}/pull/%s", "pr"),
     "user": ("https://github.com/%s", "@"),
     "jira_issue": (f"{getenv_typed('JIRA_LINK')}%s", ""),
 }

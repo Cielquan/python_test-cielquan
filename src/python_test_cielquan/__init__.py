@@ -5,12 +5,22 @@
 
     Handler for siegwerk material numbers.
 
-    ::copyright: (c) Christian Riedel
+    :copyright: (c) Christian Riedel
     :license: MIT, see LICENSE for more details
 """
 try:
-    from importlib.metadata import version
+    from importlib.metadata import metadata
 except ModuleNotFoundError:
-    from importlib_metadata import version  # type: ignore[import,no-redef]
+    from importlib_metadata import metadata  # type: ignore[import,no-redef]
 
-__version__ = version(__name__)
+
+md = dict(metadata(__name__))
+
+
+__author__ = md["Author"]
+__license__ = md["License"]
+__project__ = md["Name"]
+__version__ = md["Version"]
+
+__gh_repository_link__ = md["Project-URL"].replace("Repository, ", "")
+__gh_repository__ = __gh_repository_link__.replace("https://github.com/", "")
