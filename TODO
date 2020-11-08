@@ -1,15 +1,10 @@
-- TODO: Update readme ?
-    Update readme for new step instruction ?
-    - Add labels:
-        bug, documentation, feature, triage, security, pinned, stale
-    - Update issue template with repo info
-    - Activate stale bot for repo
-
 - TODO: Write CONTRIBUTION.rst
     Write instruction how to commit, PR and push
 
 - TODO: Central config
     Find a place for first release as config param to remove from docs/config.py
+    Subtask:
+    - TODO: Move deps in tox to central config
 
 - TODO: Release pipeline
     Auto:
