@@ -12,7 +12,7 @@ and should *not* deter you from submitting but rather *help* you improve your co
 But please tick all the boxes appropriately.
 -->
 
-# Pull Request Check List
+# Check List
 
 
 Resolves: #<issue number here>
