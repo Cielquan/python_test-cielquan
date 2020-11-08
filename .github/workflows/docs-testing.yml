@@ -1,7 +1,8 @@
 name: Documentation testing
-# DO NOT FORGET TO UPDATE `CI-skip.yml` TOO !!!
+
 
 env:
+  # DO NOT FORGET TO UPDATE `skip-docs-testing.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
   TEST_BUILDER: '[html, linkcheck, coverage, doctest]'  # CHANGE ME
 

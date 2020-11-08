@@ -1,7 +1,3 @@
-- TODO: CI skip
-    Add CI skip workflow for necessary CI jobs for merges if they are not triggered.
-    Example: https://github.com/python-poetry/poetry/blob/master/.github/workflows/skip.yml
-
 - TODO: Update readme ?
     Update readme for new step instruction ?
     - Add labels:
