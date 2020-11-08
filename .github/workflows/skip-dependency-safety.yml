@@ -1,0 +1,29 @@
+name: Skip for Dependency safety
+# Workaround for https://github.com/actions/virtual-environments/issues/1281
+# Dummy tests for pleasing PR merge requirements
+
+
+env:
+  # DO NOT FORGET TO UPDATE `dependency-safety.yml` TOO !!!
+  default_python_version: 3.8  # CHANGE ME
+
+
+on:
+  pull_request:
+    branches:
+      - '**'
+    paths-ignore:
+      #: Dependency changes
+      - 'poetry.lock'
+      - 'pyproject.toml'
+      #: Test config changes
+      - 'tox.ini'
+      - '.github/workflows/dependency-safety.yml'
+
+
+jobs:
+  safety:
+    name: tox / safety
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 0

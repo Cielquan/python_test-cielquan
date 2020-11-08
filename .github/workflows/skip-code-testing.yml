@@ -1,0 +1,78 @@
+name: Skip for Code testing
+# Workaround for https://github.com/actions/virtual-environments/issues/1281
+# Dummy tests for pleasing PR merge requirements
+
+
+env:
+  # DO NOT FORGET TO UPDATE `code-testing.yml` TOO !!!
+  default_python_version: 3.8  # CHANGE ME
+  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2]'  # CHANGE ME
+  TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
+  TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
+  TEST_OS_PYPY: '[ubuntu, macos]'  # CHANGE ME
+
+
+on:
+  pull_request:
+    branches:
+      - '**'
+    paths-ignore:
+      #: Source/Test changes
+      - 'src/**/*.py'
+      - 'tests/**/*.py'
+      #: Dependency changes
+      - 'poetry.lock'
+      - 'pyproject.toml'
+      #: Test config changes
+      - 'tox.ini'
+      - '.github/workflows/code-testing.yml'
+
+
+jobs:
+  create-python-test-matrix:
+    name: Set test matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Set test matrix
+        id: set-matrix
+        shell: python
+        run: |
+          matrix = {
+              "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
+              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
+          }
+          if "${{ env.TEST_OS_PYPY }}" and "${{ env.TEST_PYPY_VERSIONS }}":
+              matrix.update(
+                  {
+                      "include": [
+                          {"os": os, "python_version": v}
+                          for os in "${{ env.TEST_OS_PYPY }}"[1:-1].split(", ")
+                          for v in "${{ env.TEST_PYPY_VERSIONS }}"[1:-1].split(", ")
+                      ]
+                  }
+              )
+          print(f"""::set-output name=matrix::{matrix}""")
+
+
+  code-tests:
+    name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
+    needs: create-python-test-matrix
+    if: needs.create-python-test-matrix.result == 'success'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.create-python-test-matrix.outputs.matrix) }}
+    steps:
+      - run: exit 0
+
+
+  report-coverage:
+    name: tox / coverage-report
+    runs-on: ubuntu-latest
+    steps:
+      - run: exit 0
