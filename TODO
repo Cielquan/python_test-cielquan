@@ -1,6 +1,10 @@
-- TODO: Test if possible:
+- TODO: Auto release
+    Test if possible:
     After PR to release branch tests are triggered.
     Add test that only master as head_ref allowed.
     If they succeed auto-merge.
     After merge trigger release pipeline (not needing tests anymore).
-- TODO: find a place for first release as config param to remove from docs/config.py
+- TODO: Central config
+    Find a place for first release as config param to remove from docs/config.py
+- TODO: CI skip
+    Add CI skip workflow for necessary CI jobs for merges if they are not triggered.
