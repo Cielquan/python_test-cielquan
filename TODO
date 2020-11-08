@@ -1,11 +1,13 @@
-- TODO: Have a look at stale bot: https://github.com/marketplace/stale
-
 - TODO: CI skip
     Add CI skip workflow for necessary CI jobs for merges if they are not triggered.
     Example: https://github.com/python-poetry/poetry/blob/master/.github/workflows/skip.yml
 
 - TODO: Update readme ?
     Update readme for new step instruction ?
+    - Add labels:
+        bug, documentation, feature, triage, security, pinned, stale
+    - Update issue template with repo info
+    - Activate stale bot for repo
 
 - TODO: Write CONTRIBUTION.rst
     Write instruction how to commit, PR and push
