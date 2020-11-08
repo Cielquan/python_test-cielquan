@@ -25,9 +25,8 @@ repos:
     hooks:
       - id: no-commit-to-branch
         args: [
-          --branch, staging,
-#          --branch, master,
-          --pattern, release/.*,
+          --branch, master,
+          --branch, release-DO-NOT-PUSH-HERE,
         ]
       - id: check-case-conflict
       - id: name-tests-test
