@@ -1,3 +1,9 @@
+- TODO: Add issue templates
+
+- TODO: Add PR template
+
+- TODO: Have a look at stale bot: https://github.com/marketplace/stale
+
 - TODO: CI skip
     Add CI skip workflow for necessary CI jobs for merges if they are not triggered.
     Example: https://github.com/python-poetry/poetry/blob/master/.github/workflows/skip.yml
