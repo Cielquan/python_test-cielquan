@@ -14,8 +14,8 @@ env:
   CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  # CHANGE ME
   TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2]'  # CHANGE ME
   TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
-  TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
-  TEST_OS_PYPY: '[ubuntu, macos]'  # CHANGE ME
+#  TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
+#  TEST_OS_PYPY: '[ubuntu, macos]'  # CHANGE ME
 
 
 jobs:
