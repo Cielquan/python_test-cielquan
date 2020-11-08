@@ -1,0 +1,5 @@
+- TODO: Test if possible:
+    After PR to release branch tests are triggered.
+    Add test that only master as head_ref allowed.
+    If they succeed auto-merge.
+    After merge trigger release pipeline (not needing tests anymore).
