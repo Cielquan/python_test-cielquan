@@ -3,3 +3,4 @@
     Add test that only master as head_ref allowed.
     If they succeed auto-merge.
     After merge trigger release pipeline (not needing tests anymore).
+- TODO: find a place for first release as config param to remove from docs/config.py
