@@ -1,0 +1,57 @@
+name: Skip for Documentation testing
+# Workaround for https://github.com/actions/virtual-environments/issues/1281
+# Dummy tests for pleasing PR merge requirements
+
+
+env:
+  # DO NOT FORGET TO UPDATE `docs-testing.yml` TOO !!!
+  default_python_version: 3.8  # CHANGE ME
+  TEST_BUILDER: '[html, linkcheck, coverage, doctest]'  # CHANGE ME
+
+
+on:
+  pull_request:
+    branches:
+      - '**'
+    paths-ignore:
+      #: Source changes
+      - 'docs/**'
+      - 'src/**/*.py'
+      - 'CHANGELOG.rst'
+      - 'LICENSE.txt'
+      #: Dependency changes
+      - 'poetry.lock'
+      - 'pyproject.toml'
+      #: Test config changes
+      - 'tox.ini'
+      - '.github/workflows/docs-testing.yml'
+
+
+jobs:
+  create-builder-test-matrix:
+    name: Set test matrix
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Parse TEST_MATRIX
+        id: set-matrix
+        shell: python
+        run: |
+          matrix = {"test": "${{ env.TEST_BUILDER }}"[1:-1].split(", ")}
+          print(f"""::set-output name=matrix::{matrix}""")
+
+
+  doc-tests:
+    name: tox / docs-test-${{ matrix.test }}
+    needs: create-builder-test-matrix
+    if: needs.create-builder-test-matrix.result == 'success'
+    runs-on: ubuntu-latest
+    strategy:
+      matrix: ${{ fromJson(needs.create-builder-test-matrix.outputs.matrix) }}
+    steps:
+      - run: exit 0

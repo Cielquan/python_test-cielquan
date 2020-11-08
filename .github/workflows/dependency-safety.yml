@@ -2,6 +2,7 @@ name: Dependency safety
 
 
 env:
+  # DO NOT FORGET TO UPDATE `skip-dependency-safety.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
 
 
