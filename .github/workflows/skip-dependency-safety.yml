@@ -9,20 +9,6 @@ env:
 
 
 on:
-#  push:
-#    tags:
-#      - '!*' # Do not execute on tag push
-#    branches:
-#      - master
-#    paths:
-#      - '**'
-#      #: Dependency changes
-#      - '!poetry.lock'
-#      - '!pyproject.toml'
-#      #: Test config changes
-#      - '!tox.ini'
-#      - '!.github/workflows/dependency-safety.yml'
-
   pull_request:
     branches:
       - '**'
@@ -33,14 +19,6 @@ on:
       #: Test config changes
       - 'tox.ini'
       - '.github/workflows/dependency-safety.yml'
-#    paths:
-#      - '**'
-#      #: Dependency changes
-#      - '!poetry.lock'
-#      - '!pyproject.toml'
-#      #: Test config changes
-#      - '!tox.ini'
-#      - '!.github/workflows/dependency-safety.yml'
 
 
 jobs:
