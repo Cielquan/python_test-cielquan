@@ -48,7 +48,10 @@ Github repo
 Code base
 =========
 
-#. Update issue templates with repo name and links
+#. Update issue templates
+    - Repo name
+    - links
+    - if not cli remove part from bug report
 
 #. Update workflow
 
@@ -69,3 +72,7 @@ Code base
 #. Update LICENSE
 
 #. Update README
+
+#. Update CONTRIBUTION:
+    - Change links
+    - If not CLI remove this part
