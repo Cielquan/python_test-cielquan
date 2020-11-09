@@ -20,8 +20,8 @@ Table of contents:
     - `Suggestion for improvements`_
     - `Documentation changes`_
 - Contribution through `Github Pull Requests <https://github.com/cielquan/python_test-cielquan/pulls>`__:
-    - `Contribution to Code`_
     - `Contribution to the Documentation`_
+    - `Contribution to Code`_
 
 
 Contribution through `Github issues <https://github.com/cielquan/python_test-cielquan/issues>`__
@@ -138,9 +138,11 @@ Contribution through `Github Pull Requests <https://github.com/cielquan/python_t
 ======================================================================================================
 
 
-Contribution to Code
---------------------
-
-
 Contribution to the Documentation
 ---------------------------------
+
+
+
+
+Contribution to Code
+--------------------
