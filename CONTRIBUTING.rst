@@ -68,7 +68,7 @@ or links to a Github project.
 If the problem is an error which unexpectedly occurs please run the command again with
 the ``--debug`` option to get a more information.
 
-Please include them or make a [Gist](https://gist.github.com/) and include its link.
+Please include them or make a `Gist <https://gist.github.com/>`__ and include its link.
 
 You can also provide more context by asking yourself these questions:
 
@@ -123,7 +123,7 @@ Explain your topic as detailed as possible to help others understand your ideas:
 
 Maybe you have an idea how your request can be implemented. If so please describe it as
 detailed as possible. Maybe even with code snippets. You can include them directly or
-make a [Gist](https://gist.github.com/) and include its link.
+make a `Gist <https://gist.github.com/>`__ and include its link.
 
 
 Documentation changes
