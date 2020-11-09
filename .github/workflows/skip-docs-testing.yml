@@ -14,17 +14,18 @@ on:
     branches:
       - '**'
     paths-ignore:
+      - '**'
       #: Source changes
-      - 'docs/**'
-      - 'src/**/*.py'
-      - 'CHANGELOG.rst'
-      - 'LICENSE.txt'
+      - '!docs/**'
+      - '!src/**/*.py'
+      - '!CHANGELOG.rst'
+      - '!LICENSE.txt'
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - '!poetry.lock'
+      - '!pyproject.toml'
       #: Test config changes
-      - 'tox.ini'
-      - '.github/workflows/docs-testing.yml'
+      - '!tox.ini'
+      - '!.github/workflows/docs-testing.yml'
 
 
 jobs:
