@@ -13,6 +13,23 @@ env:
 
 
 on:
+  push:
+    tags:
+      - '!*' # Do not execute on tag push
+    branches:
+      - master
+    paths:
+      - '**'
+      #: Source/Test changes
+      - '!src/**/*.py'
+      - '!tests/**/*.py'
+      #: Dependency changes
+      - '!poetry.lock'
+      - '!pyproject.toml'
+      #: Test config changes
+      - '!tox.ini'
+      - '!.github/workflows/code-testing.yml'
+
   pull_request:
     branches:
       - '**'
