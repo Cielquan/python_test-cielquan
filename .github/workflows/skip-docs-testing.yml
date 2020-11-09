@@ -10,41 +10,53 @@ env:
 
 
 on:
-  push:
-    tags:
-      - '!*' # Do not execute on tag push
-    branches:
-      - master
-    paths:
-      - '**'
-      #: Source changes
-      - '!docs/**'
-      - '!src/**/*.py'
-      - '!CHANGELOG.rst'
-      - '!LICENSE.txt'
-      #: Dependency changes
-      - '!poetry.lock'
-      - '!pyproject.toml'
-      #: Test config changes
-      - '!tox.ini'
-      - '!.github/workflows/docs-testing.yml'
+#  push:
+#    tags:
+#      - '!*' # Do not execute on tag push
+#    branches:
+#      - master
+#    paths:
+#      - '**'
+#      #: Source changes
+#      - '!docs/**'
+#      - '!src/**/*.py'
+#      - '!CHANGELOG.rst'
+#      - '!LICENSE.txt'
+#      #: Dependency changes
+#      - '!poetry.lock'
+#      - '!pyproject.toml'
+#      #: Test config changes
+#      - '!tox.ini'
+#      - '!.github/workflows/docs-testing.yml'
 
   pull_request:
     branches:
       - '**'
-    paths:
-      - '**'
+    paths-ignore:
       #: Source changes
-      - '!docs/**'
-      - '!src/**/*.py'
-      - '!CHANGELOG.rst'
-      - '!LICENSE.txt'
+      - 'docs/**'
+      - 'src/**/*.py'
+      - 'CHANGELOG.rst'
+      - 'LICENSE.txt'
       #: Dependency changes
-      - '!poetry.lock'
-      - '!pyproject.toml'
+      - 'poetry.lock'
+      - 'pyproject.toml'
       #: Test config changes
-      - '!tox.ini'
-      - '!.github/workflows/docs-testing.yml'
+      - 'tox.ini'
+      - '.github/workflows/docs-testing.yml'
+#    paths:
+#      - '**'
+#      #: Source changes
+#      - '!docs/**'
+#      - '!src/**/*.py'
+#      - '!CHANGELOG.rst'
+#      - '!LICENSE.txt'
+#      #: Dependency changes
+#      - '!poetry.lock'
+#      - '!pyproject.toml'
+#      #: Test config changes
+#      - '!tox.ini'
+#      - '!.github/workflows/docs-testing.yml'
 
 
 jobs:
