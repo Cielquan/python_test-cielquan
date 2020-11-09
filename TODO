@@ -1,7 +1,7 @@
-- TODO: Fix skip workflows
-
 - TODO: Write CONTRIBUTION.rst
     Write instruction how to commit, PR and push
+
+- TODO: Add poetry to dev tox ?
 
 - TODO: Central config
     Find a place for first release as config param to remove from docs/config.py
@@ -26,5 +26,3 @@
     Add test that only master as head_ref allowed.
     If they succeed -> auto-merge.
     After merge trigger release pipeline (not needing tests anymore).
-
-- TODO: Add poetry to dev tox ?
