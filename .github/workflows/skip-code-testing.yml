@@ -16,16 +16,17 @@ on:
   pull_request:
     branches:
       - '**'
-    paths-ignore:
+    paths:
+      - '**'
       #: Source/Test changes
-      - 'src/**/*.py'
-      - 'tests/**/*.py'
+      - '!src/**/*.py'
+      - '!tests/**/*.py'
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - '!poetry.lock'
+      - '!pyproject.toml'
       #: Test config changes
-      - 'tox.ini'
-      - '.github/workflows/code-testing.yml'
+      - '!tox.ini'
+      - '!.github/workflows/code-testing.yml'
 
 
 jobs:

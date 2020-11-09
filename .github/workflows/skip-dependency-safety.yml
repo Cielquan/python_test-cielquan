@@ -12,13 +12,14 @@ on:
   pull_request:
     branches:
       - '**'
-    paths-ignore:
+    paths:
+      - '**'
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - '!poetry.lock'
+      - '!pyproject.toml'
       #: Test config changes
-      - 'tox.ini'
-      - '.github/workflows/dependency-safety.yml'
+      - '!tox.ini'
+      - '!.github/workflows/dependency-safety.yml'
 
 
 jobs:

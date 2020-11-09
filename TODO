@@ -26,3 +26,5 @@
     Add test that only master as head_ref allowed.
     If they succeed -> auto-merge.
     After merge trigger release pipeline (not needing tests anymore).
+
+- TODO: Add poetry to dev tox ?
