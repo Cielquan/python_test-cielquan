@@ -127,7 +127,7 @@ make a `Gist <https://gist.github.com/>`__ and include its link.
 
 
 Documentation changes
-=====================
+---------------------
 
 If you have errors or enhancement ideas for the documentation please follow the steps
 above accordingly but use the ``Documentation`` issue option to get the
