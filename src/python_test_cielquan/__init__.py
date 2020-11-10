@@ -9,7 +9,7 @@
     :license: MIT, see LICENSE for more details
 """
 try:
-    from importlib.metadata import metadata  # type: ignore[attr-defined]
+    from importlib.metadata import metadata
 except ModuleNotFoundError:
     from importlib_metadata import metadata  # type: ignore[import,no-redef]
 
