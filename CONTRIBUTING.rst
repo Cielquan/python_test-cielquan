@@ -22,6 +22,7 @@ Table of contents:
 - Contribution through `Github Pull Requests <https://github.com/cielquan/python_test-cielquan/pulls>`__:
     - `Contribution to the Documentation`_
     - `Contribution to Code`_
+- Github Workflow
 
 
 Contribution through `Github issues <https://github.com/cielquan/python_test-cielquan/issues>`__
@@ -141,8 +142,45 @@ Contribution through `Github Pull Requests <https://github.com/cielquan/python_t
 Contribution to the Documentation
 ---------------------------------
 
+Contribution to the documentation is the easiest way to get started to contribute to
+python_test-cielquan. You can look in the
+`Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
+for issues with the ``Documentation`` label and try to solve them.
+
+
 
 
 
 Contribution to Code
 --------------------
+
+Contribution to Code is a bit more complex as some standards has been set and you must
+follow these rules to get your contribution accepted. But this sounds scarier than it
+is.
+
+
+Setup Local Development Environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#. Clone the repo
+#. Create a venv
+#. Activate venv
+#. Install tox into venv
+#. Run tox -e dev or dev2
+#. Activate dev venv
+#. Run tox -e pre-commit
+#. Run pre-commit install -t pre-commit -t commit-msg
+
+
+
+
+Just pick an issue from the
+`Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
+and get started.
+
+    **Note:** If you find are a first time contributor issues with the
+    ``First Good Issue`` label are good ones to get started with.
+
+
+Github Workflow
+===============
