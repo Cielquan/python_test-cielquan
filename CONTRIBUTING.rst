@@ -147,8 +147,7 @@ python_test-cielquan. You can look in the
 `Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
 for issues with the ``Documentation`` label and try to solve them.
 
-
-
+For creating your local development environment please see: `Setup Local Development Environment`_
 
 
 Contribution to Code
@@ -159,27 +158,120 @@ follow these rules to get your contribution accepted. But this sounds scarier th
 is.
 
 
-Setup Local Development Environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-#. Clone the repo
-#. Create a venv
-#. Activate venv
-#. Install tox into venv
-#. Run tox -e dev or dev2
-#. Activate dev venv
-#. Run tox -e pre-commit
-#. Run pre-commit install -t pre-commit -t commit-msg
-
-
-
-
-Just pick an issue from the
+First you need an issue to work on. Just pick an issue from the
 `Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
 and get started.
 
     **Note:** If you find are a first time contributor issues with the
     ``First Good Issue`` label are good ones to get started with.
+
+
+Setup Local Development Environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This section will explain how to setup an local development environment with the
+tools used for python_test-cielquan. We use:
+
+- `tox <https://tox.readthedocs.io/>`__ for automated creation of virtual environments (venv) and testing
+- `poetry <https://python-poetry.org/docs/>`__ for dependeny management and package building
+- `pre-commit <https://pre-commit.com/>`__ for automated linting and checking before commiting (managed via ``tox``)
+
+The ``dev`` venv is created via ``tox`` and has 2 different versions: with and without
+``tox`` + ``poetry`` installed. 
+
+If you have **both** tools globally isstalled and available you can use the ``dev``
+environment. If you miss either of them you can either install the missing one on your
+system or use the ``devfull`` environment instead. ``devfull`` has both tools installed.
+
+At first you need to clone the repository and have a command prompt ready from within
+the local copy of the repository.
+
+If you are missing ``tox`` you need to take the following 3 extra steps to create the
+``devfull`` ``tox`` environment from which you then can call/run the other ``tox``
+environments:
+
+#. Create a virtual environment (venv)::
+
+    Unix: $ python3 -m venv .venv
+    Windows: > python -m venv .venv
+
+#. Activate the venv::
+
+    Unix: $ source .venv/bin/activate
+    Windows: > .venv/Scripts/activate
+
+#. Install tox into the venv::
+
+    Both: $ python -m venv pip install tox
+
+*If you use ``devfull`` exchange it for ``dev`` in the following examples*.
+To create the ``dev`` or ``devfull`` venv just call::
+
+    Both: $ tox -e dev
+
+After successfull creation, actiavte it::
+
+    Unix: $ source .tox/dev/bin/activate
+    Windows: > .tox/dev/Scripts/activate
+
+Now you have your development environment active and ready.
+
+We recommend that also setup ``pre-commit`` - which is only two more commands - to ensure
+that your commits are okay and the CI pipeline does not complain about linting issues.
+
+You just need to invoke the ``pre-commit`` ``tox`` environment::
+
+    Both: $ tox -e pre-commit
+
+and then install the `pre-commit` and `commit-msg` git hooks::
+
+    Both: $ pre-commit install -t pre-commit -t commit-msg
+
+Now you are set up and ready to go. If you have questions regarding the aforementioned
+tools please see their respective documentation which are linked at this sections
+beginning.
+
+
+Development process
+~~~~~~~~~~~~~~~~~~~
+
+We have several different ``tox`` environments configured for all sorts of tests which
+you can invoke via ``tox -e <ENVIRONMENT_NAME>``.
+
+The main testing environments are:
+
+- ``code-test``: Run ``pytest`` with available configured python versions and report coverage
+- ``docs-test``: Test the current docs
+
+Also available are:
+
+- ``package``: Test if the current package fails to build
+- ``docs``: Build the current docs (for reading purpose)
+- ``safety``: Lookup all dependencies in vulnerability database
+- ``pre-commit``: Run all `pre-commit` hooks over all files
+
+You should run the test environments prior commiting/pushing as thouse tests are run in
+the CI pipeline anyways and will block merging your Pull request in case of failure.
+
+
+Commit messages
+~~~~~~~~~~~~~~~
+
+We use `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`__ as
+standard for our commit messages. With this standard commit messages are human **and**
+maschine readable so that the changelog creation and versioning can be automated based
+on keywords. Commit messages will be checked in the CI pipeline.
+
+If you set up ``pre-commit`` as described above you already have the ``commit-msg``
+hook installed which will check you commit message for compliance.
+
+For small changes (like fixing a typo) you may disrespect the standard but then a
+maintainer has to make a squash commit eventually and write a correct commit message
+for you. So we highly encourage you to write comliant commit messages as this will
+increase the likelyhood for your Pull request to be merged.
+
+For larger changes (like feature additions with and without doc updates) we will ask
+you fix you commit messages if they are not compliant.
 
 
 Github Workflow
