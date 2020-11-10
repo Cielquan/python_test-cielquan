@@ -9,13 +9,14 @@ Github repo
 #. Add description
 
 #. Add issue labels:
-    - bug
-    - documentation
-    - feature
-    - triage
-    - security
-    - pinned
-    - stale
+    - Bug
+    - Documentation
+    - Feature
+    - Triage
+    - Security
+    - Pinned
+    - Stale
+    - First Good Issue
 
 #. Activate stale bot
 
