@@ -60,7 +60,9 @@ with suppress(ModuleNotFoundError):
             return [RuleViolation(self.id, msg, line_nr=1)]
 
 
-def tox_env_exe_runner() -> int:
+def tox_env_exe_runner(
+    tool: str, envs: List[str], tool_args: Optional[List[str]] = None
+) -> int:
     """Call given `tool` from given `tox` env.
 
     Script to call executables in `tox` envs considering OS.
@@ -76,15 +78,16 @@ def tox_env_exe_runner() -> int:
     """
     is_win = sys.platform == "win32"
 
-    tool = sys.argv[1]
     exe = Path(f"Scripts/{tool}.exe") if is_win else Path(f"bin/{tool}")
-    envs = sys.argv[2].split(",")
     cmd = None
+
+    if not tool_args:
+        tool_args = []
 
     for env in envs:
         path = Path(".tox") / env / exe
         if path.is_file():
-            cmd = (str(path), *sys.argv[3:])
+            cmd = (str(path), *tool_args)
 
     if cmd is None:
         print(
@@ -97,4 +100,4 @@ def tox_env_exe_runner() -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(tox_env_exe_runner())
+    sys.exit(tox_env_exe_runner(sys.argv[1], sys.argv[2].split(","), sys.argv[3:]))
