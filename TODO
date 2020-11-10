@@ -1,5 +1,7 @@
 - TODO: Write CONTRIBUTION.rst
     Write instruction how to commit, PR and push
+    Subtask:
+    - TODO: make easy setup
 
 - TODO: Add poetry to dev tox ?
 
