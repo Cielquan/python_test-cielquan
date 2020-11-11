@@ -22,7 +22,7 @@ Table of contents:
 - Contribution through `Github Pull Requests <https://github.com/cielquan/python_test-cielquan/pulls>`__:
     - `Contribution to the Documentation`_
     - `Contribution to Code`_
-- Github Workflow
+    - `Git Workflow`_
 
 
 Contribution through `Github issues <https://github.com/cielquan/python_test-cielquan/issues>`__
@@ -76,7 +76,7 @@ You can also provide more context by asking yourself these questions:
 - Did the problem just start happening recently after an update or something?
 - If so can you reproduce the problem with older versions?
 - Does the problem occur with older or new python versions also?
-- Does the problem occur everytime and is reliably reproducible?
+- Does the problem occur every time and is reliably reproducible?
 - If not how often does it occur? Please provide as many details as possible.
 
 The template also asks for some info about your environment:
@@ -173,13 +173,13 @@ This section will explain how to setup an local development environment with the
 tools used for python_test-cielquan. We use:
 
 - `tox <https://tox.readthedocs.io/>`__ for automated creation of virtual environments (venv) and testing
-- `poetry <https://python-poetry.org/docs/>`__ for dependeny management and package building
+- `poetry <https://python-poetry.org/docs/>`__ for dependency management and package building
 - `pre-commit <https://pre-commit.com/>`__ for automated linting and checking before commiting (managed via ``tox``)
 
 The ``dev`` venv is created via ``tox`` and has 2 different versions: with and without
 ``tox`` + ``poetry`` installed. 
 
-If you have **both** tools globally isstalled and available you can use the ``dev``
+If you have **both** tools globally installed and available you can use the ``dev``
 environment. If you miss either of them you can either install the missing one on your
 system or use the ``devfull`` environment instead. ``devfull`` has both tools installed.
 
@@ -209,7 +209,7 @@ To create the ``dev`` or ``devfull`` venv just call::
 
     Both: $ tox -e dev
 
-After successfull creation, actiavte it::
+After successful creation, activate it::
 
     Unix: $ source .tox/dev/bin/activate
     Windows: > .tox/dev/Scripts/activate
@@ -232,8 +232,8 @@ tools please see their respective documentation which are linked at this section
 beginning.
 
 
-Development process
-~~~~~~~~~~~~~~~~~~~
+Testing
+~~~~~~~
 
 We have several different ``tox`` environments configured for all sorts of tests which
 you can invoke via ``tox -e <ENVIRONMENT_NAME>``.
@@ -250,8 +250,14 @@ Also available are:
 - ``safety``: Lookup all dependencies in vulnerability database
 - ``pre-commit``: Run all `pre-commit` hooks over all files
 
-You should run the test environments prior commiting/pushing as thouse tests are run in
+You should run the test environments prior commiting/pushing as those tests are run in
 the CI pipeline anyways and will block merging your Pull request in case of failure.
+
+
+Git Workflow
+------------
+
+This section will explain the specifics regarding to ``git``.
 
 
 Commit messages
@@ -259,7 +265,7 @@ Commit messages
 
 We use `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`__ as
 standard for our commit messages. With this standard commit messages are human **and**
-maschine readable so that the changelog creation and versioning can be automated based
+machine readable so that the changelog creation and versioning can be automated based
 on keywords. Commit messages will be checked in the CI pipeline.
 
 If you set up ``pre-commit`` as described above you already have the ``commit-msg``
@@ -267,12 +273,36 @@ hook installed which will check you commit message for compliance.
 
 For small changes (like fixing a typo) you may disrespect the standard but then a
 maintainer has to make a squash commit eventually and write a correct commit message
-for you. So we highly encourage you to write comliant commit messages as this will
-increase the likelyhood for your Pull request to be merged.
+for you. So we highly encourage you to write compliant commit messages as this will
+increase the likelihood for your pull request to be merged.
 
 For larger changes (like feature additions with and without doc updates) we will ask
 you fix you commit messages if they are not compliant.
 
 
-Github Workflow
-===============
+Development
+~~~~~~~~~~~
+
+The ``master`` branch is the development branch and so all changes are expected to be
+submitted and merged there. Merging into ``master`` is only allowed after all CI tests
+succeeded and the test coverage does not decrease. Pull requests should be merged with
+a merge commit. If the change is very small and the commit message(s) of the pull
+request's commit(s) are not compliant with ``Conventional Commits`` then a squad commit
+is necessary and the maintainer merging the pull request has to write a compliant
+commit message for the squash commit.
+
+
+Releases
+~~~~~~~~
+
+When enough changes and additions or time important fixes have accumulated on the
+``master`` branch its time for a new release. The exact time is subject to the
+judgement of the maintainer(s). Releases are handled via the
+``release-DO-NOT-PUSH-HERE`` branch. To create a new release a pull request from
+``master`` to ``release-DO-NOT-PUSH-HERE`` needs to be opened. Then the CI pipeline
+will check the changes once again and also if the head-reference is the ``master``
+branch as no other head-reference is allowed. If all CI tests succeed the pull request
+must be merged as merge commit. The merge commit on ``release-DO-NOT-PUSH-HERE`` will
+then trigger another CI pipeline which will automatically bump the version counter
+based on semantic versioning, update the changelog, create a new git tag, build the
+package/wheel and push it to PyPI.
