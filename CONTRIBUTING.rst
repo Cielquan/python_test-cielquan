@@ -269,15 +269,12 @@ machine readable so that the changelog creation and versioning can be automated 
 on keywords. Commit messages will be checked in the CI pipeline.
 
 If you set up ``pre-commit`` as described above you already have the ``commit-msg``
-hook installed which will check you commit message for compliance.
+hook installed which will check your commit message for compliance.
 
-For small changes (like fixing a typo) you may disrespect the standard but then a
-maintainer has to make a squash commit eventually and write a correct commit message
-for you. So we highly encourage you to write compliant commit messages as this will
-increase the likelihood for your pull request to be merged.
-
-For larger changes (like feature additions with and without doc updates) we will ask
-you fix you commit messages if they are not compliant.
+For small changes (like fixing a typo) with one commit and for larger changes (like
+feature additions) with multiple commits alike we will ask you fix you commit messages
+if they are not compliant. So we highly recommend you to set ``pre-commit`` up as it is
+very easy.
 
 
 Development
@@ -285,11 +282,7 @@ Development
 
 The ``master`` branch is the development branch and so all changes are expected to be
 submitted and merged there. Merging into ``master`` is only allowed after all CI tests
-succeeded and the test coverage does not decrease. Pull requests should be merged with
-a merge commit. If the change is very small and the commit message(s) of the pull
-request's commit(s) are not compliant with ``Conventional Commits`` then a squad commit
-is necessary and the maintainer merging the pull request has to write a compliant
-commit message for the squash commit.
+succeeded. Pull requests must be merged with a merge commit.
 
 
 Releases
@@ -301,8 +294,9 @@ judgement of the maintainer(s). Releases are handled via the
 ``release-DO-NOT-PUSH-HERE`` branch. To create a new release a pull request from
 ``master`` to ``release-DO-NOT-PUSH-HERE`` needs to be opened. Then the CI pipeline
 will check the changes once again and also if the head-reference is the ``master``
-branch as no other head-reference is allowed. If all CI tests succeed the pull request
-must be merged as merge commit. The merge commit on ``release-DO-NOT-PUSH-HERE`` will
-then trigger another CI pipeline which will automatically bump the version counter
-based on semantic versioning, update the changelog, create a new git tag, build the
-package/wheel and push it to PyPI.
+branch as no other head-reference is allowed. When all CI tests succeed the pull
+request must be merged as a merge commit. The merge commit on 
+``release-DO-NOT-PUSH-HERE`` will then trigger another CI pipeline which will
+automatically bump the version counter based on semantic versioning and conventional
+commits, update the changelog, create a new git tag, build the package/wheel and push
+it to PyPI.
