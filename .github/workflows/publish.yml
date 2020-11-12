@@ -41,13 +41,11 @@ jobs:
         shell: bash
         run: |
           last_merge_commit=$(git log --merges -1 --pretty=format:"%H")
-          echo $last_merge_commit
+          echo "Last merge: ${last_merge_commit}"
           if [[ $last_merge_commit == ${{ github.sha }} ]]; then
             echo "::set-output name=is-merge::true"
-            echo true
           else
             echo "::set-output name=is-merge::false"
-            echo false
           fi
 
       - name: Set output value
