@@ -1,0 +1,14 @@
+name: Test init2
+
+on:
+  push:
+    branches: [test]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Hi
+      - run: exit 0
+
+# trigger
