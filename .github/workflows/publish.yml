@@ -31,7 +31,7 @@ jobs:
         working-directory: ${{ steps.repo-dir.outputs.repo-dir }}
         shell: bash
         run: |
-          last_merge_commit = $(git log --merges -1 --pretty=format:"%H")
+          last_merge_commit=$(git log --merges -1 --pretty=format:"%H")
           echo $last_merge_commit
           if [[ $last_merge_commit == ${{ github.sha }} ]]; then
             echo "::set-output name=is-merge::true"
