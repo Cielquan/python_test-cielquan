@@ -177,7 +177,7 @@ tools used for python_test-cielquan. We use:
 - `pre-commit <https://pre-commit.com/>`__ for automated linting and checking before commiting (managed via ``tox``)
 
 The ``dev`` venv is created via ``tox`` and has 2 different versions: with and without
-``tox`` + ``poetry`` installed. 
+``tox`` + ``poetry`` installed.
 
 If you have **both** tools globally installed and available you can use the ``dev``
 environment. If you miss either of them you can either install the missing one on your
@@ -290,7 +290,7 @@ judgement of the maintainer(s). Releases are handled via the
 ``master`` to ``release-DO-NOT-PUSH-HERE`` needs to be opened. Then the CI pipeline
 will check the changes once again and also if the head-reference is the ``master``
 branch as no other head-reference is allowed. When all CI tests succeed the pull
-request must be merged as a merge commit. The merge commit on 
+request must be merged as a merge commit. The merge commit on
 ``release-DO-NOT-PUSH-HERE`` will then trigger another CI pipeline which will
 automatically bump the version counter based on semantic versioning and conventional
 commits, update the changelog, create a new git tag, build the package/wheel and push
