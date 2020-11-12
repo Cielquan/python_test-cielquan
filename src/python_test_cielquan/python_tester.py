@@ -21,4 +21,4 @@ def testus(zahl: int = 2) -> int:
 
 
 if __name__ == "__main__":
-    testus()
+    testus(1)
