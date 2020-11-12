@@ -60,10 +60,10 @@ jobs:
         id: set-output
         shell: bash
         run: |
-          if [[ ${{ github.event_name }} != 'push' ]]; then
-            echo "::set-output name=is-merge::true"
-          else
+          if [[ ${{ github.event_name }} == 'push' ]]; then
             echo "::set-output name=is-merge::${{ steps.is-merge.outputs.is-merge }}"
+          else
+            echo "::set-output name=is-merge::true"
           fi
 
 
