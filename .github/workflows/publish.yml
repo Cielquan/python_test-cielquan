@@ -10,9 +10,38 @@ env:
   default_python_version: 3.8 # CHANGE ME
 
 jobs:
-  # Add tests
+  is-merge:
+    name: Is current commit a merge commit?
+    runs-on: ubuntu-latest
+    outputs:
+      is-merge: ${{ steps.is-merge.outputs.is-merge }}
+    steps:
+      - name: Clone repo
+        run: git clone https://github.com/${{ github.repository }}.git
+
+      - name: Get repo dir name
+        id: repo-dir
+        shell: bash
+        run: |
+          repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
+          echo "::set-output name=repo-dir::$repo_dir"
+
+      - name: Is merge commit?
+        id: is-merge
+        working-directory: ${{ steps.repo-dir.outputs.repo-dir }}
+        shell: bash
+        run: |
+          if [[ $(git log --merges -1 --pretty=format:"%H") == ${{ github.sha }} ]]; then
+            echo "::set-output name=is-merge::true"
+          else
+            echo "::set-output name=is-merge::false"
+          fi
+
+
   publish:
     runs-on: ubuntu-latest
+    needs: is-merge
+    if: needs.is-merge.outputs.is-merge == 'true'
     steps:
     - uses: actions/checkout@v2
 
