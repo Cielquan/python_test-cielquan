@@ -1,5 +1,5 @@
 minimum_pre_commit_version: "1.15"
-default_stages: [commit, push]
+default_stages: [commit]
 
 repos:
 #: -------------------------------------------------------------------------------------
@@ -35,9 +35,9 @@ repos:
       - id: check-yaml
       - id: detect-private-key
       - id: trailing-whitespace
-        stages: [commit, push]
+        stages: [commit]
       - id: end-of-file-fixer
-        stages: [commit, push]
+        stages: [commit]
 
   #: several python code regex hooks
   - repo: https://github.com/pre-commit/pygrep-hooks
