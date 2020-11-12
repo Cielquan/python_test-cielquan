@@ -190,29 +190,24 @@ If you are missing ``tox`` you need to take the following 3 extra steps to creat
 ``devfull`` ``tox`` environment from which you then can call/run the other ``tox``
 environments:
 
-#. Create a virtual environment (venv)::
+#. Create a virtual environment (venv) and activate it::
 
-    Unix: $ python3 -m venv .venv
-    Windows: > python -m venv .venv
-
-#. Activate the venv::
-
-    Unix: $ source .venv/bin/activate
-    Windows: > .venv/Scripts/activate
+    Unix (bash): $ python3 -m venv .venv && source .venv/bin/activate
+    Windows (cmd): > python -m venv .venv && .venv\Scripts\activate
 
 #. Install tox into the venv::
 
-    Both: $ python -m venv pip install tox
+    All: $ python -m venv pip install tox
 
 *If you use ``devfull`` exchange it for ``dev`` in the following examples*.
 To create the ``dev`` or ``devfull`` venv just call::
 
-    Both: $ tox -e dev
+    All: $ tox -e dev
 
 After successful creation, activate it::
 
-    Unix: $ source .tox/dev/bin/activate
-    Windows: > .tox/dev/Scripts/activate
+    Unix (bash): $ source .tox/dev/bin/activate
+    Windows (cmd): > .tox\dev\Scripts\activate
 
 Now you have your development environment active and ready.
 
@@ -221,11 +216,11 @@ that your commits are okay and the CI pipeline does not complain about linting i
 
 You just need to invoke the ``pre-commit`` ``tox`` environment::
 
-    Both: $ tox -e pre-commit
+    All: $ tox -e pre-commit
 
 and then install the `pre-commit` and `commit-msg` git hooks::
 
-    Both: $ pre-commit install -t pre-commit -t commit-msg
+    All: $ pre-commit install -t pre-commit -t commit-msg
 
 Now you are set up and ready to go. If you have questions regarding the aforementioned
 tools please see their respective documentation which are linked at this sections
