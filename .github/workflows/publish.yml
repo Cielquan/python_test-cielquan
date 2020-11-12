@@ -41,7 +41,7 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     needs: is-merge
-    if: and(needs.is-merge.result == 'success', needs.is-merge.outputs.is-merge == 'true')
+    if: needs.is-merge.result == 'success' && needs.is-merge.outputs.is-merge == 'true'
     steps:
     - uses: actions/checkout@v2
 
