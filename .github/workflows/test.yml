@@ -3,7 +3,7 @@ name: Test workflowception
 on:
   workflow_run:
     workflows: ["Test init"]
-    branches: [master]
+#     branches: [master]
     types: 
       - completed
 
