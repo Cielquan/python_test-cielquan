@@ -2,7 +2,7 @@ name: Test workflowception
 
 on:
   workflow_run:
-    workflows: ["Code testing"]
+    workflows: ["Test init"]
     branches: [master]
     types: 
       - completed
@@ -12,4 +12,3 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo Hi
-      - run: echo ${{ env.CC_TEST_REPORTER_URL }}
