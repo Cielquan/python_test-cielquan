@@ -28,7 +28,8 @@ jobs:
 
       - name: Checkout current branch
         working-directory: ${{ steps.repo-dir.outputs.repo-dir }}
-        run: git checkout ${{ github.ref }}
+        shell: bash
+        run: git checkout ${GITHUB_REF#/refs/heads/}
 
       - name: Is merge commit?
         id: is-merge
