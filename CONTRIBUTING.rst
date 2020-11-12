@@ -287,21 +287,8 @@ When enough changes and additions or time important fixes have accumulated on th
 ``master`` branch its time for a new release. The exact time is subject to the
 judgement of the maintainer(s).
 
-Releases are handled via the ``release-DO-NOT-PUSH-HERE`` branch. To create a new
-release a pull request from ``master`` to ``release-DO-NOT-PUSH-HERE`` needs to be
-opened. Then the CI pipeline will check the changes once again. It will also check if
-the head-reference is the ``master`` branch as no other head-reference is allowed to be
-merged into ``release-DO-NOT-PUSH-HERE``. When all CI tests succeeded the pull request
-must be merged as a merge commit.
-
-The merge commit on ``release-DO-NOT-PUSH-HERE`` will then trigger another CI pipeline
-which will test if there is a diff between ``release-DO-NOT-PUSH-HERE`` and ``master``
-and if so fail, because both branches must be equal at release. **Therefore: While a**
-**release is in process other branches must not be merged into ``master``.** If there is
-no diff the pipeline will proceed and automatically bump the version counter based on
-semantic versioning and conventional commits, update the changelog, create a new git
-tag, build the package/wheel and push it to PyPI.
-
-After the release workflow succeeded the ``release-DO-NOT-PUSH-HERE`` branch gets merged
-back into the ``master`` branch via pull request as a merge commit, so the ``master`` is
-up-to-date again.
+To trigger a new release you have to manually start the release workflow form the
+``Actions`` tab of the Github repository. The workflow will run the full test suit and
+after success automatically bump the version counter based on semantic versioning and
+conventional commits, update the changelog, create a new git tag, build the
+package/wheel and push it to PyPI.
