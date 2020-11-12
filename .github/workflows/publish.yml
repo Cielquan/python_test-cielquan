@@ -14,25 +14,29 @@ jobs:
     name: Is current commit a merge commit?
     runs-on: ubuntu-latest
     outputs:
-      is-merge: ${{ steps.is-merge.outputs.is-merge }}
+      is-merge: ${{ steps.set-output.outputs.is-merge }}
     steps:
       - name: Clone repo
+        if: github.event_name == 'push'
         run: git clone https://github.com/${{ github.repository }}.git
 
       - name: Get repo dir name
         id: repo-dir
+        if: github.event_name == 'push'
         shell: bash
         run: |
           repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
           echo "::set-output name=repo-dir::$repo_dir"
 
       - name: Checkout current branch
+        if: github.event_name == 'push'
         working-directory: ${{ steps.repo-dir.outputs.repo-dir }}
         shell: bash
         run: git checkout ${GITHUB_REF#refs/heads/}
 
       - name: Is merge commit?
         id: is-merge
+        if: github.event_name == 'push'
         working-directory: ${{ steps.repo-dir.outputs.repo-dir }}
         shell: bash
         run: |
@@ -44,6 +48,16 @@ jobs:
           else
             echo "::set-output name=is-merge::false"
             echo false
+          fi
+
+      - name: Set output value
+        id: set-output
+        shell: bash
+        run: |
+          if [[ ${{ github.event_name }} != 'push' ]]; then
+            echo "::set-output name=is-merge::true"
+          else
+            echo "::set-output name=is-merge::${{ steps.is-merge.outputs.is-merge }}"
           fi
 
 
