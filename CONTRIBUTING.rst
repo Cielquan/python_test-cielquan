@@ -252,7 +252,7 @@ the CI pipeline anyways and will block merging your Pull request in case of fail
 Git(hub) Workflow
 -----------------
 
-This section will explain the specifics regarding to ``git``.
+This section will explain the specifics regarding to ``git`` and ``github``.
 
 
 Commit messages
