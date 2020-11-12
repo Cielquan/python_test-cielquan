@@ -287,8 +287,15 @@ When enough changes and additions or time important fixes have accumulated on th
 ``master`` branch its time for a new release. The exact time is subject to the
 judgement of the maintainer(s).
 
-To trigger a new release you have to manually start the release workflow form the
-``Actions`` tab of the Github repository. The workflow will run the full test suit and
-after success automatically bump the version counter based on semantic versioning and
-conventional commits, update the changelog, create a new git tag, build the
-package/wheel and push it to PyPI.
+To trigger a new **major** or **minor** release you have to manually start the
+``Release new version`` workflow for the ``master`` branch form the ``Actions`` tab of
+the Github repository. The workflow will run the full test suit and after success
+automatically bump the version counter based on semantic versioning and conventional
+commits, update the changelog, create a new git tag, build the package/wheel and push it
+to PyPI. The workflow will also create a branch called ``release/<major>.<minor>``.
+
+To trigger a new **patch** release you have to manually start the
+``Release new version`` workflow for the corresponding ``release/<major>.<minor>``
+branch form the ``Actions`` tab of the Github repository. The workflow will like above
+run the test suit and create a new release. It will also update the changelog on the
+``master`` branch to include the **patch** release.
