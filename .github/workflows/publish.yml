@@ -19,15 +19,16 @@ jobs:
       - name: Clone repo
         run: git clone https://github.com/${{ github.repository }}.git
 
-      - name: Checkout current branch
-        run: git checkout ${{ github.ref }}
-
       - name: Get repo dir name
         id: repo-dir
         shell: bash
         run: |
           repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
           echo "::set-output name=repo-dir::$repo_dir"
+
+      - name: Checkout current branch
+        working-directory: ${{ steps.repo-dir.outputs.repo-dir }}
+        run: git checkout ${{ github.ref }}
 
       - name: Is merge commit?
         id: is-merge
