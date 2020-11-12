@@ -19,6 +19,9 @@ jobs:
       - name: Clone repo
         run: git clone https://github.com/${{ github.repository }}.git
 
+      - name: Checkout current branch
+        run: git checkout ${{ github.ref }}
+
       - name: Get repo dir name
         id: repo-dir
         shell: bash
