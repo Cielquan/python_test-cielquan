@@ -2,6 +2,7 @@
     Write instruction how to commit, PR and push
     Subtask:
     - TODO: make easy setup
+    - TODO: clarify merge target for bugfixes
 
 - TODO: Add poetry to dev tox ?
 
