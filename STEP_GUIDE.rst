@@ -36,15 +36,6 @@ Github repo
     - No force push
     - No deletion
 
-#. Add branch ``release-DO-NOT-PUSH-HERE`` and protection rules
-    - Require checks
-    - Require up to date branch
-    - Require signed commits
-    - Require linear history
-    - Include admins
-    - No force push
-    - No deletion
-
 
 Code base
 =========
