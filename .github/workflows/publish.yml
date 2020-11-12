@@ -33,8 +33,10 @@ jobs:
         run: |
           if [[ $(git log --merges -1 --pretty=format:"%H") == ${{ github.sha }} ]]; then
             echo "::set-output name=is-merge::true"
+            echo true
           else
             echo "::set-output name=is-merge::false"
+            echo false
           fi
 
 
