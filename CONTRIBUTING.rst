@@ -279,6 +279,13 @@ The ``master`` branch is the development branch and so all changes are expected 
 submitted and merged there. Merging into ``master`` is only allowed after all CI tests
 succeeded. Pull requests must be merged with a merge commit.
 
+    **Exception**: *Important Bugfixes*
+
+    Bugfixes are generally also expected to be merged into ``master``. But if they are
+    important to fix problems in the core functionality and the time to the next
+    **minor** or **major** release is too long they should be merged into the
+    corresponding release branch.
+
 
 Releases
 ~~~~~~~~
