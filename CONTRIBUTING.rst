@@ -22,7 +22,7 @@ Table of contents:
 - Contribution through `Github Pull Requests <https://github.com/cielquan/python_test-cielquan/pulls>`__:
     - `Contribution to the Documentation`_
     - `Contribution to Code`_
-    - `Git Workflow`_
+    - `Git(hub) Workflow`_
 
 
 Contribution through `Github issues <https://github.com/cielquan/python_test-cielquan/issues>`__
@@ -249,8 +249,8 @@ You should run the test environments prior commiting/pushing as those tests are 
 the CI pipeline anyways and will block merging your Pull request in case of failure.
 
 
-Git Workflow
-------------
+Git(hub) Workflow
+-----------------
 
 This section will explain the specifics regarding to ``git``.
 
