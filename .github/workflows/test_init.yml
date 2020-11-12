@@ -9,4 +9,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo Hi
+      - run: exit 1
 
