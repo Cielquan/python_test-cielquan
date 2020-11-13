@@ -2,6 +2,13 @@
     Write instruction how to commit, PR and push
     Subtask:
     - TODO: make easy setup
+    - TODO: all from master: release and dev; only current version is supported no updates for older versions
+
+- TODO: pre-commit:
+    subtasks:
+    - TODO: add flake8 to local hooks? To easier support plugin updates and `yesqa`
+    - TODO: Add pre-commit as local hook with `pre-commit autoupdate --freeze` as manual hook
+        which will be run by a cronjob in GHA
 
 - TODO: Central config
     Find a place for first release as config param to remove from docs/config.py
