@@ -20,15 +20,7 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
-      - run: echo $GITHUB_PATH
-
-      - run: cat $GITHUB_PATH
-
-      - name: Add .local/bin to PATH
-        shell: python
-        run: |
-          import os
-          os.environ["PATH"] = os.environ["PATH"] + ":" + "/home/runner/.local/bin"
+      - run: echo "/home/runner/.local/bin" >> $GITHUB_PATH
 
       - name: Install pre-commit
         run: |
