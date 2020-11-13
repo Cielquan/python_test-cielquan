@@ -45,7 +45,9 @@ jobs:
         if: steps.update.outputs.made-update == 'false'
         run: echo "No update"
 
-      - run: git checkout -b pre-commit-update
+      - run: |
+          git checkout -b pre-commit-update
+          git push --set-upstream origin pre-commit-update
         if: steps.update.outputs.made-update == 'true'
 
       - name: Push changed .pre-commit-config.yaml
