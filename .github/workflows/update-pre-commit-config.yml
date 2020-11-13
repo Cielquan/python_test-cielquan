@@ -47,7 +47,9 @@ jobs:
 
       - run: |
           (git fetch origin pre-commit-update &&
-          git checkout pre-commit-update) ||
+          git stash &&
+          git checkout pre-commit-update &&
+          git stash apply) ||
           (git checkout -b pre-commit-update &&
           git push --set-upstream origin pre-commit-update)
         if: steps.update.outputs.made-update == 'true'
