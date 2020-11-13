@@ -25,6 +25,12 @@ jobs:
           python -m pip install -U pip
           pip install pre-commit
 
+      - name: Add .local/bin to PATH
+        shell: python
+        run: |
+          import os
+          os.environ["PATH"] = os.environ["PATH"] + ":" + "/home/runner/.local/bin"
+
       - name: Update dependencies
         id: update
         shell: bash
