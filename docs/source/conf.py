@@ -6,7 +6,7 @@
 
     :copyright: 2020 (c) Christian Riedel
     :license: MIT, see LICENSE.rst for more details
-"""  # noqa: D205,D208,D400
+"""  # noqa: D205, D208, D400
 # pylint: disable=invalid-name
 import os
 import re
