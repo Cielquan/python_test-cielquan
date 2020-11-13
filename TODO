@@ -1,9 +1,3 @@
-- TODO: Write CONTRIBUTION.rst
-    Write instruction how to commit, PR and push
-    Subtask:
-    - TODO: make easy setup
-    - TODO: all from master: release and dev; only current version is supported no updates for older versions
-
 - TODO: pre-commit:
     subtasks:
     - TODO: add flake8 to local hooks? To easier support plugin updates and `yesqa`
