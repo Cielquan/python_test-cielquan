@@ -46,8 +46,10 @@ jobs:
         run: echo "No update"
 
       - run: |
-          git checkout -b pre-commit-update
-          git push --set-upstream origin pre-commit-update
+          (git fetch origin pre-commit-update &&
+          git checkout pre-commit-update) ||
+          (git checkout -b pre-commit-update &&
+          git push --set-upstream origin pre-commit-update)
         if: steps.update.outputs.made-update == 'true'
 
       - name: Push changed .pre-commit-config.yaml
@@ -58,7 +60,7 @@ jobs:
           author_name: Cielquan
           author_email: cielquan@protonmail.com
           branch: pre-commit-update
-          message: 'Your commit message'
+          message: 'chore: autoupdate dependencies in .pre-commit-config.yaml'
           pull_strategy: '--no-rebase'
           push: true
         env:
