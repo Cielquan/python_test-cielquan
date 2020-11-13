@@ -46,7 +46,7 @@ jobs:
         run: echo "No update"
 
       - run: git checkout -b pre-commit-update
-        if: steps.update.outputs.made-update == 'false'
+        if: steps.update.outputs.made-update == 'true'
 
       - name: Push changed .pre-commit-config.yaml
         if: steps.update.outputs.made-update == 'true'
