@@ -1,5 +1,4 @@
 # pylint: disable=invalid-name
-# noqa: D205,D208,D400
 """
     pre-commit-helper
     ~~~~~~~~~~~~~~~~~
@@ -8,7 +7,7 @@
 
     :copyright: 2020 (c) Christian Riedel
     :license: GPLv3, see LICENSE file for more details
-"""
+"""  # noqa: D205,D208,D400
 import re
 import subprocess  # nosec
 import sys
