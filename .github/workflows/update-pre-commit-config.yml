@@ -1,4 +1,5 @@
 name: Update pre-commit config dependencies
+# TODO: Move this to pre-commit.ci when released ?
 
 
 on:
@@ -44,6 +45,15 @@ jobs:
         if: steps.update.outputs.made-update == 'false'
         run: echo "No update"
 
-      - name: Create PR
-        if: steps.update.outputs.made-update == 'true'
-        run: echo "Make new PR"
+      - name: Push changed .pre-commit-config.yaml
+        uses: EndBug/add-and-commit@57c075ed5f8e31ea885906eaa0891f28131ae4dc  # v5.2.0
+        with:
+          add: '.pre-commit-config.yaml'
+          author_name: Cielquan
+          author_email: cielquan@protonmail.com
+          branch: master
+          message: 'Your commit message'
+          pull_strategy: '--no-rebase'
+          push: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

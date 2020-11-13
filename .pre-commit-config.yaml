@@ -88,7 +88,7 @@ repos:
   #: File skip: `# flake8: noqa`
   #: Inline skip: `# noqa` or `# noqa: CODE,...`
   - repo: https://github.com/pycqa/flake8
-    rev: bb6a530e28acab8d3551043b3e8709db8bcbac6b  # frozen: 3.8.4
+    rev: 3.8.3
     hooks:
       - id: flake8
         args: [--min-python-version=3.6.1]
