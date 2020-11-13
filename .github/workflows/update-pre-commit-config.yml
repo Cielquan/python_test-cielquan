@@ -1,0 +1,45 @@
+name: Update pre-commit config dependencies
+
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      TOXENV: pre-commit
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Install pre-commit
+        run: |
+          python -m pip install -U pip
+          pip install tox
+
+      - name: Update dependencies
+        id: update
+        shell: bash
+        run: |
+          OLD_FILE_TIME=$(stat .pre-commit-config.yaml -c %Y)
+          pre-commit autoupdate --freeze
+          if [[ $(stat .pre-commit-config.yaml -c %Y) -gt ${OLD_FILE_TIME} ]]; then
+            echo "::set-output name=made-update::true"
+          else
+            echo "::set-output name=made-update::false"
+          fi
+
+      - name: No update
+        if: steps.update.outputs.made-update == 'false'
+        run: echo "No update"
+
+      - name: Create PR
+        if: steps.update.outputs.made-update == 'true'
+        run: echo "Make new PR"
