@@ -1,9 +1,9 @@
 # noqa: D205,D208,D400
 """
-    matnum
-    ~~~~~~
+    python_test-cielquan
+    ~~~~~~~~~~~~~~~~~~~~
 
-    Handler for siegwerk material numbers.
+    Test repo for python stuff
 
     :copyright: (c) Christian Riedel
     :license: MIT, see LICENSE for more details

@@ -84,71 +84,6 @@ repos:
         require_serial: true
         exclude: tests/.*$
 
-  # TODO: make flake8 a local hook to manage additional_dependencies updates via poetry/dependabot
-  #: flake8 - python linter
-  #: File skip: `# flake8: noqa`
-  #: Inline skip: `# noqa` or `# noqa: CODE,...`
-  - repo: https://github.com/pycqa/flake8
-    rev: 3.8.3
-    hooks:
-      - id: flake8
-        args: [--min-python-version=3.6.1]
-        additional_dependencies:
-          #: Colored output - needs custom format
-          - "flake8-colors"
-          #: Check for missing type annotations
-          #: ANN001-ANN003, ANN101-ANN102, ANN201-ANN206, ANN301
-          - "flake8-annotations==2.4.1"
-          #: Forbid walrus operator
-          #: ASN001
-#          - "flake8-walrus==1.1.0" # TODO: reactivate when min py == 3.8
-          #: Finding likely bugs and design problems
-          #: B001-B014 | B301-B306 | B901-B903,B950
-          - "flake8-bugbear==20.1.4"
-          #: Write better list/set/dict comprehensions
-          #: C400-C416
-          - "flake8-comprehensions==3.2.2"
-          #: Check cognitive complexity
-          #: CCR001
-          - "flake8-cognitive-complexity==0.1.0"
-          #: Check docstrings with PEP257
-          #: D100-D107 | D200-D215 | D300-D302 | D400-D417
-          - "flake8-docstrings==1.5.0"
-          - "pydocstyle==5.1.1"
-          #: Find dead/out-commented code
-          #: E800
-          - "flake8-eradicate==1.0.0"
-          #: Validate (lack of) logging format strings
-          #: G001-G004, G010 | G100 | G200-G202
-          - "flake8-logging-format==0.6.0"
-          #: Find line breaks with '\'
-          #: N400
-          - "flake8-broken-line==0.2.0"
-          #: Check your code against PEP 8 naming conventions
-          #: N801-N807, N811-N817
-          - "pep8-naming==0.10.0"
-          #: Find mutable default assignments in func/class definitions
-          #: M511
-          - "flake8-mutable==1.2.0"
-          #: Check common style issues or inconsistencies with pytest-based tests
-          #: PT001-PT019
-          - "flake8-pytest-style==1.1.1"
-          #: Check for possible code simplifications
-          #: SIM101-SIM108, SIM201-SIM208, SIM210-SIM212, SIM220-SIM223
-          - "flake8-simplify==0.7.0"
-          #: Check if typing imports are properly guarded
-          #: TYP001 - TYP006
-          - "flake8-typing-imports==1.9.0"
-          #: Find strings with leading 'u'
-          #: UPS
-          - "flake8-no-u-prefixed-strings==0.2"
-          #: Make more readable variables names
-          #: VNE001-VNE003
-          - "flake8-variables-names==0.0.3"
-          #: Checks for misuse of sys.version or sys.version_info (Py 3.10 / 4.0 coming)
-          #: YTT101-YTT103 | YTT201-YTT204 | YTT301-YTT303
-          - "flake8-2020==1.6.0"
-
 # TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/issues/2457
 #  #: poetry - dependency and packaging management
 #  - repo: https://github.com/Cielquan/poetry
@@ -159,28 +94,18 @@ repos:
 #      #: Update lock file
 ##      - id: poetry-lock
 
-#  #: rstcheck
-#  - repo: https://github.com/myint/rstcheck
-#    rev: 3f92957478422df87bd730abde66f089cc1ee19b  # bleeding edge
-#    hooks:
-#      - id: rstcheck
-#        args: ["--config=tox.ini"]
-#        additional_dependencies:
-#          - "sphinx"
-
 
   #: Hooks managed via tox `pre-commit` venv because they need the package installed
   - repo: local
     hooks:
-      #: pylint - python linter
-      #: File skip: `# pylint: skip-file`
-      #: Inline change: `# pylint: disable|enable=CODE|NAME`
-      - id: pylint
-        name: pylint
-        description: run pylint over the installed version if available
-        entry: python pre-commit-helper.py pylint pre-commit
+      #: rstcheck - rst file checker
+      - id: rstcheck
+        args: ["--config=tox.ini"]
+        name: rstcheck
+        description: check rst files
+        entry: python pre-commit-helper.py rstcheck pre-commit
         language: system
-        types: [python]
+        types: [rst]
       #: mypy - python type checker
       #: Skip file: `# type: ignore` at top
       #: Inline skip: `# type: ignore` or `# type: ignore[CODE, ...]`
@@ -192,3 +117,30 @@ repos:
         language: system
         types: [python]
         require_serial: true
+      #: pylint - python linter
+      #: File skip: `# pylint: skip-file`
+      #: Inline change: `# pylint: disable|enable=CODE|NAME`
+      - id: pylint
+        name: pylint
+        description: run pylint over the installed version if available
+        entry: python pre-commit-helper.py pylint pre-commit
+        language: system
+        types: [python]
+      #: flake8 - python linter
+      #: File skip: `# flake8: noqa`
+      #: Inline skip: `# noqa` or `# noqa: CODE,...`
+      - id: flake8
+        args: [--min-python-version=3.6.1]
+        name: flake8
+        description: run flake8 over the installed version if available
+        entry: python pre-commit-helper.py flake8 pre-commit
+        language: system
+        types: [python]
+      #: yesqa - noqa tester
+#       - id: yesqa
+#         args: []
+#         name: yesqa
+#         description: test if noqa is necessary
+#         entry: python pre-commit-helper.py yesqa pre-commit
+#         language: system
+#         types: [python]
