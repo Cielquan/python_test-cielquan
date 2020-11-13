@@ -137,10 +137,10 @@ repos:
         language: system
         types: [python]
       #: yesqa - noqa tester
-      - id: yesqa
-        args: []
-        name: yesqa
-        description: test if noqa is necessary
-        entry: python pre-commit-helper.py yesqa pre-commit
-        language: system
-        types: [python]
+#       - id: yesqa
+#         args: []
+#         name: yesqa
+#         description: test if noqa is necessary
+#         entry: python pre-commit-helper.py yesqa pre-commit
+#         language: system
+#         types: [python]
