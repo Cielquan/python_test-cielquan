@@ -1,3 +1,5 @@
+- TODO: fix tox envs with poetry install that dont have poetry isntalled
+
 - TODO: pre-commit:
     subtasks:
     - TODO: Add pre-commit as local hook with `pre-commit autoupdate --freeze` as manual hook
