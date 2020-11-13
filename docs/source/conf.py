@@ -53,7 +53,7 @@ load_dotenv(find_dotenv())  #: Load .env file from project root
 project = __project__.replace("-", "_")
 author = __author__
 RELEASE_YEAR = "2019"  # CHANGE ME
-copyright = (  # pylint: disable=W0622  # noqa: A001,VNE003
+copyright = (  # pylint: disable=W0622  # noqa: VNE003
     f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
