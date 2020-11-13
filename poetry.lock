@@ -522,14 +522,14 @@ flake8 = ">=3.7"
 
 [[package]]
 name = "formelsammlung"
-version = "0.3.1"
+version = "0.3.2"
 description = "Collection of different functions"
 category = "main"
 optional = true
 python-versions = ">=3.6.1,<4.0.0"
 
 [package.dependencies]
-importlib-metadata = {version = ">=2.0,<3.0", markers = "python_version < \"3.8\""}
+importlib-metadata = {version = ">1.6", markers = "python_version < \"3.8\""}
 
 [package.extras]
 flask = ["flask (>=1.1.2,<2.0.0)"]
@@ -1832,8 +1832,8 @@ flake8-walrus = [
     {file = "flake8_walrus-1.1.0.tar.gz", hash = "sha256:15b75838b4d38cf266f87df2cba787594cf3fa059f33035a87ae20020edebd2a"},
 ]
 formelsammlung = [
-    {file = "formelsammlung-0.3.1-py3-none-any.whl", hash = "sha256:eb06f23c32b74e85d85ca8d3c16e9cc3d6450ec3211918f3b9d06b01c5d620f0"},
-    {file = "formelsammlung-0.3.1.tar.gz", hash = "sha256:eed20e57d9ff685741e8087b022fafb79dbaad24fcf7cc6b6479ddd32f0d7225"},
+    {file = "formelsammlung-0.3.2-py3-none-any.whl", hash = "sha256:cea038a847184473e0a8ab45a768132b965430ad78df29a1a55611e0384b2859"},
+    {file = "formelsammlung-0.3.2.tar.gz", hash = "sha256:8748319c757a566b5863f770647c1a7b5de4754f0dd1675de8dda41e5c0375ac"},
 ]
 future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
