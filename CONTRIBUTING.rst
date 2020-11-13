@@ -279,8 +279,12 @@ The ``master`` branch is the development branch and so all changes are expected 
 submitted and merged there. Merging into ``master`` is only allowed after all CI tests
 succeeded. Pull requests must be merged with a merge commit.
 
-    **Note**: Bugfixes are also expected to be merged into ``master``. Buf if they are
-    critical the next release will be much sooner.
+Bugfixes are also expected to be merged into ``master``. Buf if they are
+critical the next release will be much sooner.
+
+    **Note**: As all changes are merged into ``master`` only the current released
+    version is supported and will receive bugfixes. Bugfixes for older versions are not
+    planned.
 
 
 Releases
