@@ -1,4 +1,4 @@
-"""docstring."""  # noqa: D205,D208,D400
+"""docstring."""
 import sys
 
 
