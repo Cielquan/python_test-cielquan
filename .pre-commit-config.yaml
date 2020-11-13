@@ -84,6 +84,7 @@ repos:
         require_serial: true
         exclude: tests/.*$
 
+  # TODO: make flake8 a local hook to manage additional_dependencies updates via poetry/dependabot
   #: flake8 - python linter
   #: File skip: `# flake8: noqa`
   #: Inline skip: `# noqa` or `# noqa: CODE,...`
