@@ -149,26 +149,26 @@ repos:
           - "flake8-2020==1.6.0"
 
 # TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/issues/2457
-  #: poetry - dependency and packaging management
-  - repo: https://github.com/Cielquan/poetry
-    rev: 74a5e11def7912cc4b60e4384982e218c8a363b5
-    hooks:
-      #: Check config file
-      - id: poetry-check
-      #: Update lock file
-#      - id: poetry-lock
+#  #: poetry - dependency and packaging management
+#  - repo: https://github.com/Cielquan/poetry
+#    rev: 74a5e11def7912cc4b60e4384982e218c8a363b5
+#    hooks:
+#      #: Check config file
+#      - id: poetry-check
+#      #: Update lock file
+##      - id: poetry-lock
 
-  #: rstcheck
-  - repo: https://github.com/myint/rstcheck
-    rev: 3f92957478422df87bd730abde66f089cc1ee19b  # bleeding edge
-    hooks:
-      - id: rstcheck
-        args: ["--config=tox.ini"]
-        additional_dependencies:
-          - "sphinx"
+#  #: rstcheck
+#  - repo: https://github.com/myint/rstcheck
+#    rev: 3f92957478422df87bd730abde66f089cc1ee19b  # bleeding edge
+#    hooks:
+#      - id: rstcheck
+#        args: ["--config=tox.ini"]
+#        additional_dependencies:
+#          - "sphinx"
 
 
-  #: Hooks managed via tox `pre-commit` venv
+  #: Hooks managed via tox `pre-commit` venv because they need the package installed
   - repo: local
     hooks:
       #: pylint - python linter
