@@ -16,7 +16,7 @@ script:
 
 after_success: coverage combine && codecov
 
-# TODO check deployment with travis
+# todo check deployment with travis
 ## Assuming you have installed the travis-ci CLI tool, after you
 ## create the Github repo and add it to Travis, run the
 ## following command to finish PyPI deployment setup:
