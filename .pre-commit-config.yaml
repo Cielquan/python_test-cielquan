@@ -126,6 +126,14 @@ repos:
         entry: python pre-commit-helper.py pylint pre-commit
         language: system
         types: [python]
+      #: yesqa - noqa tester
+      - id: yesqa
+        args: []
+        name: yesqa
+        description: test if noqa is necessary
+        entry: python pre-commit-helper.py yesqa pre-commit
+        language: system
+        types: [python]
       #: flake8 - python linter
       #: File skip: `# flake8: noqa`
       #: Inline skip: `# noqa` or `# noqa: CODE,...`
@@ -134,13 +142,5 @@ repos:
         name: flake8
         description: run flake8 over the installed version if available
         entry: python pre-commit-helper.py flake8 pre-commit
-        language: system
-        types: [python]
-      #: yesqa - noqa tester
-      - id: yesqa
-        args: []
-        name: yesqa
-        description: test if noqa is necessary
-        entry: python pre-commit-helper.py yesqa pre-commit
         language: system
         types: [python]
