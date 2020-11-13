@@ -20,6 +20,10 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
+      - run: echo $GITHUB_PATH
+
+      - run: cat $GITHUB_PATH
+
       - name: Add .local/bin to PATH
         shell: python
         run: |
