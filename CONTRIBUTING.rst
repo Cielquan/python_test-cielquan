@@ -279,12 +279,8 @@ The ``master`` branch is the development branch and so all changes are expected 
 submitted and merged there. Merging into ``master`` is only allowed after all CI tests
 succeeded. Pull requests must be merged with a merge commit.
 
-    **Exception**: *Important Bugfixes*
-
-    Bugfixes are generally also expected to be merged into ``master``. But if they are
-    important to fix problems in the core functionality and the time to the next
-    **minor** or **major** release is too long they should be merged into the
-    corresponding release branch.
+    **Note**: Bugfixes are also expected to be merged into ``master``. Buf if they are
+    critical the next release will be much sooner.
 
 
 Releases
@@ -294,15 +290,8 @@ When enough changes and additions or time important fixes have accumulated on th
 ``master`` branch its time for a new release. The exact time is subject to the
 judgement of the maintainer(s).
 
-To trigger a new **major** or **minor** release you have to manually start the
-``Release new version`` workflow for the ``master`` branch form the ``Actions`` tab of
-the Github repository. The workflow will run the full test suit and after success
-automatically bump the version counter based on semantic versioning and conventional
-commits, update the changelog, create a new git tag, build the package/wheel and push it
-to PyPI. The workflow will also create a branch called ``release/<major>.<minor>``.
-
-To trigger a new **patch** release you have to manually start the
-``Release new version`` workflow for the corresponding ``release/<major>.<minor>``
-branch form the ``Actions`` tab of the Github repository. The workflow will like above
-run the test suit and create a new release. It will also update the changelog on the
-``master`` branch to include the **patch** release.
+To trigger a new release you have to manually start the ``Release new version`` workflow
+for the ``master`` branch form the ``Actions`` tab of the Github repository. The
+workflow will run the full test suit and after success automatically bump the version
+counter based on semantic versioning and conventional commits, update the changelog,
+create a new git tag, build the package/wheel and push it to PyPI.
