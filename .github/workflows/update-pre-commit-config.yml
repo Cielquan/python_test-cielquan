@@ -45,7 +45,11 @@ jobs:
         if: steps.update.outputs.made-update == 'false'
         run: echo "No update"
 
+      - run: git checkout -b pre-commit-update
+        if: steps.update.outputs.made-update == 'false'
+
       - name: Push changed .pre-commit-config.yaml
+        if: steps.update.outputs.made-update == 'true'
         uses: EndBug/add-and-commit@57c075ed5f8e31ea885906eaa0891f28131ae4dc  # v5.2.0
         with:
           add: '.pre-commit-config.yaml'
