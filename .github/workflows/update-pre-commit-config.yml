@@ -51,7 +51,7 @@ jobs:
           add: '.pre-commit-config.yaml'
           author_name: Cielquan
           author_email: cielquan@protonmail.com
-          branch: master
+          branch: pre-commit-update
           message: 'Your commit message'
           pull_strategy: '--no-rebase'
           push: true
