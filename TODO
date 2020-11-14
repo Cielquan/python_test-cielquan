@@ -1,4 +1,4 @@
-- TODO: fix tox envs with poetry install that dont have poetry isntalled
+- TODO: remove pre-commit-helper and update formelsammlung to 0.4
 
 - TODO: pre-commit:
     subtasks:
@@ -28,3 +28,6 @@
     Add test that only master as head_ref allowed.
     If they succeed -> auto-merge.
     After merge trigger release pipeline (not needing tests anymore)
+
+- TODO: Use conditional coverage to reach 100% in every scenario even without merging
+    all coverage data from all py versions and os ????
