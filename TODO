@@ -10,13 +10,6 @@
         - TODO: Wait for fix in `commitlint`: https://github.com/conventional-changelog/commitlint/issues/2254
     - TODO: Whl for different py-ver and os?!
 
-- TODO: Auto release
-    Test if possible:
-    After PR to release branch tests are triggered.
-    Add test that only master as head_ref allowed.
-    If they succeed -> auto-merge.
-    After merge trigger release pipeline (not needing tests anymore)
-
 - TODO: Use conditional coverage to reach 100% in every scenario even without merging
     all coverage data from all py versions and os ????
 
