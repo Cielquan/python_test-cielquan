@@ -1,13 +1,3 @@
-- TODO: pre-commit:
-    subtasks:
-    - TODO: Add pre-commit as local hook with `pre-commit autoupdate --freeze` as manual hook
-        which will be run by a cronjob in GHA
-
-- TODO: Central config
-    Find a place for first release as config param to remove from docs/config.py
-    Subtask:
-    - TODO: Move deps in tox to central config
-
 - TODO: Release pipeline
     Auto:
     - version bump
@@ -29,3 +19,8 @@
 
 - TODO: Use conditional coverage to reach 100% in every scenario even without merging
     all coverage data from all py versions and os ????
+
+- TODO: pre-commit:
+    subtasks:
+    - TODO: Add pre-commit as local hook with `pre-commit autoupdate --freeze` as manual hook
+        which will be run by a cronjob in GHA

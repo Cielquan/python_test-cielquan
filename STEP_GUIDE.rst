@@ -68,3 +68,17 @@ Code base
 #. Update CONTRIBUTION:
     - Change links
     - If not CLI remove this part
+
+
+Files with CHANGE ME
+====================
+
+- tox.ini
+- READEME.rst
+- pyproject.toml
+- CONTRIBUTION.rst
+- CHANGELOG.rst
+- tests/
+- src/
+- docs/source/
+- .github/
