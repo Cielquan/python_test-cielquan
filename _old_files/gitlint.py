@@ -1,4 +1,6 @@
-# pylint: disable=invalid-name
+# type: ignore
+# flake8: noqa
+# pylint: skip-file
 """
     pre-commit-helper
     ~~~~~~~~~~~~~~~~~
