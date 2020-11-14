@@ -1,14 +1,9 @@
+- TODO: setup standard-version
+
 - TODO: Release pipeline
-    Auto:
-    - version bump
-    - changelog update
-    - git tag create AND push
-    - build pkg
-    - publish pkg
-    Subtasks:
-    - TODO: Add commit msg linting
-        - TODO: Wait for fix in `commitlint`: https://github.com/conventional-changelog/commitlint/issues/2254
-    - TODO: Whl for different py-ver and os?!
+
+- TODO: Add commit msg linting
+    - TODO: Wait for fix in `commitlint`: https://github.com/conventional-changelog/commitlint/issues/2254
 
 - TODO: Use conditional coverage to reach 100% in every scenario even without merging
     all coverage data from all py versions and os ????
@@ -17,3 +12,6 @@
     subtasks:
     - TODO: Add pre-commit as local hook with `pre-commit autoupdate --freeze` as manual hook
         which will be run by a cronjob in GHA
+
+- TODO: change CONTRI
+    no conventional commits needed b/c squash commit ?
