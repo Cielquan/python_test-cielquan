@@ -23,19 +23,27 @@ jobs:
         python -m pip install -U pip
         pip install poetry
 
+    # TODO: auto version bump
+
+    # TODO: poetry version
+
+    # TODO: update changelog
+
+    # TODO: git tag
+
+    # TODO: git push --tags
+
+    # TODO: whl for different py-ver / os ?!
     - name: Build package
       run: python -m poetry build
 
-      # TODO: remove command - current upload to test.pypi
     - name: Publish package on test.PyPI
+      # TODO: remove current upload to test.pypi
       env:
         POETRY_REPOSITORIES_TEST_URL: ${{ secrets.POETRY_REPOSITORIES_TEST_URL }}
         POETRY_HTTP_BASIC_TEST_USERNAME: ${{ secrets.POETRY_HTTP_BASIC_TEST_USERNAME }}
         POETRY_HTTP_BASIC_TEST_PASSWORD: ${{ secrets.POETRY_HTTP_BASIC_TEST_PASSWORD }}
-      run: python -m poetry publish -r test
-
-#    - name: Publish package on PyPI
-#      env:
 #        POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
 #        POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 #      run: python -m poetry publish
+      run: python -m poetry publish -r test
