@@ -1,6 +1,5 @@
-# type: ignore
-# flake8: noqa
 # pylint: skip-file
+# flake8: noqa
 """
     pre-commit-helper
     ~~~~~~~~~~~~~~~~~
