@@ -101,7 +101,7 @@ repos:
         args: ["--config=tox.ini"]
         name: rstcheck
         description: check rst files
-        entry: python pre-commit-helper.py rstcheck pre-commit
+        entry: tox_env_exe_runner rstcheck pre-commit
         language: system
         types: [rst]
       #: mypy - python type checker
@@ -111,7 +111,7 @@ repos:
         args: ["--config-file=tox.ini"]
         name: mypy
         description: run mypy over the installed version if available
-        entry: python pre-commit-helper.py mypy pre-commit
+        entry: tox_env_exe_runner mypy pre-commit
         language: system
         types: [python]
         require_serial: true
@@ -121,7 +121,7 @@ repos:
       - id: pylint
         name: pylint
         description: run pylint over the installed version if available
-        entry: python pre-commit-helper.py pylint pre-commit
+        entry: tox_env_exe_runner pylint pre-commit
         language: system
         types: [python]
       #: yesqa - noqa tester
@@ -129,7 +129,7 @@ repos:
         args: []
         name: yesqa
         description: test if noqa is necessary
-        entry: python pre-commit-helper.py yesqa pre-commit
+        entry: tox_env_exe_runner yesqa pre-commit
         language: system
         types: [python]
       #: flake8 - python linter
@@ -139,6 +139,6 @@ repos:
         args: [--min-python-version=3.6.1]
         name: flake8
         description: run flake8 over the installed version if available
-        entry: python pre-commit-helper.py flake8 pre-commit
+        entry: tox_env_exe_runner flake8 pre-commit
         language: system
         types: [python]
