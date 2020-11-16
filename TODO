@@ -4,6 +4,9 @@
 
 - TODO: Release pipeline
 
+- TODO: for release run old tests against the current package. If they do not pass its a breaking change
+    and if the breaking change is not in commit msg ... error
+
 - TODO: Add commit msg linting
     - TODO: Wait for fix in `commitlint`: https://github.com/conventional-changelog/commitlint/issues/2254
 
