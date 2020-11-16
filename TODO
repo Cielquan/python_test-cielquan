@@ -1,6 +1,6 @@
-- TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
-
 - TODO: replace flake8 with flakehell-wrapper: https://dev.to/bowmanjd/using-flake8-and-pyproject-toml-with-flakehell-1cn1
+
+- TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
 
 - TODO: Release pipeline
 
@@ -13,10 +13,7 @@
 - TODO: Use conditional coverage to reach 100% in every scenario even without merging
     all coverage data from all py versions and os ????
 
-- TODO: pre-commit:
-    subtasks:
-    - TODO: Add pre-commit as local hook with `pre-commit autoupdate --freeze` as manual hook
-        which will be run by a cronjob in GHA
+- TODO: fix pre-commit autoupdate workflow
 
 - TODO: change CONTRI
     no conventional commits needed b/c squash commit ?
