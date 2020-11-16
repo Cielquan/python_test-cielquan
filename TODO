@@ -1,5 +1,7 @@
 - TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
 
+- TODO: replace flake8 with flakehell-wrapper: https://dev.to/bowmanjd/using-flake8-and-pyproject-toml-with-flakehell-1cn1
+
 - TODO: Release pipeline
 
 - TODO: Add commit msg linting
