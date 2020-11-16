@@ -1,5 +1,6 @@
 name: Update pre-commit config dependencies
 # TODO: Move this to pre-commit.ci when released ?
+# TODO: notify when changes are uploaded
 
 
 on:
