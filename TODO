@@ -1,4 +1,4 @@
-- TODO: setup standard-version
+- TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
 
 - TODO: Release pipeline
 
