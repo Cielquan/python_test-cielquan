@@ -197,6 +197,40 @@
     skip_gitignore = true
 
 
+#: -- FLAKEHELL CONFIG -----------------------------------------------------------------
+[tool.flakehell.plugins]
+    pycodestyle = ["+*"]
+    pyflakes = ["+*"]
+    pylint = ["+*"]
+    flake8-2020 = ["+*"]
+    flake8-aaa = ["+*"]
+    flake8-annotations = ["+*"]
+    flake8-bandit = ["+*"]
+    flake8-broken-line = ["+*"]
+    flake8-bugbear = ["+*"]
+    flake8-cognitive-complexity = ["+*"]
+    flake8-comprehensions = ["+*"]
+    flake8-docstrings = ["+*"]
+    flake8-eradicate = ["+*"]
+    flake8-logging-format = ["+*"]
+    flake8-mutable = ["+*"]
+    flake8-no-u-prefixed-strings = ["+*"]
+    flake8-pytest-style = ["+*"]
+    flake8-rst-docstrings = ["+*"]
+    flake8-simplify = ["+*"]
+    flake8-spellcheck = ["+*"]
+    flake8-sql = ["+*"]
+    flake8-string-format = ["+*"]
+    flake8-todo = ["+*"]
+    flake8-typing-imports
+    flake8-use-fstring = ["+*"]
+    flake8-variables-names = ["+*"]
+    flake8-walrus = ["+*"]
+    mccabe = ["+*"]
+    pep8-naming = ["+*"]
+    pylint = ["+*"]
+
+
 #: -- PYLINT CONFIG --------------------------------------------------------------------
 [tool.pylint]
     [tool.pylint.master]
