@@ -16,7 +16,7 @@ badges
 +-------------------+------------------------------------------------------------------+
 | **Testing**       | |tox| |pytest|                                                   |
 +-------------------+------------------------------------------------------------------+
-| **Code**          | |pre-commit| |black| |isort| |bandit|                            |
+| **Code**          | |pre-commit| |black| |isort| |bandit| |mypy|                     |
 +-------------------+------------------------------------------------------------------+
 | **VC**            | |vcs| |gpg| |conventional_commits|                               |
 +-------------------+------------------------------------------------------------------+
@@ -136,6 +136,10 @@ badges
 .. |bandit| image:: https://img.shields.io/badge/Security-bandit-yellow.svg?style=flat-square
     :target: https://github.com/PyCQA/bandit
     :alt: Security - bandit
+
+.. |mypy| image:: https://img.shields.io/badge/mypy-checker-blue?style=flat-square
+    :target: http://www.mypy-lang.org/
+    :alt: mypy - checked
 
 .. VC
 
