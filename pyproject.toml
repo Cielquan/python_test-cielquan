@@ -74,7 +74,6 @@
         flake8-spellcheck = {version = "^0.20.0", optional = true}
         flake8-sql = {version = "^0.4.1", optional = true}
         flake8-string-format = {version = "^0.3.0", optional = true}
-        flake8-todo = {version = "^0.7", optional = true}
         flake8-typing-imports = {version = "^1.10.0", optional = true}
         flake8-use-fstring = {version = "^1.1", optional = true}
         flake8-variables-names = {version = "^0.0.3", optional = true}
@@ -139,7 +138,6 @@
             "flake8-spellcheck",
             "flake8-sql",
             "flake8-string-format",
-            "flake8-todo",
             "flake8-typing-imports",
             "flake8-use-fstring",
             "flake8-variables-names",
@@ -172,7 +170,6 @@
             "flake8-spellcheck",
             "flake8-sql",
             "flake8-string-format",
-            "flake8-todo",
             "flake8-typing-imports",
             "flake8-use-fstring",
             "flake8-variables-names",
@@ -203,7 +200,6 @@
             "flake8-spellcheck",
             "flake8-sql",
             "flake8-string-format",
-            "flake8-todo",
             "flake8-typing-imports",
             "flake8-use-fstring",
             "flake8-variables-names",
@@ -236,18 +232,33 @@
     format="colored"
     # show_source = true
     max_line_length = 88
+    max_complexity = 20
+    pytest_fixture_no_parentheses = true
 
-[tool.flakehell.plugins]
-    pyflakes = ["+*"]
-    mccabe = ["+*"]
-    pycodestyle = ["+*"]
-    pylint = ["+*"]
-    pep8-naming = ["+*"]
-    "flake8-*" = ["+*"]
-    flake8-spellcheck = ["-*"]
+    [tool.flakehell.plugins]
+        pyflakes = ["+*"]
+        mccabe = ["+*"]
+        pycodestyle = ["+*"]
+        pylint = [
+            "+*",
+            "-C0326", "-C0330",  #: deactivated for black
+        ]
+        pep8-naming = ["+*"]
+        "flake8-*" = ["+*"]
+        flake8-spellcheck = ["-*"]
+        flake8-annotations = ["+*", "-ANN101", "-ANN102"]
 
-[tool.flakehell.exceptions."tests/"]
-    flake8-bandit = ["-S101"]
+    [tool.flakehell.exceptions."tests/"]
+        flake8-bandit = ["-S101"]
+
+    [tool.flakehell.exceptions."build/"]
+        "*" = ["-*"]
+
+    [tool.flakehell.exceptions."*venv*/"]
+        "*" = ["-*"]
+
+    [tool.flakehell.exceptions."**/*.egg"]
+        "*" = ["-*"]
 
 
 #: -- PYLINT CONFIG --------------------------------------------------------------------
@@ -256,10 +267,8 @@
         additional-builtins = "tags"
 
     [tool.pylint.messages_control]
-        disable = "C0330, C0326"  #: deactivated for black
-
-    [tool.pylint.format]
-        max-line-length = "88"
+        disable = "C0330, C0326, C0301"  #: deactivated for black
+        #: C0301: line length
 
 
 #: -- COVERAGE CONFIG ------------------------------------------------------------------
