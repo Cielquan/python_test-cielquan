@@ -117,7 +117,7 @@ repos:
         types: [python]
 
 
-#     TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/issues/2457
+#     TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/pull/2511
 #     After merge make normal hook; remove poetry extra in pre-commit tenv
   - repo: local
     hooks:
