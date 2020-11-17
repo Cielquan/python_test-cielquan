@@ -137,7 +137,7 @@ badges
     :target: https://github.com/PyCQA/bandit
     :alt: Security - bandit
 
-.. |mypy| image:: https://img.shields.io/badge/mypy-checker-blue?style=flat-square
+.. |mypy| image:: https://img.shields.io/badge/mypy-checked-blue?style=flat-square
     :target: http://www.mypy-lang.org/
     :alt: mypy - checked
 
