@@ -20,3 +20,10 @@
 # Github: https://github.com/Cielquan/
 # ==============================================================================
 """docstring."""
+import pytest
+
+
+@pytest.fixture
+def test_fixture() -> str:
+    """Test fixture."""
+    return "test"
