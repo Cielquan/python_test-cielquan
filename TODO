@@ -1,4 +1,5 @@
-- TODO: replace flake8 with flakehell-wrapper: https://dev.to/bowmanjd/using-flake8-and-pyproject-toml-with-flakehell-1cn1
+- TODO: look at pytest-benchmark
+- TODO: look at pytest-profiling
 
 - TODO: integrate mypy into pytest? https://github.com/typeddjango/pytest-mypy-plugins
 
