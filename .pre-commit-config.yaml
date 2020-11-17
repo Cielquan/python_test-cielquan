@@ -58,13 +58,6 @@ repos:
     hooks:
       - id: isort
 
-  #: blacken-docs - black for python code in docs
-  - repo: https://github.com/asottile/blacken-docs
-    rev: 6d80883e826e3490b002dcf90c6807f85d42c871  # frozen: v1.8.0
-    hooks:
-      - id: blacken-docs
-        additional_dependencies: [black==20.8b1]
-
   #: black - python formatter
   #: Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
   - repo: https://github.com/psf/black
@@ -73,14 +66,12 @@ repos:
       - id: black
         args: [--safe]
 
-  #: bandit - python code security analyzer
-  #: Inline skip: `# nosec`
-  - repo: https://github.com/PyCQA/bandit
-    rev: d25f3fc5f0f2bd8a251f252e9d81118c4947ae0e  # frozen: 1.6.2
+  #: blacken-docs - black for python code in docs
+  - repo: https://github.com/asottile/blacken-docs
+    rev: 6d80883e826e3490b002dcf90c6807f85d42c871  # frozen: v1.8.0
     hooks:
-      - id: bandit
-        require_serial: true
-        exclude: tests/.*$
+      - id: blacken-docs
+        additional_dependencies: [black==20.8b1]
 
 
   #: Lint hooks managed via tox `pre-commit` env b/c they need the pkg installed
@@ -105,32 +96,16 @@ repos:
         language: system
         types: [python]
         require_serial: true
+      #: TODO: remove badit comments if not applicable
+      #: bandit - python code security analyzer
+      #: Inline skip: `# nosec`
+      #: TODO: remove pylint comments if not applicable
       #: pylint - python linter
       #: File skip: `# pylint: skip-file`
       #: Inline change: `# pylint: disable|enable=CODE|NAME`
-      - id: pylint
-        name: pylint
-        description: run pylint over the installed version if available
-        entry: tox_env_exe_runner pylint pre-commit
-        language: system
-        types: [python]
-      #: yesqa - noqa tester
-      - id: yesqa
-        name: yesqa
-        description: test if noqa is necessary
-        entry: tox_env_exe_runner yesqa pre-commit
-        language: system
-        types: [python]
       #: flake8 - python linter
       #: File skip: `# flake8: noqa`
       #: Inline skip: `# noqa` or `# noqa: CODE,...`
-      - id: flake8
-        name: flake8
-        description: run flake8 over the installed version if available
-        entry: tox_env_exe_runner flake8 pre-commit
-        args: [--min-python-version=3.6.1]
-        language: system
-        types: [python]
       - id: flakehell
         name: flakehell
         description: run flakehell over the installed version if available
