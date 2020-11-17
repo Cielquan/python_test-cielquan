@@ -84,6 +84,9 @@
         twine = {version = "^3.2.0", optional = true}
         safety = {version = "^1.9.0", optional = true}
         diff-cover = {version = "^4.0.1", optional = true}
+        # Additional tools
+#        python-semantic-release = {version = "^7.3.0", optional = true}
+#        pyenchant = {version = "^3.1.1", optional = true}
 
     [tool.poetry.dev-dependencies]
         devtools = {version = "^0.6", extras = ["pygments"]}
@@ -114,68 +117,6 @@
             "formelsammlung",
             "rstcheck", "sphinx",
             "mypy",
-            "flakehell",
-            "flake8",
-            "pycodestyle",
-            "pylint",
-            "pep8-naming",
-            "flake8-2020",
-            "flake8-aaa",
-            "flake8-annotations",
-            "flake8-bandit",
-            "flake8-broken-line",
-            "flake8-bugbear",
-            "flake8-cognitive-complexity",
-            "flake8-comprehensions",
-            "flake8-docstrings",
-            "flake8-eradicate",
-            "flake8-logging-format",
-            "flake8-mutable",
-            "flake8-no-u-prefixed-strings",
-            "flake8-pytest-style",
-            "flake8-rst-docstrings",
-            "flake8-simplify",
-            "flake8-spellcheck",
-            "flake8-sql",
-            "flake8-string-format",
-            "flake8-typing-imports",
-            "flake8-use-fstring",
-            "flake8-variables-names",
-            "flake8-walrus",
-        ]
-        vscode_linter = [
-            "rstcheck", "sphinx",
-            "mypy",
-            "flakehell",
-            "flake8",
-            "pycodestyle",
-            "pylint",
-            "pep8-naming",
-            "flake8-2020",
-            "flake8-aaa",
-            "flake8-annotations",
-            "flake8-bandit",
-            "flake8-broken-line",
-            "flake8-bugbear",
-            "flake8-cognitive-complexity",
-            "flake8-comprehensions",
-            "flake8-docstrings",
-            "flake8-eradicate",
-            "flake8-logging-format",
-            "flake8-mutable",
-            "flake8-no-u-prefixed-strings",
-            "flake8-pytest-style",
-            "flake8-rst-docstrings",
-            "flake8-simplify",
-            "flake8-spellcheck",
-            "flake8-sql",
-            "flake8-string-format",
-            "flake8-typing-imports",
-            "flake8-use-fstring",
-            "flake8-variables-names",
-            "flake8-walrus",
-        ]
-        flakehell = [
             "flakehell",
             "flake8",
             "pycodestyle",
@@ -248,7 +189,7 @@
         flake8-spellcheck = ["-*"]
         flake8-annotations = ["+*", "-ANN101", "-ANN102"]
 
-    [tool.flakehell.exceptions."tests/"]
+                [tool.flakehell.exceptions."tests/"]
         flake8-bandit = ["-S101"]
 
 
