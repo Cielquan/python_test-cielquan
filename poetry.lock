@@ -696,17 +696,6 @@ python-versions = "*"
 flake8 = "*"
 
 [[package]]
-name = "flake8-todo"
-version = "0.7"
-description = "TODO notes checker, plugin for flake8"
-category = "main"
-optional = true
-python-versions = "*"
-
-[package.dependencies]
-pycodestyle = ">=2.0.0,<3.0.0"
-
-[[package]]
 name = "flake8-typing-imports"
 version = "1.10.0"
 description = "flake8 plugin which checks that typing imports are properly guarded"
@@ -2153,19 +2142,19 @@ testing = ["pytest (>=3.5,<3.7.3 || >3.7.3)", "pytest-checkdocs (>=1.2.3)", "pyt
 coverage = ["coverage", "coverage-conditional-plugin"]
 diff-cover = ["diff-cover"]
 docs = ["sphinx", "formelsammlung", "python-dotenv", "sphinx-rtd-theme", "sphinx-autodoc-typehints", "sphinxcontrib-apidoc", "sphinx-click", "sphinxcontrib-confluencebuilder"]
-flakehell = ["flakehell", "flake8", "pylint", "pep8-naming", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-bandit", "flake8-broken-line", "flake8-bugbear", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-docstrings", "flake8-eradicate", "flake8-logging-format", "flake8-mutable", "flake8-no-u-prefixed-strings", "flake8-pytest-style", "flake8-rst-docstrings", "flake8-simplify", "flake8-spellcheck", "flake8-sql", "flake8-string-format", "flake8-todo", "flake8-typing-imports", "flake8-use-fstring", "flake8-variables-names", "flake8-walrus"]
+flakehell = ["flakehell", "flake8", "pylint", "pep8-naming", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-bandit", "flake8-broken-line", "flake8-bugbear", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-docstrings", "flake8-eradicate", "flake8-logging-format", "flake8-mutable", "flake8-no-u-prefixed-strings", "flake8-pytest-style", "flake8-rst-docstrings", "flake8-simplify", "flake8-spellcheck", "flake8-sql", "flake8-string-format", "flake8-typing-imports", "flake8-use-fstring", "flake8-variables-names", "flake8-walrus"]
 poetry = ["poetry"]
-pre-commit = ["pre-commit", "formelsammlung", "rstcheck", "sphinx", "mypy", "flakehell", "flake8", "pylint", "pep8-naming", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-bandit", "flake8-broken-line", "flake8-bugbear", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-docstrings", "flake8-eradicate", "flake8-logging-format", "flake8-mutable", "flake8-no-u-prefixed-strings", "flake8-pytest-style", "flake8-rst-docstrings", "flake8-simplify", "flake8-spellcheck", "flake8-sql", "flake8-string-format", "flake8-todo", "flake8-typing-imports", "flake8-use-fstring", "flake8-variables-names", "flake8-walrus"]
+pre-commit = ["pre-commit", "formelsammlung", "rstcheck", "sphinx", "mypy", "flakehell", "flake8", "pylint", "pep8-naming", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-bandit", "flake8-broken-line", "flake8-bugbear", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-docstrings", "flake8-eradicate", "flake8-logging-format", "flake8-mutable", "flake8-no-u-prefixed-strings", "flake8-pytest-style", "flake8-rst-docstrings", "flake8-simplify", "flake8-spellcheck", "flake8-sql", "flake8-string-format", "flake8-typing-imports", "flake8-use-fstring", "flake8-variables-names", "flake8-walrus"]
 safety = ["safety"]
 testing = ["pytest", "pytest-xdist", "pytest-cov", "coverage", "coverage-conditional-plugin", "pytest-sugar", "pytest-randomly", "pytest-mock", "mock", "faker", "pytest-factoryboy"]
 tox = ["tox"]
 twine = ["twine"]
-vscode_linter = ["rstcheck", "sphinx", "mypy", "flakehell", "flake8", "pylint", "pep8-naming", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-bandit", "flake8-broken-line", "flake8-bugbear", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-docstrings", "flake8-eradicate", "flake8-logging-format", "flake8-mutable", "flake8-no-u-prefixed-strings", "flake8-pytest-style", "flake8-rst-docstrings", "flake8-simplify", "flake8-spellcheck", "flake8-sql", "flake8-string-format", "flake8-todo", "flake8-typing-imports", "flake8-use-fstring", "flake8-variables-names", "flake8-walrus"]
+vscode_linter = ["rstcheck", "sphinx", "mypy", "flakehell", "flake8", "pylint", "pep8-naming", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-bandit", "flake8-broken-line", "flake8-bugbear", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-docstrings", "flake8-eradicate", "flake8-logging-format", "flake8-mutable", "flake8-no-u-prefixed-strings", "flake8-pytest-style", "flake8-rst-docstrings", "flake8-simplify", "flake8-spellcheck", "flake8-sql", "flake8-string-format", "flake8-typing-imports", "flake8-use-fstring", "flake8-variables-names", "flake8-walrus"]
 
 [metadata]
 lock-version = "1.1"
         python-versions = "^3.6.1"
-content-hash = "9456cc2f49a07b5cf38ca3dd5c1d792f824b245c3b35984f00956c67b9ff57ce"
+content-hash = "b03bd89ae572445e71cee51678573b30392fcdd11cee7db23cef0328b653e143"
 
 [metadata.files]
 alabaster = [
@@ -2499,9 +2488,6 @@ flake8-sql = [
 flake8-string-format = [
     {file = "flake8-string-format-0.3.0.tar.gz", hash = "sha256:65f3da786a1461ef77fca3780b314edb2853c377f2e35069723348c8917deaa2"},
     {file = "flake8_string_format-0.3.0-py2.py3-none-any.whl", hash = "sha256:812ff431f10576a74c89be4e85b8e075a705be39bc40c4b4278b5b13e2afa9af"},
-]
-flake8-todo = [
-    {file = "flake8-todo-0.7.tar.gz", hash = "sha256:6e4c5491ff838c06fe5a771b0e95ee15fc005ca57196011011280fc834a85915"},
 ]
 flake8-typing-imports = [
     {file = "flake8_typing_imports-1.10.0-py2.py3-none-any.whl", hash = "sha256:566dc5542b607bc927487628d45b8697673b26edcf5a3232082e269bfb525e06"},
