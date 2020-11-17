@@ -21,3 +21,5 @@
     no conventional commits needed b/c squash commit ?
 
 - TODO: mypy badge: mypy | checked (blue)
+
+- TODO: migrate from tox to nox?
