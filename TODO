@@ -1,6 +1,10 @@
 - TODO: look at pytest-benchmark
 - TODO: look at pytest-profiling
 
+- TODO: Spellchecking
+    pyenchant include in pylint?
+    flake8-spelling?
+
 - TODO: integrate mypy into pytest? https://github.com/typeddjango/pytest-mypy-plugins
 
 - TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
