@@ -50,7 +50,7 @@ with suppress(ModuleNotFoundError):
                 msg = (
                     "Title does not contain a jira '{JIRA_PROJECT_TAG}'"
                     " issue link in parentheses at the end"
-                )
+                )  #: noqa: FS003
             else:
                 msg = "Title does not contain an issue link in parentheses at the end"
             return [RuleViolation(self.id, msg, line_nr=1)]
