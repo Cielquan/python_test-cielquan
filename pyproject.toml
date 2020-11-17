@@ -251,15 +251,6 @@
     [tool.flakehell.exceptions."tests/"]
         flake8-bandit = ["-S101"]
 
-    [tool.flakehell.exceptions."build/"]
-        "*" = ["-*"]
-
-    [tool.flakehell.exceptions."*venv*/"]
-        "*" = ["-*"]
-
-    [tool.flakehell.exceptions."**/*.egg"]
-        "*" = ["-*"]
-
 
 #: -- PYLINT CONFIG --------------------------------------------------------------------
 [tool.pylint]
