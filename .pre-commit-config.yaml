@@ -96,13 +96,18 @@ repos:
         language: system
         types: [python]
         require_serial: true
-      #: TODO: remove badit comments if not applicable
-      #: bandit - python code security analyzer
-      #: Inline skip: `# nosec`
-      #: TODO: remove pylint comments if not applicable
       #: pylint - python linter
       #: File skip: `# pylint: skip-file`
       #: Inline change: `# pylint: disable|enable=CODE|NAME`
+      - id: pylint
+        name: pylint
+        description: run pylint over the installed version if available
+        entry: tox_env_exe_runner pylint pre-commit
+        language: system
+        types: [python]
+      #: TODO: remove bandit comments if not applicable
+      #: bandit - python code security analyzer
+      #: Inline skip: `# nosec`
       #: flake8 - python linter
       #: File skip: `# flake8: noqa`
       #: Inline skip: `# noqa` or `# noqa: CODE,...`
