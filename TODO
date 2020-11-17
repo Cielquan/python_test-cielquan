@@ -5,8 +5,6 @@
     pyenchant include in pylint? pylint --disable all --enable spelling --spelling-dict en_US
     flake8-spelling?
 
-- TODO: integrate mypy into pytest? https://github.com/typeddjango/pytest-mypy-plugins
-
 - TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
 
 - TODO: Release pipeline
