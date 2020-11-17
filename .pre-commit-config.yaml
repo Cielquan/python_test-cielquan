@@ -105,9 +105,6 @@ repos:
         entry: tox_env_exe_runner pylint pre-commit
         language: system
         types: [python]
-      #: TODO: remove bandit comments if not applicable
-      #: bandit - python code security analyzer
-      #: Inline skip: `# nosec`
       #: flake8 - python linter
       #: File skip: `# flake8: noqa`
       #: Inline skip: `# noqa` or `# noqa: CODE,...`
