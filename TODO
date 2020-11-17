@@ -2,7 +2,7 @@
 - TODO: look at pytest-profiling
 
 - TODO: Spellchecking
-    pyenchant include in pylint?
+    pyenchant include in pylint? pylint --disable all --enable spelling --spelling-dict en_US
     flake8-spelling?
 
 - TODO: integrate mypy into pytest? https://github.com/typeddjango/pytest-mypy-plugins
