@@ -131,6 +131,13 @@ repos:
         args: [--min-python-version=3.6.1]
         language: system
         types: [python]
+      - id: flakehell
+        name: flakehell
+        description: run flakehell over the installed version if available
+        entry: tox_env_exe_runner flakehell pre-commit
+        args: [lint, "--safe"]
+        language: system
+        types: [python]
 
 
 #     TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/issues/2457
