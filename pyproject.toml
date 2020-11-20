@@ -188,8 +188,9 @@
         "flake8-*" = ["+*"]
         flake8-spellcheck = ["-*"]
         flake8-annotations = ["+*", "-ANN101", "-ANN102"]
+        flake8-bandit = ["+*", "-S322"]
 
-                [tool.flakehell.exceptions."tests/"]
+    [tool.flakehell.exceptions."tests/"]
         flake8-bandit = ["-S101"]
 
 
