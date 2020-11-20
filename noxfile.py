@@ -4,7 +4,8 @@ import nox
 import shutil
 import sys
 from nox.sessions import Session
-from typing import Optional
+from typing import Optional, Tuple
+from pathlib import Path
 
 
 def get_venv_path() -> Optional[str]:
@@ -13,13 +14,13 @@ def get_venv_path() -> Optional[str]:
     :return: venv path or None
     """
     if hasattr(sys, "real_prefix"):
-        return sys.real_prefix
+        return sys.real_prefix  # type: ignore[no-any-return,attr-defined]
     if sys.base_prefix != sys.prefix:
         return sys.prefix
     return None
 
 
-def where_installed(programm: str) -> int:
+def where_installed(program: str) -> Tuple[int, Optional[str], Optional[str]]:
     """Return exit code based on found installation places.
 
     Exit codes:
@@ -32,14 +33,14 @@ def where_installed(programm: str) -> int:
     """
     exit_code = 0
 
-    exe = shutil.which(programm)
+    exe = shutil.which(program)
     if not exe:
-        return exit_code
+        return exit_code, None, None
 
     venv_path = get_venv_path()
     bin_dir = "\\Scripts" if sys.platform == "win32" else "/bin"
     path_wo_venv = os.environ["PATH"].replace(f"{venv_path}{bin_dir}", "")
-    glob_exe = shutil.which(programm, path=path_wo_venv)
+    glob_exe = shutil.which(program, path=path_wo_venv)
 
     if venv_path and venv_path in exe:
         exit_code += 1
@@ -57,7 +58,21 @@ def dev(session: Session) -> None:
     # extras = ""
     # session.run("poetry", "install", "-E", f"{extras}")
     # f=open(r"{site_packages_dir}/_debug.pth","w");  f.write("import devtools;__builtins__.update(debug=devtools.debug)\n"); f.close()'
-    print(session.bin_paths)
+
+    # y = [path for path in sys.path]
+    for path in sys.path:
+        print(Path(f"{path}/lib/site-packages".casefold()))
+        print(Path(path.casefold()))
+
+    # if len(y) > 0:
+    #     print("1")
+    #     print(y)
+
+    # TODO: get venv site-packages dir to add hack.pth file
+    x = [path for path in sys.path if "site-packages" in path and get_venv_path() in path and "lib".casefold() in path.casefold()]
+    if len(x) > 0:
+        print("2")
+        print(x)
     # session.run("python", "-m", "pip", "list", "--format=columns")
     # 'print("PYTHON INTERPRETER LOCATION: " + r"{venv_dir}\Scripts\python")'
 
