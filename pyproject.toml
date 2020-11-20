@@ -78,8 +78,7 @@
         flake8-use-fstring = {version = "^1.1", optional = true}
         flake8-variables-names = {version = "^0.0.3", optional = true}
         flake8-walrus = {version = "^1.1.0", python = ">=3.8", optional = true}
-        #: tox env dependencies
-        tox = {version = "^3.20.1", optional = true}
+        #: nox env dependencies
         poetry = {version = "^1.1.4", optional = true}
         twine = {version = "^3.2.0", optional = true}
         safety = {version = "^1.9.0", optional = true}
@@ -91,6 +90,7 @@
     [tool.poetry.dev-dependencies]
         devtools = {version = "^0.6", extras = ["pygments"]}
         nox = "^2020.8.22"
+        poetry = "^1.1.4"
         ipython = "^7.15.0"
         sphinx-autobuild = "^0.7.1"
 
@@ -147,7 +147,6 @@
             "flake8-variables-names",
             "flake8-walrus",
         ]
-        tox = ["tox"]
         poetry = ["poetry"]
         twine = ["twine"]
         safety = ["safety"]
