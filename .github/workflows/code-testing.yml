@@ -247,9 +247,9 @@ jobs:
           if not regex_result:
               sys.exit(1)
           version = f"py{regex_result.group(0)}"
-          if version.startswith("pypy"):
-              version = version[2:]
-          noxenv = version.replace(".", "")
+          if not version.startswith("pypy"):
+              version = f"python{version}"
+          noxenv = f"code_test-{version}"
           with open(gh_env_file, "a") as f:
               f.write(f"NOXSESSION={noxenv}\n")
 
@@ -303,7 +303,7 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     env:
-      NOXSESSION: coverage-merge
+      NOXSESSION: coverage
     steps:
       - uses: actions/checkout@v2
 
@@ -317,7 +317,7 @@ jobs:
           pip install nox
 
       - name: Generate nox session
-        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor
+        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor -- merge_only
 
       - name: Download coverage artifacts
         uses: actions/download-artifact@v2
@@ -339,7 +339,7 @@ jobs:
               shutil.copy(str(coverage_file), str(destination))
 
       - name: Run nox session
-        run: nox --reuse-existing-virtualenvs --forcecolor
+        run: nox --reuse-existing-virtualenvs --forcecolor -- merge_only
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v2
@@ -373,7 +373,7 @@ jobs:
           pip install nox
 
       - name: Generate nox session
-        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor
+        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor -- report_only
 
       - name: Download coverage-merged artifact
         uses: actions/download-artifact@v2
@@ -386,7 +386,7 @@ jobs:
         run: git fetch --no-tags origin master:refs/remotes/origin/master
 
       - name: Run nox session
-        run: nox --reuse-existing-virtualenvs --forcecolor
+        run: nox --reuse-existing-virtualenvs --forcecolor -- report_only
 
 
   push-coverage-to-code-climate:

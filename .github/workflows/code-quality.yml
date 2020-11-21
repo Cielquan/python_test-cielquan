@@ -68,7 +68,7 @@ jobs:
 
 
   pre-commit:
-    name: nox / pre-commit
+    name: nox / pre_commit
     needs: is-merge
     runs-on: ubuntu-latest
     env:

@@ -63,11 +63,11 @@ jobs:
 
 
   doc-tests:
-    name: nox / docs-test-${{ matrix.test }}
+    name: nox / docs_test(builder='${{ matrix.test }}')
     needs: create-builder-test-matrix
     if: needs.create-builder-test-matrix.result == 'success'
     env:
-      NOXSESSION: docs-test-${{ matrix.test }}
+      NOXSESSION: "docs_test(builder='${{ matrix.test }}')"
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.create-builder-test-matrix.outputs.matrix) }}
