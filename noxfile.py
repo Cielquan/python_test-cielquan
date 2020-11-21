@@ -108,6 +108,7 @@ def get_venv_site_packages_dir() -> Path:
         if path.startswith(venv_path_str) and path.endswith("site-packages")
     ]
     if len(path_list) != 1:
+        #: TODO: fails in CI
         raise FileNotFoundError(
             "'site-packages' dir could not be found for current virtual environment."
         )
