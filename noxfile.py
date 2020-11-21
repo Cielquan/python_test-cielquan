@@ -56,8 +56,7 @@ class Session(_Session):
                 "A session without a virtualenv can not install dependencies."
             )
 
-        self.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-        self.install("poetry>=1")
+        self.install("poetry>=1", env={"PIP_DISABLE_VERSION_CHECK": "1"})
 
         extra_deps = []
         if extras:
@@ -71,7 +70,7 @@ class Session(_Session):
         if no_root:
             no_root_flag = ["--no-root"]
 
-        self.run("poetry", "install", *no_root_flag, *no_dev_flag, *extra_deps)
+        self._run("poetry", "install", *no_root_flag, *no_dev_flag, *extra_deps)
 
 
 def poetry_install_decorator(session_func: Callable) -> Callable:
