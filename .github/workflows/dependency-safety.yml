@@ -51,10 +51,10 @@ jobs:
           pip install nox
 
       - name: Generate nox session
-        run: nox --install-only --verbose --error-on-missing-interpreters
+        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor
 
       - name: Run nox session
-        run: nox --reuse-existing-virtualenvs
+        run: nox --reuse-existing-virtualenvs --forcecolor
 
 
   safety-tox:

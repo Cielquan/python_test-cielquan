@@ -98,14 +98,14 @@ jobs:
           key: pre-commit|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Generate nox session
-        run: nox --install-only --verbose --error-on-missing-interpreters
+        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor
 
       - name: Run nox session (skip no-commit-to-branch)
-        run: SKIP=no-commit-to-branch nox
+        run: SKIP=no-commit-to-branch nox --reuse-existing-virtualenvs --forcecolor
         if: needs.is-merge.outputs.is-merge == 'true'
 
       - name: Run nox session
-        run: nox --reuse-existing-virtualenvs
+        run: nox --reuse-existing-virtualenvs --forcecolor
         if: needs.is-merge.outputs.is-merge == 'false'
 
 
