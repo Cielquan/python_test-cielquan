@@ -1,11 +1,85 @@
 """Config file for nox."""
 import os
-import nox
+import re
 import shutil
+import subprocess  # noqa: S404
 import sys
-from nox.sessions import Session
-from typing import Optional, Tuple
+
 from pathlib import Path
+from typing import Callable, Optional, Tuple
+
+import nox
+
+from nox.sessions import CondaEnv, PassthroughEnv
+from nox.sessions import Session as _Session
+from nox.sessions import VirtualEnv
+
+
+PACKAGE_NAME = "python_test_cielquan"
+
+NOXFILE_DIR = Path(__file__).parent
+COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
+JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
+
+PYTHON_TEST_VERSIONS = [
+    "python3.6",
+    "python3.7",
+    "python3.8",
+    "python3.9",
+    "python3.10",
+    "pypy3",
+]
+SPHINX_BUILDERS = ["html", "linkcheck", "coverage", "doctest", "confluence"]
+
+
+class Session(_Session):
+    """Subclass of nox's Session class to add `poetry_install` method."""
+
+    def poetry_install(
+        self,
+        extras: Optional[str] = None,
+        no_dev: bool = True,
+        no_root: bool = False,
+    ) -> None:
+        """Wrap `poetry install` for nox envs."""
+        #: Safety hurdle copied from nox.sessions.Session.install()
+        if not isinstance(
+            self._runner.venv, (CondaEnv, VirtualEnv, PassthroughEnv)
+        ):  # pragma: no cover
+            raise ValueError(
+                "A session without a virtualenv can not install dependencies."
+            )
+
+        self.env["PIP_DISABLE_VERSION_CHECK"] = "1"
+        self.install("poetry>=1")
+
+        extra_deps = []
+        if extras:
+            extra_deps = ["--extras", extras]
+
+        no_dev_flag = []
+        if no_dev:
+            no_dev_flag = ["--no-dev"]
+
+        no_root_flag = []
+        if no_root:
+            no_root_flag = ["--no-root"]
+
+        self.run("poetry", "install", *no_root_flag, *no_dev_flag, *extra_deps)
+
+
+def poetry_install_decorator(session_func: Callable) -> Callable:
+    """Decorate nox session functions to add `poetry_install` method."""
+
+    def monkeypatch_install(session: Session) -> None:
+        """Call session function with session object overwritten by custom one."""
+        session = Session(session._runner)  # noqa: W0212
+        session_func(session)
+
+    #: Overwrite name and docstring to imitate decorated function for nox
+    monkeypatch_install.__name__ = session_func.__name__
+    monkeypatch_install.__doc__ = session_func.__doc__
+    return monkeypatch_install
 
 
 def get_venv_path() -> Optional[str]:
@@ -14,10 +88,25 @@ def get_venv_path() -> Optional[str]:
     :return: venv path or None
     """
     if hasattr(sys, "real_prefix"):
-        return sys.real_prefix  # type: ignore[no-any-return,attr-defined]
+        return sys.real_prefix  # type: ignore[no-any-return,attr-defined] # noqa: E1101
     if sys.base_prefix != sys.prefix:
         return sys.prefix
     return None
+
+
+def get_venv_site_packages_dir() -> Path:
+    """Return path of current venv's site-packages dir."""
+    venv_path_str = str(get_venv_path())
+    path_list = [
+        path
+        for path in sys.path
+        if path.startswith(venv_path_str) and path.endswith("site-packages")
+    ]
+    if len(path_list) != 1:
+        raise FileNotFoundError(
+            "'site-packages' dir could not be found for current virtual environment."
+        )
+    return Path(path_list[0])
 
 
 def where_installed(program: str) -> Tuple[int, Optional[str], Optional[str]]:
@@ -51,316 +140,220 @@ def where_installed(program: str) -> Tuple[int, Optional[str], Optional[str]]:
     return exit_code, exe, glob_exe
 
 
-# @nox.session()
+@nox.session
+@poetry_install_decorator
+def safety(session: Session) -> None:
+    """Check all dependencies for known vulnerabilities."""
+    session.poetry_install("poetry safety", no_root=True)
+
+    req_file_path = Path(session.create_tmp()) / "requirements.txt"
+
+    #: Use `poetry show` to fill `requirements.txt`
+    if sys.version_info[0:2] > (3, 6):
+        cmd = subprocess.run(  # noqa: S603, S607
+            ["poetry", "show"], check=True, capture_output=True
+        )
+    else:
+        cmd = subprocess.run(  # noqa: S603, S607
+            ["poetry", "show"], check=True, stdout=subprocess.PIPE
+        )
+    with open(req_file_path, "w") as req_file:
+        req_file.write(
+            re.sub(r"([\w-]+)[ (!)]+([\d.a-z-]+).*", r"\1==\2", cmd.stdout.decode())
+        )
+
+    session.run("safety", "check", "-r", str(req_file_path), "--full-report")
+
+
+@nox.session(reuse_venv=True)
+@poetry_install_decorator
+def pre_commit(session: Session) -> None:
+    """Format and check the code."""
+    session.poetry_install("pre-commit testing docs poetry")
+
+    show_diff = ["--show-diff-on-failure"]
+    if "no_diff" in session.posargs:
+        session.posargs.remove("no_diff")
+        show_diff = []
+
+    if not session.posargs:
+        session.posargs.append("")
+
+    for hook in session.posargs:
+        add_args = show_diff + [hook]
+        session.run("pre-commit", "run", "--all-files", "--color=always", *add_args)
+
+    bin_dir = session.bin
+    if bin_dir:
+        print(
+            "HINT: to add checks as pre-commit hook run: ",
+            f'"{Path(bin_dir) / "pre-commit"} install -t pre-commit -t commit-msg".',
+        )
+
+
+@nox.session()
+@poetry_install_decorator
+def package(session: Session) -> None:
+    """Check sdist and wheel."""
+    session.poetry_install("poetry twine", no_root=True)
+
+    session.run("poetry", "build", "-vvv")
+    session.run("twine", "check", "dist/*")
+
+
+@nox.session(python=PYTHON_TEST_VERSIONS)
+@poetry_install_decorator
+def code_test(session: Session) -> None:
+    """Run tests with given python version."""
+    session.poetry_install("testing")
+
+    session.env["COVERAGE_FILE"] = COV_CACHE_DIR / f".coverage.{session.python}"
+    junit_file = JUNIT_CACHE_DIR / f"junit.{session.python}.xml"
+
+    session.run(
+        "pytest",
+        f"--basetemp={session.create_tmp()}",
+        f"--junitxml={junit_file}",
+        f"--cov={get_venv_site_packages_dir() / PACKAGE_NAME}",
+        "--cov-fail-under=0",
+        f"-n={session.env.get('PYTEST_XDIST_N') or 'auto'}",
+        f"{session.posargs or 'tests'}",
+    )
+
+
+@nox.session()
+@poetry_install_decorator
+def coverage_all(session: Session) -> None:
+    """Combine coverage, create xml/html reports and report total/diff coverage.
+
+    Diff coverage is against origin/master (or DIFF_AGAINST)
+    """
+    extras = "coverage"
+    if "report_only" in session.posargs:
+        extras += "diff-cover"
+
+    session.poetry_install(extras, no_root=True)
+
+    session.env["COVERAGE_FILE"] = COV_CACHE_DIR / ".coverage"
+
+    if "merge_only" in session.posargs or not session.posargs:
+        session.run("coverage", "combine")
+        session.run("coverage", "xml", "-o", f"{COV_CACHE_DIR/'coverage.xml'}")
+        session.run("coverage", "html", "-d", f"{COV_CACHE_DIR/'htmlcov'}")
+
+    if "report_only" in session.posargs or not session.posargs:
+        session.run(
+            "coverage",
+            "report",
+            "-m",
+            f"--fail-under={session.env.get('MIN_COVERAGE') or 100}",
+        )
+        session.run(
+            "diff-cover",
+            f"--compare-branch={session.env.get('DIFF_AGAINST') or 'origin/master'}",
+            "--ignore-staged",
+            "--ignore-unstaged",
+            f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
+            f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
+            f"{COV_CACHE_DIR/'coverage.xml'}",
+        )
+
+
+@nox.session()
+@poetry_install_decorator
+def docs(session: Session) -> None:
+    """Build docs with sphinx."""
+    session.poetry_install("docs")
+
+    session.run("sphinx-build", "-b", "html", "-aE", "docs/source", "docs/build/html")
+
+    index_file = Path(NOXFILE_DIR) / "docs/build/html/index.html"
+    print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
+
+
+@nox.session()
+@poetry_install_decorator
+@nox.parametrize("builder", SPHINX_BUILDERS)
+def docs_test(session: Session, builder: str) -> None:
+    """Build and check docs with (see env name) sphinx builder."""
+    session.poetry_install("docs")
+
+    session.run(
+        "sphinx-build",
+        "-b",
+        builder,
+        "-aE",
+        "-v",
+        "-nW",
+        "--keep-going",
+        "docs/source",
+        f"docs/build/test/{builder}",
+        *(["-t", "builder_confluence"] if builder == "confluence" else []),
+    )
+
+
 @nox.session(venv_backend="none")
-def dev(session: Session) -> None:
-    # TODO: grab all extras and install them
-    # extras = ""
-    # session.run("poetry", "install", "-E", f"{extras}")
-    # f=open(r"{site_packages_dir}/_debug.pth","w");  f.write("import devtools;__builtins__.update(debug=devtools.debug)\n"); f.close()'
+@poetry_install_decorator
+def poetry_install_all_extras(session: Session) -> None:
+    """Set up dev environment in current venv (w/o venv creation)."""
+    from tomlkit import parse  # type: ignore[import]  # noqa: C0415
 
-    # y = [path for path in sys.path]
-    for path in sys.path:
-        print(Path(f"{path}/lib/site-packages".casefold()))
-        print(Path(path.casefold()))
+    with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
+        pyproject_content = parse(pyproject_file.read())
 
-    # if len(y) > 0:
-    #     print("1")
-    #     print(y)
+    extras = pyproject_content["tool"]["poetry"].get("extras")
 
-    # TODO: get venv site-packages dir to add hack.pth file
-    x = [path for path in sys.path if "site-packages" in path and get_venv_path() in path and "lib".casefold() in path.casefold()]
-    if len(x) > 0:
-        print("2")
-        print(x)
-    # session.run("python", "-m", "pip", "list", "--format=columns")
-    # 'print("PYTHON INTERPRETER LOCATION: " + r"{venv_dir}\Scripts\python")'
+    if not extras:
+        session.skip("No extras found to be installed")
 
+    install_extras = ""
+    for extra in extras:
+        if not install_extras:
+            install_extras = extra
+        else:
+            install_extras += f" {extra}"
 
+    session.poetry_install(install_extras, no_root=True)
 
-# @nox.session()
-# def coverage_all(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage"
-#     session.install("poetry>=1")
-#     session.run("poetry", "install", "--no-root", "--no-dev", "-E", "coverage")
-#     session.run("poetry", "install", "--no-root", "--no-dev", "-E", "diff-cover")
-#     session.run("coverage", "combine")
-#     session.run(
-#         "coverage",
-#         "xml",
-#         "-o",
-#         "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/coverage.xml",
-#     )
-#     session.run(
-#         "coverage",
-#         "html",
-#         "-d",
-#         "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/htmlcov",
-#     )
-#     session.run("coverage", "report", "-m", "--fail-under=100")
-#     session.run(
-#         "diff-cover",
-#         "--compare-branch",
-#         "origin/master",
-#         "--ignore-staged",
-#         "--ignore-unstaged",
-#         "--fail-under",
-#         "100",
-#         "--diff-range-notation",
-#         "..",
-#         "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/coverage.xml",
-#     )
+    session.run("python", "-m", "pip", "list", "--format=columns")
+    print(f"PYTHON INTERPRETER LOCATION: {sys.executable}")
 
 
-# @nox.session()
-# def coverage_merge(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage"
-#     session.install("poetry>=1")
-#     session.run("poetry", "install", "--no-root", "--no-dev", "-E", "coverage")
-#     session.run("coverage", "combine")
-#     session.run(
-#         "coverage",
-#         "xml",
-#         "-o",
-#         "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/coverage.xml",
-#     )
-#     session.run(
-#         "coverage",
-#         "html",
-#         "-d",
-#         "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/htmlcov",
-#     )
+@nox.session(venv_backend="none")
+def debug_import(session: Session) -> None:  # noqa: W0613
+    """Hack for global import of `devtools.debug` (w/o venv creation)."""
+    with open(f"{get_venv_site_packages_dir()}/_debug.pth", "w") as pth_file:
+        pth_file.write("import devtools; __builtins__.update(debug=devtools.debug)\n")
 
 
-# @nox.session()
-# def coverage_report(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage"
-#     session.install("poetry>=1")
-#     session.run("poetry", "install", "--no-root", "--no-dev", "-E", "coverage")
-#     session.run("poetry", "install", "--no-root", "--no-dev", "-E", "diff-cover")
-#     session.run("coverage", "report", "-m", "--fail-under=100")
-#     session.run(
-#         "diff-cover",
-#         "--compare-branch",
-#         "origin/master",
-#         "--ignore-staged",
-#         "--ignore-unstaged",
-#         "--fail-under",
-#         "100",
-#         "--diff-range-notation",
-#         "..",
-#         "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/coverage.xml",
-#     )
-
-
-
-
-# @nox.session()
-# def docs(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.docs"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.install(".")
-#     session.run("sphinx-build", "-b", "html", "-aE", "docs/source", "docs/build/html")
-#     session.run(
-#         "python",
-#         "-c",
-#         'from pathlib import Path;  index_file = Path(r"C:\Users/riedelc\Projects\python_test-cielquan")/"docs/build/html/index.html"; print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")',
-#     )
-
-
-# @nox.session()
-# def docs_test_confluence(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.docs-test-confluence"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.install(".")
-#     session.run(
-#         "sphinx-build",
-#         "-b",
-#         "confluence",
-#         "-aE",
-#         "-v",
-#         "-nW",
-#         "--keep-going",
-#         "docs/source",
-#         "docs/build/test/confluence",
-#         "-t",
-#         "builder_confluence",
-#     )
-
-
-# @nox.session()
-# def docs_test_coverage(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.docs-test-coverage"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.install(".")
-#     session.run(
-#         "sphinx-build",
-#         "-b",
-#         "coverage",
-#         "-aE",
-#         "-v",
-#         "-nW",
-#         "--keep-going",
-#         "docs/source",
-#         "docs/build/test/coverage",
-#     )
-
-
-# @nox.session()
-# def docs_test_doctest(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.docs-test-doctest"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.install(".")
-#     session.run(
-#         "sphinx-build",
-#         "-b",
-#         "doctest",
-#         "-aE",
-#         "-v",
-#         "-nW",
-#         "--keep-going",
-#         "docs/source",
-#         "docs/build/test/doctest",
-#     )
-
-
-# @nox.session()
-# def docs_test_html(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.docs-test-html"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.install(".")
-#     session.run(
-#         "sphinx-build",
-#         "-b",
-#         "html",
-#         "-aE",
-#         "-v",
-#         "-nW",
-#         "--keep-going",
-#         "docs/source",
-#         "docs/build/test/html",
-#     )
-
-
-# @nox.session()
-# def docs_test_linkcheck(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.docs-test-linkcheck"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.install(".")
-#     session.run(
-#         "sphinx-build",
-#         "-b",
-#         "linkcheck",
-#         "-aE",
-#         "-v",
-#         "-nW",
-#         "--keep-going",
-#         "docs/source",
-#         "docs/build/test/linkcheck",
-#     )
-
-
-# @nox.session()
-# def package(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.package"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.install("poetry>=1")
-#     session.run("poetry", "install", "--no-root", "--no-dev", "-E", "poetry twine")
-#     session.run("poetry", "build", "-vvv")
-#     session.run("twine", "check", "dist/*")
-
-
-# @nox.session()
-# def pdbrc(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.pdbrc"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.run(
-#         "python",
-#         "-c",
-#         'f=open(".pdbrc","w");  f.write("""import IPython\n""");  f.write("""from traitlets.config import get_config\n\n""");  f.write("""cfg = get_config()\n""");  f.write("""cfg.InteractiveShellEmbed.colors = "Linux"\n""");  f.write("""cfg.InteractiveShellEmbed.confirm_exit = False\n\n""");  f.write("""# Use IPython for interact\nalias interacti IPython.embed(config=cfg)\n\n""");  f.write("""# Print a dictionary, sorted. %1 is the dict, %2 is the prefix for the names\n""");  f.write("""alias p_ for k in sorted(%1.keys()): print("%s%-15s= %-80.80s" % ("%2",k,repr(%1[k]))\n\n""");  f.write("""# Print member vars of a thing\nalias pi p_ %1.__dict__ %1.\n\n""");  f.write("""# Print member vars of self\nalias ps pi self\n\n""");  f.write("""# Print locals\nalias pl p_ locals() local:\n\n""");  f.write("""# Next and list\nalias nl n;;l\n\n""");  f.write("""# Step and list\nalias sl s;;l\n"""); f.close()',
-#     )
-
-
-# @nox.session()
-# def pre_commit(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.pre-commit"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.install(".")
-#     session.run("pip", "install", "flake8-colors==0.1.6")
-#     session.run("pre-commit", "run", "--all-files")
-#     session.run(
-#         "python",
-#         "-c",
-#         'from pathlib import Path;  exe = Path(r"C:\Users/riedelc\Projects\python_test-cielquan\.tox\pre-commit\Scripts")/"pre-commit";  print(  "HINT: to add checks as pre-commit hook run: ",  f""""{exe} install -t pre-commit -t commit-msg".""" )',
-#     )
-
-
-# @nox.session(python=["python3.6", "python3.7", "python3.8", "python3.9", "python3.10", "pypy3"])
-# def test(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.py310"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.install(".")
-#     session.run(
-#         "pytest",
-#         R"--basetemp=C:\Users/riedelc\Projects\python_test-cielquan\.tox\py310/tmp",
-#         "--cov",
-#         "/python_test_cielquan",
-#         "--cov-fail-under",
-#         "0",
-#         "--junitxml",
-#         "C:/Users/riedelc/Projects/python_test-cielquan/.junit_cache/junit.py310.xml",
-#         "-n=auto",
-#         "tests",
-#     )
-
-
-# @nox.session()
-# def safety(session):
-#     session.env[
-#         "COVERAGE_FILE"
-#     ] = "C:/Users/riedelc/Projects/python_test-cielquan/.coverage_cache/.coverage.safety"
-#     session.env["PIP_DISABLE_VERSION_CHECK"] = "1"
-#     session.install("poetry>=1")
-#     session.run("poetry", "install", "--no-root", "--no-dev", "-E", "poetry safety")
-#     session.run(
-#         "python",
-#         "-c",
-#         'f=open(r"C:\Users/riedelc\Projects\python_test-cielquan\.tox\safety/tmp/safety.py","w");  f.write("""import subprocess\n""");  f.write("""import re\n""");  f.write("""with open("C:\Users/riedelc\Projects\python_test-cielquan\.tox\safety/tmp/requirements.txt","w") as f:\n""");  f.write("""    cmd = subprocess.run(["poetry", "show"], capture_output=True)\n""");  f.write("""    cmd.check_returncode()\n""");  f.write("""    f.write(re.sub(r"([\\w-]+)[ (!)]+([\\d.a-z-]+).*", r"\\1==\\2", cmd.stdout.decode()))\n"""); f.close()',
-#     )
-#     session.run(
-#         "python",
-#         "C:/Users/riedelc/Projects/python_test-cielquan\.tox\safety/tmp/safety.py",
-#     )
-#     session.run(
-#         "safety",
-#         "check",
-#         "-r",
-#         "C:/Users/riedelc/Projects/python_test-cielquan\.tox\safety/tmp/requirements.txt",
-#         "--full-report",
-#     )
+@nox.session(venv_backend="none")
+def pdbrc(session: Session) -> None:  # noqa: W0613
+    """Create .pdbrc file (w/o venv creation)."""
+    pdbrc_file_path = NOXFILE_DIR / ".pdbrc"
+    if not pdbrc_file_path.is_file():
+        with open(pdbrc_file_path, "w") as pdbrc_file:
+            pdbrc_file.write("import IPython\n")
+            pdbrc_file.write("from traitlets.config import get_config\n\n")
+            pdbrc_file.write("cfg = get_config()\n")
+            pdbrc_file.write("""cfg.InteractiveShellEmbed.colors = "Linux"\n""")
+            pdbrc_file.write("cfg.InteractiveShellEmbed.confirm_exit = False\n\n")
+            pdbrc_file.write("# Use IPython for interact\n")
+            pdbrc_file.write("alias interacti IPython.embed(config=cfg)\n\n")
+            pdbrc_file.write(
+                "# Print a dictionary, sorted. "
+                + "%1 is the dict, %2 is the prefix for the names\n"
+            )
+            pdbrc_file.write(
+                "alias p_ for k in sorted(%1.keys()): "
+                + """print("%s%-15s= %-80.80s" % ("%2",k,repr(%1[k]))\n\n"""
+            )
+            pdbrc_file.write("# Print member vars of a thing\n")
+            pdbrc_file.write("alias pi p_ %1.__dict__ %1.\n\n")
+            pdbrc_file.write("# Print member vars of self\n")
+            pdbrc_file.write("alias ps pi self\n\n")
+            pdbrc_file.write("# Print locals\n")
+            pdbrc_file.write("alias pl p_ locals() local:\n\n")
+            pdbrc_file.write("# Next and list\n")
+            pdbrc_file.write("alias nl n;;l\n\n")
+            pdbrc_file.write("# Step and list\n")
+            pdbrc_file.write("alias sl s;;l\n")
