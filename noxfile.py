@@ -13,6 +13,9 @@ import nox
 from nox.sessions import Session as _Session
 
 
+nox.options.reuse_existing_virtualenvs = True
+
+
 PACKAGE_NAME = "python_test_cielquan"
 
 NOXFILE_DIR = Path(__file__).parent
@@ -168,7 +171,7 @@ def safety(session: Session) -> None:
     session.run("safety", "check", "-r", str(req_file_path), "--full-report")
 
 
-@nox.session(reuse_venv=True)
+@nox.session()
 @poetry_install_decorator
 def pre_commit(session: Session) -> None:
     """Format and check the code."""
