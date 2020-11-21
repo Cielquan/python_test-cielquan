@@ -96,15 +96,6 @@ repos:
         language: system
         types: [python]
         require_serial: true
-      #: pylint - python linter
-      #: File skip: `# pylint: skip-file`
-      #: Inline change: `# pylint: disable|enable=CODE|NAME`
-      - id: pylint
-        name: pylint
-        description: run pylint over the installed version if available
-        entry: tox_env_exe_runner pylint pre-commit
-        language: system
-        types: [python]
       #: flake8 - python linter
       #: File skip: `# flake8: noqa`
       #: Inline skip: `# noqa` or `# noqa: CODE,...`
@@ -113,6 +104,15 @@ repos:
         description: run flakehell over the installed version if available
         entry: tox_env_exe_runner flakehell pre-commit
         args: [lint, "--safe"]
+        language: system
+        types: [python]
+      #: pylint - python linter
+      #: File skip: `# pylint: skip-file`
+      #: Inline change: `# pylint: disable|enable=CODE|NAME`
+      - id: pylint
+        name: pylint
+        description: run pylint over the installed version if available
+        entry: tox_env_exe_runner pylint pre-commit
         language: system
         types: [python]
 
