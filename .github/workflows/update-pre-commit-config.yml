@@ -13,8 +13,6 @@ jobs:
   update:
     name: Check for updates
     runs-on: ubuntu-latest
-    env:
-      TOXENV: pre-commit
     steps:
       - uses: actions/checkout@v2
 

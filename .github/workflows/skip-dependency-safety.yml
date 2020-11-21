@@ -17,13 +17,13 @@ on:
       - 'poetry.lock'
       - 'pyproject.toml'
       #: Test config changes
-      - 'tox.ini'
+      - 'noxfile.py'
       - '.github/workflows/dependency-safety.yml'
 
 
 jobs:
   safety:
-    name: tox / safety
+    name: nox / safety
     runs-on: ubuntu-latest
     steps:
       - run: exit 0

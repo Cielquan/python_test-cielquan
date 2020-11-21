@@ -17,7 +17,7 @@ on:
       - 'poetry.lock'
       - 'pyproject.toml'
       #: Test config changes
-      - 'tox.ini'
+      - 'noxfile.py'
       - '.github/workflows/dependency-safety.yml'
 
   pull_request:
@@ -28,12 +28,36 @@ on:
       - 'poetry.lock'
       - 'pyproject.toml'
       #: Test config changes
-      - 'tox.ini'
+      - 'noxfile.py'
       - '.github/workflows/dependency-safety.yml'
 
 
 jobs:
   safety:
+    name: nox / safety
+    runs-on: ubuntu-latest
+    env:
+      NOXSESSION: safety
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Install nox
+        run: |
+          python -m pip install -U pip
+          pip install nox
+
+      - name: Generate nox session
+        run: nox --install-only --verbose --error-on-missing-interpreters
+
+      - name: Run nox session
+        run: nox --reuse-existing-virtualenvs
+
+
+  safety-tox:
     name: tox / safety
     runs-on: ubuntu-latest
     env:

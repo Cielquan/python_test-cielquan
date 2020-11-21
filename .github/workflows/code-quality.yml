@@ -68,6 +68,48 @@ jobs:
 
 
   pre-commit:
+    name: nox / pre-commit
+    needs: is-merge
+    runs-on: ubuntu-latest
+    env:
+      NOXSESSION: pre_commit
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Install nox
+        run: |
+          python -m pip install -U pip
+          pip install nox
+
+      - name: Set python version hash
+        shell: bash
+        run: echo "PYTHON_VERSION_SHA=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+
+      - name: Load pre-commit/poetry cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cache/pre-commit
+            ~/.cache/pypoetry
+          key: pre-commit|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Generate nox session
+        run: nox --install-only --verbose --error-on-missing-interpreters
+
+      - name: Run nox session (skip no-commit-to-branch)
+        run: SKIP=no-commit-to-branch nox
+        if: needs.is-merge.outputs.is-merge == 'true'
+
+      - name: Run nox session
+        run: nox --reuse-existing-virtualenvs
+        if: needs.is-merge.outputs.is-merge == 'false'
+
+
+  pre-commit-tox:
     name: tox / pre-commit
     needs: is-merge
     runs-on: ubuntu-latest
