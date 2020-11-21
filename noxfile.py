@@ -10,9 +10,7 @@ from typing import Callable, Optional, Tuple
 
 import nox
 
-from nox.sessions import CondaEnv, PassthroughEnv
 from nox.sessions import Session as _Session
-from nox.sessions import VirtualEnv
 
 
 PACKAGE_NAME = "python_test_cielquan"
@@ -44,7 +42,12 @@ class Session(_Session):
         """Wrap `poetry install` for nox envs."""
         #: Safety hurdle copied from nox.sessions.Session.install()
         if not isinstance(
-            self._runner.venv, (CondaEnv, VirtualEnv, PassthroughEnv)
+            self._runner.venv,
+            (
+                nox.sessions.CondaEnv,
+                nox.sessions.VirtualEnv,
+                nox.sessions.PassthroughEnv,
+            ),
         ):  # pragma: no cover
             raise ValueError(
                 "A session without a virtualenv can not install dependencies."
