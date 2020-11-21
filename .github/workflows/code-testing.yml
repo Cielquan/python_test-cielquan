@@ -246,7 +246,7 @@ jobs:
           regex_result = re.search(r"^\d+\.\d+|^pypy\d+", py_ver)
           if not regex_result:
               sys.exit(1)
-          version = f"py{regex_result.group(0)}"
+          version = f"{regex_result.group(0)}"
           if not version.startswith("pypy"):
               version = f"python{version}"
           noxenv = f"code_test-{version}"

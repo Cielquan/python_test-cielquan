@@ -153,8 +153,12 @@ def safety(session: Session) -> None:
 
     req_file_path = Path(session.create_tmp()) / "requirements.txt"
 
+    poetry_path = shutil.which("poetry")
+    print(poetry_path)
+
     #: Use `poetry show` to fill `requirements.txt`
     if sys.version_info[0:2] > (3, 6):
+        # TODO: add full path for poetry from venv
         cmd = subprocess.run(  # noqa: S603, S607
             ["poetry", "show"], check=True, capture_output=True
         )
@@ -276,9 +280,10 @@ def docs(session: Session) -> None:
     print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
 
 
+# TODO: fix poetry_install_decorator with parametrize
+@nox.parametrize("builder", SPHINX_BUILDERS)
 @nox.session()
 @poetry_install_decorator
-@nox.parametrize("builder", SPHINX_BUILDERS)
 def docs_test(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
     session.poetry_install("docs")
