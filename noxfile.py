@@ -174,7 +174,7 @@ def safety(session: Session) -> None:
 @poetry_install_decorator
 def pre_commit(session: Session) -> None:
     """Format and check the code."""
-    session.poetry_install("pre-commit testing docs poetry")
+    session.poetry_install("pre-commit testing docs poetry nox")
 
     show_diff = ["--show-diff-on-failure"]
     if "no_diff" in session.posargs:
