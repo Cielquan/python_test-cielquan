@@ -81,7 +81,7 @@ repos:
       - id: rstcheck
         name: rstcheck
         description: check rst files
-        entry: tox_env_exe_runner rstcheck pre-commit
+        entry: env_exe_runner nox pre_commit rstcheck
         args: ["--config=tox.ini"]
         language: system
         types: [rst]
@@ -91,7 +91,7 @@ repos:
       - id: mypy
         name: mypy
         description: run mypy over the installed version if available
-        entry: tox_env_exe_runner mypy pre-commit
+        entry: env_exe_runner nox pre_commit mypy
         args: ["--config-file=tox.ini"]
         language: system
         types: [python]
@@ -102,7 +102,7 @@ repos:
       - id: flakehell
         name: flakehell
         description: run flakehell over the installed version if available
-        entry: tox_env_exe_runner flakehell pre-commit
+        entry: env_exe_runner nox pre_commit flakehell
         args: [lint, "--safe"]
         language: system
         types: [python]
@@ -112,7 +112,7 @@ repos:
       - id: pylint
         name: pylint
         description: run pylint over the installed version if available
-        entry: tox_env_exe_runner pylint pre-commit
+        entry: env_exe_runner nox pre_commit pylint
         language: system
         types: [python]
 
@@ -125,7 +125,7 @@ repos:
       - id: poetry-check
         name: poetry-check
         description: check poetry config in pyproject.toml
-        entry: tox_env_exe_runner poetry pre-commit
+        entry: env_exe_runner nox pre_commit poetry
         args: ["check"]
         language: system
         pass_filenames: false
