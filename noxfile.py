@@ -231,6 +231,7 @@ def package(session: Session) -> None:
     session.run("twine", "check", "dist/*")
 
 
+# TODO: fix windows problems
 @nox.session(python=PYTHON_TEST_VERSIONS)
 @add_poetry_install
 def code_test(session: Session) -> None:
