@@ -236,7 +236,9 @@ def code_test(session: Session) -> None:
     session.env["COVERAGE_FILE"] = COV_CACHE_DIR / f".coverage.{session.python}"
     junit_file = JUNIT_CACHE_DIR / f"junit.{session.python}.xml"
 
-    if not hasattr(session.virtualenv, "location"):
+    if not isinstance(
+        session.virtualenv, (nox.sessions.CondaEnv, nox.sessions.VirtualEnv)
+    ):
         raise AttributeError("Session venv has no attribute 'location'.")
     venv_path = session.virtualenv.location
 
