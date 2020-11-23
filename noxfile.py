@@ -233,7 +233,7 @@ def code_test(session: Session) -> None:
     """Run tests with given python version."""
     session.poetry_install("testing", no_root=False)
 
-    session.env["COVERAGE_FILE"] = COV_CACHE_DIR / f".coverage.{session.python}"
+    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{session.python}")
     junit_file = JUNIT_CACHE_DIR / f"junit.{session.python}.xml"
 
     if not isinstance(
@@ -266,7 +266,7 @@ def coverage_all(session: Session) -> None:
 
     session.poetry_install(extras, no_root=True)
 
-    session.env["COVERAGE_FILE"] = COV_CACHE_DIR / ".coverage"
+    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
 
     if "merge_only" in session.posargs or not session.posargs:
         session.run("coverage", "combine")
