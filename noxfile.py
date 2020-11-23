@@ -117,11 +117,15 @@ def get_venv_path() -> Optional[str]:
 def get_venv_site_packages_dir() -> Path:
     """Return path of current venv's site-packages dir."""
     venv_path_str = str(get_venv_path())
+    print(f"{venv_path_str=}")
     path_list = [
         path
         for path in sys.path
         if path.startswith(venv_path_str) and path.endswith("site-packages")
     ]
+    print(f"{sys.path=}")
+    print(f"{path_list=}")
+    print(path_list)
     if len(path_list) != 1:
         #: TODO: fails in CI
         raise FileNotFoundError(
