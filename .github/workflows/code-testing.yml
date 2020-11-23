@@ -252,8 +252,6 @@ jobs:
           if not regex_result:
               sys.exit(1)
           version = f"{regex_result.group(0)}"
-          if not version.startswith("pypy"):
-              version = f"python{version}"
           noxenv = f"code_test-{version}"
           with open(gh_env_file, "a") as f:
               f.write(f"NOXSESSION={noxenv}\n")

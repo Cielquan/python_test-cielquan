@@ -1,4 +1,5 @@
 """Config file for nox."""
+# TODO: fix docstrings
 import os
 import re
 import shutil
@@ -13,27 +14,16 @@ import nox
 from nox.sessions import Session as _Session
 from tomlkit import parse  # type: ignore[import]
 
-# TODO: fix docstrings
 
-nox.options.reuse_existing_virtualenvs = True
+IS_WIN = sys.platform != "win32"
 
-
-IS_WIN = sys.platform == "win32"
 
 #: Config  # CHANGE ME
-PYTHON_TEST_VERSIONS = [
-    "python3.6",
-    "python3.7",
-    "python3.8",
-    "python3.9",
-    "python3.10",
-    "pypy3",
-]
+PYTHON_TEST_VERSIONS = ["3.6", "3.7", "3.8", "3.9", "3.10", "pypy3"]
 SPHINX_BUILDERS = ["html", "linkcheck", "coverage", "doctest", "confluence"]
 
-
-if IS_WIN:
-    PYTHON_TEST_VERSIONS = [py.replace("python", "") for py in PYTHON_TEST_VERSIONS]
+#: nox options  # CHANGE ME
+nox.options.reuse_existing_virtualenvs = True
 
 
 #: Make sure noxfile is at repo root
@@ -237,7 +227,6 @@ def package(session: Session) -> None:
     session.run("twine", "check", "dist/*")
 
 
-# TODO: fix windows problems:
 @nox.session(python=PYTHON_TEST_VERSIONS)
 @add_poetry_install
 def code_test(session: Session) -> None:
