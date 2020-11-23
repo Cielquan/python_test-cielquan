@@ -109,12 +109,12 @@ repos:
       #: pylint - python linter
       #: File skip: `# pylint: skip-file`
       #: Inline change: `# pylint: disable|enable=CODE|NAME`
-      - id: pylint
-        name: pylint
-        description: run pylint over the installed version if available
-        entry: env_exe_runner nox pre_commit pylint
-        language: system
-        types: [python]
+#       - id: pylint
+#         name: pylint
+#         description: run pylint over the installed version if available
+#         entry: env_exe_runner nox pre_commit pylint
+#         language: system
+#         types: [python]
 
 
 #     TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/pull/2511
