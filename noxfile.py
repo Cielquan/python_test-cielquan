@@ -177,6 +177,13 @@ def safety(session: Session) -> None:
     poetry_path = shutil.which("poetry")
     print(poetry_path)
 
+    bin_dir = session.bin
+    if bin_dir is None:
+        raise FileNotFoundError("No 'bin' directory found for session venv.")
+
+    poetry_path = Path(bin_dir) / "poetry"
+    print(poetry_path)
+
     #: Use `poetry show` to fill `requirements.txt`
     if sys.version_info[0:2] > (3, 6):
         # TODO: add full path for poetry from venv
@@ -240,12 +247,6 @@ def code_test(session: Session) -> None:
     session.env["COVERAGE_FILE"] = COV_CACHE_DIR / f".coverage.{session.python}"
     junit_file = JUNIT_CACHE_DIR / f"junit.{session.python}.xml"
 
-    if not isinstance(
-            session.virtualenv, (nox.sessions.CondaEnv, nox.sessions.VirtualEnv),
-    ):  # pragma: no cover
-        raise ValueError(
-            "A session without a virtualenv can not install dependencies."
-        )
     if not hasattr(session.virtualenv, "location"):
         raise AttributeError("Session venv has no attribute 'location'.")
     venv_path = session.virtualenv.location
