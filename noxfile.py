@@ -110,7 +110,6 @@ def add_poetry_install(session_func: Callable) -> Callable:
     return monkeypatch_install
 
 
-
 def get_calling_venv_path() -> Optional[str]:
     """Return venv path or None if no venv is used to call nox.
 
