@@ -248,7 +248,7 @@ def code_test(session: Session) -> None:
         f"--junitxml='{junit_file}'",
         f"--cov='{get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}'",
         "--cov-fail-under=0",
-        f"-n={session.env.get('PYTEST_XDIST_N') or 'auto'}",
+        f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
         f"{session.posargs or 'tests'}",
     )
 
