@@ -337,7 +337,7 @@ jobs:
         with:
           path: coverage-artifacts/
 
-      - name: Move coverage files to .nox/
+      - name: Move coverage files to .coverage_cache/
         shell: python
         run: |
           from pathlib import Path
