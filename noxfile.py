@@ -16,8 +16,10 @@ from nox.sessions import Session as _Session
 nox.options.reuse_existing_virtualenvs = True
 
 
+# TODO: grab name from toml
 PACKAGE_NAME = "python_test_cielquan"
 
+# TODO: get project root via pyproject.toml ?
 NOXFILE_DIR = Path(__file__).parent
 COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
 JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
