@@ -89,9 +89,10 @@
 #        pyenchant = {version = "^3.1.1", optional = true}
 
     [tool.poetry.dev-dependencies]
-        devtools = {version = "^0.6", extras = ["pygments"]}
         nox = "^2020.8.22"
+        tomlkit = ">=0.7.0,<1.0.0"
         poetry = "^1.1.4"
+        devtools = {version = "^0.6", extras = ["pygments"]}
         ipython = "^7.15.0"
         sphinx-autobuild = "^0.7.1"
 
@@ -196,7 +197,7 @@
         flake8-annotations = ["+*", "-ANN101", "-ANN102"]
         flake8-bandit = ["+*", "-S322"]
 
-        [tool.flakehell.exceptions."tests/"]
+                [tool.flakehell.exceptions."tests/"]
         flake8-bandit = ["-S101"]
 
 
