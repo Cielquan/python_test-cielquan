@@ -67,7 +67,7 @@ class Session(_Session):  # noqa: R0903
                 nox.sessions.VirtualEnv,
                 nox.sessions.PassthroughEnv,
             ),
-        ):  # pragma: no cover
+        ):
             raise ValueError(
                 "A session without a virtualenv can not install dependencies."
             )
