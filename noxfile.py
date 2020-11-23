@@ -45,7 +45,7 @@ with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
 
 COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
 JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
-PACKAGE_NAME = PYPROJECT["tool"]["poetry"]["name"]
+PACKAGE_NAME = str(PYPROJECT["tool"]["poetry"]["name"])
 
 
 class Session(_Session):
