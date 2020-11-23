@@ -6,7 +6,7 @@ import subprocess  # noqa: S404
 import sys
 
 from pathlib import Path
-from typing import Callable, Optional, Tuple, Union
+from typing import Any, Callable, Dict, Optional, Tuple, Union
 
 import nox
 
@@ -95,18 +95,19 @@ def add_poetry_install(session_func: Callable) -> Callable:
     :param session_func: decorated function with commands for nox session
     """
 
-    def monkeypatch_install(session: Session) -> None:
+    def monkeypatch_install(session: Session, **kwargs: Dict[str, Any]) -> None:
         """Call session function with session object overwritten by custom one.
 
         :param session: nox session object
         """
         session = Session(session._runner)  # noqa: W0212
-        session_func(session)
+        session_func(session=session, **kwargs)
 
     #: Overwrite name and docstring to imitate decorated function for nox
     monkeypatch_install.__name__ = session_func.__name__
     monkeypatch_install.__doc__ = session_func.__doc__
     return monkeypatch_install
+
 
 
 def get_calling_venv_path() -> Optional[str]:
@@ -302,7 +303,6 @@ def docs(session: Session) -> None:
     print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
 
 
-# TODO: fix add_poetry_install with parametrize
 @nox.parametrize("builder", SPHINX_BUILDERS)
 @nox.session()
 @add_poetry_install
