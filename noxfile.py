@@ -18,6 +18,8 @@ from tomlkit import parse  # type: ignore[import]
 nox.options.reuse_existing_virtualenvs = True
 
 
+IS_WIN = sys.platform == "win32"
+
 #: Config  # CHANGE ME
 PYTHON_TEST_VERSIONS = [
     "python3.6",
@@ -28,6 +30,10 @@ PYTHON_TEST_VERSIONS = [
     "pypy3",
 ]
 SPHINX_BUILDERS = ["html", "linkcheck", "coverage", "doctest", "confluence"]
+
+
+if IS_WIN:
+    PYTHON_TEST_VERSIONS = [py.replace("python", "") for py in PYTHON_TEST_VERSIONS]
 
 
 #: Make sure noxfile is at repo root
@@ -153,7 +159,7 @@ def where_installed(program: str) -> Tuple[int, Optional[str], Optional[str]]:
         return exit_code, None, None
 
     venv_path = get_calling_venv_path()
-    bin_dir = "\\Scripts" if sys.platform == "win32" else "/bin"
+    bin_dir = "\\Scripts" if IS_WIN else "/bin"
     path_wo_venv = os.environ["PATH"].replace(f"{venv_path}{bin_dir}", "")
     glob_exe = shutil.which(program, path=path_wo_venv)
 
@@ -231,7 +237,7 @@ def package(session: Session) -> None:
     session.run("twine", "check", "dist/*")
 
 
-# TODO: fix windows problems
+# TODO: fix windows problems:
 @nox.session(python=PYTHON_TEST_VERSIONS)
 @add_poetry_install
 def code_test(session: Session) -> None:
