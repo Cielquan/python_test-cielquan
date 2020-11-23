@@ -99,6 +99,7 @@ def add_poetry_install(session_func: Callable) -> Callable:
         """Call session function with session object overwritten by custom one.
 
         :param session: nox session object
+        :param kwargs: keyword arguments from e.g. parametrize
         """
         session = Session(session._runner)  # noqa: W0212
         session_func(session=session, **kwargs)
