@@ -11,19 +11,13 @@ from typing import Callable, Optional, Tuple
 import nox
 
 from nox.sessions import Session as _Session
+from tomlkit import parse  # type: ignore[import]
 
 
 nox.options.reuse_existing_virtualenvs = True
 
 
-# TODO: grab name from toml
-PACKAGE_NAME = "python_test_cielquan"
-
-# TODO: get project root via pyproject.toml ?
-NOXFILE_DIR = Path(__file__).parent
-COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
-JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
-
+#: Config  # CHANGE ME
 PYTHON_TEST_VERSIONS = [
     "python3.6",
     "python3.7",
@@ -33,6 +27,25 @@ PYTHON_TEST_VERSIONS = [
     "pypy3",
 ]
 SPHINX_BUILDERS = ["html", "linkcheck", "coverage", "doctest", "confluence"]
+
+
+#: Make sure noxfile is at repo root
+NOXFILE_DIR = Path(__file__).parent
+if not (NOXFILE_DIR / ".git").is_dir():
+    raise FileNotFoundError(
+        "No `.git` directory found. "
+        f"This file '{__file__}' is not in the repository root directory."
+    )
+
+#: Load pyproject.toml
+if not (NOXFILE_DIR / "pyproject.toml").is_file():
+    raise FileNotFoundError("No 'pyproject.toml' file found.")
+with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
+    PYPROJECT = parse(pyproject_file.read())
+
+COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
+JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
+PACKAGE_NAME = PYPROJECT["tool"]["poetry"]["name"]
 
 
 class Session(_Session):
@@ -309,12 +322,7 @@ def docs_test(session: Session, builder: str) -> None:
 @poetry_install_decorator
 def poetry_install_all_extras(session: Session) -> None:
     """Set up dev environment in current venv (w/o venv creation)."""
-    from tomlkit import parse  # type: ignore[import]  # noqa: C0415
-
-    with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
-        pyproject_content = parse(pyproject_file.read())
-
-    extras = pyproject_content["tool"]["poetry"].get("extras")
+    extras = PYPROJECT["tool"]["poetry"].get("extras")
 
     if not extras:
         session.skip("No extras found to be installed")
