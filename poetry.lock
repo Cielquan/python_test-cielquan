@@ -2163,7 +2163,7 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 coverage = ["coverage", "coverage-conditional-plugin"]
 diff-cover = ["diff-cover"]
 docs = ["sphinx", "formelsammlung", "python-dotenv", "sphinx-rtd-theme", "sphinx-autodoc-typehints", "sphinxcontrib-apidoc", "sphinx-click", "sphinxcontrib-confluencebuilder"]
-nox = ["nox"]
+nox = ["nox", "tomlkit"]
 poetry = ["poetry"]
 pre-commit = ["pre-commit", "formelsammlung", "rstcheck", "sphinx", "mypy", "flakehell", "flake8", "pylint", "pep8-naming", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-bandit", "flake8-broken-line", "flake8-bugbear", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-docstrings", "flake8-eradicate", "flake8-logging-format", "flake8-mutable", "flake8-no-u-prefixed-strings", "flake8-pytest-style", "flake8-rst-docstrings", "flake8-simplify", "flake8-spellcheck", "flake8-sql", "flake8-string-format", "flake8-typing-imports", "flake8-use-fstring", "flake8-variables-names", "flake8-walrus"]
 safety = ["safety"]
@@ -2173,7 +2173,7 @@ twine = ["twine"]
 [metadata]
 lock-version = "1.1"
         python-versions = "^3.6.1"
-content-hash = "5e13a08999d5ab5d21ba13a3ed6e9c65db97bd6215c1661a446d6595c9daf346"
+content-hash = "bbd83f09f614fbae8569663d74fd6b4abbcdda01bf6020aa4ca4854ab0c6cbd1"
 
 [metadata.files]
 alabaster = [
