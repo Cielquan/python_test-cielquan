@@ -231,7 +231,8 @@ def package(session: Session) -> None:
 @add_poetry_install
 def code_test(session: Session) -> None:
     """Run tests with given python version."""
-    session.poetry_install("testing", no_root=False)
+    session.install(".")
+    session.poetry_install("testing", no_root=True)
 
     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{session.python}")
     junit_file = JUNIT_CACHE_DIR / f"junit.{session.python}.xml"
