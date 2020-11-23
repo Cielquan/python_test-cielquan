@@ -1,5 +1,4 @@
 """Config file for nox."""
-# TODO: fix docstrings
 import os
 import re
 import shutil
@@ -54,7 +53,7 @@ class Session(_Session):  # noqa: R0903
         no_dev: bool = True,
         no_root: bool = False,
     ) -> None:
-        """Wrap `poetry install` for nox envs.
+        """Wrap `poetry install` for nox sessions.
 
         :param extras: string of space separated extras to install
         :param no_dev: if `--no-dev` should be set; defaults to: True
