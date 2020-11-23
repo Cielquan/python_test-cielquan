@@ -22,14 +22,3 @@
 
 - TODO: change CONTRI
     no conventional commits needed b/c squash commit ?
-
-- TODO: migrate from tox to nox?
-
-- TODO: propose type hint fix to nox in sessions.SessionRunner ?:
-    @property
-    def virtualenv(self) -> Union[CondaEnv, PassthroughEnv, VirtualEnv]:
-        """The virtualenv that all commands are run in."""
-        venv = self._runner.venv
-        if venv is None:
-            raise ValueError("A virtualenv has not been created for this session")
-        return venv
