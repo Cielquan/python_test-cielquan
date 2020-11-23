@@ -103,7 +103,7 @@ jobs:
           key: pre-commit|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Generate nox session
-        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor
+        run: nox --install-only --error-on-missing-interpreters --forcecolor
 
       - name: Run nox session (skip no-commit-to-branch)
         run: SKIP=no-commit-to-branch nox --reuse-existing-virtualenvs --forcecolor

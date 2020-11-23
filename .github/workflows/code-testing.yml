@@ -157,7 +157,7 @@ jobs:
           poetry install --no-root --no-dev --extras nox
 
       - name: Generate nox session
-        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor
+        run: nox --install-only --error-on-missing-interpreters --forcecolor
 
       - name: Run nox session
         id: test
@@ -285,7 +285,7 @@ jobs:
         run: timeout 10s .nox/${{ env.NOXSESSION }}/bin/pip --version || rm -rf .nox
 
       - name: Generate nox session
-        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor
+        run: nox --install-only --error-on-missing-interpreters --forcecolor
 
       - name: Run nox session
         run: nox --reuse-existing-virtualenvs --forcecolor
@@ -330,7 +330,7 @@ jobs:
           poetry install --no-root --no-dev --extras nox
 
       - name: Generate nox session
-        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor -- merge_only
+        run: nox --install-only --error-on-missing-interpreters --forcecolor -- merge_only
 
       - name: Download coverage artifacts
         uses: actions/download-artifact@v2
@@ -391,7 +391,7 @@ jobs:
           poetry install --no-root --no-dev --extras nox
 
       - name: Generate nox session
-        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor -- report_only
+        run: nox --install-only --error-on-missing-interpreters --forcecolor -- report_only
 
       - name: Download coverage-merged artifact
         uses: actions/download-artifact@v2

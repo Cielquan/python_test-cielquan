@@ -105,7 +105,7 @@ jobs:
         run: timeout 10s .nox/${{ env.NOXSESSION }}/bin/pip --version || rm -rf .nox
 
       - name: Generate nox session
-        run: nox --install-only --verbose --error-on-missing-interpreters --forcecolor
+        run: nox --install-only --error-on-missing-interpreters --forcecolor
 
       - name: Run nox session
         run: nox --reuse-existing-virtualenvs --forcecolor
