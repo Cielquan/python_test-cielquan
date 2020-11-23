@@ -244,9 +244,9 @@ def code_test(session: Session) -> None:
 
     session.run(
         "pytest",
-        f"--basetemp={session.create_tmp()}",
-        f"--junitxml={junit_file}",
-        f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
+        f"--basetemp='{session.create_tmp()}'",
+        f"--junitxml='{junit_file}'",
+        f"--cov='{get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}'",
         "--cov-fail-under=0",
         f"-n={session.env.get('PYTEST_XDIST_N') or 'auto'}",
         f"{session.posargs or 'tests'}",
