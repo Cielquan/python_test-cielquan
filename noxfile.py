@@ -255,7 +255,7 @@ def code_test(session: Session) -> None:
 
 @nox.session()
 @add_poetry_install
-def coverage_all(session: Session) -> None:
+def coverage(session: Session) -> None:
     """Combine coverage, create xml/html reports and report total/diff coverage.
 
     Diff coverage is against origin/master (or DIFF_AGAINST)
@@ -270,8 +270,8 @@ def coverage_all(session: Session) -> None:
 
     if "merge_only" in session.posargs or not session.posargs:
         session.run("coverage", "combine")
-        session.run("coverage", "xml", "-o", f"{COV_CACHE_DIR/'coverage.xml'}")
-        session.run("coverage", "html", "-d", f"{COV_CACHE_DIR/'htmlcov'}")
+        session.run("coverage", "xml", "-o", f"{COV_CACHE_DIR / 'coverage.xml'}")
+        session.run("coverage", "html", "-d", f"{COV_CACHE_DIR / 'htmlcov'}")
 
     if "report_only" in session.posargs or not session.posargs:
         session.run(
@@ -287,7 +287,7 @@ def coverage_all(session: Session) -> None:
             "--ignore-unstaged",
             f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
             f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
-            f"{COV_CACHE_DIR/'coverage.xml'}",
+            f"{COV_CACHE_DIR / 'coverage.xml'}",
         )
 
 
