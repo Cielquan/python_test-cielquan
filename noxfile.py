@@ -49,7 +49,7 @@ JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
 PACKAGE_NAME = str(PYPROJECT["tool"]["poetry"]["name"])
 
 
-class Session(_Session):
+class Session(_Session):  # noqa: R0903
     """Subclass of nox's Session class to add `poetry_install` method."""
 
     def poetry_install(
@@ -174,25 +174,18 @@ def safety(session: Session) -> None:
 
     req_file_path = Path(session.create_tmp()) / "requirements.txt"
 
-    poetry_path = shutil.which("poetry")
-    print(poetry_path)
-
     bin_dir = session.bin
     if bin_dir is None:
         raise FileNotFoundError("No 'bin' directory found for session venv.")
 
-    poetry_path = Path(bin_dir) / "poetry"
-    print(poetry_path)
-
     #: Use `poetry show` to fill `requirements.txt`
     if sys.version_info[0:2] > (3, 6):
-        # TODO: add full path for poetry from venv
-        cmd = subprocess.run(  # noqa: S603, S607
-            ["poetry", "show"], check=True, capture_output=True
+        cmd = subprocess.run(  # noqa: S603
+            [Path(bin_dir) / "poetry", "show"], check=True, capture_output=True
         )
     else:
-        cmd = subprocess.run(  # noqa: S603, S607
-            ["poetry", "show"], check=True, stdout=subprocess.PIPE
+        cmd = subprocess.run(  # noqa: S603
+            [Path(bin_dir) / "poetry", "show"], check=True, stdout=subprocess.PIPE
         )
     with open(req_file_path, "w") as req_file:
         req_file.write(
@@ -250,7 +243,6 @@ def code_test(session: Session) -> None:
     if not hasattr(session.virtualenv, "location"):
         raise AttributeError("Session venv has no attribute 'location'.")
     venv_path = session.virtualenv.location
-
 
     session.run(
         "pytest",
