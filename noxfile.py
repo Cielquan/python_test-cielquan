@@ -6,7 +6,7 @@ import subprocess  # noqa: S404
 import sys
 
 from pathlib import Path
-from typing import Callable, Optional, Tuple
+from typing import Callable, Optional, Tuple, Union
 
 import nox
 
@@ -57,7 +57,12 @@ class Session(_Session):
         no_dev: bool = True,
         no_root: bool = False,
     ) -> None:
-        """Wrap `poetry install` for nox envs."""
+        """Wrap `poetry install` for nox envs.
+
+        :param extras: string of space separated extras to install
+        :param no_dev: if `--no-dev` should be set; defaults to: True
+        :param no_root: if `--no-root` should be set; defaults to: False
+        """
         #: Safety hurdle copied from nox.sessions.Session.install()
         if not isinstance(
             self._runner.venv,
@@ -89,10 +94,16 @@ class Session(_Session):
 
 
 def poetry_install_decorator(session_func: Callable) -> Callable:
-    """Decorate nox session functions to add `poetry_install` method."""
+    """Decorate nox session functions to add `poetry_install` method.
+
+    :param session_func: decorated function with commands for nox session
+    """
 
     def monkeypatch_install(session: Session) -> None:
-        """Call session function with session object overwritten by custom one."""
+        """Call session function with session object overwritten by custom one.
+
+        :param session: nox session object
+        """
         session = Session(session._runner)  # noqa: W0212
         session_func(session)
 
@@ -102,8 +113,8 @@ def poetry_install_decorator(session_func: Callable) -> Callable:
     return monkeypatch_install
 
 
-def get_venv_path() -> Optional[str]:
-    """Return venv path or None if no venv is used.
+def get_calling_venv_path() -> Optional[str]:
+    """Return venv path or None if no venv is used to call nox.
 
     :return: venv path or None
     """
@@ -114,18 +125,21 @@ def get_venv_path() -> Optional[str]:
     return None
 
 
-def get_venv_site_packages_dir() -> Path:
-    """Return path of current venv's site-packages dir."""
-    venv_path_str = str(get_venv_path())
-    print(f"{venv_path_str=}")
+def get_venv_site_packages_dir(venv_path: Union[str, Path]) -> Path:
+    """Return path of current venv's site-packages dir.
+
+    :param venv_path: path to venv which site-packages dir should be found.
+    :return: Path to site-packages dir from given venv.
+    """
+    venv_path = str(venv_path)
+    print(f"{venv_path=}")
     path_list = [
         path
         for path in sys.path
-        if path.startswith(venv_path_str) and path.endswith("site-packages")
+        if path.startswith(venv_path) and path.endswith("site-packages")
     ]
     print(f"{sys.path=}")
     print(f"{path_list=}")
-    print(path_list)
     if len(path_list) != 1:
         #: TODO: fails in CI
         raise FileNotFoundError(
@@ -151,7 +165,8 @@ def where_installed(program: str) -> Tuple[int, Optional[str], Optional[str]]:
     if not exe:
         return exit_code, None, None
 
-    venv_path = get_venv_path()
+    # TODO: fix after fix for venv called vs venv created above is fixed
+    venv_path = get_calling_venv_path()
     bin_dir = "\\Scripts" if sys.platform == "win32" else "/bin"
     path_wo_venv = os.environ["PATH"].replace(f"{venv_path}{bin_dir}", "")
     glob_exe = shutil.which(program, path=path_wo_venv)
@@ -234,7 +249,7 @@ def package(session: Session) -> None:
 @poetry_install_decorator
 def code_test(session: Session) -> None:
     """Run tests with given python version."""
-    session.poetry_install("testing")
+    session.poetry_install("testing", no_root=False)
 
     session.env["COVERAGE_FILE"] = COV_CACHE_DIR / f".coverage.{session.python}"
     junit_file = JUNIT_CACHE_DIR / f"junit.{session.python}.xml"
@@ -243,7 +258,7 @@ def code_test(session: Session) -> None:
         "pytest",
         f"--basetemp={session.create_tmp()}",
         f"--junitxml={junit_file}",
-        f"--cov={get_venv_site_packages_dir() / PACKAGE_NAME}",
+        f"--cov={get_venv_site_packages_dir(session.virtualenv.location) / PACKAGE_NAME}",
         "--cov-fail-under=0",
         f"-n={session.env.get('PYTEST_XDIST_N') or 'auto'}",
         f"{session.posargs or 'tests'}",
@@ -347,7 +362,9 @@ def poetry_install_all_extras(session: Session) -> None:
 @nox.session(venv_backend="none")
 def debug_import(session: Session) -> None:  # noqa: W0613
     """Hack for global import of `devtools.debug` (w/o venv creation)."""
-    with open(f"{get_venv_site_packages_dir()}/_debug.pth", "w") as pth_file:
+    with open(
+            f"{get_venv_site_packages_dir(get_calling_venv_path())}/_debug.pth", "w"
+    ) as pth_file:
         pth_file.write("import devtools; __builtins__.update(debug=devtools.debug)\n")
 
 
