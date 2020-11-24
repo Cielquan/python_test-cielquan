@@ -236,9 +236,12 @@
     [tool.coverage.paths]
         combine = [
             "src/python_test_cielquan",
-            "*/.tox/*/lib/python*/site-packages/python_test_cielquan",
-            "*/.tox/pypy*/site-packages/python_test_cielquan",
-            "*/.tox\\*\\Lib\\site-packages\\python_test_cielquan",
+#            "*/.tox/*/lib/python*/site-packages/python_test_cielquan",
+#            "*/.tox/pypy*/site-packages/python_test_cielquan",
+#            "*/.tox\\*\\Lib\\site-packages\\python_test_cielquan",
+            "*/.nox/*/lib/python*/site-packages/python_test_cielquan",
+            "*/.nox/pypy*/site-packages/python_test_cielquan",
+            "*/.nox\\*\\Lib\\site-packages\\python_test_cielquan",
             "*/src/python_test_cielquan",
             "*\\src\\python_test_cielquan",
         ]
