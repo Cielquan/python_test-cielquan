@@ -1,10 +1,6 @@
 """Config file for nox."""
-# TODO: add passenv like tox and forbid all envvar like tox
-    # nox.virtualenv._BLACKLISTED_ENV_VARS
-    # tox.config.__init__.passenv()
-    # nox copies ENVVARS, adds from session, remove above, prepends PATH with bin_paths
 # TODO: check why nox test let cov fail and tox test not
-    # maybe passenv func will help?
+# maybe passenv func will help?
 # TODO: run tests via nox w/o env which runs tox and writes conf + add tox.ini to .gitignore
 import os
 import re
@@ -13,7 +9,7 @@ import subprocess  # noqa: S404
 import sys
 
 from pathlib import Path
-from typing import Any, Callable, Dict, Optional, Tuple, Union
+from typing import Any, Callable, Dict, Mapping, Optional, Set, Tuple, Union
 
 import nox
 
@@ -59,6 +55,7 @@ class Session(_Session):  # noqa: R0903
         extras: Optional[str] = None,
         no_dev: bool = True,
         no_root: bool = False,
+        **kwargs: Any,
     ) -> None:
         """Wrap `poetry install` for nox sessions.
 
@@ -93,7 +90,9 @@ class Session(_Session):  # noqa: R0903
         if no_root:
             no_root_flag = ["--no-root"]
 
-        self._run("poetry", "install", *no_root_flag, *no_dev_flag, *extra_deps)
+        self._run(
+            "poetry", "install", *no_root_flag, *no_dev_flag, *extra_deps, **kwargs
+        )
 
 
 def add_poetry_install(session_func: Callable) -> Callable:
@@ -184,11 +183,11 @@ def safety(session: Session) -> None:
     #: Use `poetry show` to fill `requirements.txt`
     if sys.version_info[0:2] > (3, 6):
         cmd = subprocess.run(  # noqa: S603
-            [Path(bin_dir) / "poetry", "show"], check=True, capture_output=True
+            [str(Path(bin_dir) / "poetry"), "show"], check=True, capture_output=True
         )
     else:
         cmd = subprocess.run(  # noqa: S603
-            [Path(bin_dir) / "poetry", "show"], check=True, stdout=subprocess.PIPE
+            [str(Path(bin_dir) / "poetry"), "show"], check=True, stdout=subprocess.PIPE
         )
     with open(req_file_path, "w") as req_file:
         req_file.write(
@@ -205,7 +204,7 @@ def pre_commit(session: Session) -> None:
     session.poetry_install("pre-commit testing docs poetry nox")
 
     show_diff = ["--show-diff-on-failure"]
-    if "no_diff" in session.posargs:
+    if "no_diff" in session.posargs or "nodiff" in session.posargs:
         session.posargs.remove("no_diff")
         show_diff = []
 
@@ -270,7 +269,7 @@ def coverage(session: Session) -> None:
     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
 
     extras = "coverage"
-    if not session.posargs or "report_only" in session.posargs:
+    if "report_only" in session.posargs or not session.posargs:
         extras += " diff-cover"
 
     session.poetry_install(extras, no_root=True)
