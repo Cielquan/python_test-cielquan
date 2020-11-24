@@ -306,12 +306,12 @@ jobs:
 
 
   merge-coverage:
-    name: nox / coverage-merge
+    name: tox / coverage-merge
     needs: code-tests
     if: always()
     runs-on: ubuntu-latest
     env:
-      NOXSESSION: coverage
+      TOXENV: coverage-merge
     steps:
       - uses: actions/checkout@v2
 
@@ -319,18 +319,13 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
-      - name: Install poetry
+      - name: Install tox
         run: |
           python -m pip install -U pip
-          pip install poetry
+          pip install tox
 
-      - name: Install nox via poetry
-        run: |
-          poetry config virtualenvs.create false
-          poetry install --no-root --no-dev --extras nox
-
-      - name: Generate nox session
-        run: nox --install-only --error-on-missing-interpreters --forcecolor -- merge_only
+      - name: Generate tox env
+        run: tox --notest -vv --skip-missing-interpreters false
 
       - name: Download coverage artifacts
         uses: actions/download-artifact@v2
@@ -351,8 +346,8 @@ jobs:
               print(f"{coverage_file} copy to {destination}")
               shutil.copy(str(coverage_file), str(destination))
 
-      - name: Run nox session
-        run: nox --reuse-existing-virtualenvs --forcecolor -- merge_only
+      - name: Run tox env
+        run: tox
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v2
@@ -363,6 +358,64 @@ jobs:
             .coverage_cache/.coverage
             .coverage_cache/htmlcov/
           if-no-files-found: error
+#  merge-coverage:
+#    name: nox / coverage-merge
+#    needs: code-tests
+#    if: always()
+#    runs-on: ubuntu-latest
+#    env:
+#      NOXSESSION: coverage
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - uses: actions/setup-python@v2
+#        with:
+#          python-version: ${{ env.default_python_version }}
+#
+#      - name: Install poetry
+#        run: |
+#          python -m pip install -U pip
+#          pip install poetry
+#
+#      - name: Install nox via poetry
+#        run: |
+#          poetry config virtualenvs.create false
+#          poetry install --no-root --no-dev --extras nox
+#
+#      - name: Generate nox session
+#        run: nox --install-only --error-on-missing-interpreters --forcecolor -- merge_only
+#
+#      - name: Download coverage artifacts
+#        uses: actions/download-artifact@v2
+#        with:
+#          path: coverage-artifacts/
+#
+#      - name: Move coverage files to .coverage_cache/
+#        shell: python
+#        run: |
+#          from pathlib import Path
+#          import shutil
+#
+#          artifact_dir = Path("coverage-artifacts")
+#          cov_dir = Path(".coverage_cache")
+#          cov_dir.mkdir()
+#          for coverage_file in artifact_dir.glob("*/.coverage*"):
+#              destination = cov_dir / f".coverage.{coverage_file.parent.name[9:]}"
+#              print(f"{coverage_file} copy to {destination}")
+#              shutil.copy(str(coverage_file), str(destination))
+#
+#      - name: Run nox session
+#        run: nox --reuse-existing-virtualenvs --forcecolor -- merge_only
+#
+#      - name: Upload coverage artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: coverage-merged
+#          path: |
+#            .coverage_cache/coverage.xml
+#            .coverage_cache/.coverage
+#            .coverage_cache/htmlcov/
+#          if-no-files-found: error
 
 
   report-coverage:
