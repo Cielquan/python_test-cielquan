@@ -295,14 +295,22 @@ def coverage(session: Session) -> None:
 @add_poetry_install
 def docs(session: Session) -> None:
     """Build docs with sphinx."""
-    session.poetry_install("docs")
+    extras = "docs"
+    cmd = "sphinx-build"
+    add_args = []
 
-    # TODO: autobuild
+    if "autobuild" in session.posargs or "ab" in session.posargs:
+        extras += " sphinx-autobuild"
+        cmd = "sphinx-autobuild"
+        add_args = ["--open-browser"]
 
-    session.run("sphinx-build", "-b", "html", "-aE", "docs/source", "docs/build/html")
+    session.poetry_install(extras)
 
-    index_file = Path(NOXFILE_DIR) / "docs/build/html/index.html"
-    print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
+    session.run(cmd, "-b", "html", "-aE", "docs/source", "docs/build/html", *add_args)
+
+    if not session.posargs:
+        index_file = Path(NOXFILE_DIR) / "docs/build/html/index.html"
+        print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
 
 
 @nox.parametrize("builder", SPHINX_BUILDERS)
