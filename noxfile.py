@@ -2,6 +2,7 @@
 # TODO: check why nox test let cov fail and tox test not
 # maybe passenv func will help?
 # TODO: run tests via nox w/o env which runs tox and writes conf + add tox.ini to .gitignore
+import contextlib
 import os
 import re
 import shutil
@@ -116,13 +117,13 @@ class Session(_Session):  # noqa: R0903
             run_env.update(env)
 
         # Filter env
-        if kwargs.get("filter_env"):
+        if kwargs.pop("filter_env", False):
             run_env = {
                 var: run_env[var]
                 for var in run_env
                 if var
                 in _create_envvar_whitelist(
-                    set(env or "") | set(kwargs.get("passenv") or "")
+                    set(env or "") | set(kwargs.pop("passenv", None) or "")
                 )
             }
 
@@ -284,7 +285,9 @@ def safety(session: Session) -> None:
             re.sub(r"([\w-]+)[ (!)]+([\d.a-z-]+).*", r"\1==\2", cmd.stdout.decode())
         )
 
-    session.run("safety", "check", "-r", str(req_file_path), "--full-report")
+    session.run(
+        "safety", "check", "-r", str(req_file_path), "--full-report", filter_env=True
+    )
 
 
 @nox.session()
@@ -295,12 +298,16 @@ def pre_commit(session: Session) -> None:
 
     show_diff = ["--show-diff-on-failure"]
     if "no_diff" in session.posargs or "nodiff" in session.posargs:
-        session.posargs.remove("no_diff")
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("no_diff")
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("nodiff")
         show_diff = []
 
     if not session.posargs:
         session.posargs.append("")
 
+    # TODO: problem when filtered. some envvars is missing
     for hook in session.posargs:
         add_args = show_diff + [hook]
         session.run("pre-commit", "run", "--all-files", "--color=always", *add_args)
@@ -319,8 +326,8 @@ def package(session: Session) -> None:
     """Check sdist and wheel."""
     session.poetry_install("poetry twine", no_root=True)
 
-    session.run("poetry", "build", "-vvv")
-    session.run("twine", "check", "dist/*")
+    session.run("poetry", "build", "-vvv", filter_env=True)
+    session.run("twine", "check", "dist/*", filter_env=True)
 
 
 @nox.session(python=PYTHON_TEST_VERSIONS)
@@ -346,6 +353,8 @@ def code_test(session: Session) -> None:
         "--cov-fail-under=0",
         f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
         f"{session.posargs or 'tests'}",
+        filter_env=True,
+        passenv=["COVERAGE_FILE"],
     )
 
 
@@ -365,9 +374,23 @@ def coverage(session: Session) -> None:
     session.poetry_install(extras, no_root=True)
 
     if "merge_only" in session.posargs or not session.posargs:
-        session.run("coverage", "combine")
-        session.run("coverage", "xml", "-o", f"{COV_CACHE_DIR / 'coverage.xml'}")
-        session.run("coverage", "html", "-d", f"{COV_CACHE_DIR / 'htmlcov'}")
+        session.run("coverage", "combine", filter_env=True, passenv=["COVERAGE_FILE"])
+        session.run(
+            "coverage",
+            "xml",
+            "-o",
+            f"{COV_CACHE_DIR / 'coverage.xml'}",
+            filter_env=True,
+            passenv=["COVERAGE_FILE"],
+        )
+        session.run(
+            "coverage",
+            "html",
+            "-d",
+            f"{COV_CACHE_DIR / 'htmlcov'}",
+            filter_env=True,
+            passenv=["COVERAGE_FILE"],
+        )
 
     if "report_only" in session.posargs or not session.posargs:
         session.run(
@@ -375,6 +398,8 @@ def coverage(session: Session) -> None:
             "report",
             "-m",
             f"--fail-under={session.env.get('MIN_COVERAGE') or 100}",
+            filter_env=True,
+            passenv=["COVERAGE_FILE"],
         )
         session.run(
             "diff-cover",
@@ -384,6 +409,8 @@ def coverage(session: Session) -> None:
             f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
             f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
             f"{COV_CACHE_DIR / 'coverage.xml'}",
+            filter_env=True,
+            passenv=["COVERAGE_FILE"],
         )
 
 
@@ -402,7 +429,16 @@ def docs(session: Session) -> None:
 
     session.poetry_install(extras)
 
-    session.run(cmd, "-b", "html", "-aE", "docs/source", "docs/build/html", *add_args)
+    session.run(
+        cmd,
+        "-b",
+        "html",
+        "-aE",
+        "docs/source",
+        "docs/build/html",
+        *add_args,
+        filter_env=True,
+    )
 
     if not session.posargs:
         index_file = Path(NOXFILE_DIR) / "docs/build/html/index.html"
@@ -427,6 +463,7 @@ def docs_test(session: Session, builder: str) -> None:
         "docs/source",
         f"docs/build/test/{builder}",
         *(["-t", "builder_confluence"] if builder == "confluence" else []),
+        filter_env=True,
     )
 
 
@@ -448,7 +485,7 @@ def poetry_install_all_extras(session: Session) -> None:
 
     session.poetry_install(install_extras, no_root=True)
 
-    session.run("python", "-m", "pip", "list", "--format=columns")
+    session.run("python", "-m", "pip", "list", "--format=columns", filter_env=True)
     print(f"PYTHON INTERPRETER LOCATION: {sys.executable}")
 
 
