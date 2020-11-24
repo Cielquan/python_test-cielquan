@@ -1,4 +1,8 @@
 """Config file for nox."""
+# TODO: add passenv like tox and forbid all envvar like tox
+# TODO: check why nox test let cov fail and tox test not
+    # maybe passenv func will help?
+# TODO: run tests via nox w/o env which runs tox and writes conf + add tox.ini to .gitignore
 import os
 import re
 import shutil
