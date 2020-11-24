@@ -20,6 +20,7 @@ __author__ = md["Author"]
 __license__ = md["License"]
 __project__ = md["Name"]
 __version__ = md["Version"]
+version_info = tuple(__version__.split("."))
 
 __gh_repository_link__ = md["Project-URL"].replace("Repository, ", "")
 __gh_repository__ = __gh_repository_link__.replace("https://github.com/", "")
