@@ -264,7 +264,7 @@ def coverage(session: Session) -> None:
 
     extras = "coverage"
     if not session.posargs or "report_only" in session.posargs:
-        extras += "diff-cover"
+        extras += " diff-cover"
 
     session.poetry_install(extras, no_root=True)
 
