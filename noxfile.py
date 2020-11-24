@@ -47,8 +47,98 @@ JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
 PACKAGE_NAME = str(PYPROJECT["tool"]["poetry"]["name"])
 
 
+def _create_envvar_whitelist(whitelist: Optional[Set[str]] = None) -> Set[str]:
+    """Merge ENVVAR whitelists.
+
+    Based on ``tox.config.__init__.tox_addoption.passenv()``.
+    """
+    nox_whitelist = {"_"}
+
+    tox_whitelist = {
+        "CURL_CA_BUNDLE",
+        "LANG",
+        "LANGUAGE",
+        "LD_LIBRARY_PATH",
+        "PATH",
+        "PIP_INDEX_URL",
+        "PIP_EXTRA_INDEX_URL",
+        "REQUESTS_CA_BUNDLE",
+        "SSL_CERT_FILE",
+        "HTTP_PROXY",
+        "HTTPS_PROXY",
+        "NO_PROXY",
+    }
+
+    if IS_WIN:
+        os_whitelist = {
+            "SYSTEMDRIVE",  # needed for pip6
+            "SYSTEMROOT",  # needed for python's crypto module
+            "PATHEXT",  # needed for discovering executables
+            "COMSPEC",  # needed for distutils cygwincompiler
+            "TEMP",
+            "TMP",
+            # for `multiprocessing.cpu_count()` on Windows (prior to Python 3.4).
+            "NUMBER_OF_PROCESSORS",
+            "PROCESSOR_ARCHITECTURE",  # platform.machine()
+            "USERPROFILE",  # needed for `os.path.expanduser()`
+            "MSYSTEM",  # fixes tox#429
+        }
+    else:
+        os_whitelist = {"TMPDIR"}
+
+    custom_whitelist = set() if whitelist is None else whitelist
+
+    return nox_whitelist | tox_whitelist | os_whitelist | custom_whitelist
+
+
 class Session(_Session):  # noqa: R0903
     """Subclass of nox's Session class to add `poetry_install` method."""
+
+    def _run(
+        self,
+        *args: str,
+        env: Mapping[str, str] = None,
+        **kwargs: Any,
+    ) -> Any:
+        """Overwrite method to add env filter functionallity.
+
+        Additonal kwargs:
+        :param filter_env: bool if env should be filtered
+        :param passenv: list of envvars to not filter out
+        """
+        # Legacy support - run a function given.
+        if callable(args[0]):
+            return self._run_func(args[0], args[1:], kwargs)
+
+        # Combine the env argument with our virtualenv's env vars.
+        run_env = self.env.copy()
+        if env is not None:
+            run_env.update(env)
+
+        # Filter env
+        if kwargs.get("filter_env"):
+            run_env = {
+                var: run_env[var]
+                for var in run_env
+                if var
+                in _create_envvar_whitelist(
+                    set(env or "") | set(kwargs.get("passenv") or "")
+                )
+            }
+
+        # If --error-on-external-run is specified, error on external programs.
+        if self._runner.global_config.error_on_external_run:
+            kwargs.setdefault("external", "error")
+
+        # Allow all external programs when running outside a sandbox.
+        if not self.virtualenv.is_sandboxed:
+            kwargs["external"] = True
+
+        if args[0] in self.virtualenv.allowed_globals:
+            kwargs["external"] = True
+
+        # Run a shell command.
+        return nox.command.run(args, env=run_env, paths=self.bin_paths, **kwargs)
 
     def poetry_install(
         self,
