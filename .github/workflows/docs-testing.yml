@@ -92,25 +92,24 @@ jobs:
         shell: bash
         run: echo "PYTHON_VERSION_SHA=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
-      - name: Load nox-session from cache
-        uses: actions/cache@v2
-        id: cache
-        with:
-          path: .nox/${{ env.NOXSESSION }}
-          key: nox-env|${{ env.NOXSESSION }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
-
-      - name: Format session dir
+      - name: Format session dir path
         id: format-session-dir
         shell: python
         run: |
           import re
-
           session_dir = re.sub(
               r"([a-zA-Z0-9_]*)\(([a-zA-Z0-9_]*)[=\"']{2}([a-zA-Z0-9_]*)[\"')]{2}",
               r"\1-\2-\3",
               "${{ env.NOXSESSION }}"
           )
           print(f"""::set-output name=session_dir::{session_dir}""")
+
+      - name: Load nox-session from cache
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: .nox/${{ steps.format-session-dir.outputs.session_dir }}
+          key: nox-env|${{ env.NOXSESSION }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
 
       - name: Ensure cache is healthy
         if: steps.cache.outputs.cache-hit == 'true'
