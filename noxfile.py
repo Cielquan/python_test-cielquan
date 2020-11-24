@@ -233,8 +233,8 @@ def code_test(session: Session) -> None:
     """Run tests with given python version."""
     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{session.python}")
 
-    session.install(".")
-    session.poetry_install("testing", no_root=True)
+    session.install(".[testing]")
+    # session.poetry_install("testing", no_root=True)
 
     if not isinstance(
         session.virtualenv, (nox.sessions.CondaEnv, nox.sessions.VirtualEnv)
