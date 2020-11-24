@@ -261,13 +261,13 @@ def coverage(session: Session) -> None:
 
     Diff coverage is against origin/master (or DIFF_AGAINST)
     """
+    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
+
     extras = "coverage"
-    if "report_only" in session.posargs:
+    if not session.posargs or "report_only" in session.posargs:
         extras += "diff-cover"
 
     session.poetry_install(extras, no_root=True)
-
-    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
 
     if "merge_only" in session.posargs or not session.posargs:
         session.run("coverage", "combine")
