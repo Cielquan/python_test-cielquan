@@ -297,6 +297,8 @@ def docs(session: Session) -> None:
     """Build docs with sphinx."""
     session.poetry_install("docs")
 
+    # TODO: autobuild
+
     session.run("sphinx-build", "-b", "html", "-aE", "docs/source", "docs/build/html")
 
     index_file = Path(NOXFILE_DIR) / "docs/build/html/index.html"
