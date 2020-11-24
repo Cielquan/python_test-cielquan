@@ -25,7 +25,7 @@ on:
       - 'poetry.lock'
       - 'pyproject.toml'
       #: Test config changes
-      - 'noxfile.py'
+      - 'tox.ini'
       - '.github/workflows/code-testing.yml'
 
   pull_request:
@@ -39,7 +39,7 @@ on:
       - 'poetry.lock'
       - 'pyproject.toml'
       #: Test config changes
-      - 'noxfile.py'
+      - 'tox.ini'
       - '.github/workflows/code-testing.yml'
 
 
@@ -127,14 +127,14 @@ jobs:
 
 
   package-tests:
-    name: nox / package / ${{ matrix.os }}
+    name: tox / package / ${{ matrix.os }}
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
     env:
-      NOXSESSION: package
+      TOXENV: package
     outputs:
       ubuntu-success: ${{ steps.set-result.outputs.ubuntu-success }}
       macos-success: ${{ steps.set-result.outputs.macos-success }}
@@ -146,22 +146,17 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
-      - name: Install poetry
+      - name: Install tox
         run: |
           python -m pip install -U pip
-          pip install poetry
+          pip install tox
 
-      - name: Install nox via poetry
-        run: |
-          poetry config virtualenvs.create false
-          poetry install --no-root --no-dev --extras nox
+      - name: Generate tox env
+        run: tox --notest -vv --skip-missing-interpreters false
 
-      - name: Generate nox session
-        run: nox --install-only --error-on-missing-interpreters --forcecolor
-
-      - name: Run nox session
+      - name: Run tox env
         id: test
-        run: nox --reuse-existing-virtualenvs --forcecolor
+        run: tox
 
       - name: Set result variable
         id: set-result
@@ -302,101 +297,6 @@ jobs:
           if-no-files-found: error
 
 
-#  code-tests:
-#    name: nox / python ${{ matrix.python_version }} / ${{ matrix.os }}
-#    needs: [create-python-test-matrix, notify-code-climate, package-tests]
-#    if: needs.create-python-test-matrix.result == 'success'
-#    runs-on: ${{ matrix.os }}-latest
-#    strategy:
-#      fail-fast: false
-#      matrix: ${{ fromJson(needs.create-python-test-matrix.outputs.matrix) }}
-#    env:
-#      PYTEST_ADDOPTS: -v -v -ra --showlocals
-#      PYTEST_XDIST_N: 0
-#    steps:
-#      - name: Set up python ${{ matrix.python_version }}
-#        uses: actions/setup-python@v2
-#        with:
-#          python-version: ${{ matrix.python_version }}
-#
-#      - name: Abort if package test failed
-#        shell: python
-#        run: |
-#          import sys
-#          if "${{ matrix.os }}" == "ubuntu" and "${{ needs.package-tests.outputs.ubuntu-success }}" == "true":
-#              sys.exit(0)
-#          elif "${{ matrix.os }}" == "macos" and "${{ needs.package-tests.outputs.macos-success }}" == "true":
-#              sys.exit(0)
-#          elif "${{ matrix.os }}" == "windows" and "${{ needs.package-tests.outputs.windows-success }}" == "true":
-#              sys.exit(0)
-#          else:
-#              sys.exit(1)
-#
-#      - name: Set NOXSESSION variable
-#        shell: python
-#        run: |
-#          import os
-#          import re
-#          import sys
-#          gh_env_file = os.environ["GITHUB_ENV"]
-#          py_ver = "${{ matrix.python_version }}"
-#          regex_result = re.search(r"^\d+\.\d+|^pypy\d+", py_ver)
-#          if not regex_result:
-#              sys.exit(1)
-#          version = f"{regex_result.group(0)}"
-#          noxenv = f"code_test-{version}"
-#          with open(gh_env_file, "a") as f:
-#              f.write(f"NOXSESSION={noxenv}\n")
-#
-#      - uses: actions/checkout@v2
-#
-#      - name: Install poetry
-#        run: |
-#          python -m pip install -U pip
-#          pip install poetry
-#
-#      - name: Install nox via poetry
-#        run: |
-#          poetry config virtualenvs.create false
-#          poetry install --no-root --no-dev --extras nox
-#
-#      - name: Set python version hash
-#        shell: bash
-#        run: echo "PYTHON_VERSION_SHA=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
-#
-#      - name: Load nox-env from cache
-#        uses: actions/cache@v2
-#        id: cache
-#        with:
-#          path: .nox/${{ env.NOXSESSION }}
-#          key: nox-env|${{ env.NOXSESSION }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
-#
-#      - name: Ensure cache is healthy
-#        if: steps.cache.outputs.cache-hit == 'true'
-#        shell: bash
-#        run: timeout 10s .nox/${{ env.NOXSESSION }}/bin/pip --version || rm -rf .nox
-#
-#      - name: Generate nox session
-#        run: nox --install-only --error-on-missing-interpreters --forcecolor
-#
-#      - name: Run nox session
-#        run: nox --reuse-existing-virtualenvs --forcecolor
-#
-#      - name: Upload coverage artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: coverage-${{ matrix.os }}-${{ matrix.python_version }}
-#          path: .coverage_cache/.coverage*
-#          if-no-files-found: error
-#
-#      - name: Upload junit artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: junit-${{ matrix.os }}-py${{ matrix.python_version }}
-#          path: .junit_cache/junit*.xml
-#          if-no-files-found: error
-
-
   merge-coverage:
     name: tox / coverage-merge
     needs: code-tests
@@ -424,7 +324,7 @@ jobs:
         with:
           path: coverage-artifacts/
 
-      - name: Move coverage files to .coverage_cache/
+      - name: Move coverage files to .tox/
         shell: python
         run: |
           from pathlib import Path
@@ -450,72 +350,14 @@ jobs:
             .coverage_cache/.coverage
             .coverage_cache/htmlcov/
           if-no-files-found: error
-#  merge-coverage:
-#    name: nox / coverage-merge
-#    needs: code-tests
-#    if: always()
-#    runs-on: ubuntu-latest
-#    env:
-#      NOXSESSION: coverage
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - uses: actions/setup-python@v2
-#        with:
-#          python-version: ${{ env.default_python_version }}
-#
-#      - name: Install poetry
-#        run: |
-#          python -m pip install -U pip
-#          pip install poetry
-#
-#      - name: Install nox via poetry
-#        run: |
-#          poetry config virtualenvs.create false
-#          poetry install --no-root --no-dev --extras nox
-#
-#      - name: Generate nox session
-#        run: nox --install-only --error-on-missing-interpreters --forcecolor -- merge_only
-#
-#      - name: Download coverage artifacts
-#        uses: actions/download-artifact@v2
-#        with:
-#          path: coverage-artifacts/
-#
-#      - name: Move coverage files to .coverage_cache/
-#        shell: python
-#        run: |
-#          from pathlib import Path
-#          import shutil
-#
-#          artifact_dir = Path("coverage-artifacts")
-#          cov_dir = Path(".coverage_cache")
-#          cov_dir.mkdir()
-#          for coverage_file in artifact_dir.glob("*/.coverage*"):
-#              destination = cov_dir / f".coverage.{coverage_file.parent.name[9:]}"
-#              print(f"{coverage_file} copy to {destination}")
-#              shutil.copy(str(coverage_file), str(destination))
-#
-#      - name: Run nox session
-#        run: nox --reuse-existing-virtualenvs --forcecolor -- merge_only
-#
-#      - name: Upload coverage artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: coverage-merged
-#          path: |
-#            .coverage_cache/coverage.xml
-#            .coverage_cache/.coverage
-#            .coverage_cache/htmlcov/
-#          if-no-files-found: error
 
 
   report-coverage:
-    name: nox / coverage-report
+    name: tox / coverage-report
     needs: merge-coverage
     runs-on: ubuntu-latest
     env:
-      NOXSESSION: coverage-report
+      TOXENV: coverage-report
       MIN_COVERAGE: 100
       MIN_DIFF_COVERAGE: 100
     steps:
@@ -525,18 +367,13 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
-      - name: Install poetry
+      - name: Install tox
         run: |
           python -m pip install -U pip
-          pip install poetry
+          pip install tox
 
-      - name: Install nox via poetry
-        run: |
-          poetry config virtualenvs.create false
-          poetry install --no-root --no-dev --extras nox
-
-      - name: Generate nox session
-        run: nox --install-only --error-on-missing-interpreters --forcecolor -- report_only
+      - name: Generate tox env
+        run: tox --notest -vv --skip-missing-interpreters false
 
       - name: Download coverage-merged artifact
         uses: actions/download-artifact@v2
@@ -548,8 +385,8 @@ jobs:
         # https://github.com/Bachmann1234/diff_cover#troubleshooting
         run: git fetch --no-tags origin master:refs/remotes/origin/master
 
-      - name: Run nox session
-        run: nox --reuse-existing-virtualenvs --forcecolor -- report_only
+      - name: Run tox env
+        run: tox
 
 
   push-coverage-to-code-climate:
