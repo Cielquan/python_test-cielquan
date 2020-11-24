@@ -99,10 +99,23 @@ jobs:
           path: .nox/${{ env.NOXSESSION }}
           key: nox-env|${{ env.NOXSESSION }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
 
+      - name: Format session dir
+        id: format-session-dir
+        shell: python
+        run: |
+          import re
+
+          session_dir = re.sub(
+              r"([a-zA-Z0-9_]*)\(([a-zA-Z0-9_]*)[=\"']{2}([a-zA-Z0-9_]*)[\"')]{2}",
+              r"\1-\2-\3",
+              "${{ env.NOXSESSION }}"
+          )
+          print(f"""::set-output name=session_dir::{session_dir}""")
+
       - name: Ensure cache is healthy
         if: steps.cache.outputs.cache-hit == 'true'
         shell: bash
-        run: timeout 10s .nox/${{ env.NOXSESSION }}/bin/pip --version || rm -rf .nox
+        run: timeout 10s .nox/${{ steps.format-session-dir.outputs.session_dir }}/bin/pip --version || rm -rf .nox
 
       - name: Generate nox session
         run: nox --install-only --error-on-missing-interpreters --forcecolor
