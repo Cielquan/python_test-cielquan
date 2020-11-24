@@ -521,7 +521,7 @@ jobs:
     needs: merge-coverage
     runs-on: ubuntu-latest
     env:
-      NOXSESSION: coverage-report
+      NOXSESSION: coverage
       MIN_COVERAGE: 100
       MIN_DIFF_COVERAGE: 100
     steps:
