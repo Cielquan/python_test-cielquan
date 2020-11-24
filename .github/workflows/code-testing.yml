@@ -351,6 +351,8 @@ jobs:
               print(f"{coverage_file} copy to {destination}")
               shutil.copy(str(coverage_file), str(destination))
 
+      - run: ls -ahlF --color=always .coverage_cache  # FIXME
+
       - name: Run nox session
         run: nox --reuse-existing-virtualenvs --forcecolor -- merge_only
 

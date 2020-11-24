@@ -271,6 +271,7 @@ def coverage(session: Session) -> None:
 
     if "merge_only" in session.posargs or not session.posargs:
         session.run("coverage", "combine")
+        print(list(COV_CACHE_DIR.glob('**')))  # FIXME
         session.run("coverage", "xml", "-o", f"{COV_CACHE_DIR / 'coverage.xml'}")
         session.run("coverage", "html", "-d", f"{COV_CACHE_DIR / 'htmlcov'}")
 
