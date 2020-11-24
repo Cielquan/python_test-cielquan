@@ -232,7 +232,6 @@ def package(session: Session) -> None:
 def code_test(session: Session) -> None:
     """Run tests with given python version."""
     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{session.python}")
-    junit_file = JUNIT_CACHE_DIR / f"junit.{session.python}.xml"
 
     session.install(".")
     session.poetry_install("testing", no_root=True)
@@ -246,7 +245,7 @@ def code_test(session: Session) -> None:
     session.run(
         "pytest",
         f"--basetemp={session.create_tmp()}",
-        f"--junitxml={junit_file}",
+        f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
         f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
         "--cov-fail-under=0",
         f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
