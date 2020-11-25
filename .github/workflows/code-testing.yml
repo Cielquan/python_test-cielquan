@@ -393,9 +393,13 @@ jobs:
           path: .nox/${{ env.NOXSESSION }}
           key: nox-env|${{ env.NOXSESSION }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
 
-      # TODO: fix for win
-      - name: Ensure cache is healthy
-        if: steps.cache.outputs.cache-hit == 'true'
+      - name: Ensure cache is healthy (windows)
+        if: steps.cache.outputs.cache-hit == 'true' && matrix.os == 'windows'
+        shell: bash
+        run: timeout 10s .nox/${{ env.NOXSESSION }}/Scripts/pip --version || rm -rf .nox
+
+      - name: Ensure cache is healthy (unix)
+        if: steps.cache.outputs.cache-hit == 'true' && matrix.os != 'windows'
         shell: bash
         run: timeout 10s .nox/${{ env.NOXSESSION }}/bin/pip --version || rm -rf .nox
 
