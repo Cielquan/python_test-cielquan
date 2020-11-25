@@ -255,6 +255,7 @@ def monkeypatch_session(session_func: Callable) -> Callable:
 
 
 #: -- UTIL FUNCTIONS -------------------------------------------------------------------
+# TODO: import below from formelsammlung
 def get_calling_venv_path() -> Optional[str]:
     """Return venv path or None if no venv is used to call nox.
 
@@ -274,37 +275,6 @@ def get_venv_site_packages_dir(venv_path: Union[str, Path]) -> Path:
     :return: path to given venv's site-packages dir
     """
     return list(Path(venv_path).glob("**/site-packages"))[0]
-
-
-def where_installed(program: str) -> Tuple[int, Optional[str], Optional[str]]:
-    """Return exit code based on found installation places.
-
-    Exit codes:
-    0 = nowhere
-    1 = venv
-    2 = global
-    3 = both
-
-    :return: Exit code, venv exe, glob exe
-    """
-    exit_code = 0
-
-    exe = shutil.which(program)
-    if not exe:
-        return exit_code, None, None
-
-    venv_path = get_calling_venv_path()
-    bin_dir = "\\Scripts" if sys.platform == "win32" else "/bin"
-    path_wo_venv = os.environ["PATH"].replace(f"{venv_path}{bin_dir}", "")
-    glob_exe = shutil.which(program, path=path_wo_venv)
-
-    if venv_path and venv_path in exe:
-        exit_code += 1
-    else:
-        exe = None
-    if glob_exe:
-        exit_code += 2
-    return exit_code, exe, glob_exe
 
 
 #: -- NOX SESSIONS ---------------------------------------------------------------------
