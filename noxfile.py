@@ -19,9 +19,7 @@ from nox.sessions import Session as _Session
 from tomlkit import parse  # type: ignore[import]
 
 
-IS_WIN = sys.platform != "win32"
-
-
+#: -- MANUAL CONFIG --------------------------------------------------------------------
 #: Config  # CHANGE ME
 PYTHON_TEST_VERSIONS = ["3.6", "3.7", "3.8", "3.9", "3.10", "pypy3"]
 SPHINX_BUILDERS = ["html", "linkcheck", "coverage", "doctest", "confluence"]
@@ -29,6 +27,9 @@ SPHINX_BUILDERS = ["html", "linkcheck", "coverage", "doctest", "confluence"]
 #: nox options  # CHANGE ME
 nox.options.reuse_existing_virtualenvs = True
 
+
+#: -- AUTO CONFIG ----------------------------------------------------------------------
+IS_WIN = sys.platform != "win32"
 
 #: Make sure noxfile is at repo root
 NOXFILE_DIR = Path(__file__).parent
@@ -49,6 +50,7 @@ JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
 PACKAGE_NAME = str(PYPROJECT["tool"]["poetry"]["name"])
 
 
+#: -- MONKEYPATCH SESSION --------------------------------------------------------------
 class Session(_Session):  # noqa: R0903
     """Subclass of nox's Session class to add `poetry_install` method."""
 
@@ -221,6 +223,7 @@ def monkeypatch_session(session_func: Callable) -> Callable:
     return switch_session_class
 
 
+#: -- UTIL FUNCTIONS -------------------------------------------------------------------
 def get_calling_venv_path() -> Optional[str]:
     """Return venv path or None if no venv is used to call nox.
 
@@ -273,6 +276,7 @@ def where_installed(program: str) -> Tuple[int, Optional[str], Optional[str]]:
     return exit_code, exe, glob_exe
 
 
+#: -- NOX SESSIONS ---------------------------------------------------------------------
 @nox.session
 @monkeypatch_session
 def safety(session: Session) -> None:
