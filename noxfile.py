@@ -135,6 +135,48 @@ class Session(_Session):  # noqa: R0903
         # Run a shell command.
         return nox.command.run(args, env=run_env, paths=self.bin_paths, **kwargs)
 
+    def _filter_env(
+        self,
+        run_env: Dict[str, str],
+        env: Optional[Mapping[str, str]] = None,
+        kwargs_passenv: Optional[List[str]] = None,
+    ) -> Dict[str, str]:
+        """Filter given environment.
+
+        :param run_env: Environment to filter
+        :param env: Env added for single command; defaults to None
+        :param kwargs_passenv: Passenv added for single command; defaults to None
+        :return: Filtered environment
+        """
+        kwargs_passenv_wo_asterisk = set("")
+        kwargs_passenv_regex = set("")
+        if kwargs_passenv:
+            kwargs_passenv_wo_asterisk = {v for v in kwargs_passenv if "*" not in v}
+            kwargs_passenv_regex = {v for v in kwargs_passenv if "*" in v}
+
+        self_passenv_wo_asterisk = set("")
+        self_passenv_regex = set("")
+        if self.passenv:
+            self_passenv_wo_asterisk = {v for v in self.passenv if "*" not in v}
+            self_passenv_regex = {v for v in self.passenv if "*" in v}
+
+        passenv_regex = re.compile(
+            "|".join(
+                v.replace("*", ".*")
+                for v in (kwargs_passenv_regex | self_passenv_regex)
+            )
+        )
+
+        return {
+            var: run_env[var]
+            for var in run_env
+            if var
+            in self._create_envvar_whitelist(
+                set(env or "") | kwargs_passenv_wo_asterisk | self_passenv_wo_asterisk
+            )
+            or passenv_regex.fullmatch(var)
+        }
+
     @staticmethod
     def _create_envvar_whitelist(whitelist: Optional[Set[str]] = None) -> Set[str]:
         """Merge ENVVAR whitelists.
@@ -178,49 +220,6 @@ class Session(_Session):  # noqa: R0903
         custom_whitelist = set() if whitelist is None else whitelist
 
         return nox_whitelist | tox_whitelist | os_whitelist | custom_whitelist
-
-    # TODO: test _filter_env func
-    def _filter_env(
-        self,
-        run_env: Dict[str, str],
-        env: Optional[Mapping[str, str]] = None,
-        kwargs_passenv: Optional[List[str]] = None,
-    ) -> Dict[str, str]:
-        """Filter given environment.
-
-        :param run_env: Environment to filter
-        :param env: Env added for single command; defaults to None
-        :param kwargs_passenv: Passenv added for single command; defaults to None
-        :return: Filtered environment
-        """
-        kwargs_passenv_wo_asterisk = set("")
-        kwargs_passenv_regex = set("")
-        if kwargs_passenv:
-            kwargs_passenv_wo_asterisk = {v for v in kwargs_passenv if "*" not in v}
-            kwargs_passenv_regex = {v for v in kwargs_passenv if "*" in v}
-
-        self_passenv_wo_asterisk = set("")
-        self_passenv_regex = set("")
-        if self.passenv:
-            self_passenv_wo_asterisk = {v for v in self.passenv if "*" not in v}
-            self_passenv_regex = {v for v in self.passenv if "*" in v}
-
-        passenv_regex = re.compile(
-            "|".join(
-                v.replace("*", ".*")
-                for v in (kwargs_passenv_regex | self_passenv_regex)
-            )
-        )
-
-        return {
-            var: run_env[var]
-            for var in run_env
-            if var
-            in self._create_envvar_whitelist(
-                set(env or "") | kwargs_passenv_wo_asterisk | self_passenv_wo_asterisk
-            )
-            or passenv_regex.fullmatch(var)
-        }
 
     def poetry_install(
         self,
