@@ -26,8 +26,6 @@ nox.options.reuse_existing_virtualenvs = True
 
 
 #: -- AUTO CONFIG ----------------------------------------------------------------------
-IS_WIN = sys.platform == "win32"
-
 #: Make sure noxfile is at repo root
 NOXFILE_DIR = Path(__file__).parent
 if not (NOXFILE_DIR / ".git").is_dir():
@@ -200,7 +198,7 @@ class Session(_Session):  # noqa: R0903
             "NO_PROXY",
         }
 
-        if IS_WIN:
+        if sys.platform == "win32":
             os_whitelist = {
                 "SYSTEMDRIVE",  # needed for pip6
                 "SYSTEMROOT",  # needed for python's crypto module
