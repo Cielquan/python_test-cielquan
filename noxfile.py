@@ -364,6 +364,18 @@ def code_test(session: Session) -> None:
     )
 
 
+@nox.session(venv_backend="none")
+@monkeypatch_session
+def code_test_tox(session: Session) -> None:
+    """Run tests with given python version via tox."""
+    with open(Path("tox.ini"), "w") as tox_ini_file:
+        tox_ini_file.writelines(TOX_INI_FILE)
+
+    session.poetry_install("tox")
+
+    session.run("tox")
+
+
 @nox.session()
 @monkeypatch_session
 def coverage(session: Session) -> None:
@@ -537,15 +549,3 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
             pdbrc_file.write("alias nl n;;l\n\n")
             pdbrc_file.write("# Step and list\n")
             pdbrc_file.write("alias sl s;;l\n")
-
-
-@nox.session(python=PYTHON_TEST_VERSIONS)
-@monkeypatch_session
-def code_test_tox(session: Session) -> None:
-    """Run tests with given python version via tox."""
-    with open(Path("tox.ini"), "w") as tox_ini_file:
-        tox_ini_file.writelines(TOX_INI_FILE)
-
-    session.poetry_install("tox")
-
-    session.run("tox", "-e", "py" + session.python.replace(".", "").replace("pypy", "py"))
