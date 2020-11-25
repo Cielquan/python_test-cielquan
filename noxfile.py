@@ -29,7 +29,7 @@ nox.options.reuse_existing_virtualenvs = True
 
 
 #: -- AUTO CONFIG ----------------------------------------------------------------------
-IS_WIN = sys.platform != "win32"
+IS_WIN = sys.platform == "win32"
 
 #: Make sure noxfile is at repo root
 NOXFILE_DIR = Path(__file__).parent
@@ -48,6 +48,37 @@ with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
 COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
 JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
 PACKAGE_NAME = str(PYPROJECT["tool"]["poetry"]["name"])
+
+TOX_CODE_TEST_VERSION_FORMAT = (
+    "{"
+    + ",".join([v.replace(".", "").replace("pypy", "py") for v in PYTHON_TEST_VERSIONS])
+    + "}"
+)
+TOX_INI_FILE = f"""[tox]
+minversion = 3.15.0
+isolated_build = true
+skipsdist = false
+
+[testenv:py{TOX_CODE_TEST_VERSION_FORMAT}]
+description = run tests with {"{basepython}"}
+passenv =
+    HOME
+    CI
+    PYTEST_*
+setenv =
+    PIP_DISABLE_VERSION_CHECK = 1
+    COVERAGE_FILE = {"{env:COVERAGE_FILE:{toxinidir}/.coverage_cache/.coverage.{envname}}"}
+download = true
+extras = testing
+commands =
+    pytest \\
+    --basetemp={"{envtmpdir}"} \\
+    --junitxml={"{toxinidir}"}/.junit_cache/junit.{"{envname}"}.xml \\
+    --cov={"{envsitepackagesdir}"}/{PACKAGE_NAME} \\
+    --cov-fail-under=0 \\
+    --numprocesses={"{env:PYTEST_XDIST_N:auto}"} \\
+    {"{posargs:tests}"}
+"""
 
 
 #: -- MONKEYPATCH SESSION --------------------------------------------------------------
@@ -224,6 +255,7 @@ def monkeypatch_session(session_func: Callable) -> Callable:
 
 
 #: -- UTIL FUNCTIONS -------------------------------------------------------------------
+# TODO: import below from formelsammlung
 def get_calling_venv_path() -> Optional[str]:
     """Return venv path or None if no venv is used to call nox.
 
@@ -243,37 +275,6 @@ def get_venv_site_packages_dir(venv_path: Union[str, Path]) -> Path:
     :return: path to given venv's site-packages dir
     """
     return list(Path(venv_path).glob("**/site-packages"))[0]
-
-
-def where_installed(program: str) -> Tuple[int, Optional[str], Optional[str]]:
-    """Return exit code based on found installation places.
-
-    Exit codes:
-    0 = nowhere
-    1 = venv
-    2 = global
-    3 = both
-
-    :return: Exit code, venv exe, glob exe
-    """
-    exit_code = 0
-
-    exe = shutil.which(program)
-    if not exe:
-        return exit_code, None, None
-
-    venv_path = get_calling_venv_path()
-    bin_dir = "\\Scripts" if IS_WIN else "/bin"
-    path_wo_venv = os.environ["PATH"].replace(f"{venv_path}{bin_dir}", "")
-    glob_exe = shutil.which(program, path=path_wo_venv)
-
-    if venv_path and venv_path in exe:
-        exit_code += 1
-    else:
-        exe = None
-    if glob_exe:
-        exit_code += 2
-    return exit_code, exe, glob_exe
 
 
 #: -- NOX SESSIONS ---------------------------------------------------------------------
@@ -560,3 +561,15 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
             pdbrc_file.write("alias nl n;;l\n\n")
             pdbrc_file.write("# Step and list\n")
             pdbrc_file.write("alias sl s;;l\n")
+
+
+@nox.session(python=PYTHON_TEST_VERSIONS)
+@monkeypatch_session
+def code_test_tox(session: Session) -> None:
+    """Run tests with given python version via tox."""
+    with open(Path("tox.ini"), "w") as tox_ini_file:
+        tox_ini_file.writelines(TOX_INI_FILE)
+
+    session.poetry_install("tox")
+
+    session.run("tox", "-e", "py" + session.python.replace(".", "").replace("pypy", "py"))
