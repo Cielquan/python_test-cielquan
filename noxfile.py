@@ -10,7 +10,8 @@ import subprocess  # noqa: S404
 import sys
 
 from pathlib import Path
-from typing import Any, Callable, Dict, Mapping, Optional, Set, Tuple, Union
+from typing import Any, Callable, Dict, List, Mapping, Optional, Set, Tuple, \
+    Union
 
 import nox
 import nox.command
@@ -49,52 +50,19 @@ JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
 PACKAGE_NAME = str(PYPROJECT["tool"]["poetry"]["name"])
 
 
-def _create_envvar_whitelist(whitelist: Optional[Set[str]] = None) -> Set[str]:
-    """Merge ENVVAR whitelists.
-
-    Based on ``tox.config.__init__.tox_addoption.passenv()``.
-    """
-    nox_whitelist = {"_"}
-
-    tox_whitelist = {
-        "CURL_CA_BUNDLE",
-        "LANG",
-        "LANGUAGE",
-        "LD_LIBRARY_PATH",
-        "PATH",
-        "PIP_INDEX_URL",
-        "PIP_EXTRA_INDEX_URL",
-        "REQUESTS_CA_BUNDLE",
-        "SSL_CERT_FILE",
-        "HTTP_PROXY",
-        "HTTPS_PROXY",
-        "NO_PROXY",
-    }
-
-    if IS_WIN:
-        os_whitelist = {
-            "SYSTEMDRIVE",  # needed for pip6
-            "SYSTEMROOT",  # needed for python's crypto module
-            "PATHEXT",  # needed for discovering executables
-            "COMSPEC",  # needed for distutils cygwincompiler
-            "TEMP",
-            "TMP",
-            # for `multiprocessing.cpu_count()` on Windows (prior to Python 3.4).
-            "NUMBER_OF_PROCESSORS",
-            "PROCESSOR_ARCHITECTURE",  # platform.machine()
-            "USERPROFILE",  # needed for `os.path.expanduser()`
-            "MSYSTEM",  # fixes tox#429
-        }
-    else:
-        os_whitelist = {"TMPDIR"}
-
-    custom_whitelist = set() if whitelist is None else whitelist
-
-    return nox_whitelist | tox_whitelist | os_whitelist | custom_whitelist
-
-
 class Session(_Session):  # noqa: R0903
     """Subclass of nox's Session class to add `poetry_install` method."""
+
+    def __init__(self, runner: nox.sessions.SessionRunner) -> None:
+        """Overwrite method to add passenv attribute."""
+        super().__init__(runner)
+        self.passenv: List[str] = []
+
+    def setenv(self, env_vars: Dict[str, str]) -> None:
+        """Set given envvars and add them to passenv."""
+        for var in env_vars:
+            self.passenv.append(var)
+            self.env[var] = env_vars[var]
 
     def _run(
         self,
@@ -123,8 +91,10 @@ class Session(_Session):  # noqa: R0903
                 var: run_env[var]
                 for var in run_env
                 if var
-                in _create_envvar_whitelist(
-                    set(env or "") | set(kwargs.pop("passenv", None) or "")
+                in self._create_envvar_whitelist(
+                    set(env or "")
+                    | set(kwargs.pop("passenv", None) or "")
+                    | set(self.passenv or "")
                 )
             }
 
@@ -141,6 +111,50 @@ class Session(_Session):  # noqa: R0903
 
         # Run a shell command.
         return nox.command.run(args, env=run_env, paths=self.bin_paths, **kwargs)
+
+    @staticmethod
+    def _create_envvar_whitelist(whitelist: Optional[Set[str]] = None) -> Set[str]:
+        """Merge ENVVAR whitelists.
+
+        Based on ``tox.config.__init__.tox_addoption.passenv()``.
+        """
+        nox_whitelist = {"_"}
+
+        tox_whitelist = {
+            "CURL_CA_BUNDLE",
+            "LANG",
+            "LANGUAGE",
+            "LD_LIBRARY_PATH",
+            "PATH",
+            "PIP_INDEX_URL",
+            "PIP_EXTRA_INDEX_URL",
+            "REQUESTS_CA_BUNDLE",
+            "SSL_CERT_FILE",
+            "HTTP_PROXY",
+            "HTTPS_PROXY",
+            "NO_PROXY",
+        }
+
+        if IS_WIN:
+            os_whitelist = {
+                "SYSTEMDRIVE",  # needed for pip6
+                "SYSTEMROOT",  # needed for python's crypto module
+                "PATHEXT",  # needed for discovering executables
+                "COMSPEC",  # needed for distutils cygwincompiler
+                "TEMP",
+                "TMP",
+                # for `multiprocessing.cpu_count()` on Windows (prior to Python 3.4).
+                "NUMBER_OF_PROCESSORS",
+                "PROCESSOR_ARCHITECTURE",  # platform.machine()
+                "USERPROFILE",  # needed for `os.path.expanduser()`
+                "MSYSTEM",  # fixes tox#429
+            }
+        else:
+            os_whitelist = {"TMPDIR"}
+
+        custom_whitelist = set() if whitelist is None else whitelist
+
+        return nox_whitelist | tox_whitelist | os_whitelist | custom_whitelist
 
     def poetry_install(
         self,
@@ -305,13 +319,22 @@ def pre_commit(session: Session) -> None:
             session.posargs.remove("nodiff")
         show_diff = []
 
-    if not session.posargs:
-        session.posargs.append("")
+    hooks = session.posargs.copy()
+    if not hooks:
+        hooks.append("")
 
-    # TODO: problem when filtered. some envvars is missing
-    for hook in session.posargs:
+    session.passenv = ["SSH_AUTH_SOCK", "SKIP"]
+
+    for hook in hooks:
         add_args = show_diff + [hook]
-        session.run("pre-commit", "run", "--all-files", "--color=always", *add_args)
+        session.run(
+            "pre-commit",
+            "run",
+            "--all-files",
+            "--color=always",
+            *add_args,
+            filter_env=True,
+        )
 
     bin_dir = session.bin
     if bin_dir:
@@ -335,7 +358,7 @@ def package(session: Session) -> None:
 @add_poetry_install
 def code_test(session: Session) -> None:
     """Run tests with given python version."""
-    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{session.python}")
+    session.setenv({"COVERAGE_FILE": str(COV_CACHE_DIR / f".coverage.{session.python}")})
 
     session.install(".[testing]")
     # session.poetry_install("testing", no_root=True)
@@ -366,7 +389,7 @@ def coverage(session: Session) -> None:
 
     Diff coverage is against origin/master (or DIFF_AGAINST)
     """
-    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
+    session.setenv({"COVERAGE_FILE": str(COV_CACHE_DIR / ".coverage")})
 
     extras = "coverage"
     if "report_only" in session.posargs or not session.posargs:
@@ -484,7 +507,7 @@ def poetry_install_all_extras(session: Session) -> None:
         else:
             install_extras += f" {extra}"
 
-    session.poetry_install(install_extras, no_root=True)
+    session.poetry_install(install_extras, no_dev=False)
 
     session.run("python", "-m", "pip", "list", "--format=columns", filter_env=True)
     print(f"PYTHON INTERPRETER LOCATION: {sys.executable}")
