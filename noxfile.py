@@ -49,6 +49,37 @@ COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
 JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
 PACKAGE_NAME = str(PYPROJECT["tool"]["poetry"]["name"])
 
+TOX_CODE_TEST_VERSION_FORMAT = (
+    "{"
+    + ",".join([v.replace(".", "").replace("pypy", "py") for v in PYTHON_TEST_VERSIONS])
+    + "}"
+)
+TOX_INI_FILE = f"""[tox]
+minversion = 3.15.0
+isolated_build = true
+skipsdist = false
+
+[testenv:py{TOX_CODE_TEST_VERSION_FORMAT}]
+description = run tests with {"{basepython}"}
+passenv =
+    HOME
+    CI
+    PYTEST_*
+setenv =
+    PIP_DISABLE_VERSION_CHECK = 1
+    COVERAGE_FILE = {"{env:COVERAGE_FILE:{toxinidir}/.coverage_cache/.coverage.{envname}}"}
+download = true
+extras = testing
+commands =
+    pytest \\
+    --basetemp={"{envtmpdir}"} \\
+    --junitxml={"{toxinidir}"}/.junit_cache/junit.{"{envname}"}.xml \\
+    --cov={"{envsitepackagesdir}"}/{PACKAGE_NAME} \\
+    --cov-fail-under=0 \\
+    --numprocesses={"{env:PYTEST_XDIST_N:auto}"} \\
+    {"{posargs:tests}"}
+"""
+
 
 #: -- MONKEYPATCH SESSION --------------------------------------------------------------
 class Session(_Session):  # noqa: R0903
@@ -560,3 +591,15 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
             pdbrc_file.write("alias nl n;;l\n\n")
             pdbrc_file.write("# Step and list\n")
             pdbrc_file.write("alias sl s;;l\n")
+
+
+@nox.session(python=PYTHON_TEST_VERSIONS)
+@monkeypatch_session
+def code_test_tox(session: Session) -> None:
+    """Run tests with given python version via tox."""
+    with open(Path("tox.ini"), "w") as tox_ini_file:
+        tox_ini_file.writelines(TOX_INI_FILE)
+
+    session.poetry_install("tox")
+
+    session.run("tox", "-e", "py" + session.python.replace(".", "").replace("pypy", "py"))
