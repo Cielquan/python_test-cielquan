@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Any, Callable, Dict, Mapping, Optional, Set, Tuple, Union
 
 import nox
+import nox.command
 
 from nox.sessions import Session as _Session
 from tomlkit import parse  # type: ignore[import]
@@ -103,7 +104,7 @@ class Session(_Session):  # noqa: R0903
     ) -> Any:
         """Overwrite method to add env filter functionallity.
 
-        Additonal kwargs:
+        Additional kwargs:
         :param filter_env: bool if env should be filtered
         :param passenv: list of envvars to not filter out
         """
