@@ -1,7 +1,5 @@
 """Config file for nox."""
 # TODO: check why nox test let cov fail and tox test not
-# maybe passenv func will help?
-# TODO: run tests via nox w/o env which runs tox and writes conf + add tox.ini to .gitignore
 import contextlib
 import re
 import subprocess  # noqa: S404
@@ -53,6 +51,9 @@ TOX_CODE_TEST_VERSION_FORMAT = (
     + ",".join([v.replace(".", "").replace("pypy", "py") for v in PYTHON_TEST_VERSIONS])
     + "}"
 )
+COVERAGE_FILE_TOX_EXPRESSION = (
+    "{env:COVERAGE_FILE:{toxinidir}/.coverage_cache/.coverage.{envname}}"
+)
 TOX_INI_FILE = f"""[tox]
 minversion = 3.15.0
 isolated_build = true
@@ -66,7 +67,7 @@ passenv =
     PYTEST_*
 setenv =
     PIP_DISABLE_VERSION_CHECK = 1
-    COVERAGE_FILE = {"{env:COVERAGE_FILE:{toxinidir}/.coverage_cache/.coverage.{envname}}"}
+    COVERAGE_FILE = {COVERAGE_FILE_TOX_EXPRESSION}
 download = true
 extras = testing
 commands =
@@ -91,9 +92,9 @@ class Session(_Session):  # noqa: R0903
 
     def setenv(self, env_vars: Dict[str, str]) -> None:
         """Set given envvars and add them to passenv."""
-        for var in env_vars:
-            self.passenv.append(var)
-            self.env[var] = env_vars[var]
+        for envvar in env_vars:
+            self.passenv.append(envvar)
+            self.env[envvar] = env_vars[envvar]
 
     def _run(
         self,
@@ -492,7 +493,7 @@ def poetry_install_all_extras(session: Session) -> None:
     extras = PYPROJECT["tool"]["poetry"].get("extras")
 
     if not extras:
-        session.skip("No extras found to be installed")
+        session.skip("No extras found to be installed.")
 
     install_extras = ""
     for extra in extras:
@@ -515,7 +516,13 @@ def debug_import(session: Session) -> None:  # noqa: W0613
         raise OSError("No calling venv could be detected.")
 
     with open(f"{get_venv_site_packages_dir(venv_path)}/_debug.pth", "w") as pth_file:
-        pth_file.write("import devtools; __builtins__.update(debug=devtools.debug)\n")
+        pth_file.write("import _debug\n")
+
+    with open(f"{get_venv_site_packages_dir(venv_path)}/_debug.py", "w") as py_file:
+        py_file.write("from importlib.util import find_spec\n")
+        py_file.write("if find_spec('devtools'):\n")
+        py_file.write("    import devtools\n")
+        py_file.write("    __builtins__.update(debug=devtools.debug)\n")
 
 
 @nox.session(venv_backend="none")
