@@ -200,13 +200,13 @@ class Session(_Session):  # noqa: R0903
         )
 
 
-def add_poetry_install(session_func: Callable) -> Callable:
+def monkeypatch_session(session_func: Callable) -> Callable:
     """Decorate nox session functions to add `poetry_install` method.
 
     :param session_func: decorated function with commands for nox session
     """
 
-    def monkeypatch_session(session: Session, **kwargs: Dict[str, Any]) -> None:
+    def switch_session_class(session: Session, **kwargs: Dict[str, Any]) -> None:
         """Call session function with session object overwritten by custom one.
 
         :param session: nox session object
@@ -216,9 +216,9 @@ def add_poetry_install(session_func: Callable) -> Callable:
         session_func(session=session, **kwargs)
 
     #: Overwrite name and docstring to imitate decorated function for nox
-    monkeypatch_session.__name__ = session_func.__name__
-    monkeypatch_session.__doc__ = session_func.__doc__
-    return monkeypatch_session
+    switch_session_class.__name__ = session_func.__name__
+    switch_session_class.__doc__ = session_func.__doc__
+    return switch_session_class
 
 
 def get_calling_venv_path() -> Optional[str]:
@@ -274,7 +274,7 @@ def where_installed(program: str) -> Tuple[int, Optional[str], Optional[str]]:
 
 
 @nox.session
-@add_poetry_install
+@monkeypatch_session
 def safety(session: Session) -> None:
     """Check all dependencies for known vulnerabilities."""
     session.poetry_install("poetry safety", no_root=True)
@@ -305,7 +305,7 @@ def safety(session: Session) -> None:
 
 
 @nox.session()
-@add_poetry_install
+@monkeypatch_session
 def pre_commit(session: Session) -> None:
     """Format and check the code."""
     session.poetry_install("pre-commit testing docs poetry nox")
@@ -344,7 +344,7 @@ def pre_commit(session: Session) -> None:
 
 
 @nox.session()
-@add_poetry_install
+@monkeypatch_session
 def package(session: Session) -> None:
     """Check sdist and wheel."""
     session.poetry_install("poetry twine", no_root=True)
@@ -354,7 +354,7 @@ def package(session: Session) -> None:
 
 
 @nox.session(python=PYTHON_TEST_VERSIONS)
-@add_poetry_install
+@monkeypatch_session
 def code_test(session: Session) -> None:
     """Run tests with given python version."""
     session.setenv(
@@ -384,7 +384,7 @@ def code_test(session: Session) -> None:
 
 
 @nox.session()
-@add_poetry_install
+@monkeypatch_session
 def coverage(session: Session) -> None:
     """Combine coverage, create xml/html reports and report total/diff coverage.
 
@@ -440,7 +440,7 @@ def coverage(session: Session) -> None:
 
 
 @nox.session()
-@add_poetry_install
+@monkeypatch_session
 def docs(session: Session) -> None:
     """Build docs with sphinx."""
     extras = "docs"
@@ -472,7 +472,7 @@ def docs(session: Session) -> None:
 
 @nox.parametrize("builder", SPHINX_BUILDERS)
 @nox.session()
-@add_poetry_install
+@monkeypatch_session
 def docs_test(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
     session.poetry_install("docs")
@@ -493,7 +493,7 @@ def docs_test(session: Session, builder: str) -> None:
 
 
 @nox.session(venv_backend="none")
-@add_poetry_install
+@monkeypatch_session
 def poetry_install_all_extras(session: Session) -> None:
     """Set up dev environment in current venv (w/o venv creation)."""
     extras = PYPROJECT["tool"]["poetry"].get("extras")
