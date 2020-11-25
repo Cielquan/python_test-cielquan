@@ -3,9 +3,7 @@
 # maybe passenv func will help?
 # TODO: run tests via nox w/o env which runs tox and writes conf + add tox.ini to .gitignore
 import contextlib
-import os
 import re
-import shutil
 import subprocess  # noqa: S404
 import sys
 
