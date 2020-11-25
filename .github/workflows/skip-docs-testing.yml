@@ -23,7 +23,7 @@ on:
       - 'poetry.lock'
       - 'pyproject.toml'
       #: Test config changes
-      - 'noxfile.py'
+      - 'tox.ini'
       - '.github/workflows/docs-testing.yml'
 
 
@@ -47,7 +47,7 @@ jobs:
 
 
   doc-tests:
-    name: nox / docs-test-${{ matrix.test }}
+    name: tox / docs-test-${{ matrix.test }}
     needs: create-builder-test-matrix
     if: needs.create-builder-test-matrix.result == 'success'
     runs-on: ubuntu-latest

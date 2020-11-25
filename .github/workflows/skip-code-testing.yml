@@ -24,7 +24,7 @@ on:
       - 'poetry.lock'
       - 'pyproject.toml'
       #: Test config changes
-      - 'noxfile.py'
+      - 'tox.ini'
       - '.github/workflows/code-testing.yml'
 
 
@@ -61,7 +61,7 @@ jobs:
 
 
   code-tests:
-    name: nox / python ${{ matrix.python_version }} / ${{ matrix.os }}
+    name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
     needs: create-python-test-matrix
     if: needs.create-python-test-matrix.result == 'success'
     runs-on: ubuntu-latest
@@ -72,7 +72,7 @@ jobs:
 
 
   report-coverage:
-    name: nox / coverage-report
+    name: tox / coverage-report
     runs-on: ubuntu-latest
     steps:
       - run: exit 0
