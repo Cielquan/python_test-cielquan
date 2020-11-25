@@ -94,6 +94,7 @@
     [tool.poetry.dev-dependencies]
         nox = "^2020.8.22"
         tomlkit = ">=0.7.0,<1.0.0"
+        formelsammlung = "^1.1"
         poetry = "^1.1.4"
         devtools = {version = "^0.6", extras = ["pygments"]}
         ipython = "^7.15.0"
