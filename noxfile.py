@@ -10,8 +10,7 @@ import subprocess  # noqa: S404
 import sys
 
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Mapping, Optional, Set, Tuple, \
-    Union
+from typing import Any, Callable, Dict, List, Mapping, Optional, Set, Tuple, Union
 
 import nox
 import nox.command
@@ -358,7 +357,9 @@ def package(session: Session) -> None:
 @add_poetry_install
 def code_test(session: Session) -> None:
     """Run tests with given python version."""
-    session.setenv({"COVERAGE_FILE": str(COV_CACHE_DIR / f".coverage.{session.python}")})
+    session.setenv(
+        {"COVERAGE_FILE": str(COV_CACHE_DIR / f".coverage.{session.python}")}
+    )
 
     session.install(".[testing]")
     # session.poetry_install("testing", no_root=True)
