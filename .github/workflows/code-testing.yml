@@ -346,8 +346,8 @@ jobs:
           if not regex_result:
               sys.exit(1)
           version = f"{regex_result.group(0)}"
-          # TODO: remove change 2 below
-          noxenv = f"code_test2-{version}"
+          # TODO: remove change tox below
+          noxenv = f"code_test_tox-{version}"
           with open(gh_env_file, "a") as f:
               f.write(f"NOXSESSION={noxenv}\n")
 
