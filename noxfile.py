@@ -29,7 +29,7 @@ nox.options.reuse_existing_virtualenvs = True
 
 
 #: -- AUTO CONFIG ----------------------------------------------------------------------
-IS_WIN = sys.platform != "win32"
+IS_WIN = sys.platform == "win32"
 
 #: Make sure noxfile is at repo root
 NOXFILE_DIR = Path(__file__).parent
@@ -294,7 +294,7 @@ def where_installed(program: str) -> Tuple[int, Optional[str], Optional[str]]:
         return exit_code, None, None
 
     venv_path = get_calling_venv_path()
-    bin_dir = "\\Scripts" if IS_WIN else "/bin"
+    bin_dir = "\\Scripts" if sys.platform == "win32" else "/bin"
     path_wo_venv = os.environ["PATH"].replace(f"{venv_path}{bin_dir}", "")
     glob_exe = shutil.which(program, path=path_wo_venv)
 
