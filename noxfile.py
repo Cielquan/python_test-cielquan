@@ -15,6 +15,7 @@ from typing import Any, Callable, Dict, List, Mapping, Optional, Set, Tuple, Uni
 import nox
 import nox.command
 
+from formelsammlung.venv_utils import get_venv_path, get_venv_site_packages_dir
 from nox.sessions import Session as _Session
 from tomlkit import parse  # type: ignore[import]
 
@@ -252,29 +253,6 @@ def monkeypatch_session(session_func: Callable) -> Callable:
     switch_session_class.__name__ = session_func.__name__
     switch_session_class.__doc__ = session_func.__doc__
     return switch_session_class
-
-
-#: -- UTIL FUNCTIONS -------------------------------------------------------------------
-# TODO: import below from formelsammlung
-def get_calling_venv_path() -> Optional[str]:
-    """Return venv path or None if no venv is used to call nox.
-
-    :return: venv path or None
-    """
-    if hasattr(sys, "real_prefix"):
-        return sys.real_prefix  # type: ignore[no-any-return,attr-defined] # noqa: E1101
-    if sys.base_prefix != sys.prefix:
-        return sys.prefix
-    return None
-
-
-def get_venv_site_packages_dir(venv_path: Union[str, Path]) -> Path:
-    """Return path of given venv's site-packages dir.
-
-    :param venv_path: path to venv
-    :return: path to given venv's site-packages dir
-    """
-    return list(Path(venv_path).glob("**/site-packages"))[0]
 
 
 #: -- NOX SESSIONS ---------------------------------------------------------------------
@@ -522,7 +500,7 @@ def poetry_install_all_extras(session: Session) -> None:
 @nox.session(venv_backend="none")
 def debug_import(session: Session) -> None:  # noqa: W0613
     """Hack for global import of `devtools.debug` (w/o venv creation)."""
-    venv_path = get_calling_venv_path()
+    venv_path = get_venv_path()
     if venv_path is None:
         raise OSError("No calling venv could be detected.")
 
