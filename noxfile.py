@@ -10,7 +10,7 @@ import subprocess  # noqa: S404
 import sys
 
 from pathlib import Path
-from typing import Any, Callable, Dict, List, Mapping, Optional, Set, Tuple, Union
+from typing import Any, Callable, Dict, List, Mapping, Optional, Set
 
 import nox
 import nox.command
