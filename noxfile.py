@@ -206,7 +206,7 @@ def add_poetry_install(session_func: Callable) -> Callable:
     :param session_func: decorated function with commands for nox session
     """
 
-    def monkeypatch_install(session: Session, **kwargs: Dict[str, Any]) -> None:
+    def monkeypatch_session(session: Session, **kwargs: Dict[str, Any]) -> None:
         """Call session function with session object overwritten by custom one.
 
         :param session: nox session object
@@ -216,9 +216,9 @@ def add_poetry_install(session_func: Callable) -> Callable:
         session_func(session=session, **kwargs)
 
     #: Overwrite name and docstring to imitate decorated function for nox
-    monkeypatch_install.__name__ = session_func.__name__
-    monkeypatch_install.__doc__ = session_func.__doc__
-    return monkeypatch_install
+    monkeypatch_session.__name__ = session_func.__name__
+    monkeypatch_session.__doc__ = session_func.__doc__
+    return monkeypatch_session
 
 
 def get_calling_venv_path() -> Optional[str]:
