@@ -4,6 +4,7 @@
 # TODO: tox create env and for cmd calls nox
 # TODO: nox installs only if not called by tox
 # TODO: nox sessions have no venv
+# TODO: wwhen tox calls nox .. nox is called from .venv?!
 import contextlib
 import re
 import subprocess  # noqa: S404
@@ -220,16 +221,23 @@ def package(session: Session) -> None:
     session.run("twine", "check", "dist/*")
 
 
-# @nox.session(python=PYTHON_TEST_VERSIONS)
 # @nox.session(venv_backend="none")
 # @monkeypatch_session
 # def code_test(session: Session) -> None:
 #     """Run tests with given python version."""
-#     session.setenv(
-#         {"COVERAGE_FILE": str(COV_CACHE_DIR / f".coverage.{session.python}")}
-#     )
+#     if "called_by_tox" not in session.posargs:
+#         session.install(".[testing]")
+#     with contextlib.suppress(ValueError):
+#         session.posargs.remove("called_by_tox")
 #
-#     session.install(".[testing]")
+#     interpreter = sys.implementation.__getattribute__("name")
+#     version = ".".join([str(v) for v in sys.version_info[0:2]])
+#     name = f"{interpreter}{version}"
+#     print(name)
+#     print(sys.executable)
+#     raise
+#     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{name}")
+#
 #     # session.poetry_install("testing", no_root=True)
 #
 #     if not isinstance(
@@ -249,52 +257,47 @@ def package(session: Session) -> None:
 #     )
 
 
-# @nox.session(venv_backend="none")
-# @monkeypatch_session
-# def coverage(session: Session) -> None:
-#     """Combine coverage, create xml/html reports and report total/diff coverage.
-#
-#     Diff coverage is against origin/master (or DIFF_AGAINST)
-#     """
-#     session.setenv({"COVERAGE_FILE": str(COV_CACHE_DIR / ".coverage")})
-#
-#     extras = "coverage"
-#     if "report_only" in session.posargs or not session.posargs:
-#         extras += " diff-cover"
-#
-#     session.poetry_install(extras, no_root=True)
-#
-#     if "merge_only" in session.posargs or not session.posargs:
-#         session.run("coverage", "combine")
-#         session.run(
-#             "coverage",
-#             "xml",
-#             "-o",
-#             f"{COV_CACHE_DIR / 'coverage.xml'}",
-#         )
-#         session.run(
-#             "coverage",
-#             "html",
-#             "-d",
-#             f"{COV_CACHE_DIR / 'htmlcov'}",
-#         )
-#
-#     if "report_only" in session.posargs or not session.posargs:
-#         session.run(
-#             "coverage",
-#             "report",
-#             "-m",
-#             f"--fail-under={session.env.get('MIN_COVERAGE') or 100}",
-#         )
-#         session.run(
-#             "diff-cover",
-#             f"--compare-branch={session.env.get('DIFF_AGAINST') or 'origin/master'}",
-#             "--ignore-staged",
-#             "--ignore-unstaged",
-#             f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
-#             f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
-#             f"{COV_CACHE_DIR / 'coverage.xml'}",
-#         )
+@nox.session(venv_backend="none")
+@monkeypatch_session
+def coverage(session: Session) -> None:
+    """Combine coverage, create xml/html reports and report total/diff coverage.
+
+    Diff coverage is against origin/master (or DIFF_AGAINST)
+    """
+    if "called_by_tox" not in session.posargs:
+        extras = "coverage"
+        if "report" in session.posargs or not session.posargs:
+            extras += " diff-cover"
+        session.poetry_install(extras, no_root=True)
+
+    with contextlib.suppress(ValueError):
+        session.posargs.remove("called_by_tox")
+
+    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
+
+    if "merge" in session.posargs or not session.posargs:
+        session.run("coverage", "combine")
+
+        cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
+        session.run("coverage", "xml", "-o", cov_xml)
+
+        cov_html_dir = f"{COV_CACHE_DIR / 'htmlcov'}"
+        session.run("coverage", "html", "-d", cov_html_dir)
+
+    if "report" in session.posargs or not session.posargs:
+        min_cov = session.env.get("MIN_COVERAGE") or 100
+        session.run("coverage", "report", "-m", f"--fail-under={min_cov}")
+
+        cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
+        session.run(
+            "diff-cover",
+            f"--compare-branch={session.env.get('DIFF_AGAINST') or 'origin/master'}",
+            "--ignore-staged",
+            "--ignore-unstaged",
+            f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
+            f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
+            cov_xml,
+        )
 
 
 @nox.session(venv_backend="none")
