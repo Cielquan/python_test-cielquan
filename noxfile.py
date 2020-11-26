@@ -221,40 +221,34 @@ def package(session: Session) -> None:
     session.run("twine", "check", "dist/*")
 
 
-# @nox.session(venv_backend="none")
-# @monkeypatch_session
-# def code_test(session: Session) -> None:
-#     """Run tests with given python version."""
-#     if "called_by_tox" not in session.posargs:
-#         session.install(".[testing]")
-#     with contextlib.suppress(ValueError):
-#         session.posargs.remove("called_by_tox")
-#
-#     interpreter = sys.implementation.__getattribute__("name")
-#     version = ".".join([str(v) for v in sys.version_info[0:2]])
-#     name = f"{interpreter}{version}"
-#     print(name)
-#     print(sys.executable)
-#     raise
-#     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{name}")
-#
-#     # session.poetry_install("testing", no_root=True)
-#
-#     if not isinstance(
-#         session.virtualenv, (nox.sessions.CondaEnv, nox.sessions.VirtualEnv)
-#     ):
-#         raise AttributeError("Session venv has no attribute 'location'.")
-#     venv_path = session.virtualenv.location
-#
-#     session.run(
-#         "pytest",
-#         f"--basetemp={Path(session.create_tmp())}",
-#         f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
-#         f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
-#         "--cov-fail-under=0",
-#         f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
-#         f"{session.posargs or 'tests'}",
-#     )
+@nox.session(venv_backend="none")
+@monkeypatch_session
+def code_test(session: Session) -> None:
+    """Run tests with given python version."""
+    if "called_by_tox" not in session.posargs:
+        session.install(".[testing]")
+    with contextlib.suppress(ValueError):
+        session.posargs.remove("called_by_tox")
+
+    interpreter = sys.implementation.__getattribute__("name")
+    version = ".".join([str(v) for v in sys.version_info[0:2]])
+    name = f"{interpreter}{version}"
+
+    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{name}")
+
+    venv_path = get_venv_path()
+    if venv_path is None:
+        raise OSError("No calling venv could be detected.")
+
+    session.run(
+        "pytest",
+        f"--basetemp={Path(session.create_tmp())}",
+        f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
+        f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
+        "--cov-fail-under=0",
+        f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
+        f"{session.posargs or 'tests'}",
+    )
 
 
 @nox.session(venv_backend="none")
