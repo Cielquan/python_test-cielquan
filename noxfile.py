@@ -22,7 +22,7 @@ from tomlkit import parse  # type: ignore[import]
 
 #: -- MANUAL CONFIG --------------------------------------------------------------------
 #: Config  # CHANGE ME
-# TODO: grab from "tox -va"
+# TODO: grab from "tox -l" or "tox -a" ?
 PYTHON_TEST_VERSIONS = ["3.6", "3.7", "3.8", "3.9", "3.10", "pypy3"]
 SPHINX_BUILDERS = ["html", "linkcheck", "coverage", "doctest", "confluence"]
 
@@ -31,6 +31,8 @@ nox.options.reuse_existing_virtualenvs = True
 
 
 #: -- AUTO CONFIG ----------------------------------------------------------------------
+IS_WIN = sys.platform == "win32"
+OS_BIN = "Scripts" if IS_WIN else "bin"
 #: Make sure noxfile is at repo root
 NOXFILE_DIR = Path(__file__).parent
 if not (NOXFILE_DIR / ".git").is_dir():
@@ -57,7 +59,7 @@ class Session(_Session):  # noqa: R0903
     def poetry_install(
         self,
         extras: Optional[str] = None,
-        no_dev: bool = True,
+        no_dev: bool = False,
         no_root: bool = False,
         require_venv: bool = False,
         **kwargs: Any,
@@ -124,50 +126,60 @@ def monkeypatch_session(session_func: Callable) -> Callable:
 
 
 #: -- NOX SESSIONS ---------------------------------------------------------------------
-@nox.session
+@nox.session(venv_backend="none")
 @monkeypatch_session
 def safety(session: Session) -> None:
     """Check all dependencies for known vulnerabilities."""
-    session.poetry_install("poetry safety", no_root=True)
+    if "called_by_tox" not in session.posargs:
+        session.poetry_install("poetry safety", no_root=True)
 
-    req_file_path = Path(session.create_tmp()) / "requirements.txt"
+    venv_path = get_venv_path()
+    if venv_path is None:
+        raise OSError("No calling venv could be detected.")
 
-    bin_dir = session.bin
-    if bin_dir is None:
-        raise FileNotFoundError("No 'bin' directory found for session venv.")
+    tmp_dir = Path(venv_path) / "tmp"
+    if not tmp_dir.is_dir():
+        raise FileNotFoundError("Calling venv has no 'tmp' directory.")
 
+    bin_dir = Path(venv_path) / OS_BIN
+    if not bin_dir.is_dir():
+        raise FileNotFoundError(f"Calling venv has no '{OS_BIN}' directory.")
+
+    req_file_path = tmp_dir / "requirements.txt"
+
+    # TODO: simplify when py36 is not longer supported.  # noqa: W0511
     #: Use `poetry show` to fill `requirements.txt`
     if sys.version_info[0:2] > (3, 6):
         cmd = subprocess.run(  # noqa: S603
-            [str(Path(bin_dir) / "poetry"), "show"], check=True, capture_output=True
+            [str(bin_dir / "poetry"), "show"], check=True, capture_output=True
         )
     else:
         cmd = subprocess.run(  # noqa: S603
-            [str(Path(bin_dir) / "poetry"), "show"], check=True, stdout=subprocess.PIPE
+            [str(bin_dir / "poetry"), "show"], check=True, stdout=subprocess.PIPE
         )
     with open(req_file_path, "w") as req_file:
         req_file.write(
             re.sub(r"([\w-]+)[ (!)]+([\d.a-z-]+).*", r"\1==\2", cmd.stdout.decode())
         )
 
-    session.run(
-        "safety", "check", "-r", str(req_file_path), "--full-report",
-    )
+    session.run("safety", "check", "-r", str(req_file_path), "--full-report")
 
 
-@nox.session()
+@nox.session(venv_backend="none")
 @monkeypatch_session
 def pre_commit(session: Session) -> None:
     """Format and check the code."""
-    session.poetry_install("pre-commit testing docs poetry nox")
+    if "called_by_tox" not in session.posargs:
+        session.poetry_install("pre-commit testing docs poetry")
 
     show_diff = ["--show-diff-on-failure"]
     if "no_diff" in session.posargs or "nodiff" in session.posargs:
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("no_diff")
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("nodiff")
         show_diff = []
+
+    #: Remove processed posargs
+    for arg in ("called_by_tox", "no_diff", "nodiff"):
+        with contextlib.suppress(ValueError):
+            session.posargs.remove(arg)
 
     hooks = session.posargs.copy()
     if not hooks:
@@ -181,113 +193,108 @@ def pre_commit(session: Session) -> None:
             "--all-files",
             "--color=always",
             *add_args,
-    
         )
 
-    bin_dir = session.bin
-    if bin_dir:
-        print(
-            "HINT: to add checks as pre-commit hook run: ",
-            f'"{Path(bin_dir) / "pre-commit"} install -t pre-commit -t commit-msg".',
-        )
+    venv_path = get_venv_path()
+    if venv_path is None:
+        raise OSError("No calling venv could be detected.")
 
+    bin_dir = Path(venv_path) / OS_BIN
+    if not bin_dir.is_dir():
+        raise FileNotFoundError(f"Calling venv has no '{OS_BIN}' directory.")
 
-@nox.session()
-@monkeypatch_session
-def package(session: Session) -> None:
-    """Check sdist and wheel."""
-    session.poetry_install("poetry twine", no_root=True)
-
-    session.run("poetry", "build", "-vvv")
-    session.run("twine", "check", "dist/*")
-
-
-@nox.session(python=PYTHON_TEST_VERSIONS)
-@monkeypatch_session
-def code_test(session: Session) -> None:
-    """Run tests with given python version."""
-    session.setenv(
-        {"COVERAGE_FILE": str(COV_CACHE_DIR / f".coverage.{session.python}")}
-    )
-
-    session.install(".[testing]")
-    # session.poetry_install("testing", no_root=True)
-
-    if not isinstance(
-        session.virtualenv, (nox.sessions.CondaEnv, nox.sessions.VirtualEnv)
-    ):
-        raise AttributeError("Session venv has no attribute 'location'.")
-    venv_path = session.virtualenv.location
-
-    session.run(
-        "pytest",
-        f"--basetemp={Path(session.create_tmp())}",
-        f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
-        f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
-        "--cov-fail-under=0",
-        f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
-        f"{session.posargs or 'tests'}",
+    print(
+        "HINT: to add checks as pre-commit hook run: ",
+        f'"{Path(bin_dir) / "pre-commit"} install -t pre-commit -t commit-msg".',
     )
 
 
 @nox.session(venv_backend="none")
 @monkeypatch_session
-def code_test_tox(session: Session) -> None:
-    """Run tests with given python version via tox."""
-    with open(Path("tox.ini"), "w") as tox_ini_file:
-        tox_ini_file.writelines(TOX_INI_FILE)
+def package(session: Session) -> None:
+    """Check sdist and wheel."""
+    if "called_by_tox" not in session.posargs:
+        session.poetry_install("poetry twine", no_root=True)
 
-    session.poetry_install("tox")
+    session.run("poetry", "build", "-vvv")
+    session.run("twine", "check", "dist/*")
 
-    session.run("tox")
+
+# @nox.session(python=PYTHON_TEST_VERSIONS)
+# @nox.session(venv_backend="none")
+# @monkeypatch_session
+# def code_test(session: Session) -> None:
+#     """Run tests with given python version."""
+#     session.setenv(
+#         {"COVERAGE_FILE": str(COV_CACHE_DIR / f".coverage.{session.python}")}
+#     )
+#
+#     session.install(".[testing]")
+#     # session.poetry_install("testing", no_root=True)
+#
+#     if not isinstance(
+#         session.virtualenv, (nox.sessions.CondaEnv, nox.sessions.VirtualEnv)
+#     ):
+#         raise AttributeError("Session venv has no attribute 'location'.")
+#     venv_path = session.virtualenv.location
+#
+#     session.run(
+#         "pytest",
+#         f"--basetemp={Path(session.create_tmp())}",
+#         f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
+#         f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
+#         "--cov-fail-under=0",
+#         f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
+#         f"{session.posargs or 'tests'}",
+#     )
 
 
-@nox.session()
-@monkeypatch_session
-def coverage(session: Session) -> None:
-    """Combine coverage, create xml/html reports and report total/diff coverage.
-
-    Diff coverage is against origin/master (or DIFF_AGAINST)
-    """
-    session.setenv({"COVERAGE_FILE": str(COV_CACHE_DIR / ".coverage")})
-
-    extras = "coverage"
-    if "report_only" in session.posargs or not session.posargs:
-        extras += " diff-cover"
-
-    session.poetry_install(extras, no_root=True)
-
-    if "merge_only" in session.posargs or not session.posargs:
-        session.run("coverage", "combine")
-        session.run(
-            "coverage",
-            "xml",
-            "-o",
-            f"{COV_CACHE_DIR / 'coverage.xml'}",
-        )
-        session.run(
-            "coverage",
-            "html",
-            "-d",
-            f"{COV_CACHE_DIR / 'htmlcov'}",
-        )
-
-    if "report_only" in session.posargs or not session.posargs:
-        session.run(
-            "coverage",
-            "report",
-            "-m",
-            f"--fail-under={session.env.get('MIN_COVERAGE') or 100}",
-        )
-        session.run(
-            "diff-cover",
-            f"--compare-branch={session.env.get('DIFF_AGAINST') or 'origin/master'}",
-            "--ignore-staged",
-            "--ignore-unstaged",
-            f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
-            f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
-            f"{COV_CACHE_DIR / 'coverage.xml'}",
-        )
+# @nox.session(venv_backend="none")
+# @monkeypatch_session
+# def coverage(session: Session) -> None:
+#     """Combine coverage, create xml/html reports and report total/diff coverage.
+#
+#     Diff coverage is against origin/master (or DIFF_AGAINST)
+#     """
+#     session.setenv({"COVERAGE_FILE": str(COV_CACHE_DIR / ".coverage")})
+#
+#     extras = "coverage"
+#     if "report_only" in session.posargs or not session.posargs:
+#         extras += " diff-cover"
+#
+#     session.poetry_install(extras, no_root=True)
+#
+#     if "merge_only" in session.posargs or not session.posargs:
+#         session.run("coverage", "combine")
+#         session.run(
+#             "coverage",
+#             "xml",
+#             "-o",
+#             f"{COV_CACHE_DIR / 'coverage.xml'}",
+#         )
+#         session.run(
+#             "coverage",
+#             "html",
+#             "-d",
+#             f"{COV_CACHE_DIR / 'htmlcov'}",
+#         )
+#
+#     if "report_only" in session.posargs or not session.posargs:
+#         session.run(
+#             "coverage",
+#             "report",
+#             "-m",
+#             f"--fail-under={session.env.get('MIN_COVERAGE') or 100}",
+#         )
+#         session.run(
+#             "diff-cover",
+#             f"--compare-branch={session.env.get('DIFF_AGAINST') or 'origin/master'}",
+#             "--ignore-staged",
+#             "--ignore-unstaged",
+#             f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
+#             f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
+#             f"{COV_CACHE_DIR / 'coverage.xml'}",
+#         )
 
 
 @nox.session(venv_backend="none")
@@ -296,7 +303,7 @@ def docs(session: Session) -> None:
     """Build docs with sphinx."""
     extras = ""
 
-    if not "called_by_tox" in session.posargs:
+    if "called_by_tox" not in session.posargs:
         extras += " docs"
 
     cmd = "sphinx-build"
@@ -320,7 +327,7 @@ def docs(session: Session) -> None:
 @monkeypatch_session
 def docs_test(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
-    if not "called_by_tox" in session.posargs:
+    if "called_by_tox" not in session.posargs:
         session.poetry_install("docs")
 
     session.run(
@@ -334,7 +341,6 @@ def docs_test(session: Session, builder: str) -> None:
         "docs/source",
         f"docs/build/test/{builder}",
         *(["-t", "builder_confluence"] if builder == "confluence" else []),
-
     )
 
 
