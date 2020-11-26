@@ -23,7 +23,7 @@ on:
       - 'poetry.lock'
       - 'pyproject.toml'
       #: Test config changes
-      - 'noxfile.py'
+      - 'tox.ini'
       - '.github/workflows/docs-testing.yml'
 
   pull_request:
@@ -39,7 +39,7 @@ on:
       - 'poetry.lock'
       - 'pyproject.toml'
       #: Test config changes
-      - 'noxfile.py'
+      - 'tox.ini'
       - '.github/workflows/docs-testing.yml'
 
 
@@ -63,11 +63,11 @@ jobs:
 
 
   doc-tests:
-    name: nox / docs_test(builder='${{ matrix.test }}')
+    name: tox / docs-test-${{ matrix.test }}
     needs: create-builder-test-matrix
     if: needs.create-builder-test-matrix.result == 'success'
     env:
-      NOXSESSION: "docs_test(builder='${{ matrix.test }}')"
+      TOXENV: docs-test-${{ matrix.test }}
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.create-builder-test-matrix.outputs.matrix) }}
@@ -78,46 +78,29 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
-      - name: Install poetry
+      - name: Install tox
         run: |
           python -m pip install -U pip
-          pip install poetry
-
-      - name: Install nox via poetry
-        run: |
-          poetry config virtualenvs.create false
-          poetry install --no-root --no-dev --extras nox
+          pip install tox
 
       - name: Set python version hash
         shell: bash
         run: echo "PYTHON_VERSION_SHA=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
-      - name: Format session dir path
-        id: format-session-dir
-        shell: python
-        run: |
-          import re
-          session_dir = re.sub(
-              r"([a-zA-Z0-9_]*)\(([a-zA-Z0-9_]*)[=\"']{2}([a-zA-Z0-9_]*)[\"')]{2}",
-              r"\1-\2-\3",
-              "${{ env.NOXSESSION }}"
-          )
-          print(f"""::set-output name=session_dir::{session_dir}""")
-
-      - name: Load nox-session from cache
+      - name: Load tox-env from cache
         uses: actions/cache@v2
         id: cache
         with:
-          path: .nox/${{ steps.format-session-dir.outputs.session_dir }}
-          key: nox-env|${{ env.NOXSESSION }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
+          path: .tox/${{ env.TOXENV }}
+          key: tox-env|${{ env.TOXENV }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
 
       - name: Ensure cache is healthy
         if: steps.cache.outputs.cache-hit == 'true'
         shell: bash
-        run: timeout 10s .nox/${{ steps.format-session-dir.outputs.session_dir }}/bin/pip --version || rm -rf .nox
+        run: timeout 10s .tox/${{ env.TOXENV }}/bin/pip --version || rm -rf .tox
 
-      - name: Generate nox session
-        run: nox --install-only --error-on-missing-interpreters --forcecolor
+      - name: Generate tox env
+        run: tox --notest -vv --skip-missing-interpreters false
 
-      - name: Run nox session
-        run: nox --reuse-existing-virtualenvs --forcecolor
+      - name: Run tox env
+        run: tox

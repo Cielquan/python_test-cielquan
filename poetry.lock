@@ -792,7 +792,7 @@ dev = ["dlint", "flake8-2020", "flake8-aaa", "flake8-absolute-import", "flake8-a
 
 [[package]]
 name = "formelsammlung"
-version = "1.1.0"
+version = "1.2.0"
 description = "Collection of different functions"
 category = "main"
 optional = false
@@ -1326,7 +1326,7 @@ python-versions = "*"
 
 [[package]]
 name = "pre-commit"
-version = "2.9.0"
+version = "2.9.2"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 category = "main"
 optional = true
@@ -2201,7 +2201,7 @@ twine = ["twine"]
 [metadata]
 lock-version = "1.1"
         python-versions = "^3.6.1"
-content-hash = "3f4b7224fd88215696cc49687cd3b123ed0c3347d4690847ec17122d543ae386"
+content-hash = "f262d3035195b10ff3d4b3536e055fcaa4efc7596f11cbad59ae8536315531e5"
 
 [metadata.files]
 alabaster = [
@@ -2561,8 +2561,8 @@ flakehell = [
     {file = "flakehell-0.7.0.tar.gz", hash = "sha256:7d2e813e22d25e472677c4713695051686b4cb22e2d8690c7ad9107f6106f34c"},
 ]
 formelsammlung = [
-    {file = "formelsammlung-1.1.0-py3-none-any.whl", hash = "sha256:3d058419563a1272aaa461a47599b6484c95c193a41c3eec3aed0363b91ec2ed"},
-    {file = "formelsammlung-1.1.0.tar.gz", hash = "sha256:bee6333d2c1d829edcd45020e4e85603158d23fcca7b9cc797e580e1defcd906"},
+    {file = "formelsammlung-1.2.0-py3-none-any.whl", hash = "sha256:ded5b7cf72711ab9cccce63431af7a7a20be53ca312bbadcf446d95185e9a33a"},
+    {file = "formelsammlung-1.2.0.tar.gz", hash = "sha256:9da9b924bb3ca8beff60fa8a2f8af4bffce1feab0fba2b61c44a6ffcbf3f1373"},
 ]
 future = [
     {file = "future-0.18.2.tar.gz", hash = "sha256:b1bead90b70cf6ec3f0710ae53a525360fa360d306a86583adc6bf83a4db537d"},
@@ -2815,8 +2815,8 @@ port-for = [
     {file = "port-for-0.3.1.tar.gz", hash = "sha256:b16a84bb29c2954db44c29be38b17c659c9c27e33918dec16b90d375cc596f1c"},
 ]
 pre-commit = [
-    {file = "pre_commit-2.9.0-py2.py3-none-any.whl", hash = "sha256:4aee0db4808fa48d2458cedd5b9a084ef24dda1a0fa504432a11977a4d1cfd0a"},
-    {file = "pre_commit-2.9.0.tar.gz", hash = "sha256:b2d106d51c6ba6217e859d81774aae33fd825fe7de0dcf0c46e2586333d7a92e"},
+    {file = "pre_commit-2.9.2-py2.py3-none-any.whl", hash = "sha256:949b13efb7467ae27e2c8f9e83434dacf2682595124d8902554a4e18351e5781"},
+    {file = "pre_commit-2.9.2.tar.gz", hash = "sha256:e31c04bc23741194a7c0b983fe512801e151a0638c6001c49f2bd034f8a664a1"},
 ]
 prompt-toolkit = [
     {file = "prompt_toolkit-3.0.8-py3-none-any.whl", hash = "sha256:7debb9a521e0b1ee7d2fe96ee4bd60ef03c6492784de0547337ca4433e46aa63"},
