@@ -5,7 +5,7 @@
 
 #: -- ADDITIONAL METADATA POETRY DOES NOT HOLD -----------------------------------------
 [tool._metadata]
-    first_release = 2019
+    first_release_year = 2019
 
 
 #: -- POETRY CONFIG --------------------------------------------------------------------
