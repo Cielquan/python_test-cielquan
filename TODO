@@ -1,7 +1,3 @@
-- TODO: Spellchecking
-    pyenchant include in pylint? pylint --disable all --enable spelling --spelling-dict en_US
-    flake8-spelling?
-
 - TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
 
 - TODO: Release pipeline
