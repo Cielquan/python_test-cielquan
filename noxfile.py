@@ -449,7 +449,7 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
 @monkeypatch_session
 def tox_lint(session: Session) -> None:
     """Call tox to run all lint tests."""
-    session.env["TOXENV"] = f"safety,pre-commit"
+    session.env["TOXENV"] = "safety,pre-commit"
     session.run("tox")
 
 
