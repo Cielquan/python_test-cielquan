@@ -166,13 +166,14 @@ def remove_module_docstring(  # pylint: disable=R0913,W0613
         del lines[:]
 
 
-#: -- CLICK ----------------------------------------------------------------------------
+#: -- SPELLING -------------------------------------------------------------------------
 if find_spec("sphinxcontrib.spelling") is not None:
     extensions.append("sphinxcontrib.spelling")
 else:
     NOT_LOADED_MSGS.append(
         "## 'sphinxcontrib-spelling' extension not loaded - not installed"
     )
+spelling_word_list_filename = "spelling_wordlist_docs.txt"
 spelling_show_suggestions = True
 spelling_exclude_patterns = ['autoapi/**']
 
