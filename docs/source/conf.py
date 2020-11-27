@@ -16,7 +16,7 @@ import sys
 from datetime import date
 from importlib.util import find_spec
 from pathlib import Path
-from typing import Any, List, Union
+from typing import Any, List
 
 import sphinx_rtd_theme  # type: ignore[import]
 import tomlkit  # type: ignore[import]
