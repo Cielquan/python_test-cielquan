@@ -123,13 +123,13 @@
         ]
         coverage = ["coverage", "coverage-conditional-plugin"]
         docs = [
-            "sphinx", "formelsammlung", "python-dotenv",
+            "sphinx", "formelsammlung", "python-dotenv", "tomlkit",
             "sphinx-rtd-theme",
             "sphinx-autodoc-typehints",
             "sphinxcontrib-apidoc",
             "sphinxcontrib-spelling",
             "sphinx-click",
-            "sphinxcontrib-confluencebuilder"
+            "sphinxcontrib-confluencebuilder",
         ]
         pre-commit = [
             "pre-commit", "formelsammlung",
