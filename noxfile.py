@@ -297,7 +297,7 @@ def code_test(session: Session) -> None:
 
     session.run(
         "pytest",
-        f"--basetemp={Path(session.create_tmp())}",
+        f"--basetemp={Path(venv_path) / 'tmp'}",
         f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
         f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
         "--cov-fail-under=0",
