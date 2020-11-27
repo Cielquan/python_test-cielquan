@@ -470,7 +470,6 @@ def tox_code(session: Session) -> None:
 @monkeypatch_session
 def tox_docs(session: Session) -> None:
     """Call tox to run all docs tests."""
-
     if not TOXENV_SPHINX_BUILDER:
         session.error("Could not find 'docs-test' from envlist in 'tox.ini' file")
 
