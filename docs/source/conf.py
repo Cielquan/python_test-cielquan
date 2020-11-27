@@ -19,7 +19,7 @@ from pathlib import Path
 from typing import Any, List, Union
 
 import sphinx_rtd_theme  # type: ignore[import]
-import tomlkit
+import tomlkit  # type: ignore[import]
 
 from dotenv import find_dotenv, load_dotenv
 from formelsammlung.envvar import getenv_typed
