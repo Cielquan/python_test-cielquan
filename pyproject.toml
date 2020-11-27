@@ -206,6 +206,7 @@
         pylint = [
             "+*",
             "-C0326", "-C0330",  #: deactivated for black
+            "-W0611",  # same as F401[pyflakes]
         ]
         pep8-naming = ["+*"]
         "flake8-*" = ["+*"]
