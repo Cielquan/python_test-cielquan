@@ -1,6 +1,3 @@
-- TODO: look at pytest-benchmark
-- TODO: look at pytest-profiling
-
 - TODO: Spellchecking
     pyenchant include in pylint? pylint --disable all --enable spelling --spelling-dict en_US
     flake8-spelling?

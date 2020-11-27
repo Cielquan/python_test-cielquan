@@ -27,10 +27,12 @@
         coverage-conditional-plugin = {version = "^0.3.1", optional = true}
         pytest-sugar = {version = "^0.9.4", optional = true}
         pytest-randomly = {version = "^3.4", optional = true}
-        pytest-mock = {version = "^3.2.0", optional = true}
-        mock = {version = "^4.0.2", optional = true}
-        faker = {version = "^4.1.1", optional = true}
-        pytest-factoryboy = {version = "^2.0.3", optional = true}
+#        pytest-mock = {version = "^3.2.0", optional = true}
+#        mock = {version = "^4.0.2", optional = true}
+#        faker = {version = "^4.1.1", optional = true}
+#        pytest-factoryboy = {version = "^2.0.3", optional = true}
+#        pytest-benchmark = {version = "^3.2.3", optional = true}
+#        pytest-profiling = {version = "^1.7.0", optional = true}
 #        pytest-bdd = {version = "^3.3.0", optional = true}
 #        behave = {version = "^1.2.6", optional = true}
         #: Docs
@@ -41,17 +43,15 @@
         sphinx-rtd-theme = {version = "^0.5", optional = true}
         sphinx-autodoc-typehints = {version = "^1.10.3", optional = true}
         sphinxcontrib-apidoc = {version = "^0.3.0", optional = true}
-        sphinx-click = {version = "^2.3.2", optional = true}
-        sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
+#        sphinx-click = {version = "^2.3.2", optional = true}
+#        sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
         # sphinxcontrib-confluencebuilder = {git = "https://github.com/sphinx-contrib/confluencebuilder.git", rev = "6e6edbb64260ea09858eb844dd46c79c7697267e", optional = true}
         #: Code check
         pre-commit = {version = "^2.4", optional = true}
         rstcheck = { git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b", optional = true}
         mypy = {version = "0.790", optional = true}
-        bandit = {version = "^1.6.2", optional = true}
-        pylint = {version = "^2.5.3", optional = true}
-        yesqa = {version = "^1.2.2", optional = true}
         #: flakehell & flake8-plugins
+        pylint = {version = "^2.5.3", optional = true}
         flakehell = {version = "^0.7.0", optional = true}
         flake8 = {version = "^3.8.4", optional = true}
         pydocstyle = {version = "^5.1.1", optional = true}
@@ -60,6 +60,7 @@
         flake8-aaa = {version = "^0.11.0", optional = true}
         flake8-annotations = {version = "^2.4.1", optional = true}
         flake8-bandit = {version = "^2.1.2", optional = true}
+        bandit = {version = "^1.6.2", optional = true}
         flake8-broken-line = {version = "^0.3.0", optional = true}
         flake8-bugbear = {version = "^20.1.4", optional = true}
         flake8-cognitive-complexity = {version = "^0.1.0", optional = true}
@@ -95,6 +96,7 @@
         nox = "^2020.8.22"
         tomlkit = ">=0.7.0,<1.0.0"
         formelsammlung = "^1.2"
+        tox = "^3.20.1"
         poetry = "^1.1.4"
         devtools = {version = "^0.6", extras = ["pygments"]}
         ipython = "^7.15.0"
@@ -107,11 +109,14 @@
             "pytest-randomly",
             "pytest-mock", "mock",
             "faker", "pytest-factoryboy",
+            "pytest-benchmark",
+            "pytest-profiling",
+            "pytest-bdd",
+            "behave",
         ]
         coverage = ["coverage", "coverage-conditional-plugin"]
         docs = [
-            "sphinx",
-            "formelsammlung", "python-dotenv",
+            "sphinx", "formelsammlung", "python-dotenv",
             "sphinx-rtd-theme",
             "sphinx-autodoc-typehints",
             "sphinxcontrib-apidoc",
@@ -119,19 +124,16 @@
             "sphinxcontrib-confluencebuilder"
         ]
         pre-commit = [
-            "pre-commit",
-            "formelsammlung",
+            "pre-commit", "formelsammlung",
             "rstcheck", "sphinx",
             "mypy",
-            "flakehell",
-            "flake8",
-            "pycodestyle",
+            "flakehell", "flake8", "pycodestyle",
             "pylint",
             "pep8-naming",
             "flake8-2020",
             "flake8-aaa",
             "flake8-annotations",
-            "flake8-bandit",
+            "flake8-bandit", "bandit",
             "flake8-broken-line",
             "flake8-bugbear",
             "flake8-cognitive-complexity",
