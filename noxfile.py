@@ -402,14 +402,14 @@ def install_extras(session: Session) -> None:
     if not extras:
         session.skip("No extras found to be installed.")
 
-    install_extras = ""
+    extras_to_install = ""
     for extra in extras:
-        if not install_extras:
-            install_extras = extra
+        if not extras_to_install:
+            extras_to_install = extra
         else:
-            install_extras += f" {extra}"
+            extras_to_install += f" {extra}"
 
-    session.poetry_install(install_extras, no_dev=False)
+    session.poetry_install(extras_to_install, no_dev=False)
 
     session.run("python", "-m", "pip", "list", "--format=columns")
     print(f"PYTHON INTERPRETER LOCATION: {sys.executable}")
