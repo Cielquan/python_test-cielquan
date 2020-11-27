@@ -177,6 +177,7 @@ spelling_word_list_filename = "spelling_wordlist_docs.txt"
 spelling_show_suggestions = True
 spelling_exclude_patterns = ['autoapi/**']
 
+
 #: -- CLICK ----------------------------------------------------------------------------
 if find_spec("sphinx_click") is not None and find_spec("click") is not None:
     extensions.append("sphinx_click.ext")
