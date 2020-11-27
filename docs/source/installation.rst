@@ -35,7 +35,7 @@ On windows machines call instead::
 Installation from source
 ------------------------
 You can install SpotInkCalc directly from a Git repository clone. This can be done
-either by cloning the repo and installing from the local clone::
+either by cloning the repository and installing from the local clone::
 
     $ git clone https://github.com/Cielquan/python_test.git
     $ cd python_test
