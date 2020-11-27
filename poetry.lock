@@ -1341,6 +1341,14 @@ python-versions = ">=3.5"
 snowballstemmer = "*"
 
 [[package]]
+name = "pyenchant"
+version = "3.1.1"
+description = "Python bindings for the Enchant spellchecking system"
+category = "main"
+optional = true
+python-versions = ">=3.5"
+
+[[package]]
 name = "pyflakes"
 version = "2.2.0"
 description = "passive checker of Python programs"
@@ -1819,6 +1827,22 @@ lint = ["flake8", "mypy", "docutils-stubs"]
 test = ["pytest"]
 
 [[package]]
+name = "sphinxcontrib-spelling"
+version = "7.1.0"
+description = "Sphinx spelling extension"
+category = "main"
+optional = true
+python-versions = ">=3.6"
+
+[package.dependencies]
+importlib-metadata = {version = ">=1.7.0", markers = "python_version < \"3.8\""}
+PyEnchant = ">=3.1.1"
+Sphinx = ">=3.0.0"
+
+[package.extras]
+test = ["pytest", "pytest-cov", "coverage (>=4.0,!=4.4)"]
+
+[[package]]
 name = "sqlparse"
 version = "0.4.1"
 description = "A non-validating SQL parser."
@@ -2041,10 +2065,10 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 [extras]
 coverage = ["coverage", "coverage-conditional-plugin"]
 diff-cover = ["diff-cover"]
-docs = ["sphinx", "formelsammlung", "python-dotenv", "sphinx-rtd-theme", "sphinx-autodoc-typehints", "sphinxcontrib-apidoc"]
+docs = ["sphinx", "formelsammlung", "python-dotenv", "sphinx-rtd-theme", "sphinx-autodoc-typehints", "sphinxcontrib-apidoc", "sphinxcontrib-spelling"]
 nox = ["nox", "tomlkit", "formelsammlung"]
 poetry = ["poetry"]
-pre-commit = ["pre-commit", "formelsammlung", "rstcheck", "sphinx", "mypy", "flakehell", "flake8", "pylint", "pep8-naming", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-bandit", "bandit", "flake8-broken-line", "flake8-bugbear", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-docstrings", "flake8-eradicate", "flake8-logging-format", "flake8-mutable", "flake8-no-u-prefixed-strings", "flake8-pytest-style", "flake8-rst-docstrings", "flake8-simplify", "flake8-spellcheck", "flake8-sql", "flake8-string-format", "flake8-typing-imports", "flake8-use-fstring", "flake8-variables-names", "flake8-walrus"]
+pre-commit = ["pre-commit", "formelsammlung", "rstcheck", "sphinx", "mypy", "flakehell", "flake8", "pylint", "pyenchant", "pep8-naming", "flake8-2020", "flake8-aaa", "flake8-annotations", "flake8-bandit", "bandit", "flake8-broken-line", "flake8-bugbear", "flake8-cognitive-complexity", "flake8-comprehensions", "flake8-docstrings", "flake8-eradicate", "flake8-logging-format", "flake8-mutable", "flake8-no-u-prefixed-strings", "flake8-pytest-style", "flake8-rst-docstrings", "flake8-simplify", "flake8-spellcheck", "flake8-sql", "flake8-string-format", "flake8-typing-imports", "flake8-use-fstring", "flake8-variables-names", "flake8-walrus"]
 safety = ["safety"]
 sphinx-autobuild = ["sphinx-autobuild"]
 testing = ["pytest", "pytest-xdist", "pytest-cov", "coverage", "coverage-conditional-plugin", "pytest-sugar", "pytest-randomly"]
@@ -2054,7 +2078,7 @@ twine = ["twine"]
 [metadata]
 lock-version = "1.1"
         python-versions = "^3.6.1"
-content-hash = "5e16231cd65783de7262e403bfbd97bfa65080dbc827213cb16fdc2ed4f4d2e7"
+content-hash = "265cad36c2ed8c7cb833a5c9eddf8607dd85bd3666322dd1a53a619799726f11"
 
 [metadata.files]
 alabaster = [
@@ -2676,6 +2700,12 @@ pydocstyle = [
     {file = "pydocstyle-5.1.1-py3-none-any.whl", hash = "sha256:aca749e190a01726a4fb472dd4ef23b5c9da7b9205c0a7857c06533de13fd678"},
     {file = "pydocstyle-5.1.1.tar.gz", hash = "sha256:19b86fa8617ed916776a11cd8bc0197e5b9856d5433b777f51a3defe13075325"},
 ]
+pyenchant = [
+    {file = "pyenchant-3.1.1-py3-none-any.whl", hash = "sha256:8ca419921e79022b344581ef7baf2e23af5c20b3e56b2f3d5a0448bd5bf2662e"},
+    {file = "pyenchant-3.1.1-py3-none-win32.whl", hash = "sha256:997465ab1f0dc9900b3bde0a1998c62ac08e64cc9a0870865d50de1e7d4b5afa"},
+    {file = "pyenchant-3.1.1-py3-none-win_amd64.whl", hash = "sha256:fd490efd7ce46e461cbd905bf6e2fdd540d85f43973b296a743b4591bfbcca60"},
+    {file = "pyenchant-3.1.1.tar.gz", hash = "sha256:ce0915d7acd771fde6e8c2dce8ad0cb0e6f7c4fa8430cc96e3e7134e99aeb12f"},
+]
 pyflakes = [
     {file = "pyflakes-2.2.0-py2.py3-none-any.whl", hash = "sha256:0d94e0e05a19e57a99444b6ddcf9a6eb2e5c68d3ca1e98e90707af8152c90a92"},
     {file = "pyflakes-2.2.0.tar.gz", hash = "sha256:35b2d75ee967ea93b55750aa9edbbf72813e06a66ba54438df2cfac9e3c27fc8"},
@@ -2833,6 +2863,10 @@ sphinxcontrib-qthelp = [
 sphinxcontrib-serializinghtml = [
     {file = "sphinxcontrib-serializinghtml-1.1.4.tar.gz", hash = "sha256:eaa0eccc86e982a9b939b2b82d12cc5d013385ba5eadcc7e4fed23f4405f77bc"},
     {file = "sphinxcontrib_serializinghtml-1.1.4-py2.py3-none-any.whl", hash = "sha256:f242a81d423f59617a8e5cf16f5d4d74e28ee9a66f9e5b637a18082991db5a9a"},
+]
+sphinxcontrib-spelling = [
+    {file = "sphinxcontrib-spelling-7.1.0.tar.gz", hash = "sha256:5b4240808a6d21eab9c49e69ad5ac0cb3efb03fe2e94763d23c860f85ec6a799"},
+    {file = "sphinxcontrib_spelling-7.1.0-py3-none-any.whl", hash = "sha256:e44d101a15b2e5798f76e9256917dcdc03719b7da6436cbdbbb99a14a5d0cbaa"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.1-py3-none-any.whl", hash = "sha256:017cde379adbd6a1f15a61873f43e8274179378e95ef3fede90b5aa64d304ed0"},
