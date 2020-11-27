@@ -1,14 +1,10 @@
 """Config file for nox."""
-# TODO: add nox env to call full test+cov on tox
-# TODO: add nox env to call full doc test on tox
-# TODO: tox create env and for cmd calls nox
-# TODO: nox installs only if not called by tox
-# TODO: nox sessions have no venv
 import contextlib
 import re
 import subprocess  # noqa: S404
 import sys
 
+from configparser import ConfigParser
 from pathlib import Path
 from typing import Any, Callable, Dict, Optional
 
@@ -376,7 +372,7 @@ def docs_test(session: Session, builder: str) -> None:
 @nox.session(venv_backend="none")
 @monkeypatch_session
 def poetry_install_all_extras(session: Session) -> None:
-    """Set up dev environment in current venv (w/o venv creation)."""
+    """Set up dev environment in current venv."""
     extras = PYPROJECT["tool"]["poetry"].get("extras")
 
     if not extras:
@@ -397,7 +393,7 @@ def poetry_install_all_extras(session: Session) -> None:
 
 @nox.session(venv_backend="none")
 def debug_import(session: Session) -> None:  # noqa: W0613
-    """Hack for global import of `devtools.debug` in venv (w/o venv creation)."""
+    """Hack for global import of `devtools.debug` in venv."""
     venv_path = get_venv_path()
     if venv_path is None:
         raise OSError("No calling venv could be detected.")
@@ -414,7 +410,7 @@ def debug_import(session: Session) -> None:  # noqa: W0613
 
 @nox.session(venv_backend="none")
 def pdbrc(session: Session) -> None:  # noqa: W0613
-    """Create .pdbrc file (w/o venv creation).
+    """Create .pdbrc file.
 
     Does not overwrite existing file.
     """
@@ -422,3 +418,53 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
     if not pdbrc_file_path.is_file():
         with open(pdbrc_file_path, "w") as pdbrc_file:
             pdbrc_file.writelines(PDBRC_FILE)
+
+
+@nox.session(venv_backend="none")
+@monkeypatch_session
+def tox_lint(session: Session) -> None:
+    """Call tox to run all lint tests."""
+    session.env["TOXENV"] = f"safety,pre-commit"
+    session.run("tox")
+
+
+@nox.session(venv_backend="none")
+@monkeypatch_session
+def tox_code(session: Session) -> None:
+    """Call tox to run all code tests."""
+    tox_ini = ConfigParser()
+    tox_ini.read("tox.ini")
+    try:
+        envlist = tox_ini["tox"]["python_test_version"]
+    except KeyError:
+        envlist = ""
+        session.error(
+            "Could not find 'python_test_version' in '[tox]' section in 'tox.ini' file"
+        )
+
+    session.env["TOXENV"] = f"package,{envlist},coverage-all"
+    session.run("tox")
+
+
+@nox.session(venv_backend="none")
+@monkeypatch_session
+def tox_docs(session: Session) -> None:
+    """Call tox to run all docs tests."""
+    tox_ini = ConfigParser()
+    tox_ini.read("tox.ini")
+    env_found = None
+    try:
+        envlist = tox_ini["tox"]["envlist"].splitlines()
+    except KeyError:
+        envlist = []
+
+    for env in envlist:
+        if env.startswith("docs-test"):
+            env_found = env
+            break
+
+    if env_found is None:
+        session.error("Could not find 'docs-test' from envlist in 'tox.ini' file")
+
+    session.env["TOXENV"] = env_found
+    session.run("tox")
