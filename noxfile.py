@@ -282,6 +282,8 @@ def code_test(session: Session) -> None:
     """Run tests with given python version."""
     if "called_by_tox" not in session.posargs:
         session.install(".[testing]")
+
+    #: Remove processed posargs
     with contextlib.suppress(ValueError):
         session.posargs.remove("called_by_tox")
 
@@ -319,6 +321,7 @@ def coverage(session: Session) -> None:  # noqa: CCR001
             extras += " diff-cover"
         session.poetry_install(extras, no_root=True)
 
+    #: Remove processed posargs
     with contextlib.suppress(ValueError):
         session.posargs.remove("called_by_tox")
 
@@ -366,9 +369,14 @@ def docs(session: Session) -> None:
         cmd = "sphinx-autobuild"
         args += ["--open-browser"]
 
+    #: Remove processed posargs
+    for arg in ("called_by_tox", "autobuild", "ab"):
+        with contextlib.suppress(ValueError):
+            session.posargs.remove(arg)
+
     session.poetry_install(extras.strip())
 
-    session.run(cmd, *args)
+    session.run(cmd, *args, *session.posargs)
 
     index_file = Path(NOXFILE_DIR) / "docs/build/html/index.html"
     print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
@@ -382,13 +390,13 @@ def docs_test(session: Session, builder: str) -> None:
     if "called_by_tox" not in session.posargs:
         session.poetry_install("docs")
 
-    default_args = ["-aE", "-v", "-nW", "--keep-going"]
     source_dir = "docs/source"
     target_dir = f"docs/build/test/{builder}"
+    default_args = ["-aE", "-v", "-nW", "--keep-going", source_dir, target_dir]
     add_args = ["-t", "builder_confluence"] if builder == "confluence" else []
 
     session.run(
-        "sphinx-build", "-b", builder, *default_args, source_dir, target_dir, *add_args
+        "sphinx-build", "-b", builder, *default_args, *add_args, *session.posargs
     )
 
 
@@ -450,7 +458,7 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
 def tox_lint(session: Session) -> None:
     """Call tox to run all lint tests."""
     session.env["TOXENV"] = "safety,pre-commit"
-    session.run("tox")
+    session.run("tox", *session.posargs)
 
 
 @nox.session
@@ -463,7 +471,7 @@ def tox_code(session: Session) -> None:
         )
 
     session.env["TOXENV"] = f"package,{TOXENV_PYTHON_TEST_VERSIONS},coverage-all"
-    session.run("tox")
+    session.run("tox", *session.posargs)
 
 
 @nox.session
@@ -474,7 +482,7 @@ def tox_docs(session: Session) -> None:
         session.error("Could not find 'docs-test' from envlist in 'tox.ini' file")
 
     session.env["TOXENV"] = TOXENV_SPHINX_BUILDER
-    session.run("tox")
+    session.run("tox", *session.posargs)
 
 
 @nox.session
