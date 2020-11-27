@@ -8,6 +8,7 @@
     :license: MIT, see LICENSE.rst for more details
 """  # noqa: D205, D208, D400
 # pylint: disable=invalid-name
+import contextlib
 import os
 import re
 import sys
@@ -18,6 +19,7 @@ from pathlib import Path
 from typing import Any, List, Union
 
 import sphinx_rtd_theme  # type: ignore[import]
+import tomlkit
 
 from dotenv import find_dotenv, load_dotenv
 from formelsammlung.envvar import getenv_typed
@@ -32,7 +34,8 @@ from python_test_cielquan import (
 
 
 needs_sphinx = "3.1"  #: Minimum Sphinx version to build the docs
-sys.path.insert(0, str(Path(__file__).parents[2]))  #: Add Repo to PATH
+REPO_DIR = Path(__file__).parents[2]
+sys.path.insert(0, str(REPO_DIR))  #: Add Repo to PATH
 
 
 #: -- GLOB VARS ------------------------------------------------------------------------
@@ -41,18 +44,18 @@ NOT_LOADED_MSGS = []
 YEAR = f"{date.today().year}"
 
 
-#: -- GLOB TYPES -----------------------------------------------------------------------
-EnvVarTypes = Union[str, int, float, bool, None]
-
-
 #: -- UTILS ----------------------------------------------------------------------------
 load_dotenv(find_dotenv())  #: Load .env file from project root
+with open(REPO_DIR / "pyproject.toml") as pyproject_file:
+    PYPROJECT = tomlkit.parse(pyproject_file.read())
 
 
 #: -- PROJECT INFORMATION --------------------------------------------------------------
 project = __project__.replace("-", "_")
 author = __author__
-RELEASE_YEAR = "2019"  # CHANGE ME
+RELEASE_YEAR = YEAR
+with contextlib.suppress(KeyError):
+    PYPROJECT = PYPROJECT["tool"]["_metadata"]["first_release_year"]
 copyright = (  # pylint: disable=W0622  # noqa: VNE003
     f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
 )

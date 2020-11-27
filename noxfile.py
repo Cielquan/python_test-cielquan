@@ -10,10 +10,10 @@ from typing import Any, Callable, Dict, Optional
 
 import nox
 import nox.command
+import tomlkit  # type: ignore[import]
 
 from formelsammlung.venv_utils import get_venv_path, get_venv_site_packages_dir
 from nox.sessions import Session as _Session
-from tomlkit import parse  # type: ignore[import]
 
 
 #: -- NOX OPTIONS ----------------------------------------------------------------------
@@ -34,7 +34,7 @@ if not (NOXFILE_DIR / ".git").is_dir():
 if not (NOXFILE_DIR / "pyproject.toml").is_file():
     raise FileNotFoundError("No 'pyproject.toml' file found.")
 with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
-    PYPROJECT = parse(pyproject_file.read())
+    PYPROJECT = tomlkit.parse(pyproject_file.read())
 
 COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
 JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
