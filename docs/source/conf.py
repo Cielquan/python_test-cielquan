@@ -178,7 +178,7 @@ else:
     )
 spelling_word_list_filename = "spelling_wordlist_docs.txt"
 spelling_show_suggestions = True
-spelling_exclude_patterns = ['autoapi/**']
+spelling_exclude_patterns = ["autoapi/**"]
 
 
 #: -- CLICK ----------------------------------------------------------------------------
