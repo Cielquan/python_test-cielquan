@@ -390,6 +390,10 @@ def docs_test(session: Session, builder: str) -> None:
     if "called_by_tox" not in session.posargs:
         session.poetry_install("docs")
 
+    #: Remove processed posargs
+    with contextlib.suppress(ValueError):
+        session.posargs.remove("called_by_tox")
+
     source_dir = "docs/source"
     target_dir = f"docs/build/test/{builder}"
     default_args = ["-aE", "-v", "-nW", "--keep-going", source_dir, target_dir]
