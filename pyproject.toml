@@ -3,6 +3,11 @@
     build-backend = "poetry.masonry.api"
 
 
+#: -- ADDITIONAL METADATA POETRY DOES NOT HOLD -----------------------------------------
+[tool._metadata]
+    first_release = 2019
+
+
 #: -- POETRY CONFIG --------------------------------------------------------------------
 [tool.poetry]
     name = "python_test_cielquan"
