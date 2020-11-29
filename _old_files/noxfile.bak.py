@@ -1,4 +1,5 @@
 # pylint: skip-file
+# flake8: noqa
 """Config file for nox."""
 # TODO: check why nox test let cov fail and tox test not
 import contextlib
