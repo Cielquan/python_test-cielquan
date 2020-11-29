@@ -226,9 +226,6 @@ def safety(session: Session) -> None:
 @monkeypatch_session
 def pre_commit(session: Session) -> None:
     """Format and check the code."""
-    print('################################')
-    print(session.interactive)
-    print('################################')
     if "called_by_tox" not in session.posargs:
         session.poetry_install("pre-commit testing docs poetry")
 
