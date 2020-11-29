@@ -192,12 +192,11 @@
     max_complexity = 20
     max_cognitive_complexity = 10
     pytest_fixture_no_parentheses = true
-    dictionaries = ["en_US", "python", "technical"]
 
     [tool.flakehell.plugins]
         pylint = [
             "+*",
-#            "-C040?",  # spelling
+            "-C040?",  # spelling
             "-C0326", "-C0330",  #: deactivated for black
             "-W0611",  # same as F401[pyflakes]
             "-W0612",  # same as F841[pyflakes]
@@ -236,6 +235,8 @@
 [tool.pylint]
     [tool.pylint.master]
         additional-builtins = "tags"
+
+    [tool.pylint.spelling]
         spelling-dict = "en_US"
         spelling-private-dict-file = "docs/source/spelling_dict.txt"
 
