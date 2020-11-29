@@ -176,7 +176,7 @@ else:
     NOT_LOADED_MSGS.append(
         "## 'sphinxcontrib-spelling' extension not loaded - not installed"
     )
-spelling_word_list_filename = "spelling_wordlist_docs.txt"
+spelling_word_list_filename = "spelling_dict.txt"
 spelling_show_suggestions = True
 spelling_exclude_patterns = ["autoapi/**"]
 
