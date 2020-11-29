@@ -6,8 +6,7 @@
 
     :copyright: 2020 (c) Christian Riedel
     :license: MIT, see LICENSE.rst for more details
-"""  # noqa: D205, D208, D400
-# pylint: disable=invalid-name
+"""  # noqa: D205,D208,D400
 import contextlib
 import os
 import re
@@ -24,6 +23,7 @@ import tomlkit  # type: ignore[import]
 from dotenv import find_dotenv, load_dotenv
 from formelsammlung.envvar import getenv_typed
 from sphinx.application import Sphinx
+from sphinx.directives.other import SeeAlso
 
 from python_test_cielquan import (
     __author__,
@@ -56,7 +56,7 @@ author = __author__
 RELEASE_YEAR = YEAR
 with contextlib.suppress(KeyError):
     PYPROJECT = PYPROJECT["tool"]["_metadata"]["first_release_year"]
-copyright = (  # pylint: disable=W0622  # noqa: VNE003
+copyright = (  # noqa: VNE003
     f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
@@ -161,8 +161,8 @@ else:
     )
 
 
-def remove_module_docstring(  # pylint: disable=R0913,W0613
-    app, what, name, obj, options, lines  # noqa: ANN001
+def remove_module_docstring(  # noqa: R0913
+    app, what, name, obj, options, lines  # noqa: ANN001,W0613
 ) -> None:
     """Remove module docstring."""
     if what == "module":
@@ -236,7 +236,6 @@ def setup(app: Sphinx) -> None:
     app.add_config_value("RELEASE_LEVEL", "", "env")
 
     if not tags.has("builder_confluence"):  # type:ignore[name-defined] # noqa
-        from sphinx.directives.other import SeeAlso  # pylint: disable=C0415
 
         class _SeeAlso(SeeAlso):
             def run(self) -> Any:
