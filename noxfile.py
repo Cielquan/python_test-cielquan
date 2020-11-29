@@ -224,7 +224,7 @@ def safety(session: Session) -> None:
 
 @nox.session
 @monkeypatch_session
-def pre_commit(session: Session) -> None:
+def pre_commit(session: Session) -> None:  # noqa: R0912
     """Format and check the code."""
     if "called_by_tox" not in session.posargs:
         session.poetry_install("pre-commit testing docs poetry")
