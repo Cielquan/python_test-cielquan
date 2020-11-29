@@ -9,10 +9,11 @@ from pathlib import Path
 from typing import Any, Callable, Dict, Optional
 
 import nox
-import nox.command
 import tomlkit  # type: ignore[import]
 
 from formelsammlung.venv_utils import get_venv_path, get_venv_site_packages_dir
+from nox.command import CommandFailed
+from nox.logger import logger as nox_logger
 from nox.sessions import Session as _Session
 
 
@@ -241,15 +242,20 @@ def pre_commit(session: Session) -> None:
     if not hooks:
         hooks.append("")
 
+    error_hooks = []
     for hook in hooks:
         add_args = show_diff + [hook]
-        session.run(
-            "pre-commit",
-            "run",
-            "--all-files",
-            "--color=always",
-            *add_args,
-        )
+        try:
+            session.run(
+                "pre-commit",
+                "run",
+                "--all-files",
+                "--color=always",
+                *add_args,
+                # success_codes=(0, 1),
+            )
+        except CommandFailed as exc:
+            error_hooks.append(hook)
 
     venv_path = get_venv_path()
     if venv_path is None:
@@ -263,6 +269,11 @@ def pre_commit(session: Session) -> None:
         "HINT: to add checks as pre-commit hook run: ",
         f'"{Path(bin_dir) / "pre-commit"} install -t pre-commit -t commit-msg".',
     )
+
+    if error_hooks:
+        if hooks != [""]:
+            nox_logger.error(f"The following pre-commit hooks failed: {error_hooks}.")
+        raise CommandFailed()
 
 
 @nox.session
