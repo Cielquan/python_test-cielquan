@@ -80,7 +80,6 @@
         flake8-pytest-style = {version = "^1.3.0", optional = true}
         flake8-rst-docstrings = {version = "^0.0.14", optional = true}
         flake8-simplify = {version = "^0.9.1", optional = true}
-        flake8-spellcheck = {version = "^0.20.0", optional = true}
         flake8-sql = {version = "^0.4.1", optional = true}
         flake8-string-format = {version = "^0.3.0", optional = true}
         flake8-typing-imports = {version = "^1.10.0", optional = true}
@@ -154,7 +153,6 @@
             "flake8-pytest-style",
             "flake8-rst-docstrings",
             "flake8-simplify",
-            "flake8-spellcheck",
             "flake8-sql",
             "flake8-string-format",
             "flake8-typing-imports",
@@ -194,8 +192,18 @@
     max_complexity = 20
     max_cognitive_complexity = 10
     pytest_fixture_no_parentheses = true
+    dictionaries = ["en_US", "python", "technical"]
 
     [tool.flakehell.plugins]
+        pylint = [
+            "+*",
+#            "-C040?",  # spelling
+            "-C0326", "-C0330",  #: deactivated for black
+            "-W0611",  # same as F401[pyflakes]
+            "-W0612",  # same as F841[pyflakes]
+            "-W0622",  # same as VNE003[flake8-variables-names]
+            "-W1203",  # Use % format in logger funcs | https://github.com/PyCQA/pylint/issues/2354
+        ]
         pyflakes = ["+*"]
         mccabe = ["+*"]
         pycodestyle = [
@@ -203,31 +211,36 @@
             "-W503",  #: deactivated for black
             "-E713",  #: same as SIM203[flake8-simplify]
         ]
-        pylint = [
-            "+*",
-            "-C0326", "-C0330",  #: deactivated for black
-            "-W0611",  # same as F401[pyflakes]
-        ]
         pep8-naming = ["+*"]
         "flake8-*" = ["+*"]
-        flake8-spellcheck = ["-*"]
         flake8-annotations = ["+*", "-ANN101", "-ANN102"]
         flake8-bandit = ["+*", "-S322"]
+        flake8-logging-format = [
+            "+*",
+            "-G004",  # same as W1203[pylint]
+        ]
         flake8-use-fstring = ["+*", "-FS003"]
 
     [tool.flakehell.exceptions]
         [tool.flakehell.exceptions."tests/"]
             flake8-bandit = ["-S101"]
 
+        [tool.flakehell.exceptions."noxfile.py"]
+            flake8-cognitive-complexity = ["-CCR001"]
+
+        [tool.flakehell.exceptions."docs/source/conf.py"]
+            pylint = ["-C0103"]
+
 
 #: -- PYLINT CONFIG --------------------------------------------------------------------
 [tool.pylint]
     [tool.pylint.master]
         additional-builtins = "tags"
+        spelling-dict = "en_US"
+        spelling-private-dict-file = "docs/source/spelling_dict.txt"
 
     [tool.pylint.messages_control]
-        disable = "C0330, C0326, C0301"  #: deactivated for black
-        #: C0301: line length
+        flakehell_doesnt_get = ["E0602"]
 
 
 #: -- PYTEST CONFIG --------------------------------------------------------------------
