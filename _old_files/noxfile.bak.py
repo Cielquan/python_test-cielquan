@@ -376,7 +376,6 @@ def code_test(session: Session) -> None:
     )
 
     session.install(".[testing]")
-    # session.poetry_install("testing", no_root=True)
 
     if not isinstance(
         session.virtualenv, (nox.sessions.CondaEnv, nox.sessions.VirtualEnv)

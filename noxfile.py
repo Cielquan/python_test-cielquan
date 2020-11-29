@@ -252,9 +252,8 @@ def pre_commit(session: Session) -> None:
                 "--all-files",
                 "--color=always",
                 *add_args,
-                # success_codes=(0, 1),
             )
-        except CommandFailed as exc:
+        except CommandFailed:
             error_hooks.append(hook)
 
     venv_path = get_venv_path()
@@ -321,7 +320,7 @@ def code_test(session: Session) -> None:
 
 @nox.session
 @monkeypatch_session
-def coverage(session: Session) -> None:  # noqa: CCR001
+def coverage(session: Session) -> None:
     """Combine coverage, create xml/html reports and report total/diff coverage.
 
     Diff coverage is against origin/master (or DIFF_AGAINST)
