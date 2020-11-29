@@ -117,7 +117,9 @@ repos:
         types: [python]
       - id: pylint-spelling
         name: pylint-spelling
-        description: run pyenchant via pylint over the installed version if available
+        description: >
+          spell-check docstring and comments via pyenchant and pylint
+          over the installed version if available
         entry: env_exe_runner tox,.venv pre-commit pylint
         args: ["--disable=all", "--enable=spelling"]
         language: system
