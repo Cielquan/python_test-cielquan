@@ -229,12 +229,17 @@ def pre_commit(session: Session) -> None:
     if "called_by_tox" not in session.posargs:
         session.poetry_install("pre-commit testing docs poetry")
 
-    show_diff = ["--show-diff-on-failure"]
-    if "no_diff" in session.posargs or "nodiff" in session.posargs:
+    if session.interactive:
         show_diff = []
+        if "diff" in session.posargs:
+            show_diff = ["--show-diff-on-failure"]
+    else:
+        show_diff = ["--show-diff-on-failure"]
+        if "no_diff" in session.posargs or "nodiff" in session.posargs:
+            show_diff = []
 
     #: Remove processed posargs
-    for arg in ("called_by_tox", "no_diff", "nodiff"):
+    for arg in ("called_by_tox", "diff", "no_diff", "nodiff"):
         with contextlib.suppress(ValueError):
             session.posargs.remove(arg)
 
@@ -253,26 +258,26 @@ def pre_commit(session: Session) -> None:
                 "--color=always",
                 *add_args,
             )
-        except CommandFailed:
+        except commandfailed:
             error_hooks.append(hook)
 
     venv_path = get_venv_path()
-    if venv_path is None:
-        raise OSError("No calling venv could be detected.")
+    if venv_path is none:
+        raise oserror("no calling venv could be detected.")
 
-    bin_dir = Path(venv_path) / OS_BIN
+    bin_dir = path(venv_path) / os_bin
     if not bin_dir.is_dir():
-        raise FileNotFoundError(f"Calling venv has no '{OS_BIN}' directory.")
+        raise filenotfounderror(f"calling venv has no '{os_bin}' directory.")
 
     print(
-        "HINT: to add checks as pre-commit hook run: ",
-        f'"{Path(bin_dir) / "pre-commit"} install -t pre-commit -t commit-msg".',
+        "hint: to add checks as pre-commit hook run: ",
+        f'"{path(bin_dir) / "pre-commit"} install -t pre-commit -t commit-msg".',
     )
 
     if error_hooks:
         if hooks != [""]:
-            nox_logger.error(f"The following pre-commit hooks failed: {error_hooks}.")
-        raise CommandFailed()
+            nox_logger.error(f"the following pre-commit hooks failed: {error_hooks}.")
+        raise commandfailed()
 
 
 @nox.session
