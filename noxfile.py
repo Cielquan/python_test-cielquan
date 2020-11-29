@@ -258,26 +258,26 @@ def pre_commit(session: Session) -> None:
                 "--color=always",
                 *add_args,
             )
-        except commandfailed:
+        except CommandFailed:
             error_hooks.append(hook)
 
     venv_path = get_venv_path()
-    if venv_path is none:
-        raise oserror("no calling venv could be detected.")
+    if venv_path is None:
+        raise OSError("No calling venv could be detected.")
 
-    bin_dir = path(venv_path) / os_bin
+    bin_dir = Path(venv_path) / OS_BIN
     if not bin_dir.is_dir():
-        raise filenotfounderror(f"calling venv has no '{os_bin}' directory.")
+        raise FileNotFoundError(f"Calling venv has no '{OS_BIN}' directory.")
 
     print(
-        "hint: to add checks as pre-commit hook run: ",
-        f'"{path(bin_dir) / "pre-commit"} install -t pre-commit -t commit-msg".',
+        "HINT: to add checks as pre-commit hook run: ",
+        f'"{Path(bin_dir) / "pre-commit"} install -t pre-commit -t commit-msg".',
     )
 
     if error_hooks:
         if hooks != [""]:
-            nox_logger.error(f"the following pre-commit hooks failed: {error_hooks}.")
-        raise commandfailed()
+            nox_logger.error(f"The following pre-commit hooks failed: {error_hooks}.")
+        raise CommandFailed()
 
 
 @nox.session
