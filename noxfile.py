@@ -229,17 +229,29 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
     if "called_by_tox" not in session.posargs:
         session.poetry_install("pre-commit testing docs poetry")
 
-    if session.interactive:
-        show_diff = []
-        if "diff" in session.posargs:
-            show_diff = ["--show-diff-on-failure"]
-    else:
+    #: Set 'show-diff' and 'skip identity hook'
+    show_diff = []
+    env = {"SKIP": "identity"}
+    if (session.interactive and "diff" in session.posargs) or (
+        not session.interactive
+        and "no_diff" not in session.posargs
+        and "nodiff" not in session.posargs
+    ):
         show_diff = ["--show-diff-on-failure"]
-        if "no_diff" in session.posargs or "nodiff" in session.posargs:
-            show_diff = []
+        env = {}
+
+    #: Add SKIP from posargs to env
+    skip = ""
+    for arg in session.posargs:
+        if arg.startswith("SKIP"):
+            skip = arg
+            break
+
+    if skip:
+        env = {"SKIP": f"{skip[5:]},{env.get('SKIP', '')}"}
 
     #: Remove processed posargs
-    for arg in ("called_by_tox", "diff", "no_diff", "nodiff"):
+    for arg in ("called_by_tox", "diff", "no_diff", "nodiff", skip):
         with contextlib.suppress(ValueError):
             session.posargs.remove(arg)
 
@@ -252,11 +264,7 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
         add_args = show_diff + [hook]
         try:
             session.run(
-                "pre-commit",
-                "run",
-                "--all-files",
-                "--color=always",
-                *add_args,
+                "pre-commit", "run", "--all-files", "--color=always", *add_args, env=env
             )
         except CommandFailed:
             error_hooks.append(hook)
