@@ -203,7 +203,10 @@
             "-W0622",  # same as VNE003[flake8-variables-names]
             "-W1203",  # Use % format in logger funcs | https://github.com/PyCQA/pylint/issues/2354
         ]
-        pyflakes = ["+*"]
+        pyflakes = [
+            "+*",
+            "-F821",  # same as E0602[pylint]
+        ]
         mccabe = ["+*"]
         pycodestyle = [
             "+*",
