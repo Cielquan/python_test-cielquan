@@ -24,6 +24,7 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
+      - 'noxfile.py'
       - '.github/workflows/test-docs.yml'
 
   pull_request:
@@ -40,6 +41,7 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
+      - 'noxfile.py'
       - '.github/workflows/test-docs.yml'
 
 
@@ -62,8 +64,8 @@ jobs:
           print(f"""::set-output name=matrix::{matrix}""")
 
 
-  doc-tests:
-    name: tox / docs-test-${{ matrix.test }}
+  test-docs:
+    name: tox / test-docs-${{ matrix.test }}
     needs: create-builder-test-matrix
     if: needs.create-builder-test-matrix.result == 'success'
     env:
