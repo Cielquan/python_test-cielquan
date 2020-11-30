@@ -234,7 +234,6 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
     env = {"SKIP": "identity"}
     if (session.interactive and "diff" in session.posargs) or (
         not session.interactive
-        and "no_diff" not in session.posargs
         and "nodiff" not in session.posargs
     ):
         show_diff = ["--show-diff-on-failure"]
@@ -251,7 +250,7 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
         env = {"SKIP": f"{skip[5:]},{env.get('SKIP', '')}"}
 
     #: Remove processed posargs
-    for arg in ("skip_install", "diff", "no_diff", "nodiff", skip):
+    for arg in ("skip_install", "diff", "nodiff", skip):
         with contextlib.suppress(ValueError):
             session.posargs.remove(arg)
 
@@ -285,7 +284,7 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
     if error_hooks:
         if hooks != [""]:
             nox_logger.error(f"The following pre-commit hooks failed: {error_hooks}.")
-        raise CommandFailed()
+        raise CommandFailed
 
 
 @nox.session
@@ -360,8 +359,13 @@ def coverage(session: Session) -> None:
         session.run("coverage", "html", "-d", cov_html_dir)
 
     if "report" in session.posargs or not session.posargs:
+        raise_error = False
         min_cov = session.env.get("MIN_COVERAGE") or 100
-        session.run("coverage", "report", "-m", f"--fail-under={min_cov}")
+
+        try:
+            session.run("coverage", "report", "-m", f"--fail-under={min_cov}")
+        except CommandFailed:
+            raise_error = True
 
         cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
         session.run(
@@ -373,6 +377,9 @@ def coverage(session: Session) -> None:
             f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
             cov_xml,
         )
+
+        if raise_error:
+            raise CommandFailed
 
 
 @nox.session
