@@ -26,6 +26,7 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
+      - 'noxfile.py'
       - '.github/workflows/test-code.yml'
 
   pull_request:
@@ -40,6 +41,7 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
+      - 'noxfile.py'
       - '.github/workflows/test-code.yml'
 
 
@@ -205,7 +207,7 @@ jobs:
           print(f"""::set-output name=matrix::{matrix}""")
 
 
-  code-tests:
+  test-code:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
     needs: [create-python-test-matrix, notify-code-climate, package-tests]
     if: needs.create-python-test-matrix.result == 'success'
@@ -304,7 +306,7 @@ jobs:
 
   merge-coverage:
     name: tox / coverage-merge
-    needs: code-tests
+    needs: test-code
     if: always()
     runs-on: ubuntu-latest
     env:
