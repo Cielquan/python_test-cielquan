@@ -69,7 +69,7 @@ jobs:
     needs: create-builder-test-matrix
     if: needs.create-builder-test-matrix.result == 'success'
     env:
-      TOXENV: docs-test-${{ matrix.test }}
+      TOXENV: test-docs-${{ matrix.test }}
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.create-builder-test-matrix.outputs.matrix) }}
