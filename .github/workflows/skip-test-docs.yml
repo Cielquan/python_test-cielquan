@@ -1,10 +1,10 @@
-name: Skip for Documentation testing
+name: Skip for Test Documentation
 # Workaround for https://github.com/actions/virtual-environments/issues/1281
 # Dummy tests for pleasing PR merge requirements
 
 
 env:
-  # DO NOT FORGET TO UPDATE `docs-testing.yml` TOO !!!
+  # DO NOT FORGET TO UPDATE `test-docs.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
   TEST_BUILDER: '[html, linkcheck, coverage, doctest]'  # CHANGE ME
 
@@ -24,7 +24,8 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
-      - '.github/workflows/docs-testing.yml'
+      - 'noxfile.py'
+      - '.github/workflows/test-docs.yml'
 
 
 jobs:
@@ -46,8 +47,8 @@ jobs:
           print(f"""::set-output name=matrix::{matrix}""")
 
 
-  doc-tests:
-    name: tox / docs-test-${{ matrix.test }}
+  test-docs:
+    name: tox / test-docs-${{ matrix.test }}
     needs: create-builder-test-matrix
     if: needs.create-builder-test-matrix.result == 'success'
     runs-on: ubuntu-latest

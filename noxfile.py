@@ -301,7 +301,7 @@ def package(session: Session) -> None:
 
 @nox.session
 @monkeypatch_session
-def code_test(session: Session) -> None:
+def test_code(session: Session) -> None:
     """Run tests with given python version."""
     if "skip_install" not in session.posargs:
         session.install(".[testing]")
@@ -408,7 +408,7 @@ def docs(session: Session) -> None:
 @nox.parametrize("builder", SPHINX_BUILDERS)
 @nox.session
 @monkeypatch_session
-def docs_test(session: Session, builder: str) -> None:
+def test_docs(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
     if "skip_install" not in session.posargs:
         session.poetry_install("docs")

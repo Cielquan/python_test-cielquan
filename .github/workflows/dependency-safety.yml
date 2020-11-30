@@ -18,6 +18,7 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
+      - 'noxfile.py'
       - '.github/workflows/dependency-safety.yml'
 
   pull_request:
@@ -29,6 +30,7 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
+      - 'noxfile.py'
       - '.github/workflows/dependency-safety.yml'
 
 

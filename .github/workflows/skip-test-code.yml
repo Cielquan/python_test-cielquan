@@ -1,10 +1,10 @@
-name: Skip for Code testing
+name: Skip for Test Code
 # Workaround for https://github.com/actions/virtual-environments/issues/1281
 # Dummy tests for pleasing PR merge requirements
 
 
 env:
-  # DO NOT FORGET TO UPDATE `code-testing.yml` TOO !!!
+  # DO NOT FORGET TO UPDATE `test-code.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
   TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2]'  # CHANGE ME
   TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
@@ -25,7 +25,8 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
-      - '.github/workflows/code-testing.yml'
+      - 'noxfile.py'
+      - '.github/workflows/test-code.yml'
 
 
 jobs:
@@ -60,7 +61,7 @@ jobs:
           print(f"""::set-output name=matrix::{matrix}""")
 
 
-  code-tests:
+  test-code:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
     needs: create-python-test-matrix
     if: needs.create-python-test-matrix.result == 'success'

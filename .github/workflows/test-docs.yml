@@ -1,8 +1,8 @@
-name: Documentation testing
+name: Test Documentation
 
 
 env:
-  # DO NOT FORGET TO UPDATE `skip-docs-testing.yml` TOO !!!
+  # DO NOT FORGET TO UPDATE `skip-test-docs.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
   TEST_BUILDER: '[html, linkcheck, coverage, doctest, spelling]'  # CHANGE ME
 
@@ -24,7 +24,8 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
-      - '.github/workflows/docs-testing.yml'
+      - 'noxfile.py'
+      - '.github/workflows/test-docs.yml'
 
   pull_request:
     branches:
@@ -40,7 +41,8 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
-      - '.github/workflows/docs-testing.yml'
+      - 'noxfile.py'
+      - '.github/workflows/test-docs.yml'
 
 
 jobs:
@@ -62,12 +64,12 @@ jobs:
           print(f"""::set-output name=matrix::{matrix}""")
 
 
-  doc-tests:
-    name: tox / docs-test-${{ matrix.test }}
+  test-docs:
+    name: tox / test-docs-${{ matrix.test }}
     needs: create-builder-test-matrix
     if: needs.create-builder-test-matrix.result == 'success'
     env:
-      TOXENV: docs-test-${{ matrix.test }}
+      TOXENV: test-docs-${{ matrix.test }}
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.create-builder-test-matrix.outputs.matrix) }}
