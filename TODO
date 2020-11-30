@@ -4,9 +4,6 @@
 - TODO: change CONTRI
     no conventional commits needed b/c squash commit ?
 
-- TODO: Use conditional coverage to reach 100% in every scenario even without merging
-    all coverage data from all py versions and os ????
-
 - TODO: Release pipeline
     - TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
     - TODO: for release run old tests against the current package. If they do not pass its a breaking change
