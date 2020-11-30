@@ -1,3 +1,5 @@
+- TODO: use pre_commit hack for coverage too .. so diff-cover runs always when report does
+
 - TODO: Use conditional coverage to reach 100% in every scenario even without merging
     all coverage data from all py versions and os ????
 
