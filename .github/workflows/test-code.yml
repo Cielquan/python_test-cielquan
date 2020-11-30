@@ -360,11 +360,11 @@ jobs:
 
 
   report-coverage:
-    name: tox / coverage-full_report
+    name: tox / coverage-report
     needs: merge-coverage
     runs-on: ubuntu-latest
     env:
-      TOXENV: coverage-full_report
+      TOXENV: coverage-report
       MIN_COVERAGE: 100
       MIN_DIFF_COVERAGE: 100
     steps:
