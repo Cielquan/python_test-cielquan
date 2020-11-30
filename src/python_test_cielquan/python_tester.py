@@ -2,7 +2,7 @@
 import sys
 
 
-def test_us(number: int = 2) -> int:
+def some_func(number: int = 2) -> int:
     """Line.
 
     func
@@ -12,12 +12,12 @@ def test_us(number: int = 2) -> int:
     __py36__ = (3, 6)
     __py37__ = (3, 7)
 
-    if sys.version_info[0:2] == __py36__:  # cover: py36
+    if sys.version_info[0:2] == __py36__:  # pragma: py36
         return 2 * number
-    if sys.version_info[0:2] == __py37__:  # cover: py37
+    if sys.version_info[0:2] == __py37__:  # pragma: py37
         return 2 * number
-    return 2 * number  # cover: py-gte-38
+    return 2 * number  # pragma: py-gte-38
 
 
 if __name__ == "__main__":
-    test_us(1)
+    some_func(1)
