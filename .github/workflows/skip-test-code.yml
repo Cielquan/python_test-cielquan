@@ -1,4 +1,4 @@
-name: Skip for Test Code
+name: Skip for Test code
 # Workaround for https://github.com/actions/virtual-environments/issues/1281
 # Dummy tests for pleasing PR merge requirements
 
