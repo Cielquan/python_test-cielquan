@@ -25,6 +25,7 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
+      - 'noxfile.py'
       - '.github/workflows/test-code.yml'
 
 
