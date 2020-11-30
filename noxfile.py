@@ -187,7 +187,7 @@ def monkeypatch_session(session_func: Callable) -> Callable:
 @monkeypatch_session
 def safety(session: Session) -> None:
     """Check all dependencies for known vulnerabilities."""
-    if "called_by_tox" not in session.posargs:
+    if "skip_install" not in session.posargs:
         session.poetry_install("poetry safety", no_root=True)
 
     venv_path = get_venv_path()
@@ -226,7 +226,7 @@ def safety(session: Session) -> None:
 @monkeypatch_session
 def pre_commit(session: Session) -> None:  # noqa: R0912
     """Format and check the code."""
-    if "called_by_tox" not in session.posargs:
+    if "skip_install" not in session.posargs:
         session.poetry_install("pre-commit testing docs poetry")
 
     #: Set 'show-diff' and 'skip identity hook'
@@ -251,7 +251,7 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
         env = {"SKIP": f"{skip[5:]},{env.get('SKIP', '')}"}
 
     #: Remove processed posargs
-    for arg in ("called_by_tox", "diff", "no_diff", "nodiff", skip):
+    for arg in ("skip_install", "diff", "no_diff", "nodiff", skip):
         with contextlib.suppress(ValueError):
             session.posargs.remove(arg)
 
@@ -292,7 +292,7 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
 @monkeypatch_session
 def package(session: Session) -> None:
     """Check sdist and wheel."""
-    if "called_by_tox" not in session.posargs:
+    if "skip_install" not in session.posargs:
         session.poetry_install("poetry twine", no_root=True)
 
     session.run("poetry", "build", "-vvv")
@@ -303,12 +303,12 @@ def package(session: Session) -> None:
 @monkeypatch_session
 def code_test(session: Session) -> None:
     """Run tests with given python version."""
-    if "called_by_tox" not in session.posargs:
+    if "skip_install" not in session.posargs:
         session.install(".[testing]")
 
     #: Remove processed posargs
     with contextlib.suppress(ValueError):
-        session.posargs.remove("called_by_tox")
+        session.posargs.remove("skip_install")
 
     interpreter = sys.implementation.__getattribute__("name")
     version = ".".join([str(v) for v in sys.version_info[0:2]])
@@ -338,7 +338,7 @@ def coverage(session: Session) -> None:
 
     Diff coverage is against origin/master (or DIFF_AGAINST)
     """
-    if "called_by_tox" not in session.posargs:
+    if "skip_install" not in session.posargs:
         extras = "coverage"
         if "report" in session.posargs or not session.posargs:
             extras += " diff-cover"
@@ -346,7 +346,7 @@ def coverage(session: Session) -> None:
 
     #: Remove processed posargs
     with contextlib.suppress(ValueError):
-        session.posargs.remove("called_by_tox")
+        session.posargs.remove("skip_install")
 
     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
 
@@ -381,7 +381,7 @@ def docs(session: Session) -> None:
     """Build docs with sphinx."""
     extras = ""
 
-    if "called_by_tox" not in session.posargs:
+    if "skip_install" not in session.posargs:
         extras += " docs"
 
     cmd = "sphinx-build"
@@ -393,7 +393,7 @@ def docs(session: Session) -> None:
         args += ["--open-browser"]
 
     #: Remove processed posargs
-    for arg in ("called_by_tox", "autobuild", "ab"):
+    for arg in ("skip_install", "autobuild", "ab"):
         with contextlib.suppress(ValueError):
             session.posargs.remove(arg)
 
@@ -410,12 +410,12 @@ def docs(session: Session) -> None:
 @monkeypatch_session
 def docs_test(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
-    if "called_by_tox" not in session.posargs:
+    if "skip_install" not in session.posargs:
         session.poetry_install("docs")
 
     #: Remove processed posargs
     with contextlib.suppress(ValueError):
-        session.posargs.remove("called_by_tox")
+        session.posargs.remove("skip_install")
 
     source_dir = "docs/source"
     target_dir = f"docs/build/test/{builder}"
