@@ -61,7 +61,7 @@ jobs:
           print(f"""::set-output name=matrix::{matrix}""")
 
 
-  code-tests:
+  test-code:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
     needs: create-python-test-matrix
     if: needs.create-python-test-matrix.result == 'success'
