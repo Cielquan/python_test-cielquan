@@ -3,15 +3,13 @@ default_stages: [commit]
 
 repos:
 #: -------------------------------------------------------------------------------------
-#: Commit hooks
+#: General hooks
 #: -------------------------------------------------------------------------------------
   #: code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: 9136088a246768144165fcc3ecc3d31bb686920a  # frozen: v3.3.0
     hooks:
       - id: check-case-conflict
-      - id: name-tests-test
-        args: ["--django"]
       - id: check-json
       - id: pretty-format-json
         args: ["--indent=4", "--autofix"]
@@ -22,6 +20,13 @@ repos:
         stages: [commit]
       - id: end-of-file-fixer
         stages: [commit]
+
+
+#: -------------------------------------------------------------------------------------
+#: Python hooks
+#: -------------------------------------------------------------------------------------
+      - id: name-tests-test
+        args: ["--django"]
 
   #: several python code regex hooks
   - repo: https://github.com/pre-commit/pygrep-hooks
@@ -52,38 +57,9 @@ repos:
       - id: black
         args: [--safe]
 
-  #: blacken-docs - black for python code in docs
-  - repo: https://github.com/asottile/blacken-docs
-    rev: 6d80883e826e3490b002dcf90c6807f85d42c871  # frozen: v1.8.0
-    hooks:
-      - id: blacken-docs
-        additional_dependencies: [black==20.8b1]
-
-  #: pylint - python linter
-  #: File skip: `# pylint: skip-file`
-  #: Inline change: `# pylint: disable|enable=CODE|NAME`
-  - repo: https://github.com/PyCQA/pylint/
-    rev: 44ba1fa97061f30764246ca087151f3fa9d47a08  # frozen: pylint-2.6.0
-    hooks:
-      - id: pylint
-        name: spell-check (pylint+pyenchant)
-        description: spell-check docstrings/comments in source via pyenchant and pylint
-        args: ["--disable=all", "--enable=spelling"]
-        additional_dependencies: [pyenchant]
-        exclude: '^(?!src).*'
-
-
   #: Lint hooks managed via tox `pre-commit` env b/c they need the pkg installed
   - repo: local
     hooks:
-      #: rstcheck - rst file checker
-      - id: rstcheck
-        name: rstcheck
-        description: check rst files
-        entry: env_exe_runner tox,.venv pre-commit rstcheck
-        args: ["--config=tox.ini"]
-        language: system
-        types: [rst]
       #: mypy - python type checker
       #: Skip file: `# type: ignore` at top
       #: Inline skip: `# type: ignore` or `# type: ignore[CODE, ...]`
@@ -106,9 +82,47 @@ repos:
         language: system
         types: [python]
 
+  #: pylint - python linter
+  #: File skip: `# pylint: skip-file`
+  #: Inline change: `# pylint: disable|enable=CODE|NAME`
+  - repo: https://github.com/PyCQA/pylint/
+    rev: 44ba1fa97061f30764246ca087151f3fa9d47a08  # frozen: pylint-2.6.0
+    hooks:
+      - id: pylint
+        name: spell-check (pylint+pyenchant)
+        description: spell-check docstrings/comments in py-source via pyenchant and pylint
+        args: ["--disable=all", "--enable=spelling"]
+        additional_dependencies: [pyenchant]
+        exclude: '^(?!src).*'
 
+
+#: -------------------------------------------------------------------------------------
+#: Docu hooks
+#: -------------------------------------------------------------------------------------
+  #: blacken-docs - black for python code in docs
+  - repo: https://github.com/asottile/blacken-docs
+    rev: 6d80883e826e3490b002dcf90c6807f85d42c871  # frozen: v1.8.0
+    hooks:
+      - id: blacken-docs
+        additional_dependencies: [black==20.8b1]
+
+  #: rstcheck - rst file checker
+  - repo: local
+    hooks:
+      - id: rstcheck
+        name: rstcheck
+        description: check rst files
+        entry: env_exe_runner tox,.venv pre-commit rstcheck
+        args: ["--config=tox.ini"]
+        language: system
+        types: [rst]
+
+
+#: -------------------------------------------------------------------------------------
+#: Poetry hooks
+#: -------------------------------------------------------------------------------------
 #     TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/pull/2511
-#     After merge make normal hook; remove poetry extra in pre-commit tenv
+#     After merge make normal hook; remove poetry in pre-commit extra
   - repo: local
     hooks:
       #: Check poetry config
