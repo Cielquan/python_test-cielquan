@@ -1,10 +1,10 @@
-name: Skip for Documentation testing
+name: Skip for Test Documentation
 # Workaround for https://github.com/actions/virtual-environments/issues/1281
 # Dummy tests for pleasing PR merge requirements
 
 
 env:
-  # DO NOT FORGET TO UPDATE `docs-testing.yml` TOO !!!
+  # DO NOT FORGET TO UPDATE `test-docs.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
   TEST_BUILDER: '[html, linkcheck, coverage, doctest]'  # CHANGE ME
 
