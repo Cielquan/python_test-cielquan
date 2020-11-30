@@ -325,7 +325,8 @@ def test_code(session: Session) -> None:
         f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
         f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
         "--cov-fail-under=0",
-        # "--cov-config=pyproject.toml",
+        # "--cov-report=",
+        "--cov-config=pyproject.toml",
         f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
         f"{session.posargs or 'tests'}",
     )
@@ -353,6 +354,7 @@ def coverage(session: Session) -> None:
     if "merge" in session.posargs or not session.posargs:
         session.run("coverage", "combine")
 
+    if "files" in session.posargs or not session.posargs:
         cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
         session.run("coverage", "xml", "-o", cov_xml)
 
