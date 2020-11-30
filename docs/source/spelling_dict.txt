@@ -15,6 +15,7 @@ noqa
 noqa
 opensource
 parametrize
+pragma
 py
 redef
 repo

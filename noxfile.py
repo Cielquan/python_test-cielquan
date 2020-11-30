@@ -233,8 +233,7 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
     show_diff = []
     env = {"SKIP": "identity"}
     if (session.interactive and "diff" in session.posargs) or (
-        not session.interactive
-        and "nodiff" not in session.posargs
+        not session.interactive and "nodiff" not in session.posargs
     ):
         show_diff = ["--show-diff-on-failure"]
         env = {}
