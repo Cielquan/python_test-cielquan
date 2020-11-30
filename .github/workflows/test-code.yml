@@ -26,7 +26,7 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
-      - '.github/workflows/code-testing.yml'
+      - '.github/workflows/test-code.yml'
 
   pull_request:
     branches:
@@ -40,7 +40,7 @@ on:
       - 'pyproject.toml'
       #: Test config changes
       - 'tox.ini'
-      - '.github/workflows/code-testing.yml'
+      - '.github/workflows/test-code.yml'
 
 
 jobs:
