@@ -192,7 +192,7 @@ else:
 
 #: -- CONFLUENCE BUILDER ---------------------------------------------------------------
 #: needs install: "sphinxcontrib-confluencebuilder"
-if tags.has("builder_confluence"):  # type: ignore # noqa
+if tags.has("builder_confluence"):  # type:ignore[name-defined]
     extensions.remove("sphinx.ext.viewcode")
     extensions.append("sphinxcontrib.confluencebuilder")
 confluence_publish = True
@@ -235,7 +235,7 @@ def setup(app: Sphinx) -> None:
 
     app.add_config_value("RELEASE_LEVEL", "", "env")
 
-    if not tags.has("builder_confluence"):  # type:ignore[name-defined] # noqa
+    if not tags.has("builder_confluence"):  # type:ignore[name-defined]
 
         class _SeeAlso(SeeAlso):
             def run(self) -> Any:
