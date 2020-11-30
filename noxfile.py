@@ -339,7 +339,7 @@ def coverage(session: Session) -> None:
     """
     if "skip_install" not in session.posargs:
         extras = "coverage"
-        if "diffcov" in session.posargs or not session.posargs:
+        if "report" in session.posargs or not session.posargs:
             extras += " diff-cover"
         session.poetry_install(extras, no_root=True)
 
@@ -352,16 +352,14 @@ def coverage(session: Session) -> None:
     if "merge" in session.posargs or not session.posargs:
         session.run("coverage", "combine")
 
-    if "files" in session.posargs or not session.posargs:
         cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
         session.run("coverage", "xml", "-o", cov_xml)
 
         cov_html_dir = f"{COV_CACHE_DIR / 'htmlcov'}"
         session.run("coverage", "html", "-d", cov_html_dir)
 
-    raise_error = False
-
     if "report" in session.posargs or not session.posargs:
+        raise_error = False
         min_cov = session.env.get("MIN_COVERAGE") or 100
 
         try:
@@ -369,7 +367,6 @@ def coverage(session: Session) -> None:
         except CommandFailed:
             raise_error = True
 
-    if "diffcov" in session.posargs or not session.posargs:
         cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
         session.run(
             "diff-cover",
@@ -381,8 +378,8 @@ def coverage(session: Session) -> None:
             cov_xml,
         )
 
-    if raise_error:
-        raise CommandFailed
+        if raise_error:
+            raise CommandFailed
 
 
 @nox.session
