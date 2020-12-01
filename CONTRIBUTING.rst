@@ -171,6 +171,10 @@ and get started.
 Setup Local Development Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+The setup of a local development environment is pretty easy. The only tool you need to
+have installed is `` `poetry <https://python-poetry.org/docs/>`__ ``.
+
+
 This section will explain how to setup an local development environment with the
 tools used for python_test-cielquan. We use:
 
