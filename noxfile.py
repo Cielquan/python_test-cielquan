@@ -457,6 +457,17 @@ def install_extras(session: Session) -> None:
 
 
 @nox.session
+def setup_pre_commit(session: Session) -> None:
+    """Set up pre-commit.
+
+    ReCreate pre-commit tox env, install pre-commit hook, run tox env.
+    """
+    session.run("tox", "-re", "pre-commit", "--notest")
+    session.run("pre-commit", "install", "-t", "pre-commit", "-t", "commit-msg")
+    session.run("tox", "-e", "pre-commit")
+
+
+@nox.session
 def debug_import(session: Session) -> None:  # noqa: W0613
     """Hack for global import of `devtools.debug` in venv."""
     venv_path = get_venv_path()
@@ -521,5 +532,13 @@ def tox_docs(session: Session) -> None:
 @nox.session
 @monkeypatch_session
 def dev(session: Session) -> None:
+    """Call basic dev setup nox sessions."""
+    session.run("nox", "--session", "install_extras", "setup_pre_commit")
+
+
+@nox.session
+@monkeypatch_session
+def dev2(session: Session) -> None:
     """Call all dev setup nox sessions."""
-    session.run("nox", "--session", "install_extras", "debug_import", "pdbrc")
+    sessions = ["install_extras", "setup_pre_commit", "debug_import", "pdbrc"]
+    session.run("nox", "--session", *sessions)
