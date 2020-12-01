@@ -185,7 +185,9 @@ or simply in a venv:
 
     $ python -m pip install poetry
 
-#. If you only use ``poetry`` for this project it is recommended to set ``poetry`` to create the virtualenv inside the project's directory::
+
+If you only use ``poetry`` for this project it is recommended to set ``poetry`` to
+create the virtualenv inside the project's directory::
 
     $ poetry config virtualenvs.in-project true
 
@@ -194,7 +196,7 @@ or set this environment variable to avoid creating a config file::
     $ export POETRY_VIRTUALENVS_IN_PROJECT=true
 
 
-#. With ``poetry`` set up and ready we can create our development environment::
+With ``poetry`` set up and ready we can create our development environment::
 
     $ poetry install
 
