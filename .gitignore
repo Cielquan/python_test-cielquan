@@ -112,8 +112,8 @@ env.bak/
 .idea/
 .vscode/
 
-# Versioning
-version.py
+# Tool installation dir
+node_modules/
 
 # Configs
 *.list
