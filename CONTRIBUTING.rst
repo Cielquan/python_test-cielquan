@@ -172,7 +172,41 @@ Setup Local Development Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The setup of a local development environment is pretty easy. The only tool you need to
-have installed is `poetry <https://python-poetry.org/docs/>`__.
+have installed is `poetry <https://python-poetry.org/docs/>`__. You can install it
+via the in the docs `recommended way <https://python-poetry.org/docs/#installation>`__
+or simply in a venv:
+
+#. Create a virtual environment (venv) and activate it::
+
+    Unix (bash): $ python3 -m venv .venv_poetry && source .venv_poetry/bin/activate
+    Windows (cmd): > python -m venv .venv_poetry && .venv_poetry\Scripts\activate
+
+#. Install ``poetry`` into the venv::
+
+    $ python -m pip install poetry
+
+#. If you only use ``poetry`` for this project it is recommended to set ``poetry`` to
+create the virtualenv inside the project's directory::
+
+    $ poetry config virtualenvs.in-project true
+
+or set this environment variable to avoid creating a config file::
+
+    $ export POETRY_VIRTUALENVS_IN_PROJECT=true
+
+
+#. With ``poetry`` set up and ready we can create our development environment::
+
+    $ poetry install
+
+This will create a virtualenv called ``.venv`` if you have ``poetry`` set to create it
+in-project, else it will create it in the designated directory. The project and its
+dependencies will also be installed into the virtualenv.
+
+
+
+
+
 
 
 This section will explain how to setup an local development environment with the
