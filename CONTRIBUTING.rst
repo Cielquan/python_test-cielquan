@@ -168,8 +168,8 @@ and get started.
     ``First Good Issue`` label are good ones to get started with.
 
 
-Setup Local Development Environment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Set up Local Development Environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The setup of a local development environment is pretty easy. The only tool you need to
 have installed is `poetry <https://python-poetry.org/docs/>`__. You can install it
@@ -196,26 +196,27 @@ or set this environment variable to avoid creating a config file::
     $ export POETRY_VIRTUALENVS_IN_PROJECT=true
 
 
-With ``poetry`` set up and ready we can create our development environment::
+With ``poetry`` set up and ready we can create our development environment in just two steps::
 
-    $ poetry install
+    $ poetry install 
+    $ poetry run nox -e dev
 
-This will create a virtualenv called ``.venv`` if you have ``poetry`` set to create it
-in-project, else it will create it in the designated directory. The project and its
-dependencies will also be installed into the virtualenv.
-
-
-
-
+This will create a virtualenv, install the project plus its dependencies and then
+install all specified extras so that you have all development dependencies installed.
+At last it will create a ``tox`` environment for ``pre-commit``, install ``pre-commit``
+as ``git`` hook and run all hooks once.
 
 
+Working with the Local Development Environment
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This section will explain how to setup an local development environment with the
-tools used for python_test-cielquan. We use:
+This section will explain how to work with the above created local development
+environment. For development we use the following tools:
 
-- `tox <https://tox.readthedocs.io/>`__ for automated creation of virtual environments (venv) and testing
 - `poetry <https://python-poetry.org/docs/>`__ for dependency management and package building
-- `pre-commit <https://pre-commit.com/>`__ for automated linting and checking before commiting (managed via ``tox``)
+- `tox <https://tox.readthedocs.io/>`__ for automated creation of virtual environments (venv) for testing
+- `nox <https://nox.thea.codes/>`__ for automated testing and automated dev-tasks
+- `pre-commit <https://pre-commit.com/>`__ for automated linting and checking before commiting (managed/run via ``tox``/``nox``)
 
 The ``dev`` venv is created via ``tox`` and has 2 different versions: with and without
 ``tox`` + ``poetry`` installed.
