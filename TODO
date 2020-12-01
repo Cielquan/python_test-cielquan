@@ -1,6 +1,3 @@
-- TODO: Use conditional coverage to reach 100% in every scenario even without merging
-    all coverage data from all py versions and os ????
-
 - TODO: change CONTRI
     no conventional commits needed b/c squash commit ?
 
