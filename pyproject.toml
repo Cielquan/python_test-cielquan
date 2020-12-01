@@ -299,20 +299,10 @@
     [tool.coverage.coverage_conditional_plugin]
         [tool.coverage.coverage_conditional_plugin.rules]
             # use with: # pragma: <KEY>
-            is_win = "sys_platform == 'win32'"
-            no_win = "sys_platform != 'win32'"
-            py36 = "sys_version_info[0:2] == (3, 6)"
-            py37 = "sys_version_info[0:2] == (3, 7)"
-            py38 = "sys_version_info[0:2] == (3, 8)"
-            py39 = "sys_version_info[0:2] == (3, 9)"
-            py-gte-36 = "sys_version_info >= (3, 6)"
-            py-gte-37 = "sys_version_info >= (3, 7)"
+            py-ue-36 = "sys_version_info[0:2] != (3, 6)"
+            py-ue-37 = "sys_version_info[0:2] != (3, 7)"
+            py-lt-38 = "sys_version_info < (3, 8)"
             py-gte-38 = "sys_version_info >= (3, 8)"
-            py-gte-39 = "sys_version_info >= (3, 9)"
-            py-ste-36 = "sys_version_info <= (3, 6)"
-            py-ste-37 = "sys_version_info <= (3, 7)"
-            py-ste-38 = "sys_version_info <= (3, 8)"
-            py-ste-39 = "sys_version_info <= (3, 9)"
 
 
 #: -- COMMITIZEN CONFIG ----------------------------------------------------------------
