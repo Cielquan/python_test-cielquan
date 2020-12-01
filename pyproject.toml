@@ -210,7 +210,7 @@
         mccabe = ["+*"]
         pycodestyle = [
             "+*",
-            "-W503",  #: deactivated for black
+            "-E203", "-W503",  #: deactivated for black
             "-E713",  #: same as SIM203[flake8-simplify]
         ]
         pep8-naming = ["+*"]

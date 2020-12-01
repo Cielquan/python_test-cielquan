@@ -48,7 +48,7 @@ jobs:
 
 
   test-docs:
-    name: tox / test-docs-${{ matrix.test }}
+    name: tox / test_docs-${{ matrix.test }}
     needs: create-builder-test-matrix
     if: needs.create-builder-test-matrix.result == 'success'
     runs-on: ubuntu-latest
