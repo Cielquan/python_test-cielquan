@@ -9,3 +9,5 @@
         and if the breaking change is not in commit msg ... error
 
 - TODO: fix pre-commit autoupdate workflow
+
+- TODO: fix skip workflows
