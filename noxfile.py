@@ -59,7 +59,9 @@ with contextlib.suppress(KeyError):
 
 TOXENV_SPHINX_BUILDER = ""
 with contextlib.suppress(IndexError):
-    TOXENV_SPHINX_BUILDER = [e for e in _ENVLIST if e.startswith("test_docs")][0]
+    _builder_str = [e for e in _ENVLIST if e.startswith("test_docs")][0]
+    _end_pos = _builder_str.index("}")
+    TOXENV_SPHINX_BUILDER = _builder_str[: (_end_pos + 1)]
 
 SPHINX_BUILDERS = []
 if TOXENV_SPHINX_BUILDER:
