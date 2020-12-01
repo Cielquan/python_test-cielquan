@@ -68,11 +68,11 @@ jobs:
 
 
   pre-commit:
-    name: tox / pre-commit
+    name: tox / pre_commit
     needs: is-merge
     runs-on: ubuntu-latest
     env:
-      TOXENV: pre-commit
+      TOXENV: pre_commit
     steps:
       - uses: actions/checkout@v2
 
