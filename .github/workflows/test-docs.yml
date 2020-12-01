@@ -72,6 +72,7 @@ jobs:
       TOXENV: test_docs-${{ matrix.test }}
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix: ${{ fromJson(needs.create-builder-test-matrix.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v2
