@@ -14,7 +14,7 @@ badges
 |                   +------------------------------------------------------------------+
 |                   | |codeclimate_maintain_o| |codeclimate_cov_o|                     |
 +-------------------+------------------------------------------------------------------+
-| **Testing**       | |tox| |pytest|                                                   |
+| **Testing**       | |tox| |nox| |pytest|                                                   |
 +-------------------+------------------------------------------------------------------+
 | **Code**          | |pre-commit| |black| |isort| |bandit| |mypy|                     |
 +-------------------+------------------------------------------------------------------+
@@ -111,9 +111,13 @@ badges
 
 .. Testing
 
-.. |tox| image:: https://img.shields.io/badge/Automation-tox-brightgreen.svg?style=flat-square
+.. |tox| image:: https://img.shields.io/badge/Venv%20automation-tox-brightgreen.svg?style=flat-square
     :target: https://tox.readthedocs.io/
     :alt: tox
+
+.. |nox| image:: https://img.shields.io/badge/Test%20automation-nox-brightgreen.svg?style=flat-square
+    :target: https://nox.thea.codes/
+    :alt: nox
 
 .. |pytest| image:: https://img.shields.io/badge/Test%20framework-pytest-brightgreen.svg?style=flat-square
     :target: https://docs.pytest.org/
