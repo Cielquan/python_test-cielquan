@@ -1,3 +1,5 @@
+.. TODO: change CONTRI: no conventional commits needed b/c squash commit ?
+
 ================================================
 Contribution Guidelines for python_test-cielquan
 ================================================
