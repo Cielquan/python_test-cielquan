@@ -65,11 +65,11 @@ jobs:
 
 
   test-docs:
-    name: tox / test-docs-${{ matrix.test }}
+    name: tox / test_docs-${{ matrix.test }}
     needs: create-builder-test-matrix
     if: needs.create-builder-test-matrix.result == 'success'
     env:
-      TOXENV: test-docs-${{ matrix.test }}
+      TOXENV: test_docs-${{ matrix.test }}
     runs-on: ubuntu-latest
     strategy:
       matrix: ${{ fromJson(needs.create-builder-test-matrix.outputs.matrix) }}
