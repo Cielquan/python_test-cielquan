@@ -323,7 +323,7 @@ def test_code(session: Session) -> None:
         f"--basetemp={Path(venv_path) / 'tmp'}",
         f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
         f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
-        "--cov-fail-under=0",
+        f"--fail-under={session.env.get('MIN_COVERAGE') or 100}",
         f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
         f"{session.posargs or 'tests'}",
     )
