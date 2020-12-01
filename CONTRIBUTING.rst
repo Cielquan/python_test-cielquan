@@ -213,10 +213,14 @@ Working with the Local Development Environment
 This section will explain how to work with the above created local development
 environment. For development we use the following tools:
 
-- `poetry <https://python-poetry.org/docs/>`__ for dependency management and package building
-- `tox <https://tox.readthedocs.io/>`__ for automated creation of virtual environments (venv) for testing
-- `nox <https://nox.thea.codes/>`__ for automated testing and automated dev-tasks
-- `pre-commit <https://pre-commit.com/>`__ for automated linting and checking before commiting (managed/run via ``tox``/``nox``)
+- `poetry <https://python-poetry.org/docs/>`__:
+    for dependency management and package building
+- `tox <https://tox.readthedocs.io/>`__:
+    for automated creation of virtual environments (venv) for testing
+- `nox <https://nox.thea.codes/>`__:
+    for automated testing and automated dev-tasks
+- `pre-commit <https://pre-commit.com/>`__:
+    for automated linting and checking before commiting (managed/run via ``tox``/``nox``)
 
 The ``dev`` venv is created via ``tox`` and has 2 different versions: with and without
 ``tox`` + ``poetry`` installed.
