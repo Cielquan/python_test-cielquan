@@ -185,8 +185,7 @@ or simply in a venv:
 
     $ python -m pip install poetry
 
-#. If you only use ``poetry`` for this project it is recommended to set ``poetry`` to
-    create the virtualenv inside the project's directory::
+#. If you only use ``poetry`` for this project it is recommended to set ``poetry`` to create the virtualenv inside the project's directory::
 
     $ poetry config virtualenvs.in-project true
 
