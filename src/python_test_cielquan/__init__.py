@@ -9,7 +9,7 @@
 """  # noqa: D205,D208,D400
 try:
     from importlib.metadata import metadata
-except ModuleNotFoundError:
+except ModuleNotFoundError:  # pragma: py-gte-38
     from importlib_metadata import metadata  # type: ignore[import,no-redef]
 
 
