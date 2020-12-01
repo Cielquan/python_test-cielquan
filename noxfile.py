@@ -20,6 +20,7 @@ from nox.sessions import Session as _Session
 #: -- NOX OPTIONS ----------------------------------------------------------------------
 nox.options.reuse_existing_virtualenvs = True
 nox.options.default_venv_backend = "none"
+nox.options.sessions = ["tox_lint", "tox_code", "tox_docs"]
 
 
 #: -- NOXFILE AT ROOT ------------------------------------------------------------------
@@ -58,7 +59,7 @@ with contextlib.suppress(KeyError):
 
 TOXENV_SPHINX_BUILDER = ""
 with contextlib.suppress(IndexError):
-    TOXENV_SPHINX_BUILDER = [e for e in _ENVLIST if e.startswith("test-docs")][0]
+    TOXENV_SPHINX_BUILDER = [e for e in _ENVLIST if e.startswith("test_docs")][0]
 
 SPHINX_BUILDERS = []
 if TOXENV_SPHINX_BUILDER:
@@ -462,9 +463,9 @@ def setup_pre_commit(session: Session) -> None:
 
     ReCreate pre-commit tox env, install pre-commit hook, run tox env.
     """
-    session.run("tox", "-re", "pre-commit", "--notest")
+    session.run("tox", "-re", "pre_commit", "--notest")
     session.run("pre-commit", "install", "-t", "pre-commit", "-t", "commit-msg")
-    session.run("tox", "-e", "pre-commit")
+    session.run("tox", "-e", "pre_commit")
 
 
 @nox.session
@@ -501,7 +502,7 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
 @monkeypatch_session
 def tox_lint(session: Session) -> None:
     """Call tox to run all lint tests."""
-    session.env["TOXENV"] = "safety,pre-commit"
+    session.env["TOXENV"] = "safety,pre_commit"
     session.run("tox", *session.posargs)
 
 
@@ -523,7 +524,7 @@ def tox_code(session: Session) -> None:
 def tox_docs(session: Session) -> None:
     """Call tox to run all docs tests."""
     if not TOXENV_SPHINX_BUILDER:
-        session.error("Could not find 'docs-test' from envlist in 'tox.ini' file")
+        session.error("Could not find 'test_docs' from envlist in 'tox.ini' file")
 
     session.env["TOXENV"] = TOXENV_SPHINX_BUILDER
     session.run("tox", *session.posargs)
