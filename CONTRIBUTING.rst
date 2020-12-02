@@ -181,7 +181,7 @@ installs it globally or you can install it via ``pip`` in a selfcreated virtuale
 With ``poetry`` set up and ready we can create our development environment in just two
 steps::
 
-    $ poetry install 
+    $ poetry install
     $ poetry run nox -s dev
 
 This will create a virtualenv (if you did not create and activate one yourself),
