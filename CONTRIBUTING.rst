@@ -1,5 +1,3 @@
-.. TODO: change CONTRI: no conventional commits needed b/c squash commit ?
-
 ================================================
 Contribution Guidelines for python_test-cielquan
 ================================================
@@ -350,6 +348,10 @@ succeeded. Pull requests must be merged with a merge commit.
 
 Bugfixes are also expected to be merged into ``master``. Buf if they are
 critical the next release will be much sooner.
+
+If the pull request has many small commits the maintainer may use a *squash merge* to
+keep the changelog cleaner. Of cause the squash commit-message must follow the
+aforementioned commit message rules!
 
 
 Releases
