@@ -2,7 +2,7 @@ name: Test documentation
 
 
 env:
-  # DO NOT FORGET TO UPDATE `skip-test-docs.yml` TOO !!!
+  # DO NOT FORGET TO UPDATE `test-docs-skip.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
   TEST_BUILDER: '[html, linkcheck, coverage, doctest, spelling]'  # CHANGE ME
 

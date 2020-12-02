@@ -2,7 +2,7 @@ name: Test code
 
 
 env:
-  # DO NOT FORGET TO UPDATE `skip-test-code.yml` TOO !!!
+  # DO NOT FORGET TO UPDATE `test-code-skip.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
   TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2]'  # CHANGE ME
   TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
