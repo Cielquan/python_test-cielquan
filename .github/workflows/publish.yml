@@ -12,7 +12,9 @@ env:
   default_python_version: 3.8 # CHANGE ME
 
 jobs:
-# TODO: Add full test suit:
+# FIXME: Add full test suit
+# FIXME: Add full old test suit if not first release .. if fail and not breaking change .. fail
+
 
   publish:
     runs-on: ubuntu-latest
@@ -28,13 +30,13 @@ jobs:
         python -m pip install -U pip
         pip install poetry
 
-    # TODO: run standard-version which does:
-      # TODO: auto version bump
-      # TODO: poetry version
-      # TODO: update changelog
-      # TODO: git tag
+    # FIXME: run standard-version which does:
+      # NOTE: auto version bump
+      # NOTE: poetry version
+      # NOTE: update changelog
+      # NOTE: git tag
 
-    # TODO: git push --tags
+    # FIXME: git push --tags
 
     # TODO: whl for different py-ver / os ?!
     - name: Build package
