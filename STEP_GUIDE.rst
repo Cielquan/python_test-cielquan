@@ -16,7 +16,7 @@ Github repo
     - Security
     - Pinned
     - Stale
-    - First Good Issue
+    - Good First Issue
 
 #. Activate stale bot
 

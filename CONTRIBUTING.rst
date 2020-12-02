@@ -7,13 +7,12 @@ Contribution Guidelines for python_test-cielquan
 At first thanks for taking the time to contribute!
 
 In the following you will find a bunch of guidelines/rules for contributing to
-python_test-cielquan.
+``python_test-cielquan``.
 For the guidelines use your best judgement to follow them. Rules only apply to
 Pull Requests and must be followed as otherwise the contribution cannot be included.
 
 If you have ideas for improvement of this paper feel free to submit them in an issue or
 even a Pull Request.
-
 
 Table of contents:
 
@@ -39,13 +38,14 @@ Before submitting your bug report please check the
 to avoid multiple instances of the same issue.
 
     **Note:** If you find a *closed* issue covering your topic and you think that the
-    issue is not fully solved yet, please open a new issue and reference the closed one.
+    issue is not fully solved/covered yet, please open a new issue and reference the
+    closed one.
 
 
 How to submit a bug report
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-This section will guide you through the process of submitting a bug report which helps
+This section will guide you through the process of submitting a bug report, which helps
 others to understand your report, reproduce the problem and eventually find related
 issues.
 
@@ -65,13 +65,15 @@ Explain your topic as detailed as possible to help others reproduce the problem:
 - Describe the behavior you observed following the steps above.
 - Describe the behavior you expected instead while following the steps above.
 
-If you have specific examples to reproduce the problem like config/code snippets, files
-or links to a Github project.
+If:
 
-If the problem is an error which unexpectedly occurs please run the command again with
-the ``--debug`` option to get a more information.
+- you have specific examples to reproduce the problem like config/code snippets, files
+  or links to a Github project
 
-Please include them or make a `Gist <https://gist.github.com/>`__ and include its link.
+- the problem is an error which unexpectedly occurs and you ran the command again with
+  the ``--debug`` option to get a more information
+
+please include them or make a `Gist <https://gist.github.com/>`__ and include its link.
 
 You can also provide more context by asking yourself these questions:
 
@@ -83,7 +85,7 @@ You can also provide more context by asking yourself these questions:
 
 The template also asks for some info about your environment:
 
-- What **version** of python_test-cielquan do you use?
+- What **version** of ``python_test-cielquan`` do you use?
 - Which **OS** are you using and which **version**?
 - Which **python version** are you using?
 
@@ -91,12 +93,13 @@ The template also asks for some info about your environment:
 Suggestion for improvements
 ---------------------------
 
-Before submitting your Feature request please check the
+Before submitting your feature request please check the
 `Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
 to avoid multiple instances of the same issue.
 
     **Note:** If you find a *closed* issue covering your topic and you think that the
-    issue is not fully solved yet, please open a new issue and reference the closed one.
+    issue is not fully solved/covered yet, please open a new issue and reference the
+    closed one.
 
 
 How to submit a feature request
@@ -145,27 +148,27 @@ Contribution to the Documentation
 ---------------------------------
 
 Contribution to the documentation is the easiest way to get started to contribute to
-python_test-cielquan. You can look in the
+``python_test-cielquan``. You can look in the
 `Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
 for issues with the ``Documentation`` label and try to solve them.
 
-For creating your local development environment please see: `Set up Local Development Environment`_
+For creating your local development environment please see below:
+`Set up Local Development Environment`_
 
 
 Contribution to Code
 --------------------
 
-Contribution to Code is a bit more complex as some standards has been set and you must
+Contribution to Code is a bit more complex as some standards have been set and you must
 follow these rules to get your contribution accepted. But this sounds scarier than it
 is.
-
 
 First you need an issue to work on. Just pick an issue from the
 `Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
 and get started.
 
     **Note:** If you find are a first time contributor issues with the
-    ``First Good Issue`` label are good ones to get started with.
+    ``Good First Issue`` label are good ones to get started with.
 
 
 Set up Local Development Environment
@@ -177,7 +180,8 @@ via the `recommended way <https://python-poetry.org/docs/#installation>`__, whic
 installs it globally or you can install it via ``pip`` in a selfcreated virtualenv:
 `manual here <https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/>`__.
 
-With ``poetry`` set up and ready we can create our development environment in just two steps::
+With ``poetry`` set up and ready we can create our development environment in just two
+steps::
 
     $ poetry install 
     $ poetry run nox -s dev
@@ -200,7 +204,7 @@ environment. For development we use the following tools:
 - `nox <https://nox.thea.codes/>`__:
     for running standardized tests or automated dev-tasks in an existing virtualenv
 - `tox <https://tox.readthedocs.io/>`__:
-    for the creation of isolated testing virtualenvs and running tests in them via ``nox``
+    for the creation of isolated test virtualenvs and running tests inside via ``nox``
 - `pre-commit <https://pre-commit.com/>`__:
     for automated linting and quality checking before commiting
 
@@ -208,7 +212,7 @@ environment. For development we use the following tools:
 Testing
 ~~~~~~~
 
-To simply test you code you can run::
+To test the code you can run::
 
     $ nox -s tox_lint
 
@@ -219,16 +223,16 @@ To simply test you code you can run::
 to lint, test the code or test the docs respectively.
 
 For more specific testing we have several different ``tox``/``nox``
-environment/sessions available. You can invoke them with
-``tox -e <environment>`` or ``nox -s <session>``. Some take additional
-arguments which need to be added at the end after a double dash like so:
-``nox -s docs -- autobuild``. All ``nox`` sessions skip the install steps
-when invoked by ``tox`` as ``tox`` manages the dependencies itself.
+environment/sessions available. You can invoke them with ``tox -e <environment>`` or
+``nox -s <session>``. Some take additional arguments which need to be added at the end
+after a double dash and separated by a space like so: ``nox -s session -- arg1 arg2``.
+All ``nox`` sessions skip the install steps when invoked by ``tox`` as ``tox`` manages
+the dependencies itself.
 
 ``tox`` / ``nox``:
 
 - ``safety`` / ``safety``:
-    Run ``safety`` over all specified dependencies to find dependency versions that
+    Run ``safety`` over all specified dependencies to check for dependency versions that
     are known to be vulnerable.
 
 - ``pre_commit`` / ``pre_commit``:
@@ -247,29 +251,31 @@ when invoked by ``tox`` as ``tox`` manages the dependencies itself.
 - ``py<PYTHON-VERSION>`` / ``test_code``:
     *PYTHON-VERSION* can by either e.g. *py3* for *pypy3* or e.g. *310* for *python3.10*.
     The ``nox`` session ``test_code`` will run the tests with the python version used by
-    the corresponding virtualenv.
+    the virtualenv from where its invoked.
 
     **Addtional arguments**:
 
-    * Any argument understood by ``pytest``. Defaults to ``tests`` (for the tests directory)
+    * Any argument understood by ``pytest``. Defaults to ``tests`` (for the tests
+      directory)
 
 - ``coverage-merge`` / ``coverage -- merge``:
-    Merge existing coverage artifacts and create *coverage.xml* and */htmlcov*.
+    Merge existing ``.coverage.*`` artifacts into one ``.coverage`` file and create XML
+    (*coverage.xml*) and HTML (*/htmlcov*) reports.
 
 - ``coverage-report`` / ``coverage -- report``:
     Report the total coverage and diff coverage against origin/master.
 
 - ``coverage-all`` / ``coverage``:
-    Merge and report the coverage. Run both coverage sessions above.
+    Merge and report the coverage. (runs both coverage sessions above)
 
 - ``docs`` / ``docs``:
     Build the docs as HTML in */docs/build/html*.
 
     **Addtional arguments**:
 
-    * ``autobuild`` / ``ab``: Build the docs and open them automatically after
-      starting a development webserver via ``sphinx-autobuild``.
-    * Any argument understood by ``sphinx``.
+    * ``autobuild`` / ``ab``: Build the docs and open them automatically in your browser
+      after starting a development webserver via ``sphinx-autobuild``.
+    * Any argument understood by ``sphinx`` or ``sphinx-autobuild``.
 
 - ``test_docs-html`` / ``"test_docs(builder='html')"``:
     Build the docs with the HTML builder in */docs/build/test/html*
