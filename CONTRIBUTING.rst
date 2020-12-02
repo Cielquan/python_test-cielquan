@@ -278,7 +278,7 @@ the dependencies itself.
     * Any argument understood by ``sphinx`` or ``sphinx-autobuild``.
 
 - ``test_docs-html`` / ``"test_docs(builder='html')"``:
-    Build the docs with the HTML builder in */docs/build/test/html*
+    Build the docs with the **html** builder in */docs/build/test/html*
     under nitpicky test conditions.
 
     **Addtional arguments**:
@@ -286,7 +286,7 @@ the dependencies itself.
     * Any argument understood by ``sphinx``.
 
 - ``test_docs-linkcheck`` / ``"test_docs(builder='linkcheck')"``:
-    Build the docs with the linkcheck builder in */docs/build/test/linkcheck*
+    Build the docs with the **linkcheck** builder in */docs/build/test/linkcheck*
     under nitpicky test conditions.
 
     **Addtional arguments**:
@@ -294,7 +294,7 @@ the dependencies itself.
     * Any argument understood by ``sphinx``.
 
 - ``test_docs-coverage`` / ``"test_docs(builder='coverage')"``:
-    Build the docs with the coverage builder in */docs/build/test/coverage*
+    Build the docs with the **coverage** builder in */docs/build/test/coverage*
     under nitpicky test conditions.
 
     **Addtional arguments**:
@@ -302,7 +302,7 @@ the dependencies itself.
     * Any argument understood by ``sphinx``.
 
 - ``test_docs-doctest`` / ``"test_docs(builder='doctest')"``:
-    Build the docs with the doctest builder in */docs/build/test/doctest*
+    Build the docs with the **doctest** builder in */docs/build/test/doctest*
     under nitpicky test conditions.
 
     **Addtional arguments**:
@@ -310,7 +310,7 @@ the dependencies itself.
     * Any argument understood by ``sphinx``.
 
 - ``test_docs-spelling`` / ``"test_docs(builder='spelling')"``:
-    Build the docs with the spelling builder in */docs/build/test/spelling*
+    Build the docs with the **spelling** builder in */docs/build/test/spelling*
     under nitpicky test conditions.
 
     **Addtional arguments**:
