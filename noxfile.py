@@ -130,7 +130,6 @@ class Session(_Session):  # noqa: R0903
         :param no_dev: if `--no-dev` should be set; defaults to: True
         :param no_root: if `--no-root` should be set; defaults to: False
         """
-        # TODO: make poetry install skip also like `install` so `skip_install` can be exchanged.
         #: Safety hurdle copied from nox.sessions.Session.install()
         if not isinstance(
             self._runner.venv,
