@@ -1,8 +1,6 @@
 badges
 ======
 
-.. TODO: add GHActions Badges
-
 +-------------------+------------------------------------------------------------------+
 | **General**       | |maintenance| |license| |dependabot|                             |
 +-------------------+------------------------------------------------------------------+
@@ -40,13 +38,11 @@ badges
 |                   +------------------------------------------------------------------+
 |                   | |pypi_status| |pypi_format| |pypi_downloads|                     |
 +-------------------+------------------------------------------------------------------+
-| **Pipeline**      | |azure_pipeline| |azure_coverage|                                |
+| **Pipeline**      | |gha_test_code| |codeclimate_cov|                                |
 |                   +------------------------------------------------------------------+
-|                   | |azure_pipeline_o|                                               |
+|                   | |gha_code_quality| |codeclimate_maintain|                        |
 |                   +------------------------------------------------------------------+
-|                   | |codeclimate_maintain| |codeclimate_cov|                         |
-|                   +------------------------------------------------------------------+
-|                   | |codeclimate_maintain_o| |codeclimate_cov_o|                     |
+|                   | |gha_test_docs| |gha_dep_safety|                                 |
 +-------------------+------------------------------------------------------------------+
 | **Github**        | |gh_release| |gh_commits_since| |gh_last_commit|                 |
 |                   +------------------------------------------------------------------+
@@ -108,6 +104,22 @@ badges
     :alt: Sphinx
 
 .. Pipeline
+
+.. |gha_test_code| image:: https://github.com/Cielquan/python_test-cielquan/workflows/Test%20code/badge.svg
+    :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Test+code%22
+    :alt: GitHub Actions - Test code
+
+.. |gha_test_docs| image:: https://github.com/Cielquan/python_test-cielquan/workflows/Test%20docs/badge.svg
+    :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Test+docs%22
+    :alt: GitHub Actions - Test docs
+
+.. |gha_code_quality| image:: https://github.com/Cielquan/python_test-cielquan/workflows/Code%20qualitiy/badge.svg
+    :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Code+qualitiy%22
+    :alt: GitHub Actions - Code qualitiy
+
+.. |gha_dep_safety| image:: https://github.com/Cielquan/python_test-cielquan/workflows/Dependency%20safety/badge.svg
+    :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Dependency+safety%22
+    :alt: GitHub Actions - Dependency safety
 
 .. |azure_pipeline| image:: https://img.shields.io/azure-devops/build/Cielquan/b6aee80c-ebd7-443c-9679-70e990729db6/1?style=flat-square&logo=azure-pipelines&label=Azure%20Pipelines
     :target: https://dev.azure.com/Cielquan/python_test-cielquan/_build/latest?definitionId=1&branchName=master
