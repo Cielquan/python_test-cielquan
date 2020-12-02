@@ -1,7 +1,6 @@
 # pylint: skip-file
 # flake8: noqa
 """Config file for nox."""
-# TODO: check why nox test let cov fail and tox test not
 import contextlib
 import re
 import subprocess  # noqa: S404
@@ -19,11 +18,11 @@ from tomlkit import parse  # type: ignore[import]
 
 
 #: -- MANUAL CONFIG --------------------------------------------------------------------
-#: Config  # CHANGE ME
+#: Config  # CHANGE  ME
 PYTHON_TEST_VERSIONS = ["3.6", "3.7", "3.8", "3.9", "3.10", "pypy3"]
 SPHINX_BUILDERS = ["html", "linkcheck", "coverage", "doctest", "confluence"]
 
-#: nox options  # CHANGE ME
+#: nox options  # CHANGE  ME
 nox.options.reuse_existing_virtualenvs = True
 
 

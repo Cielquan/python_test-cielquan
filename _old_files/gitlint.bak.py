@@ -15,7 +15,7 @@ from typing import List, Optional
 
 
 #: Config
-JIRA_PROJECT_TAG = "SWAT"  # CHANGE ME
+JIRA_PROJECT_TAG = "SWAT"  # CHANGE  ME
 
 
 with suppress(ModuleNotFoundError):
