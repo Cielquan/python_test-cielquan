@@ -1,5 +1,5 @@
 # TODO: fix skip workflows
-name: Skip for Dependency safety
+name: Dependency safety (Skip)
 # Workaround for https://github.com/actions/virtual-environments/issues/1281
 # Dummy tests for pleasing PR merge requirements
 
