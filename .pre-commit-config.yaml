@@ -121,18 +121,10 @@ repos:
 #: -------------------------------------------------------------------------------------
 #: Poetry hooks
 #: -------------------------------------------------------------------------------------
-#     TODO: 06.06.2020: Fix PR merge https://github.com/python-poetry/poetry/pull/2511
-#     After merge make normal hook; remove poetry in pre-commit extra
-  - repo: local
+  - repo: https://github.com/Cielquan/mirrors-poetry
+    rev: 028e18fbe668509954227aba99158434dab1c713  # frozen: 1.1.4
     hooks:
-      #: Check poetry config
       - id: poetry-check
-        name: poetry-check
-        description: check poetry config in pyproject.toml
-        entry: env_exe_runner tox,.venv pre_commit poetry
-        args: ["check"]
-        language: system
-        pass_filenames: false
 
 
 #: -------------------------------------------------------------------------------------
