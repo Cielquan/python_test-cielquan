@@ -332,28 +332,24 @@ standard for our commit messages. With this standard commit messages are human *
 machine readable so that the changelog creation and versioning can be automated based
 on keywords. Commit messages will be checked in the CI pipeline.
 
-If you set up ``pre-commit`` as described above you already have the ``commit-msg``
-hook installed which will check your commit message for compliance.
+If you submit noncompliant commit messages we will need to ask you to fix them. So we
+highly recommend you to set ``pre-commit`` up.
 
-For small changes (like fixing a typo) with one commit and for larger changes (like
-feature additions) with multiple commits alike we will ask you fix you commit messages
-if they are not compliant. So we highly recommend you to set ``pre-commit`` up as it is
-very easy.
+If you set up ``pre-commit`` as described above you already have the ``commit-msg`` hook
+installed which will check your commit message for compliance else you can run::
+
+    $ nox -s setup_pre_commit
 
 
 Development
 ~~~~~~~~~~~
 
-The ``master`` branch is the development branch and so all changes are expected to be
-submitted and merged there. Merging into ``master`` is only allowed after all CI tests
+We have no dedicated development branch so all changes are expected to be submitted and
+merged into `master`. Merging into ``master`` is only allowed after all CI tests
 succeeded. Pull requests must be merged with a merge commit.
 
 Bugfixes are also expected to be merged into ``master``. Buf if they are
 critical the next release will be much sooner.
-
-    **Note**: As all changes are merged into ``master`` only the current released
-    version is supported and will receive bugfixes. Bugfixes for older versions are not
-    planned.
 
 
 Releases
@@ -365,6 +361,13 @@ judgement of the maintainer(s).
 
 To trigger a new release you have to manually start the ``Release new version`` workflow
 for the ``master`` branch form the ``Actions`` tab of the Github repository. The
-workflow will run the full test suit and after success automatically bump the version
-counter based on semantic versioning and conventional commits, update the changelog,
-create a new git tag, build the package/wheel and push it to PyPI.
+workflow will run the full current test suit first. After that it will also run the full
+test suit of the previous version and when the test suit fails it will look for a commit
+declaring *BREAKING CHANGES*. If none is found the worklow will fail. After success the
+workflow will automatically bump the version counter based on semantic versioning and
+conventional commits, update the changelog, create a new git tag, build the
+package(s)/wheel(s) and push it/them to PyPI.
+
+    **Note**: As all changes are merged into ``master`` only the current released
+    version is supported and will receive bugfixes. Bugfixes for older versions are not
+    planned.
