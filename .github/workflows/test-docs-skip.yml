@@ -1,5 +1,5 @@
 # TODO: fix skip workflows
-name: Skip for Test documentation
+name: Test documentation (Skip)
 # Workaround for https://github.com/actions/virtual-environments/issues/1281
 # Dummy tests for pleasing PR merge requirements
 
