@@ -1,4 +1,0 @@
-# TODO: Release pipeline
-    # TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
-    # TODO: for release run old tests against the current package. If they do not pass its a breaking change
-        # and if the breaking change is not in commit msg ... error
