@@ -222,7 +222,8 @@ For more specific testing we have several different ``tox``/``nox``
 environment/sessions available. You can invoke them with
 ``tox -e <environment>`` or ``nox -s <session>``. Some take additional
 arguments which need to be added at the end after a double dash like so:
-``nox -s docs -- autobuild``.
+``nox -s docs -- autobuild``. All ``nox`` sessions skip the install steps
+when invoked by ``tox`` as ``tox`` manages the dependencies itself.
 
 ``tox`` / ``nox``:
 
@@ -236,11 +237,21 @@ arguments which need to be added at the end after a double dash like so:
     **Addtional arguments**:
 
     * ``<hook-id>``: Specify a hook to run. Can be specified multiple times.
+    * ``SKIP=<hook-id>`` Specify hooks (seperated by comma) to skip.
     * ``diff``: Print the diff when a hook fails. Recommended to only set when one or
       no hook is specified as the diff will be printed on every failing hook otherwise.
 
 - ``package`` / ``package``:
     Build a package with ``poetry`` from the current source and test it with ``twine``.
+
+- ``py<PYTHON-VERSION>`` / ``test_code``:
+    `PYTHON-VERSION` can by either e.g. `py3` for `pypy3` or e.g. `310` for `python3.10`.
+    The ``nox`` session ``test_code`` will run the tests with the python version used by
+    the corresponding virtualenv.
+
+    **Addtional arguments**:
+
+    * Any argument understood by ``pytest``. Defaults to ``tests`` (for the tests directory)
 
 - ``coverage-merge`` / ``coverage -- merge``:
     Merge existing coverage artifacts and create `coverage.xml` and `\htmlcov`.
@@ -252,12 +263,53 @@ arguments which need to be added at the end after a double dash like so:
     Merge and report the coverage. Run both coverage sessions above.
 
 - ``docs`` / ``docs``:
-    Build the docs as HTML to open them in your browser.
+    Build the docs as HTML in `/docs/build/html`.
 
     **Addtional arguments**:
 
     * ``autobuild`` / ``ab``: Build the docs and open them automatically after
       starting a development webserver via ``sphinx-autobuild``.
+    * Any argument understood by ``sphinx``.
+
+- ``test_docs-html`` / ``"test_docs(builder='html')"``:
+    Build the docs with the HTML builder in `/docs/build/test/html`
+    under nitpicky test conditions.
+
+    **Addtional arguments**:
+
+    * Any argument understood by ``sphinx``.
+
+- ``test_docs-linkcheck`` / ``"test_docs(builder='linkcheck')"``:
+    Build the docs with the linkcheck builder in `/docs/build/test/linkcheck`
+    under nitpicky test conditions.
+
+    **Addtional arguments**:
+
+    * Any argument understood by ``sphinx``.
+
+- ``test_docs-coverage`` / ``"test_docs(builder='coverage')"``:
+    Build the docs with the coverage builder in `/docs/build/test/coverage`
+    under nitpicky test conditions.
+
+    **Addtional arguments**:
+
+    * Any argument understood by ``sphinx``.
+
+- ``test_docs-doctest`` / ``"test_docs(builder='doctest')"``:
+    Build the docs with the doctest builder in `/docs/build/test/doctest`
+    under nitpicky test conditions.
+
+    **Addtional arguments**:
+
+    * Any argument understood by ``sphinx``.
+
+- ``test_docs-spelling`` / ``"test_docs(builder='spelling')"``:
+    Build the docs with the spelling builder in `/docs/build/test/spelling`
+    under nitpicky test conditions.
+
+    **Addtional arguments**:
+
+    * Any argument understood by ``sphinx``.
 
 
 Git(hub) Workflow
