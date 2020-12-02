@@ -105,19 +105,19 @@ badges
 
 .. Pipeline
 
-.. |gha_test_code| image:: https://github.com/Cielquan/python_test-cielquan/workflows/Test%20code/badge.svg
+.. |gha_test_code| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Test%20code/master?style=flat-square&logo=github&label=Test%20code
     :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Test+code%22
     :alt: GitHub Actions - Test code
 
-.. |gha_test_docs| image:: https://github.com/Cielquan/python_test-cielquan/workflows/Test%20docs/badge.svg
+.. |gha_test_docs| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Test%20docs/master?style=flat-square&logo=github&label=Test%20docs
     :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Test+docs%22
     :alt: GitHub Actions - Test docs
 
-.. |gha_code_quality| image:: https://github.com/Cielquan/python_test-cielquan/workflows/Code%20qualitiy/badge.svg
+.. |gha_code_quality| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Code%20quality/master?style=flat-square&logo=github&label=Code%20quality
     :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Code+qualitiy%22
     :alt: GitHub Actions - Code qualitiy
 
-.. |gha_dep_safety| image:: https://github.com/Cielquan/python_test-cielquan/workflows/Dependency%20safety/badge.svg
+.. |gha_dep_safety| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Dependency%20safety/master?style=flat-square&logo=github&label=Dependency%20safety
     :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Dependency+safety%22
     :alt: GitHub Actions - Dependency safety
 
