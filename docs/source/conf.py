@@ -15,7 +15,7 @@ import sys
 from datetime import date
 from importlib.util import find_spec
 from pathlib import Path
-from typing import Any, List
+from typing import Any, List, Optional
 
 import sphinx_rtd_theme  # type: ignore[import]
 import tomlkit  # type: ignore[import]
@@ -161,7 +161,7 @@ else:
     )
 
 
-def remove_module_docstring(  # noqa: R0913
+def _remove_module_docstring(  # noqa: R0913
     app, what, name, obj, options, lines  # noqa: ANN001,W0613
 ) -> None:
     """Remove module docstring."""
@@ -216,10 +216,29 @@ html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
 
 #: -- HTML OUTPUT ----------------------------------------------------------------------
+def _find_img_file(filename: str) -> Optional[str]:
+    """Search for instances of given filename in sphinx config dir.
+
+    :param filename: filename too search
+    :raises FileExistsError: when more than one file with the given name exists.
+    :return: None if none is found or the path as string.
+    """
+    img_files = list(Path(".").glob(f"{filename}.*"))
+    if len(img_files) == 0:
+        return None
+    if len(img_files) == 1:
+        return str(img_files[0])
+    raise FileExistsError(
+        f"Multiple '{filename}.*' files exist in the docs source dir. Please delete"
+        " or rename all except one or set the appropiate file with extension in"
+        " 'conf.py'."
+    )
+
+
 html_last_updated_fmt = today_fmt
 html_show_sourcelink = True  #: Add links to *.rst source files on HTML pages
-html_logo = None  # CHANGE ME
-html_favicon = None  # CHANGE ME
+html_logo = _find_img_file("logo")
+html_favicon = _find_img_file("favicon")
 
 
 #: -- LaTeX OUTPUT ---------------------------------------------------------------------
@@ -231,7 +250,7 @@ latex_show_urls = "footnote"
 #: -- FINAL SETUP ----------------------------------------------------------------------
 def setup(app: Sphinx) -> None:
     """Connect custom func to sphinx events."""
-    app.connect("autodoc-process-docstring", remove_module_docstring)
+    app.connect("autodoc-process-docstring", _remove_module_docstring)
 
     app.add_config_value("RELEASE_LEVEL", "", "env")
 
