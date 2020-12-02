@@ -234,7 +234,7 @@ badges
 
 .. PyPI
 
-.. TODO: REMOVE TEST
+.. TODO: REMOVE TEST when used for other projects
 
 .. |pypi_release| image:: https://img.shields.io/pypi/v/python_test-cielquan.svg?style=flat-square&logo=pypi&logoColor=FBE072
     :target: https://test.pypi.org/project/python_test-cielquan/
