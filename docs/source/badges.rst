@@ -109,11 +109,11 @@ badges
     :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Test+code%22
     :alt: GitHub Actions - Test code
 
-.. |gha_test_docs| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Test%20docs/master?style=flat-square&logo=github&label=Test%20docs
-    :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Test+docs%22
+.. |gha_test_docs| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Test%20documentation/master?style=flat-square&logo=github&label=Test%20documentation
+    :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Test+documentation%22
     :alt: GitHub Actions - Test docs
 
-.. |gha_code_quality| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Code%20quality/master?style=flat-square&logo=github&label=Code%20quality
+.. |gha_code_quality| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Code%20qualitiy/master?style=flat-square&logo=github&label=Code%20qualitiy
     :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Code+qualitiy%22
     :alt: GitHub Actions - Code qualitiy
 
