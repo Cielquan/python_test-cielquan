@@ -245,7 +245,7 @@ when invoked by ``tox`` as ``tox`` manages the dependencies itself.
     Build a package with ``poetry`` from the current source and test it with ``twine``.
 
 - ``py<PYTHON-VERSION>`` / ``test_code``:
-    `PYTHON-VERSION` can by either e.g. `py3` for `pypy3` or e.g. `310` for `python3.10`.
+    *PYTHON-VERSION* can by either e.g. *py3* for *pypy3* or e.g. *310* for *python3.10*.
     The ``nox`` session ``test_code`` will run the tests with the python version used by
     the corresponding virtualenv.
 
@@ -254,7 +254,7 @@ when invoked by ``tox`` as ``tox`` manages the dependencies itself.
     * Any argument understood by ``pytest``. Defaults to ``tests`` (for the tests directory)
 
 - ``coverage-merge`` / ``coverage -- merge``:
-    Merge existing coverage artifacts and create `coverage.xml` and `\htmlcov`.
+    Merge existing coverage artifacts and create *coverage.xml* and */htmlcov*.
 
 - ``coverage-report`` / ``coverage -- report``:
     Report the total coverage and diff coverage against origin/master.
@@ -263,7 +263,7 @@ when invoked by ``tox`` as ``tox`` manages the dependencies itself.
     Merge and report the coverage. Run both coverage sessions above.
 
 - ``docs`` / ``docs``:
-    Build the docs as HTML in `/docs/build/html`.
+    Build the docs as HTML in */docs/build/html*.
 
     **Addtional arguments**:
 
@@ -272,7 +272,7 @@ when invoked by ``tox`` as ``tox`` manages the dependencies itself.
     * Any argument understood by ``sphinx``.
 
 - ``test_docs-html`` / ``"test_docs(builder='html')"``:
-    Build the docs with the HTML builder in `/docs/build/test/html`
+    Build the docs with the HTML builder in */docs/build/test/html*
     under nitpicky test conditions.
 
     **Addtional arguments**:
@@ -280,7 +280,7 @@ when invoked by ``tox`` as ``tox`` manages the dependencies itself.
     * Any argument understood by ``sphinx``.
 
 - ``test_docs-linkcheck`` / ``"test_docs(builder='linkcheck')"``:
-    Build the docs with the linkcheck builder in `/docs/build/test/linkcheck`
+    Build the docs with the linkcheck builder in */docs/build/test/linkcheck*
     under nitpicky test conditions.
 
     **Addtional arguments**:
@@ -288,7 +288,7 @@ when invoked by ``tox`` as ``tox`` manages the dependencies itself.
     * Any argument understood by ``sphinx``.
 
 - ``test_docs-coverage`` / ``"test_docs(builder='coverage')"``:
-    Build the docs with the coverage builder in `/docs/build/test/coverage`
+    Build the docs with the coverage builder in */docs/build/test/coverage*
     under nitpicky test conditions.
 
     **Addtional arguments**:
@@ -296,7 +296,7 @@ when invoked by ``tox`` as ``tox`` manages the dependencies itself.
     * Any argument understood by ``sphinx``.
 
 - ``test_docs-doctest`` / ``"test_docs(builder='doctest')"``:
-    Build the docs with the doctest builder in `/docs/build/test/doctest`
+    Build the docs with the doctest builder in */docs/build/test/doctest*
     under nitpicky test conditions.
 
     **Addtional arguments**:
@@ -304,7 +304,7 @@ when invoked by ``tox`` as ``tox`` manages the dependencies itself.
     * Any argument understood by ``sphinx``.
 
 - ``test_docs-spelling`` / ``"test_docs(builder='spelling')"``:
-    Build the docs with the spelling builder in `/docs/build/test/spelling`
+    Build the docs with the spelling builder in */docs/build/test/spelling*
     under nitpicky test conditions.
 
     **Addtional arguments**:
