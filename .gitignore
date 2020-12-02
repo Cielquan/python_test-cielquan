@@ -111,6 +111,7 @@ env.bak/
 # IDE folder
 .idea/
 .vscode/
+cache.txt
 
 # Tool installation dir
 node_modules/
