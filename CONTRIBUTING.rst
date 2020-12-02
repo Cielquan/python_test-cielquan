@@ -229,25 +229,35 @@ arguments which need to be added at the end after a double dash like so:
 - ``safety`` / ``safety``:
     Run ``safety`` over all specified dependencies to find dependency versions that
     are known to be vulnerable.
+
 - ``pre_commit`` / ``pre_commit``:
     Run ``pre-commit`` over all project files to lint, format and check them.
+
     **Addtional arguments**:
+
     * ``<hook-id>``: Specify a hook to run. Can be specified multiple times.
     * ``diff``: Print the diff when a hook fails. Recommended to only set when one or
-        no hook is specified as the diff will be printed on every failing hook otherwise.
+      no hook is specified as the diff will be printed on every failing hook otherwise.
+
 - ``package`` / ``package``:
     Build a package with ``poetry`` from the current source and test it with ``twine``.
+
 - ``coverage-merge`` / ``coverage -- merge``:
     Merge existing coverage artifacts and create `coverage.xml` and `\htmlcov`.
+
 - ``coverage-report`` / ``coverage -- report``:
     Report the total coverage and diff coverage against origin/master.
+
 - ``coverage-all`` / ``coverage``:
     Merge and report the coverage. Run both coverage sessions above.
+
 - ``docs`` / ``docs``:
     Build the docs as HTML to open them in your browser.
+
     **Addtional arguments**:
+
     * ``autobuild`` / ``ab``: Build the docs and open them automatically after
-        starting a development webserver via ``sphinx-autobuild``.
+      starting a development webserver via ``sphinx-autobuild``.
 
 
 Git(hub) Workflow
