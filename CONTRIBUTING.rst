@@ -149,7 +149,7 @@ python_test-cielquan. You can look in the
 `Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
 for issues with the ``Documentation`` label and try to solve them.
 
-For creating your local development environment please see: `Setup Local Development Environment`_
+For creating your local development environment please see: `Set up Local Development Environment`_
 
 
 Contribution to Code
@@ -173,38 +173,20 @@ Set up Local Development Environment
 
 The setup of a local development environment is pretty easy. The only tool you need to
 have installed is `poetry <https://python-poetry.org/docs/>`__. You can install it
-via the in the docs `recommended way <https://python-poetry.org/docs/#installation>`__
-or simply in a venv:
-
-#. Create a virtual environment (venv) and activate it::
-
-    Unix (bash): $ python3 -m venv .venv_poetry && source .venv_poetry/bin/activate
-    Windows (cmd): > python -m venv .venv_poetry && .venv_poetry\Scripts\activate
-
-#. Install ``poetry`` into the venv::
-
-    $ python -m pip install poetry
-
-
-If you only use ``poetry`` for this project it is recommended to set ``poetry`` to
-create the virtualenv inside the project's directory::
-
-    $ poetry config virtualenvs.in-project true
-
-or set this environment variable to avoid creating a config file::
-
-    $ export POETRY_VIRTUALENVS_IN_PROJECT=true
-
+via the `recommended way <https://python-poetry.org/docs/#installation>`__, which
+installs it globally or you can install it via ``pip`` in a selfcreated virtualenv:
+`manual here <https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/>`__.
 
 With ``poetry`` set up and ready we can create our development environment in just two steps::
 
     $ poetry install 
-    $ poetry run nox -e dev
+    $ poetry run nox -s dev
 
-This will create a virtualenv, install the project plus its dependencies and then
-install all specified extras so that you have all development dependencies installed.
-At last it will create a ``tox`` environment for ``pre-commit``, install ``pre-commit``
-as ``git`` hook and run all hooks once.
+This will create a virtualenv (if you did not create and activate one yourself),
+install the project plus its dependencies and then install all specified extras so that
+you have all development dependencies installed. At last it will create a ``tox``
+environment for ``pre-commit``, install ``pre-commit`` as ``git`` hook and run all
+hooks once.
 
 
 Working with the Local Development Environment
@@ -214,93 +196,58 @@ This section will explain how to work with the above created local development
 environment. For development we use the following tools:
 
 - `poetry <https://python-poetry.org/docs/>`__:
-    For dependency management and package building we use ``poetry``. When you created
-    your development virtualenv via poetry like described above and you have not
-    activated the created virtualenv you can use ``poetry`` to run commands inside
-    this virtualenv with ``$ poetry run <cmd>``. For further information on ``poetry``
-    please visit the docs liked above or run ``poetry --help``.
+    for dependency management and package building
 - `nox <https://nox.thea.codes/>`__:
-    For running standardized tests or automated dev-tasks we use ``nox``, while
-    virtualenv creattion is deactivated. This means ``nox`` needs a virtualenv to run
-    the commands in. This can either be the development virtualenv created by ``poetry``
-    or a testing virtualenv created by ``tox``.
+    for running standardized tests or automated dev-tasks in an existing virtualenv
 - `tox <https://tox.readthedocs.io/>`__:
-    For the creation of isolated testing virtualenvs we use ``tox``. The testing
-    commands howerver are run via ``nox``, which gets called by ``tox`` inside the corresonding virtualenvs.
+    for the creation of isolated testing virtualenvs and running tests in them via ``nox``
 - `pre-commit <https://pre-commit.com/>`__:
-    for automated linting and checking before commiting (managed/run via ``tox``/``nox``)
-
-The ``dev`` venv is created via ``tox`` and has 2 different versions: with and without
-``tox`` + ``poetry`` installed.
-
-If you have **both** tools globally installed and available you can use the ``dev``
-environment. If you miss either of them you can either install the missing one on your
-system or use the ``devfull`` environment instead. ``devfull`` has both tools installed.
-
-At first you need to clone the repository and have a command prompt ready from within
-the local copy of the repository.
-
-If you are missing ``tox`` you need to take the following 3 extra steps to create the
-``devfull`` ``tox`` environment from which you then can call/run the other ``tox``
-environments:
-
-#. Create a virtual environment (venv) and activate it::
-
-    Unix (bash): $ python3 -m venv .venv && source .venv/bin/activate
-    Windows (cmd): > python -m venv .venv && .venv\Scripts\activate
-
-#. Install tox into the venv::
-
-    All: $ python -m venv pip install tox
-
-*If you use ``devfull`` exchange it for ``dev`` in the following examples*.
-To create the ``dev`` or ``devfull`` venv just call::
-
-    All: $ tox -e dev
-
-After successful creation, activate it::
-
-    Unix (bash): $ source .tox/dev/bin/activate
-    Windows (cmd): > .tox\dev\Scripts\activate
-
-Now you have your development environment active and ready.
-
-We recommend that also setup ``pre-commit`` - which is only two more commands - to ensure
-that your commits are okay and the CI pipeline does not complain about linting issues.
-
-You just need to invoke the ``pre-commit`` ``tox`` environment::
-
-    All: $ tox -e pre-commit
-
-and then install the `pre-commit` and `commit-msg` git hooks::
-
-    All: $ pre-commit install -t pre-commit -t commit-msg
-
-Now you are set up and ready to go. If you have questions regarding the aforementioned
-tools please see their respective documentation which are linked at this sections
-beginning.
+    for automated linting and quality checking before commiting
 
 
 Testing
 ~~~~~~~
 
-We have several different ``tox`` environments configured for all sorts of tests which
-you can invoke via ``tox -e <ENVIRONMENT_NAME>``.
+To simply test you code you can run::
 
-The main testing environments are:
+    $ nox -s tox_lint
 
-- ``code-test``: Run ``pytest`` with available configured python versions and report coverage
-- ``docs-test``: Test the current docs
+    $ nox -s tox_code
 
-Also available are:
+    $ nox -s tox_docs
 
-- ``package``: Test if the current package fails to build
-- ``docs``: Build the current docs (for reading purpose)
-- ``safety``: Lookup all dependencies in vulnerability database
-- ``pre-commit``: Run all `pre-commit` hooks over all files
+to lint, test the code or test the docs respectively.
 
-You should run the test environments prior commiting/pushing as those tests are run in
-the CI pipeline anyways and will block merging your Pull request in case of failure.
+For more specific testing we have several different ``tox``/``nox``
+environment/sessions available. You can invoke them with
+``tox -e <environment>`` or ``nox -s <session>``. Some take additional
+arguments which need to be added at the end after a double dash like so:
+``nox -s docs -- autobuild``.
+
+``tox`` / ``nox``:
+
+- ``safety`` / ``safety``:
+    Run ``safety`` over all specified dependencies to find dependency versions that
+    are known to be vulnerable.
+- ``pre_commit`` / ``pre_commit``:
+    Run ``pre-commit`` over all project files to lint, format and check them.
+    **Addtional arguments**:
+    * ``<hook-id>``: Specify a hook to run. Can be specified multiple times.
+    * ``diff``: Print the diff when a hook fails. Recommended to only set when one or
+        no hook is specified as the diff will be printed on every failing hook otherwise.
+- ``package`` / ``package``:
+    Build a package with ``poetry`` from the current source and test it with ``twine``.
+- ``coverage-merge`` / ``coverage -- merge``:
+    Merge existing coverage artifacts and create `coverage.xml` and `\htmlcov`.
+- ``coverage-report`` / ``coverage -- report``:
+    Report the total coverage and diff coverage against origin/master.
+- ``coverage-all`` / ``coverage``:
+    Merge and report the coverage. Run both coverage sessions above.
+- ``docs`` / ``docs``:
+    Build the docs as HTML to open them in your browser.
+    **Addtional arguments**:
+    * ``autobuild`` / ``ab``: Build the docs and open them automatically after
+        starting a development webserver via ``sphinx-autobuild``.
 
 
 Git(hub) Workflow
