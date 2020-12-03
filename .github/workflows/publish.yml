@@ -1,8 +1,3 @@
-# TODO: Release pipeline
-    # TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
-    # TODO: for release run old tests against the current package. If they do not pass its a breaking change
-        # and if the breaking change is not in commit msg ... error
-
 name: Release new version
 
 on:
@@ -14,6 +9,7 @@ env:
 jobs:
 # FIXME: Add full test suit
 # FIXME: Add full old test suit if not first release .. if fail and not breaking change .. fail
+# TODO: for release run old tests against the current package. If they do not pass its a breaking change and if the breaking change is not in commit msg ... error
 
 
   publish:
@@ -30,6 +26,7 @@ jobs:
         python -m pip install -U pip
         pip install poetry
 
+    # TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
     # FIXME: run standard-version which does:
       # NOTE: auto version bump
       # NOTE: poetry version
