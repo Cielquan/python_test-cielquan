@@ -174,6 +174,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Process status
+        id: process-state
         shell: bash
         run: |
           cur_state=${{ fromJson(steps.cur-state.outputs.data).state }}
