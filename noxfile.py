@@ -115,7 +115,7 @@ if find_spec('devtools'):
 
 def tox_calls() -> bool:
     """Return if nox is called by tox."""
-    return os.getenv("TOX_CALLS") == "true"
+    return os.getenv("_TOX_CALLS") == "true"
 
 
 #: -- MONKEYPATCH SESSION --------------------------------------------------------------
@@ -164,10 +164,11 @@ class Session(_Session):  # noqa: R0903
         extra_deps = ["--extras", extras] if extras else []
         no_dev_flag = ["--no-dev"] if no_dev else []
         no_root_flag = ["--no-root"] if no_root else []
+        install_args = no_root_flag + no_dev_flag + extra_deps
 
-        self._run(
-            "poetry", "install", *no_root_flag, *no_dev_flag, *extra_deps, **kwargs
-        )
+        poetry_args = ["--ansi"] if os.getenv("_NOX_POETRY_COLOR") == "true" else []
+
+        self._run("poetry", *poetry_args, "install", *install_args, **kwargs)
 
 
 def monkeypatch_session(session_func: Callable) -> Callable:

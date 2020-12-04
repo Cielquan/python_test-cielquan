@@ -4,6 +4,8 @@ name: Test documentation
 env:
   # DO NOT FORGET TO UPDATE `test-docs-skip.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
+  _NOX_POETRY_COLOR: true  #: Activate colorful output for poetry
+  PY_COLORS: 1  #: Activate colorful output for tox
 
 
 on:
@@ -50,8 +52,6 @@ jobs:
   test-docs:
     name: nox / tox_docs
     runs-on: ubuntu-latest
-    env:
-      PY_COLORS: 1  #: Activate colorful output for tox
     steps:
       - uses: actions/checkout@v2
 
