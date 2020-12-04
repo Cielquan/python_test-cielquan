@@ -90,7 +90,7 @@ jobs:
         run: nox --forcecolor --session tox_docs -- --notest -vv --skip-missing-interpreters false
 
       - name: Run tox envs via nox
-        run: nox --forcecolor --session tox_docs
+        run: nox --forcecolor --session tox_docs -- --color
 
 
   set-git-env-vars:
