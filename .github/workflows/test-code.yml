@@ -462,6 +462,7 @@ jobs:
             state=success
           else
             state=failure
+          fi
           echo -e "::set-output name=state::${state}"
 
       - name: Get repo dir name
