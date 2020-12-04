@@ -162,24 +162,39 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - uses: octokit/request-action@v2.x
+      - name: Get current status via github API
+        id: cur-state
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/{owner}/{repo}/commits/{ref}/status
+          owner: ${{ github.repository_owner }}
+          repo: ${{ needs.is-merge.outputs.repo-name }}
+          ref: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Process status
+        shell: bash
+        run: |
+          cur_state=${{ steps.cur-state.outputs.data }}
+          new_state=${{ needs.pre-commit.result }}
+          if [[ $cur_state == 'failure' ]] || [[ $cur_state == 'error' ]]; then
+            state=$cur_state
+          else
+            state=$new_state
+          fi
+          echo -e "::set-output name=state::${state}"
+
+      - name: Set status via gihub API
+        uses: octokit/request-action@v2.x
         with:
           route: POST /repos/{owner}/{repo}/statuses/{sha}
           owner: ${{ github.repository_owner }}
           repo: ${{ needs.is-merge.outputs.repo-name }}
           sha: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
-          state: ${{ needs.pre-commit.result }}
+          state: ${{ steps.process-state.outputs.state }}
           target_url: "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
           description: code-quality
           context: ci
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Set status via github API
-      #   shell: bash
-      #   run: |
-      #     curl \
-      #       -X POST \
-      #       -H "Accept: application/vnd.github.v3+json" \
-      #       https://api.github.com/repos/${{ github.repository }}/statuses/${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }} \
-      #       -d '{"ci-code-quality":"${{ needs.pre-commit.result }}"}'
