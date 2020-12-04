@@ -62,9 +62,11 @@ jobs:
           python -m pip install -U pip
           pip install poetry
 
+      - name: No venv creation for poetry
+        run: poetry config virtualenvs.create false
+
       - name: Install dependencies
-        run: |
-          poetry install --no-root --no-dev --extras "nox tox"
+        run: poetry install --no-root --no-dev --extras "nox tox"
 
       - name: Set python version hash
         shell: bash
