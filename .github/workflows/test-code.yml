@@ -443,3 +443,44 @@ jobs:
         run: |
           ./cc-test-reporter --debug upload-coverage \
             --input .coverage_cache/code-climate.json
+
+
+  set-status:
+    name: Set status on commit
+    needs: [test-code, report-coverage, push-coverage-to-code-climate, set-git-env-vars]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Process total success
+        id: total-success
+        shell: bash
+        run: |
+          tests=${{ needs.test-code.result }}
+          cov=${{ needs.report-coverage.result }}
+          send_cov=${{ needs.push-coverage-to-code-climate.result }}
+          if [[ $tests == 'success' ]] && [[ $cov == 'success' ]] && [[ $send_cov == 'success' ]]; then
+            state=success
+          else
+            state=failure
+          echo -e "::set-output name=state::${state}"
+
+      - name: Get repo dir name
+        id: repo-dir
+        shell: bash
+        run: |
+          repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
+          echo "::set-output name=repo-dir::$repo_dir"
+
+      - name: Set status via gihub API
+        uses: octokit/request-action@v2.x
+        with:
+          route: POST /repos/{owner}/{repo}/statuses/{sha}
+          owner: ${{ github.repository_owner }}
+          repo: ${{ steps.repo-dir.outputs.repo-dir }}
+          sha: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
+          state: ${{ steps.total-success.outputs.state }}
+          target_url: "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
+          description: CI pipeline for testing documentation
+          context: ci-test-docs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
