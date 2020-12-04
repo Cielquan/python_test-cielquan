@@ -7,8 +7,6 @@ env:
 
 
 on:
-  workflow_dispatch:
-
   push:
     tags:
       - '!*' # Do not execute on tag push
@@ -44,6 +42,8 @@ on:
       - 'tox.ini'
       - 'noxfile.py'
       - '.github/workflows/test-docs.yml'
+
+  workflow_dispatch:
 
 
 jobs:
