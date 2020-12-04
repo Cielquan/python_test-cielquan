@@ -4,7 +4,6 @@ name: Test documentation
 env:
   # DO NOT FORGET TO UPDATE `test-docs-skip.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
-  TEST_BUILDER: '[html, linkcheck, coverage, doctest, spelling]'  # CHANGE ME
 
 
 on:
@@ -48,34 +47,9 @@ on:
 
 
 jobs:
-  create-builder-test-matrix:
-    name: Set test matrix
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ env.default_python_version }}
-
-      - name: Parse TEST_MATRIX
-        id: set-matrix
-        shell: python
-        run: |
-          matrix = {"test": "${{ env.TEST_BUILDER }}"[1:-1].split(", ")}
-          print(f"""::set-output name=matrix::{matrix}""")
-
-
   test-docs:
-    name: tox / test_docs-${{ matrix.test }}
-    needs: create-builder-test-matrix
-    if: needs.create-builder-test-matrix.result == 'success'
-    env:
-      TOXENV: test_docs-${{ matrix.test }}
+    name: nox / tox_docs
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix: ${{ fromJson(needs.create-builder-test-matrix.outputs.matrix) }}
     steps:
       - uses: actions/checkout@v2
 
@@ -83,10 +57,10 @@ jobs:
         with:
           python-version: ${{ env.default_python_version }}
 
-      - name: Install tox
+      - name: Install tox and nox
         run: |
           python -m pip install -U pip
-          pip install tox
+          pip install tox nox
 
       - name: Set python version hash
         shell: bash
@@ -96,19 +70,19 @@ jobs:
         uses: actions/cache@v2
         id: cache
         with:
-          path: .tox/${{ env.TOXENV }}
-          key: tox-env|${{ env.TOXENV }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
+          path: .tox
+          key: tox-envs|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
 
-      - name: Ensure cache is healthy
+      - name: Ensure cache is healthy (html builder)
         if: steps.cache.outputs.cache-hit == 'true'
         shell: bash
-        run: timeout 10s .tox/${{ env.TOXENV }}/bin/pip --version || rm -rf .tox
+        run: timeout 10s .tox/test_docs-html/bin/pip --version || rm -rf .tox
 
-      - name: Generate tox env
-        run: tox --notest -vv --skip-missing-interpreters false
+      - name: Generate tox envs via nox
+        run: nox --session tox_docs -- --notest -vv --skip-missing-interpreters false
 
-      - name: Run tox env
-        run: tox
+      - name: Run tox envs via nox
+        run: nox --session tox_docs
 
 
   set-git-env-vars:
