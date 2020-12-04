@@ -212,7 +212,7 @@ jobs:
           state: ${{ needs.pre-commit.result }}
           target_url: "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
           description: code-quality
-          context: ci
+          context: ci2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -227,6 +227,6 @@ jobs:
           state: failure
           target_url: "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
           description: code-quality
-          context: ci
+          context: ci3
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
