@@ -6,6 +6,8 @@ env:
 
 
 on:
+  workflow_dispatch:
+
   push:
     tags:
       - '!*' # Do not execute on tag push
