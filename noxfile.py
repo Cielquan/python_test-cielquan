@@ -1,5 +1,6 @@
 """Config file for nox."""
 import contextlib
+import os
 import re
 import subprocess  # noqa: S404
 import sys
@@ -16,7 +17,6 @@ from nox.command import CommandFailed
 from nox.logger import logger as nox_logger
 from nox.sessions import Session as _Session
 
-# TODO: find a way to detect if tox calls nox else change CONTRIBUTION.rst because of change behavior in tox with posargs
 
 #: -- NOX OPTIONS ----------------------------------------------------------------------
 nox.options.reuse_existing_virtualenvs = True
@@ -113,6 +113,11 @@ if find_spec('devtools'):
 """
 
 
+def tox_calls() -> bool:
+    """Return if nox is called by tox."""
+    return os.getenv("TOX_CALLS") == "true"
+
+
 #: -- MONKEYPATCH SESSION --------------------------------------------------------------
 class Session(_Session):  # noqa: R0903
     """Subclass of nox's Session class to add `poetry_install` method."""
@@ -191,7 +196,7 @@ def monkeypatch_session(session_func: Callable) -> Callable:
 @monkeypatch_session
 def safety(session: Session) -> None:
     """Check all dependencies for known vulnerabilities."""
-    if "skip_install" not in session.posargs:
+    if "skip_install" not in session.posargs or not tox_calls():
         session.poetry_install("poetry safety", no_root=True)
 
     venv_path = get_venv_path()
@@ -230,7 +235,7 @@ def safety(session: Session) -> None:
 @monkeypatch_session
 def pre_commit(session: Session) -> None:  # noqa: R0912
     """Format and check the code."""
-    if "skip_install" not in session.posargs:
+    if "skip_install" not in session.posargs or not tox_calls():
         session.poetry_install("pre-commit testing docs poetry")
 
     #: Set 'show-diff' and 'skip identity hook'
@@ -294,7 +299,7 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
 @monkeypatch_session
 def package(session: Session) -> None:
     """Check sdist and wheel."""
-    if "skip_install" not in session.posargs:
+    if "skip_install" not in session.posargs or not tox_calls():
         session.poetry_install("poetry twine", no_root=True)
 
     session.run("poetry", "build", "-vvv")
@@ -305,7 +310,7 @@ def package(session: Session) -> None:
 @monkeypatch_session
 def test_code(session: Session) -> None:
     """Run tests with given python version."""
-    if "skip_install" not in session.posargs:
+    if "skip_install" not in session.posargs or not tox_calls():
         session.install(".[testing]")
 
     #: Remove processed posargs
@@ -340,7 +345,7 @@ def coverage(session: Session) -> None:
 
     Diff coverage is against origin/master (or DIFF_AGAINST)
     """
-    if "skip_install" not in session.posargs:
+    if "skip_install" not in session.posargs or not tox_calls():
         extras = "coverage"
         if "report" in session.posargs or not session.posargs:
             extras += " diff-cover"
@@ -391,7 +396,7 @@ def docs(session: Session) -> None:
     """Build docs with sphinx."""
     extras = ""
 
-    if "skip_install" not in session.posargs:
+    if "skip_install" not in session.posargs or not tox_calls():
         extras += " docs"
 
     cmd = "sphinx-build"
@@ -420,7 +425,7 @@ def docs(session: Session) -> None:
 @monkeypatch_session
 def test_docs(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
-    if "skip_install" not in session.posargs:
+    if "skip_install" not in session.posargs or not tox_calls():
         session.poetry_install("docs")
 
     #: Remove processed posargs

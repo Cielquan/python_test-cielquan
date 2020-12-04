@@ -210,6 +210,8 @@ environment. For development we use the following tools:
 Testing
 ~~~~~~~
 
+.. TODO: update usage because of missing -- before posargs in tox
+
 To test the code you can run::
 
     $ nox -s tox_lint
