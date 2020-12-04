@@ -23,6 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       is-merge: ${{ steps.set-output.outputs.is-merge }}
+      repo-name: ${{ steps.repo-dir.outputs.repo-dir }}
     steps:
       - name: Clone repo
         if: github.event_name == 'push'
@@ -30,7 +31,7 @@ jobs:
 
       - name: Get repo dir name
         id: repo-dir
-        if: github.event_name == 'push'
+        # if: github.event_name == 'push'
         shell: bash
         run: |
           repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
@@ -157,15 +158,28 @@ jobs:
 
   set-status:
     name: Set status on commit
-    needs: [pre-commit, set-git-env-vars]
+    needs: [is-merge, pre-commit, set-git-env-vars]
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Set status via github API
-        shell: bash
-        run: |
-          curl \
-            -X POST \
-            -H "Accept: application/vnd.github.v3+json" \
-            https://api.github.com/repos/${{ github.repository }}/statuses/${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }} \
-            -d '{"ci-code-quality":"${{ needs.pre-commit.result }}"}'
+      - uses: octokit/request-action@v2.x
+        with:
+          route: POST /repos/{owner}/{repo}/statuses/{sha}
+          owner: ${{ github.repository_owner }}
+          repo: ${{ needs.is-merge.outputs.repo-name }}
+          sha: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
+          status: ${{ needs.pre-commit.result }}
+          target_url: "https://github.com/${{ github.repository_owner }}/${{ needs.is-merge.outputs.repo-name }}/runs/${{ github.run_id }}"
+          description: code-quality
+          context: ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # - name: Set status via github API
+      #   shell: bash
+      #   run: |
+      #     curl \
+      #       -X POST \
+      #       -H "Accept: application/vnd.github.v3+json" \
+      #       https://api.github.com/repos/${{ github.repository }}/statuses/${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }} \
+      #       -d '{"ci-code-quality":"${{ needs.pre-commit.result }}"}'
