@@ -169,7 +169,7 @@ jobs:
           repo: ${{ needs.is-merge.outputs.repo-name }}
           sha: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
           state: ${{ needs.pre-commit.result }}
-          target_url: "https://github.com/${{ github.repository_owner }}/${{ needs.is-merge.outputs.repo-name }}/runs/${{ github.run_number }}"
+          target_url: "https://github.com/${{ github.repository }}/runs/${{ github.run_number }}"
           description: code-quality
           context: ci
         env:
