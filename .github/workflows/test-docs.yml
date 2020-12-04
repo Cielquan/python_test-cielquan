@@ -51,7 +51,7 @@ jobs:
     name: nox / tox_docs
     runs-on: ubuntu-latest
     env:
-      PY_COLORS: 1
+      PY_COLORS: 1  #: Activate colorful output for tox
     steps:
       - uses: actions/checkout@v2
 
@@ -66,8 +66,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry config virtualenvs.create false
-          poetry install --no-root --no-dev --extras "nox tox"
+          poetry --ansi config virtualenvs.create false
+          poetry --ansi install --no-root --no-dev --extras "nox tox"
 
       - name: Set python version hash
         shell: bash
