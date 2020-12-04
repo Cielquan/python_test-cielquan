@@ -6,11 +6,204 @@ on:
 
 
 env:
+  # DO NOT FORGET TO UPDATE `test-code-skip.yml` && `test-code.yml` TOO !!!
   default_python_version: 3.8 # CHANGE ME
+  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2]'  # CHANGE ME
+  TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
+  TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
+  TEST_OS_PYPY: '[ubuntu, macos]'  # CHANGE ME
 
 
 jobs:
-# FIXME: Add full test suit
+  set-git-env-vars:
+    name: Set GIT_COMMIT_SHA
+    # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
+    runs-on: ubuntu-latest
+    outputs:
+      GIT_COMMIT_SHA: ${{ steps.set-GIT_COMMIT_SHA.outputs.GIT_COMMIT_SHA }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Get merge commit message
+        id: merge-commit-msg
+        shell: bash
+        run: echo "::set-output name=COMMIT_MSG::$(git log --oneline -n 1 --format='%s')"
+        if: github.event_name == 'pull_request'
+
+      - name: Extract commit sha from merge commit msg
+        id: merge-commit-sha
+        shell: python
+        run: |
+          import re
+          import sys
+          sha = re.fullmatch(
+              r"^Merge ([a-z0-9]{40}) into [a-z0-9]{40}$",
+              "${{ steps.merge-commit-msg.outputs.COMMIT_MSG }}"
+          )
+          if sha:
+              print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
+          else:
+              sys.exit(1)
+        if: github.event_name == 'pull_request'
+
+      - name: Set GIT_COMMIT_SHA
+        id: set-GIT_COMMIT_SHA
+        shell: python
+        run: |
+          if "${{ github.event_name }}" == "pull_request":
+              sha = "${{ steps.merge-commit-sha.outputs.COMMIT_SHA }}"
+              print(f"::set-output name=GIT_COMMIT_SHA::{sha}")
+          else:
+              print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
+
+
+  check-ci-status:
+    name: Check CI status on commit
+    needs: set-git-env-vars
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Get repo dir name
+        id: repo-dir
+        shell: bash
+        run: |
+          repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
+          echo "::set-output name=repo-dir::$repo_dir"
+
+      - name: Get status via gihub API
+        id: get-status
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/{owner}/{repo}/commits/{ref}/status
+          owner: ${{ github.repository_owner }}
+          repo: ${{ steps.repo-dir.outputs.repo-dir }}
+          ref: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check CI status
+        shell: python
+        run: |
+          status_raw = """${{ steps.get-status.outputs.data }}"""
+          status_json = json.loads(status_raw)
+          if status_json["state"] != "success":
+              print("The CI pipeline state of this commit is not 'success'.")
+              sys.exit(1)
+          if len(status_json["statuses"]) < 4:
+              print("Not all CI pipelines ran. Please make sure all CI pipelines ran successfully and try again.")
+              sys.exit(1)
+
+
+  create-python-test-matrix:
+    name: Set test matrix
+    needs: check-ci-status
+    runs-on: ubuntu-latest
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Set test matrix
+        id: set-matrix
+        shell: python
+        run: |
+          matrix = {
+              "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
+              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
+          }
+          if "${{ env.TEST_OS_PYPY }}" and "${{ env.TEST_PYPY_VERSIONS }}":
+              matrix.update(
+                  {
+                      "include": [
+                          {"os": os, "python_version": v}
+                          for os in "${{ env.TEST_OS_PYPY }}"[1:-1].split(", ")
+                          for v in "${{ env.TEST_PYPY_VERSIONS }}"[1:-1].split(", ")
+                      ]
+                  }
+              )
+          print(f"""::set-output name=matrix::{matrix}""")
+
+
+  # TODO: update to simplified code run job
+  run-old-test-suit:
+    name: (old suit) tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
+    needs: create-python-test-matrix
+    if: needs.create-python-test-matrix.result == 'success'
+    runs-on: ${{ matrix.os }}-latest
+    strategy:
+      fail-fast: true
+      matrix: ${{ fromJson(needs.create-python-test-matrix.outputs.matrix) }}
+    env:
+      PYTEST_ADDOPTS: -v -v -ra --showlocals
+      PYTEST_XDIST_N: 0
+    steps:
+      - name: Set up python ${{ matrix.python_version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python_version }}
+
+      - name: Set TOXENV variable
+        shell: python
+        run: |
+          import os
+          import re
+          import sys
+          gh_env_file = os.environ["GITHUB_ENV"]
+          py_ver = "${{ matrix.python_version }}"
+          regex_result = re.search(r"^\d+\.\d+|^pypy\d+", py_ver)
+          if not regex_result:
+              sys.exit(1)
+          version = f"py{regex_result.group(0)}"
+          if version.startswith("pypy"):
+              version = version[2:]
+          toxenv = version.replace(".", "")
+          with open(gh_env_file, "a") as f:
+              f.write(f"TOXENV={toxenv}\n")
+
+      - uses: actions/checkout@v2
+
+      - name: Install tox
+        run: |
+          python -m pip install -U pip
+          pip install tox
+
+      - name: Set python version hash
+        shell: bash
+        run: echo "PYTHON_VERSION_SHA=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+
+      - name: Load tox-env from cache
+        uses: actions/cache@v2
+        id: cache
+        with:
+          path: .tox/${{ env.TOXENV }}
+          key: publish|tox-env|${{ env.TOXENV }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
+
+      - name: Ensure cache is healthy (windows)
+        if: steps.cache.outputs.cache-hit == 'true' && matrix.os == 'windows'
+        shell: bash
+        run: timeout 10s .tox/${{ env.TOXENV }}/Scripts/pip --version || rm -rf .tox
+
+      - name: Ensure cache is healthy (unix)
+        if: steps.cache.outputs.cache-hit == 'true' && matrix.os != 'windows'
+        shell: bash
+        run: timeout 10s .tox/${{ env.TOXENV }}/bin/pip --version || rm -rf .tox
+
+      - name: Generate tox env
+        run: tox --notest -vv --skip-missing-interpreters false
+
+      - name: Run tox env
+        run: tox
+
+
 # FIXME: Add full old test suit if not first release .. if fail and not breaking change .. fail
 # TODO: for release run old tests against the current package. If they do not pass its a breaking change and if the breaking change is not in commit msg ... error
 

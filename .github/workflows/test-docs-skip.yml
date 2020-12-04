@@ -4,7 +4,7 @@ name: Test documentation (Skip)
 
 
 env:
-  # DO NOT FORGET TO UPDATE `test-docs.yml` TOO !!!
+  # DO NOT FORGET TO UPDATE `test-docs.yml` && `publish.yml` TOO !!!
   default_python_version: 3.8  # CHANGE ME
   TEST_BUILDER: '[html, linkcheck, coverage, doctest]'  # CHANGE ME
 
