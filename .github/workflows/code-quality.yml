@@ -176,7 +176,7 @@ jobs:
       - name: Process status
         shell: bash
         run: |
-          cur_state=${{ fromJson(steps.cur-state.outputs.data).status }}
+          cur_state=${{ toJson(steps.cur-state.outputs.data).status }}
           new_state=${{ needs.pre-commit.result }}
           if [[ $cur_state == 'failure' ]] || [[ $cur_state == 'error' ]]; then
             state=$cur_state
