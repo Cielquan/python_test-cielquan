@@ -1,10 +1,13 @@
 name: Release new version
 
+
 on:
   workflow_dispatch:
 
+
 env:
   default_python_version: 3.8 # CHANGE ME
+
 
 jobs:
 # FIXME: Add full test suit
