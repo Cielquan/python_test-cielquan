@@ -168,7 +168,7 @@ class Session(_Session):  # noqa: R0903
 
         poetry_args = ["--ansi"] if os.getenv("_NOX_POETRY_COLOR") == "true" else []
 
-        self._run("poetry", *poetry_args, "install", *install_args, **kwargs)
+        self._run("poetry", "install", *poetry_args, *install_args, **kwargs)
 
 
 def monkeypatch_session(session_func: Callable) -> Callable:
