@@ -43,7 +43,7 @@ on:
       - 'noxfile.py'
       - '.github/workflows/test-docs.yml'
 
-  workflow_dispatch:
+  workflow_dispatch: null
 
 
 jobs:
