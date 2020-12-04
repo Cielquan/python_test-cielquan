@@ -64,7 +64,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry --no-dev --no-root --extras "nox tox"
+          poetry --no-root --no-dev --extras "nox tox"
 
       - name: Set python version hash
         shell: bash
