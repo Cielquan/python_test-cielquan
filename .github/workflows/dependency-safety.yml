@@ -57,3 +57,77 @@ jobs:
 
       - name: Run tox env
         run: tox
+
+
+  set-git-env-vars:
+    name: Set GIT_COMMIT_SHA
+    # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
+    runs-on: ubuntu-latest
+    outputs:
+      GIT_COMMIT_SHA: ${{ steps.set-GIT_COMMIT_SHA.outputs.GIT_COMMIT_SHA }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+
+      - name: Get merge commit message
+        id: merge-commit-msg
+        shell: bash
+        run: echo "::set-output name=COMMIT_MSG::$(git log --oneline -n 1 --format='%s')"
+        if: github.event_name == 'pull_request'
+
+      - name: Extract commit sha from merge commit msg
+        id: merge-commit-sha
+        shell: python
+        run: |
+          import re
+          import sys
+          sha = re.fullmatch(
+              r"^Merge ([a-z0-9]{40}) into [a-z0-9]{40}$",
+              "${{ steps.merge-commit-msg.outputs.COMMIT_MSG }}"
+          )
+          if sha:
+              print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
+          else:
+              sys.exit(1)
+        if: github.event_name == 'pull_request'
+
+      - name: Set GIT_COMMIT_SHA
+        id: set-GIT_COMMIT_SHA
+        shell: python
+        run: |
+          if "${{ github.event_name }}" == "pull_request":
+              sha = "${{ steps.merge-commit-sha.outputs.COMMIT_SHA }}"
+              print(f"::set-output name=GIT_COMMIT_SHA::{sha}")
+          else:
+              print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
+
+
+  set-status:
+    name: Set status on commit
+    needs: [safety, set-git-env-vars]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get repo dir name
+        id: repo-dir
+        shell: bash
+        run: |
+          repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
+          echo "::set-output name=repo-dir::$repo_dir"
+
+      - name: Set status via gihub API
+        uses: octokit/request-action@v2.x
+        with:
+          route: POST /repos/{owner}/{repo}/statuses/{sha}
+          owner: ${{ github.repository_owner }}
+          repo: ${{ steps.repo-dir.outputs.repo-dir }}
+          sha: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
+          state: ${{ needs.safety.result }}
+          target_url: "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
+          description: CI pipeline for dependency safety
+          context: ci-dependency-safety
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
