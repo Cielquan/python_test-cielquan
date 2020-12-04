@@ -16,6 +16,7 @@ from nox.command import CommandFailed
 from nox.logger import logger as nox_logger
 from nox.sessions import Session as _Session
 
+# TODO: find a way to detect if tox calls nox else change CONTRIBUTION.rst because of change behavior in tox with posargs
 
 #: -- NOX OPTIONS ----------------------------------------------------------------------
 nox.options.reuse_existing_virtualenvs = True
