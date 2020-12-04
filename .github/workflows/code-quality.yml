@@ -162,29 +162,29 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - name: Get current status via github API
-        id: cur-state
-        uses: octokit/request-action@v2.x
-        with:
-          route: GET /repos/{owner}/{repo}/commits/{ref}/status
-          owner: ${{ github.repository_owner }}
-          repo: ${{ needs.is-merge.outputs.repo-name }}
-          ref: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Get current status via github API
+      #   id: cur-state
+      #   uses: octokit/request-action@v2.x
+      #   with:
+      #     route: GET /repos/{owner}/{repo}/commits/{ref}/status
+      #     owner: ${{ github.repository_owner }}
+      #     repo: ${{ needs.is-merge.outputs.repo-name }}
+      #     ref: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Process status
-        id: process-state
-        shell: bash
-        run: |
-          cur_state=${{ fromJson(steps.cur-state.outputs.data).state }}
-          new_state=${{ needs.pre-commit.result }}
-          if [[ $cur_state == 'failure' ]] || [[ $cur_state == 'error' ]]; then
-            state=$cur_state
-          else
-            state=$new_state
-          fi
-          echo -e "::set-output name=state::${state}"
+      # - name: Process status
+      #   id: process-state
+      #   shell: bash
+      #   run: |
+      #     cur_state=${{ fromJson(steps.cur-state.outputs.data).state }}
+      #     new_state=${{ needs.pre-commit.result }}
+      #     if [[ $cur_state == 'failure' ]] || [[ $cur_state == 'error' ]]; then
+      #       state=$cur_state
+      #     else
+      #       state=$new_state
+      #     fi
+      #     echo -e "::set-output name=state::${state}"
 
       - name: Set status via gihub API
         uses: octokit/request-action@v2.x
@@ -193,7 +193,38 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: ${{ needs.is-merge.outputs.repo-name }}
           sha: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
-          state: ${{ steps.process-state.outputs.state }}
+          # state: ${{ steps.process-state.outputs.state }}
+          state: success
+          target_url: "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
+          description: code-quality
+          context: ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set status via gihub API 2
+        uses: octokit/request-action@v2.x
+        with:
+          route: POST /repos/{owner}/{repo}/statuses/{sha}
+          owner: ${{ github.repository_owner }}
+          repo: ${{ needs.is-merge.outputs.repo-name }}
+          sha: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
+          # state: ${{ steps.process-state.outputs.state }}
+          state: ${{ needs.pre-commit.result }}
+          target_url: "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
+          description: code-quality
+          context: ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set status via gihub API 3
+        uses: octokit/request-action@v2.x
+        with:
+          route: POST /repos/{owner}/{repo}/statuses/{sha}
+          owner: ${{ github.repository_owner }}
+          repo: ${{ needs.is-merge.outputs.repo-name }}
+          sha: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
+          # state: ${{ steps.process-state.outputs.state }}
+          state: failure
           target_url: "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
           description: code-quality
           context: ci
