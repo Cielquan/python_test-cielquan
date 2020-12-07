@@ -313,9 +313,9 @@ def test_code(session: Session) -> None:
     else:
         session.log("Skipping install step.")
 
-    #: Remove processed posargs
-    with contextlib.suppress(ValueError):
-        session.posargs.remove("skip_install")
+        #: Remove processed posargs
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("skip_install")
 
     interpreter = sys.implementation.__getattribute__("name")
     version = ".".join([str(v) for v in sys.version_info[0:2]])
@@ -353,9 +353,9 @@ def coverage(session: Session) -> None:
     else:
         session.log("Skipping install step.")
 
-    #: Remove processed posargs
-    with contextlib.suppress(ValueError):
-        session.posargs.remove("skip_install")
+        #: Remove processed posargs
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("skip_install")
 
     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
 
@@ -434,9 +434,9 @@ def test_docs(session: Session, builder: str) -> None:
     else:
         session.log("Skipping install step.")
 
-    #: Remove processed posargs
-    with contextlib.suppress(ValueError):
-        session.posargs.remove("skip_install")
+        #: Remove processed posargs
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("skip_install")
 
     source_dir = "docs/source"
     target_dir = f"docs/build/test/{builder}"
