@@ -523,13 +523,28 @@ def tox_lint(session: Session) -> None:
 @nox.session
 @monkeypatch_session
 def tox_code(session: Session) -> None:
-    """Call tox to run all code tests."""
-    if not TOXENV_PYTHON_TEST_VERSIONS:
-        session.error(
-            "Could not find 'python_test_version' in '[tox]' section in 'tox.ini' file"
-        )
+    """Call tox to run all code tests incl. package and coverage."""
+    toxenv = ""
+    if "nopkg" not in session.posargs:
+        toxenv += "package"
 
-    session.env["TOXENV"] = f"package,{TOXENV_PYTHON_TEST_VERSIONS},coverage-all"
+    if "notest" not in session.posargs:
+        if not TOXENV_PYTHON_TEST_VERSIONS:
+            session.error(
+                "Could not find 'python_test_version' in "
+                "'[tox]' section in 'tox.ini' file"
+            )
+        toxenv += ("," if toxenv else "")
+        toxenv += TOXENV_PYTHON_TEST_VERSIONS
+
+    if "nocov" not in session.posargs:
+        toxenv += ("," if toxenv else "")
+        toxenv += "coverage-all"
+
+    if not toxenv:
+        session.skip("No toxenv left to run")
+
+    session.env["TOXENV"] = toxenv
     session.run("tox", *session.posargs)
 
 
