@@ -12,7 +12,12 @@ from typing import Any, Callable, Dict, Optional
 import nox
 import tomlkit  # type: ignore[import]
 
-from formelsammlung.venv_utils import get_venv_path, get_venv_site_packages_dir
+from formelsammlung.venv_utils import (
+    get_venv_bin_dir,
+    get_venv_path,
+    get_venv_site_packages_dir,
+    get_venv_tmp_dir,
+)
 from nox.command import CommandFailed
 from nox.logger import logger as nox_logger
 from nox.sessions import Session as _Session
@@ -191,29 +196,15 @@ def safety(session: Session) -> None:
         session.log("Skipping install step.")
 
     venv_path = get_venv_path()
-    if venv_path is None:
-        raise OSError("No calling venv could be detected.")
-
-    tmp_dir = Path(venv_path) / "tmp"
-    if not tmp_dir.is_dir():
-        raise FileNotFoundError("Calling venv has no 'tmp' directory.")
-
-    bin_dir = Path(venv_path) / OS_BIN
-    if not bin_dir.is_dir():
-        raise FileNotFoundError(f"Calling venv has no '{OS_BIN}' directory.")
-
-    req_file_path = tmp_dir / "requirements.txt"
+    req_file_path = get_venv_tmp_dir(venv_path) / "requirements.txt"
 
     # TODO: simplify when py36 is not longer supported.  # noqa: W0511
     #: Use `poetry show` to fill `requirements.txt`
+    command = [str(get_venv_bin_dir(venv_path) / "poetry"), "show"]
     if sys.version_info[0:2] > (3, 6):
-        cmd = subprocess.run(  # noqa: S603
-            [str(bin_dir / "poetry"), "show"], check=True, capture_output=True
-        )
+        cmd = subprocess.run(command, check=True, capture_output=True)  # noqa: S603
     else:
-        cmd = subprocess.run(  # noqa: S603
-            [str(bin_dir / "poetry"), "show"], check=True, stdout=subprocess.PIPE
-        )
+        cmd = subprocess.run(command, check=True, stdout=subprocess.PIPE)  # noqa: S603
     with open(req_file_path, "w") as req_file:
         req_file.write(
             re.sub(r"([\w-]+)[ (!)]+([\d.a-z-]+).*", r"\1==\2", cmd.stdout.decode())
@@ -272,17 +263,10 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
         except CommandFailed:
             error_hooks.append(hook)
 
-    venv_path = get_venv_path()
-    if venv_path is None:
-        raise OSError("No calling venv could be detected.")
-
-    bin_dir = Path(venv_path) / OS_BIN
-    if not bin_dir.is_dir():
-        raise FileNotFoundError(f"Calling venv has no '{OS_BIN}' directory.")
-
     print(
         "HINT: to add checks as pre-commit hook run: ",
-        f'"{Path(bin_dir) / "pre-commit"} install -t pre-commit -t commit-msg".',
+        f'"{get_venv_bin_dir(get_venv_path()) / "pre-commit"} '
+        "install -t pre-commit -t commit-msg.",
     )
 
     if error_hooks:
@@ -324,12 +308,10 @@ def test_code(session: Session) -> None:
     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{name}")
 
     venv_path = get_venv_path()
-    if venv_path is None:
-        raise OSError("No calling venv could be detected.")
 
     session.run(
         "pytest",
-        f"--basetemp={Path(venv_path) / 'tmp'}",
+        f"--basetemp={get_venv_tmp_dir(venv_path)}",
         f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
         f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
         f"--cov-fail-under={session.env.get('MIN_COVERAGE') or 100}",
@@ -420,7 +402,7 @@ def docs(session: Session) -> None:
 
     session.run(cmd, *args, *session.posargs)
 
-    index_file = Path(NOXFILE_DIR) / "docs/build/html/index.html"
+    index_file = NOXFILE_DIR / "docs/build/html/index.html"
     print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
 
 
@@ -485,12 +467,8 @@ def setup_pre_commit(session: Session) -> None:
 @nox.session
 def debug_import(session: Session) -> None:  # noqa: W0613
     """Hack for global import of `devtools.debug` in venv."""
-    venv_path = get_venv_path()
-    if venv_path is None:
-        raise OSError("No calling venv could be detected.")
-
+    file_path = get_venv_site_packages_dir(get_venv_path())
     filename = "__devtools_debug_import_hack"
-    file_path = Path(get_venv_site_packages_dir(venv_path))
 
     with open(f"{file_path / f'{filename}.pth'}", "w") as pth_file:
         pth_file.write(f"import {filename}\n")
@@ -534,11 +512,11 @@ def tox_code(session: Session) -> None:
                 "Could not find 'python_test_version' in "
                 "'[tox]' section in 'tox.ini' file"
             )
-        toxenv += ("," if toxenv else "")
+        toxenv += "," if toxenv else ""
         toxenv += TOXENV_PYTHON_TEST_VERSIONS
 
     if "nocov" not in session.posargs:
-        toxenv += ("," if toxenv else "")
+        toxenv += "," if toxenv else ""
         toxenv += "coverage-all"
 
     if not toxenv:

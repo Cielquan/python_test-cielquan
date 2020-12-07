@@ -2,6 +2,7 @@ cielquan
 compat
 conf
 config
+csv
 dev
 dir
 dirs
