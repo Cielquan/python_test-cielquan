@@ -108,7 +108,7 @@ jobs:
         if: needs.is-merge.outputs.is-merge == 'true'
 
       - name: Run tox env
-        run: tox
+        run: tox -- -- --color=always
         if: needs.is-merge.outputs.is-merge == 'false'
 
 
