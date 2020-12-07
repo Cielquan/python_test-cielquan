@@ -240,10 +240,11 @@ the dependencies itself.
 
     **Addtional arguments**:
 
-    * ``<hook-id>``: Specify a hook to run. Can be specified multiple times.
+    * ``HOOKS=<hook-id>``: Specify hooks (seperated by comma) to run.
     * ``SKIP=<hook-id>`` Specify hooks (seperated by comma) to skip.
     * ``diff``: Print the diff when a hook fails. Recommended to only set when one or
       no hook is specified as the diff will be printed on every failing hook otherwise.
+    * Any argument understood by ``pre-commit``.
 
 - ``package`` / ``package``:
     Build a package with ``poetry`` from the current source and test it with ``twine``.
