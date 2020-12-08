@@ -3,12 +3,6 @@ name: Test documentation (Skip)
 # Dummy tests for pleasing PR merge requirements
 
 
-env:
-  # DO NOT FORGET TO UPDATE `test-docs.yml` && `publish.yml` TOO !!!
-  default_python_version: 3.8  # CHANGE ME
-  TEST_BUILDER: '[html, linkcheck, coverage, doctest]'  # CHANGE ME
-
-
 on:
   pull_request:
     branches:
@@ -29,30 +23,8 @@ on:
 
 
 jobs:
-  create-builder-test-matrix:
-    name: Set test matrix
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ env.default_python_version }}
-
-      - name: Parse TEST_MATRIX
-        id: set-matrix
-        shell: python
-        run: |
-          matrix = {"test": "${{ env.TEST_BUILDER }}"[1:-1].split(", ")}
-          print(f"""::set-output name=matrix::{matrix}""")
-
-
   test-docs:
-    name: tox / test_docs-${{ matrix.test }}
-    needs: create-builder-test-matrix
-    if: needs.create-builder-test-matrix.result == 'success'
+    name: nox / tox_docs
     runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{ fromJson(needs.create-builder-test-matrix.outputs.matrix) }}
     steps:
       - run: exit 0
