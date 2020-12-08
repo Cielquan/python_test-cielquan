@@ -504,60 +504,59 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
 
 
 #: -- TOX WRAPPER SESSIONS -------------------------------------------------------------
+def _tox_caller(session: Session, tox_env: str) -> None:
+    session.poetry_install("tox", no_dev=True)
+    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
+    session.run("tox", "-e", tox_env, *session.posargs)
+
+
 @nox.session
 @monkeypatch_session
 def tox_safety(session: Session) -> None:
     """Call tox to run `safety` env."""
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", "-e", "safety", *session.posargs)
+    _tox_caller(session, "safety")
 
 
 @nox.session
 @monkeypatch_session
 def tox_pre_commit(session: Session) -> None:
     """Call tox to run `pre_commit` env."""
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", "-e", "pre_commit", *session.posargs)
+    _tox_caller(session, "pre_commit")
 
 
 @nox.session
 @monkeypatch_session
 def tox_package(session: Session) -> None:
     """Call tox to run `package` env."""
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", "-e", "package", *session.posargs)
+    _tox_caller(session, "package")
 
 
 @nox.session
 @monkeypatch_session
 def tox_test_code(session: Session) -> None:
     """Call tox to run `test_code` envs."""
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", "-e", TOX_PYTHON_VERSIONS, *session.posargs)
+    _tox_caller(session, TOX_PYTHON_VERSIONS)
 
 
 @nox.session
 @monkeypatch_session
 def tox_coverage(session: Session) -> None:
     """Call tox to run `coverage` env."""
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", "-e", "coverage-all", *session.posargs)
+    _tox_caller(session, "coverage-all")
 
 
 @nox.session
 @monkeypatch_session
 def tox_docs(session: Session) -> None:
     """Call tox to run `docs` env."""
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", "-e", "docs", *session.posargs)
+    _tox_caller(session, "docs")
 
 
 @nox.session
 @monkeypatch_session
 def tox_test_docs(session: Session) -> None:
     """Call tox to run `test_docs` envs."""
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", "-e", TOX_DOCS_BUILDERS, *session.posargs)
+    _tox_caller(session, TOX_DOCS_BUILDERS)
 
 
 #: -- TOX MULTI WRAPPER SESSIONS -------------------------------------------------------
@@ -565,9 +564,7 @@ def tox_test_docs(session: Session) -> None:
 @monkeypatch_session
 def tox_lint(session: Session) -> None:
     """Call tox to run all lint tests."""
-    session.env["TOXENV"] = "safety,pre_commit"
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", *session.posargs)
+    _tox_caller(session, "safety,pre_commit")
 
 
 @nox.session
@@ -594,21 +591,14 @@ def tox_code(session: Session) -> None:
     if not toxenv:
         session.skip("No toxenv left to run")
 
-    session.env["TOXENV"] = toxenv
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", *session.posargs)
+    _tox_caller(session, toxenv)
 
 
 @nox.session
 @monkeypatch_session
 def tox_docs_test(session: Session) -> None:
     """Call tox to run all docs tests."""
-    if not TOXENV_SPHINX_BUILDER:
-        session.error("Could not find 'test_docs' from envlist in 'tox.ini' file")
-
-    session.env["TOXENV"] = TOXENV_SPHINX_BUILDER
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", *session.posargs)
+    _tox_caller(session, TOXENV_SPHINX_BUILDER)
 
 
 @nox.session
