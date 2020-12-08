@@ -111,7 +111,7 @@ if find_spec('devtools'):
 """
 
 
-tox_calls = lambda: os.getenv("_TOX_CALLS") == "true"
+tox_calls = lambda: os.getenv("_NOX_TOX_CALLS") == "true"
 
 
 #: -- MONKEYPATCH SESSION --------------------------------------------------------------
