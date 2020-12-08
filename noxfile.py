@@ -1,4 +1,7 @@
 """Config file for nox."""
+# TODO: control settings via envvars set by nox and taken from pyproject
+# TODO: make all sessions double starting with tox_ for the tox variant
+# TODO: update the tox wrapper for more than 1 env
 import contextlib
 import os
 import re
