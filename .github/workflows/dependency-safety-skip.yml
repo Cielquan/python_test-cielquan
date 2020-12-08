@@ -3,11 +3,6 @@ name: Dependency safety (Skip)
 # Dummy tests for pleasing PR merge requirements
 
 
-env:
-  # DO NOT FORGET TO UPDATE `dependency-safety.yml` TOO !!!
-  default_python_version: 3.8  # CHANGE ME
-
-
 on:
   pull_request:
     branches:
