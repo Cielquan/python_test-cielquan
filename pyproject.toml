@@ -1,337 +1,555 @@
-[build-system]
-    requires = ["poetry>=0.12"]
-    build-backend = "poetry.masonry.api"
-
-
-#: -- ADDITIONAL METADATA POETRY DOES NOT HOLD -----------------------------------------
-[tool._metadata]
-    first_release_year = 2019
-
-
+"""Config file for nox."""
 # TODO: control settings via envvars set by nox and taken from pyproject
-#: -- ADDITIONAL METADATA POETRY DOES NOT HOLD -----------------------------------------
-[tool._testing]
-    
-    python_test_version = "py{py3,310,39,38,37,36}"
-    doc_tests = "test_docs-{html,linkcheck,coverage,doctest,spelling}"
+# TODO: make all sessions double starting with tox_ for the tox variant
+# TODO: update the tox wrapper for more than 1 env
+import contextlib
+import os
+import re
+import subprocess  # noqa: S404
+import sys
+
+from configparser import ConfigParser
+from pathlib import Path
+from typing import Any, Callable, Dict, Optional
+
+import nox
+import tomlkit  # type: ignore[import]
+
+from formelsammlung.venv_utils import (
+    get_venv_bin_dir,
+    get_venv_path,
+    get_venv_site_packages_dir,
+    get_venv_tmp_dir,
+)
+from nox.command import CommandFailed
+from nox.logger import logger as nox_logger
+from nox.sessions import Session as _Session
 
 
-#: -- POETRY CONFIG --------------------------------------------------------------------
-[tool.poetry]
-    name = "python_test_cielquan"
-    version = "0.5.9"
-    description = "test stufff"
-    authors = ["Cielquan <cielquan@protonmail.com>"]
-    license = "GPL-3.0-or-later"
-    repository = "https://github.com/Cielquan/python_test-cielquan"
-    readme = "README.rst"
-    packages = [
-        { include = "python_test_cielquan", from = "src" },
-    ]
-
-    [tool.poetry.dependencies]
-        python = "^3.6.1"
-        importlib-metadata = {version = ">=1.6, <3.0", python = "<3.8"}
-        #: Testing
-        pytest = {version = "^6", optional = true}
-        pytest-xdist = {version = "^1.34", optional = true}
-        pytest-cov = {version = "^2.10", optional = true}
-        coverage = {extras = ["toml"], version = "^5.2.1", optional = true}
-        coverage-conditional-plugin = {version = "^0.3.1", optional = true}
-        pytest-sugar = {version = "^0.9.4", optional = true}
-        pytest-randomly = {version = "^3.4", optional = true}
-#        pytest-mock = {version = "^3.2.0", optional = true}
-#        mock = {version = "^4.0.2", optional = true}
-#        faker = {version = "^4.1.1", optional = true}
-#        pytest-factoryboy = {version = "^2.0.3", optional = true}
-#        pytest-benchmark = {version = "^3.2.3", optional = true}
-#        pytest-profiling = {version = "^1.7.0", optional = true}
-#        pytest-bdd = {version = "^3.3.0", optional = true}
-#        behave = {version = "^1.2.6", optional = true}
-        #: Docs
-        sphinx = {version = "^3.1", optional = true}
-        sphinx-autobuild = {version = "^0.7.1", optional = true}
-        formelsammlung = {version = "^3", optional = true}  #: Also for pre-commit, nox
-        python-dotenv = {version = "^0.14.0", optional = true}
-        sphinx-rtd-theme = {version = "^0.5", optional = true}
-        sphinx-autodoc-typehints = {version = "^1.10.3", optional = true}
-        sphinxcontrib-apidoc = {version = "^0.3.0", optional = true}
-        sphinxcontrib-spelling = {version = "^7.1.0", optional = true}
-#        sphinx-click = {version = "^2.3.2", optional = true}
-#        sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
-        # sphinxcontrib-confluencebuilder = {git = "https://github.com/sphinx-contrib/confluencebuilder.git", rev = "6e6edbb64260ea09858eb844dd46c79c7697267e", optional = true}
-        #: Code check
-        pre-commit = {version = "^2.4", optional = true}
-        rstcheck = { git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b", optional = true}
-        mypy = {version = "0.790", optional = true}
-        #: flakehell & flake8-plugins
-        pylint = {version = "^2.5.3", optional = true}
-        pyenchant = {version = "^3.1.1", optional = true}
-        flakehell = {version = "^0.7.0", optional = true}
-        flake8 = {version = "^3.8.4", optional = true}
-        pydocstyle = {version = "^5.1.1", optional = true}
-        pep8-naming = {version = "^0.11.1", optional = true}
-        flake8-2020 = {version = "^1.6.0", optional = true}
-        flake8-aaa = {version = "^0.11.0", optional = true}
-        flake8-annotations = {version = "^2.4.1", optional = true}
-        flake8-bandit = {version = "^2.1.2", optional = true}
-        bandit = {version = "^1.6.2", optional = true}
-        flake8-broken-line = {version = "^0.3.0", optional = true}
-        flake8-bugbear = {version = "^20.1.4", optional = true}
-        flake8-cognitive-complexity = {version = "^0.1.0", optional = true}
-        flake8-comprehensions = {version = "^3.3.0", optional = true}
-        flake8-docstrings = {version = "^1.5.0", optional = true}
-        flake8-eradicate = {version = "^1.0.0", optional = true}
-        flake8-logging-format = {version = "^0.6.0", optional = true}
-        flake8-mutable = {version = "^1.2.0", optional = true}
-        flake8-no-u-prefixed-strings = {version = "^0.2", optional = true}
-        flake8-pytest-style = {version = "^1.3.0", optional = true}
-        flake8-rst-docstrings = {version = "^0.0.14", optional = true}
-        flake8-simplify = {version = "^0.9.1", optional = true}
-        flake8-sql = {version = "^0.4.1", optional = true}
-        flake8-string-format = {version = "^0.3.0", optional = true}
-        flake8-typing-imports = {version = "^1.10.0", optional = true}
-        flake8-use-fstring = {version = "^1.1", optional = true}
-        flake8-variables-names = {version = "^0.0.3", optional = true}
-        flake8-walrus = {version = "^1.1.0", python = ">=3.8", optional = true}
-        #: nox env dependencies
-        nox = {version = "^2020.8.22", optional = true}
-        tox = {version = "^3.20.1", optional = true}
-        tomlkit = {version = ">=0.7.0, <1.0.0", optional = true}
-        poetry = {version = "^1.1.4", optional = true}
-        twine = {version = "^3.2.0", optional = true}
-        safety = {version = "^1.9.0", optional = true}
-        diff-cover = {version = "^4.0.1", optional = true}
-        # Additional tools
-#        python-semantic-release = {version = "^7.3.0", optional = true}
-#        pyenchant = {version = "^3.1.1", optional = true}
-
-    [tool.poetry.dev-dependencies]
-        nox = "^2020.8.22"
-        tomlkit = ">=0.7.0,<1.0.0"
-        formelsammlung = "^3"
-        tox = "^3.20.1"
-        poetry = "^1.1.4"
-        devtools = {version = "^0.6", extras = ["pygments"]}
-        ipython = "^7.15.0"
-
-    [tool.poetry.extras]
-        testing = [
-            "pytest", "pytest-xdist",
-            "pytest-cov", "coverage", "coverage-conditional-plugin",
-            "pytest-sugar",
-            "pytest-randomly",
-            "pytest-mock", "mock",
-            "faker", "pytest-factoryboy",
-            "pytest-benchmark",
-            "pytest-profiling",
-            "pytest-bdd",
-            "behave",
-        ]
-        coverage = ["coverage", "coverage-conditional-plugin"]
-        docs = [
-            "sphinx", "formelsammlung", "python-dotenv", "tomlkit",
-            "sphinx-rtd-theme",
-            "sphinx-autodoc-typehints",
-            "sphinxcontrib-apidoc",
-            "sphinxcontrib-spelling",
-            "sphinx-click",
-            "sphinxcontrib-confluencebuilder",
-        ]
-        pre-commit = [
-            "pre-commit", "formelsammlung",
-            "rstcheck", "sphinx",
-            "mypy",
-            "flakehell", "flake8", "pycodestyle",
-            "pylint", "pyenchant",
-            "pep8-naming",
-            "flake8-2020",
-            "flake8-aaa",
-            "flake8-annotations",
-            "flake8-bandit", "bandit",
-            "flake8-broken-line",
-            "flake8-bugbear",
-            "flake8-cognitive-complexity",
-            "flake8-comprehensions",
-            "flake8-docstrings",
-            "flake8-eradicate",
-            "flake8-logging-format",
-            "flake8-mutable",
-            "flake8-no-u-prefixed-strings",
-            "flake8-pytest-style",
-            "flake8-rst-docstrings",
-            "flake8-simplify",
-            "flake8-sql",
-            "flake8-string-format",
-            "flake8-typing-imports",
-            "flake8-use-fstring",
-            "flake8-variables-names",
-            "flake8-walrus",
-        ]
-        poetry = ["poetry"]
-        nox = ["nox", "tomlkit", "formelsammlung"]
-        tox = ["tox"]
-        twine = ["twine"]
-        safety = ["safety"]
-        diff-cover = ["diff-cover"]
-        sphinx-autobuild = ["sphinx-autobuild"]
+#: -- NOX OPTIONS ----------------------------------------------------------------------
+nox.options.reuse_existing_virtualenvs = True
+nox.options.default_venv_backend = "none"
+nox.options.sessions = ["tox_lint", "tox_code", "tox_docs"]
 
 
-#: -- BLACK CONFIG ---------------------------------------------------------------------
-[tool.black]
-    line-length = 88
-    exclude = "venv/"
-    include = '\.pyi?$'
+#: -- CONFIG FROM PYPROJECT.TOML -------------------------------------------------------
+NOXFILE_DIR = Path(__file__).parent
+with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
+    PYPROJECT = tomlkit.parse(pyproject_file.read())
+
+COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
+JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
+PACKAGE_NAME = str(PYPROJECT["tool"]["poetry"]["name"])
 
 
-#: -- ISORT CONFIG ---------------------------------------------------------------------
-[tool.isort]
-    profile = "black"
-    lines_after_imports = 2
-    lines_between_types = 1
-    skip_gitignore = true
+#: -- CONFIG FROM TOX.INI --------------------------------------------------------------
+tox_ini = ConfigParser()
+tox_ini.read("tox.ini")
+
+#: Set python test versions from tox.ini
+TOXENV_PYTHON_TEST_VERSIONS = ""
+with contextlib.suppress(KeyError):
+    TOXENV_PYTHON_TEST_VERSIONS = tox_ini["tox"]["python_test_version"]
+
+#: Set sphinx builder from tox.ini
+_ENVLIST = []
+with contextlib.suppress(KeyError):
+    _ENVLIST = tox_ini["tox"]["envlist"].splitlines()
+
+TOXENV_SPHINX_BUILDER = ""
+with contextlib.suppress(IndexError):
+    _builder_str = [e for e in _ENVLIST if e.startswith("test_docs")][0]
+    _end_pos = _builder_str.index("}")
+    TOXENV_SPHINX_BUILDER = _builder_str[: (_end_pos + 1)]
+
+SPHINX_BUILDERS = []
+if TOXENV_SPHINX_BUILDER:
+    SPHINX_BUILDERS = TOXENV_SPHINX_BUILDER[11:-1].split(",")
 
 
-#: -- FLAKEHELL CONFIG -----------------------------------------------------------------
-[tool.flakehell]
-    format="colored"
-    # show_source = true
-    max_line_length = 88
-    max_complexity = 20
-    max_cognitive_complexity = 10
-    pytest_fixture_no_parentheses = true
-
-    [tool.flakehell.plugins]
-        pylint = [
-            "+*",
-            "-C040?",  # spelling
-            "-C0326", "-C0330",  #: deactivated for black
-            "-C0301",  # same as E501[pyflakes]
-            "-W0611",  # same as F401[pyflakes]
-            "-W0612",  # same as F841[pyflakes]
-            "-W0622",  # same as VNE003[flake8-variables-names]
-            "-W1203",  # Use % format in logger funcs | https://github.com/PyCQA/pylint/issues/2354
-        ]
-        pyflakes = [
-            "+*",
-            "-F821",  # same as E0602[pylint]
-        ]
-        mccabe = ["+*"]
-        pycodestyle = [
-            "+*",
-            "-E203", "-W503",  #: deactivated for black
-            "-E713",  #: same as SIM203[flake8-simplify]
-            "-E731",  #: forbids lambda
-        ]
-        pep8-naming = ["+*"]
-        "flake8-*" = ["+*"]
-        flake8-annotations = ["+*", "-ANN101", "-ANN102"]
-        flake8-bandit = ["+*", "-S322"]
-        flake8-logging-format = [
-            "+*",
-            "-G004",  # same as W1203[pylint]
-        ]
-        flake8-use-fstring = ["+*", "-FS003"]
-
-    [tool.flakehell.exceptions]
-        [tool.flakehell.exceptions."tests/"]
-            flake8-bandit = ["-S101"]
-
-        [tool.flakehell.exceptions."noxfile.py"]
-            flake8-cognitive-complexity = ["-CCR001"]
-
-        [tool.flakehell.exceptions."docs/source/conf.py"]
-            pylint = ["-C0103"]
+#: -- OS SPECIFIC CONFIG ---------------------------------------------------------------
+IS_WIN = sys.platform == "win32"
+OS_BIN = "Scripts" if IS_WIN else "bin"
 
 
-#: -- PYLINT CONFIG --------------------------------------------------------------------
-[tool.pylint]
-    [tool.pylint.master]
-        additional-builtins = "tags"
+#: -- FILE GEN SOURCE ------------------------------------------------------------------
+PDBRC_FILE = """# .pdbrc file generated by nox
+import IPython
+from traitlets.config import get_config
 
-    [tool.pylint.spelling]
-        spelling-dict = "en_US"
-        spelling-private-dict-file = "docs/source/spelling_dict.txt"
+cfg = get_config()
+cfg.InteractiveShellEmbed.colors = "Linux"
+cfg.InteractiveShellEmbed.confirm_exit = False
 
-    [tool.pylint.messages_control]
-        flakehell_doesnt_get = ["E0602"]
+# Use IPython for interact
+alias interacti IPython.embed(config=cfg)
 
+# Print a dictionary, sorted. %1 is the dict, %2 is the prefix for the names
+alias p_ for k in sorted(%1.keys()): print("%s%-15s= %-80.80s" % ("%2",k,repr(%1[k]))
 
-#: -- PYTEST CONFIG --------------------------------------------------------------------
-[tool.pytest.ini_options]
-    addopts = "-ra --showlocals"
-    mock_use_standalone_module = true
-    junit_family = "xunit2"
+# Print member vars of a thing
+alias pi p_ %1.__dict__ %1.
 
+# Print member vars of self
+alias ps pi self
 
-#: -- COVERAGE CONFIG ------------------------------------------------------------------
-[tool.coverage]
-    [tool.coverage.run]
-        plugins = ["coverage_conditional_plugin"]
-        branch = true
-        parallel = true
-        context = "static-context"
-#        dynamic_context = "test_function"
-#        relative_files = true
-        omit = [
-            "tests/*",
-            "docs/*",
-        ]
+# Print locals
+alias pl p_ locals() local:
 
-    [tool.coverage.paths]
-        combine = [
-            "src/python_test_cielquan",
-            "*/.tox/*/lib/python*/site-packages/python_test_cielquan",
-            "*/.tox/pypy*/site-packages/python_test_cielquan",
-            "*/.tox\\*\\Lib\\site-packages\\python_test_cielquan",
-            "*/src/python_test_cielquan",
-            "*\\src\\python_test_cielquan",
-        ]
+# Next and list
+alias nl n;;l
 
-    [tool.coverage.report]
-        show_missing = true
-        exclude_lines = [
-            "# pragma: no cover",
-            "if __name__ == ['\"]__main__['\"]:",
-            "def __str__",
-            "def __repr__",
-            "if self.debug:",
-            "if settings.DEBUG",
-            "if 0:",
-            "if False:",
-            "if TYPE_CHECKING:",
-            "if MYPY:",
-        ]
+# Step and list
+alias sl s;;l
+"""
 
-    [tool.coverage.html]
-        show_contexts = true
-
-    [tool.coverage.coverage_conditional_plugin]
-        [tool.coverage.coverage_conditional_plugin.rules]
-            # use with: # pragma: <KEY>
-            py-ue-36 = "sys_version_info[0:2] != (3, 6)"
-            py-ue-37 = "sys_version_info[0:2] != (3, 7)"
-            py-lt-38 = "sys_version_info < (3, 8)"
-            py-gte-38 = "sys_version_info >= (3, 8)"
+_DEBUG_PY_FILE = """# Import devtools if installed and add to builtins
+from importlib.util import find_spec
+if find_spec('devtools'):
+    import devtools
+    __builtins__.update(debug=devtools.debug)
+"""
 
 
-#: -- COMMITIZEN CONFIG ----------------------------------------------------------------
-[tool.commitizen]
-    name = "cz_conventional_commits"
-    version = "0.5.2"
-    tag_format = "$version"
-    version_files = ["pyproject.toml:version"]
+tox_calls = lambda: os.getenv("_NOX_TOX_CALLS") == "true"
 
 
-#: -- SEMANTIC-RELEASE CONFIG ----------------------------------------------------------
-[tool.semantic_release]
-    branch = "master"
-    version_variable = ["pyproject.toml:version"]
-    version_source = "commit"
-    commit_parser = "semantic_release.history.angular_parser"
-    commit_version_number = true
-    changelog_file = "CHANGELOG.rst"
-    build_command = "pip install -m poetry && poetry build"
-    check_build_status = true  # test
-    upload_to_pypi = true
-    upload_to_release = true
+#: -- MONKEYPATCH SESSION --------------------------------------------------------------
+class Session(_Session):  # noqa: R0903
+    """Subclass of nox's Session class to add `poetry_install` method."""
+
+    def poetry_install(
+        self,
+        extras: Optional[str] = None,
+        no_dev: bool = False,
+        no_root: bool = False,
+        require_venv: bool = False,
+        **kwargs: Any,
+    ) -> None:
+        """Wrap `poetry install` for nox sessions.
+
+        :param extras: string of space separated extras to install
+        :param no_dev: if `--no-dev` should be set; defaults to: True
+        :param no_root: if `--no-root` should be set; defaults to: False
+        """
+        #: Safety hurdle copied from nox.sessions.Session.install()
+        if not isinstance(
+            self._runner.venv,
+            (
+                nox.sessions.CondaEnv,
+                nox.sessions.VirtualEnv,
+                nox.sessions.PassthroughEnv,
+            ),
+        ):
+            raise ValueError(
+                "A session without a virtualenv can not install dependencies."
+            )
+
+        _env = {"PIP_DISABLE_VERSION_CHECK": "1"}
+        _req_venv = {"PIP_REQUIRE_VIRTUALENV": "true"}
+
+        if require_venv or isinstance(self.virtualenv, nox.sessions.PassthroughEnv):
+            _env.update(_req_venv)
+            if "env" in kwargs:
+                kwargs["env"].update(_req_venv)
+            else:
+                kwargs["env"] = _req_venv
+
+        self.install("poetry>=1", env=_env)
+
+        extra_deps = ["--extras", extras] if extras else []
+        no_dev_flag = ["--no-dev"] if no_dev else []
+        no_root_flag = ["--no-root"] if no_root else []
+        install_args = no_root_flag + no_dev_flag + extra_deps
+
+        poetry_args = ["--ansi"] if os.getenv("_NOX_POETRY_COLOR") == "true" else []
+
+        self._run("poetry", "install", *poetry_args, *install_args, **kwargs)
+
+
+def monkeypatch_session(session_func: Callable) -> Callable:
+    """Decorate nox session functions to add `poetry_install` method.
+
+    :param session_func: decorated function with commands for nox session
+    """
+
+    def switch_session_class(session: Session, **kwargs: Dict[str, Any]) -> None:
+        """Call session function with session object overwritten by custom one.
+
+        :param session: nox session object
+        :param kwargs: keyword arguments from e.g. parametrize
+        """
+        session = Session(session._runner)  # noqa: W0212
+        session_func(session=session, **kwargs)
+
+    #: Overwrite name and docstring to imitate decorated function for nox
+    switch_session_class.__name__ = session_func.__name__
+    switch_session_class.__doc__ = session_func.__doc__
+    return switch_session_class
+
+
+#: -- SESSIONS RUN BY NOX OR TOX -------------------------------------------------------
+@nox.session
+@monkeypatch_session
+def safety(session: Session) -> None:
+    """Check all dependencies for known vulnerabilities."""
+    if "skip_install" not in session.posargs and not tox_calls():
+        session.poetry_install("poetry safety", no_root=True)
+    else:
+        session.log("Skipping install step.")
+
+    venv_path = get_venv_path()
+    req_file_path = get_venv_tmp_dir(venv_path) / "requirements.txt"
+
+    # TODO: simplify when py36 is not longer supported.  # noqa: W0511
+    #: Use `poetry show` to fill `requirements.txt`
+    command = [str(get_venv_bin_dir(venv_path) / "poetry"), "show"]
+    if sys.version_info[0:2] > (3, 6):
+        cmd = subprocess.run(command, check=True, capture_output=True)  # noqa: S603
+    else:
+        cmd = subprocess.run(command, check=True, stdout=subprocess.PIPE)  # noqa: S603
+    with open(req_file_path, "w") as req_file:
+        req_file.write(
+            re.sub(r"([\w-]+)[ (!)]+([\d.a-z-]+).*", r"\1==\2", cmd.stdout.decode())
+        )
+
+    session.run("safety", "check", "-r", str(req_file_path), "--full-report")
+
+
+@nox.session
+@monkeypatch_session
+def pre_commit(session: Session) -> None:  # noqa: R0912
+    """Format and check the code."""
+    if "skip_install" not in session.posargs and not tox_calls():
+        session.poetry_install("pre-commit testing docs poetry")
+    else:
+        session.log("Skipping install step.")
+
+    #: Set 'show-diff' and 'skip identity hook'
+    show_diff = []
+    env = {"SKIP": "identity"}
+    if (session.interactive and "diff" in session.posargs) or (
+        not session.interactive and "nodiff" not in session.posargs
+    ):
+        show_diff = ["--show-diff-on-failure"]
+        env = {}
+
+    #: Add SKIP from posargs to env
+    skip = ""
+    for arg in session.posargs:
+        if arg.startswith("SKIP="):
+            skip = arg
+            break
+
+    if skip:
+        env = {"SKIP": f"{skip[5:]},{env.get('SKIP', '')}"}
+
+    #: Get hooks from posargs
+    hooks_arg = ""
+    for arg in session.posargs:
+        if arg.startswith("HOOKS="):
+            hooks_arg = arg
+            break
+
+    #: Remove processed posargs
+    for arg in ("skip_install", "diff", "nodiff", skip, hooks_arg):
+        with contextlib.suppress(ValueError):
+            session.posargs.remove(arg)
+
+    hooks = hooks_arg[6:].split(",") if hooks_arg else [""]
+
+    error_hooks = []
+    for hook in hooks:
+        add_args = show_diff + session.posargs + [hook]
+        try:
+            session.run("pre-commit", "run", "--all-files", *add_args, env=env)
+        except CommandFailed:
+            error_hooks.append(hook)
+
+    print(
+        "HINT: to add checks as pre-commit hook run: ",
+        f'"{get_venv_bin_dir(get_venv_path()) / "pre-commit"} '
+        "install -t pre-commit -t commit-msg.",
+    )
+
+    if error_hooks:
+        if hooks != [""]:
+            nox_logger.error(f"The following pre-commit hooks failed: {error_hooks}.")
+        raise CommandFailed
+
+
+@nox.session
+@monkeypatch_session
+def package(session: Session) -> None:
+    """Check sdist and wheel."""
+    if "skip_install" not in session.posargs and not tox_calls():
+        session.poetry_install("poetry twine", no_root=True)
+    else:
+        session.log("Skipping install step.")
+
+    session.run("poetry", "build", "-vvv")
+    session.run("twine", "check", "dist/*")
+
+
+@nox.session
+@monkeypatch_session
+def test_code(session: Session) -> None:
+    """Run tests with given python version."""
+    if "skip_install" not in session.posargs and not tox_calls():
+        session.install(".[testing]")
+    else:
+        session.log("Skipping install step.")
+
+        #: Remove processed posargs
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("skip_install")
+
+    interpreter = sys.implementation.__getattribute__("name")
+    version = ".".join([str(v) for v in sys.version_info[0:2]])
+    name = f"{interpreter}{version}"
+
+    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{name}")
+
+    venv_path = get_venv_path()
+
+    session.run(
+        "pytest",
+        f"--basetemp={get_venv_tmp_dir(venv_path)}",
+        f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
+        f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
+        f"--cov-fail-under={session.env.get('MIN_COVERAGE') or 100}",
+        f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
+        f"{session.posargs or 'tests'}",
+    )
+
+
+@nox.session
+@monkeypatch_session
+def coverage(session: Session) -> None:
+    """Combine coverage, create xml/html reports and report total/diff coverage.
+
+    Diff coverage is against origin/master (or DIFF_AGAINST)
+    """
+    if "skip_install" not in session.posargs and not tox_calls():
+        extras = "coverage"
+        if "report" in session.posargs or not session.posargs:
+            extras += " diff-cover"
+        session.poetry_install(extras, no_root=True)
+    else:
+        session.log("Skipping install step.")
+
+        #: Remove processed posargs
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("skip_install")
+
+    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
+
+    if "merge" in session.posargs or not session.posargs:
+        session.run("coverage", "combine")
+
+        cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
+        session.run("coverage", "xml", "-o", cov_xml)
+
+        cov_html_dir = f"{COV_CACHE_DIR / 'htmlcov'}"
+        session.run("coverage", "html", "-d", cov_html_dir)
+
+    if "report" in session.posargs or not session.posargs:
+        raise_error = False
+        min_cov = session.env.get("MIN_COVERAGE") or 100
+
+        try:
+            session.run("coverage", "report", "-m", f"--fail-under={min_cov}")
+        except CommandFailed:
+            raise_error = True
+
+        cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
+        session.run(
+            "diff-cover",
+            f"--compare-branch={session.env.get('DIFF_AGAINST') or 'origin/master'}",
+            "--ignore-staged",
+            "--ignore-unstaged",
+            f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
+            f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
+            cov_xml,
+        )
+
+        if raise_error:
+            raise CommandFailed
+
+
+@nox.session
+@monkeypatch_session
+def docs(session: Session) -> None:
+    """Build docs with sphinx."""
+    extras = ""
+
+    if "skip_install" not in session.posargs and not tox_calls():
+        extras += " docs"
+    else:
+        session.log("Skipping install step.")
+
+    cmd = "sphinx-build"
+    args = ["-b", "html", "-aE", "docs/source", "docs/build/html"]
+
+    if "autobuild" in session.posargs or "ab" in session.posargs:
+        extras += " sphinx-autobuild"
+        cmd = "sphinx-autobuild"
+        args += ["--open-browser"]
+
+    #: Remove processed posargs
+    for arg in ("skip_install", "autobuild", "ab"):
+        with contextlib.suppress(ValueError):
+            session.posargs.remove(arg)
+
+    session.poetry_install(extras.strip())
+
+    session.run(cmd, *args, *session.posargs)
+
+    index_file = NOXFILE_DIR / "docs/build/html/index.html"
+    print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
+
+
+@nox.parametrize("builder", SPHINX_BUILDERS)
+@nox.session
+@monkeypatch_session
+def test_docs(session: Session, builder: str) -> None:
+    """Build and check docs with (see env name) sphinx builder."""
+    if "skip_install" not in session.posargs and not tox_calls():
+        session.poetry_install("docs")
+    else:
+        session.log("Skipping install step.")
+
+        #: Remove processed posargs
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("skip_install")
+
+    source_dir = "docs/source"
+    target_dir = f"docs/build/test/{builder}"
+    default_args = ["-aE", "-v", "-nW", "--keep-going", source_dir, target_dir]
+    add_args = ["-t", "builder_confluence"] if builder == "confluence" else []
+
+    session.run(
+        "sphinx-build", "-b", builder, *default_args, *add_args, *session.posargs
+    )
+
+
+#: -- SESSIONS RUN BY NOX ONLY ---------------------------------------------------------
+@nox.session
+@monkeypatch_session
+def install_extras(session: Session) -> None:
+    """Set up dev environment in current venv."""
+    extras = PYPROJECT["tool"]["poetry"].get("extras")
+
+    if not extras:
+        session.skip("No extras found to be installed.")
+
+    extras_to_install = ""
+    for extra in extras:
+        if not extras_to_install:
+            extras_to_install = extra
+        else:
+            extras_to_install += f" {extra}"
+
+    session.poetry_install(extras_to_install, no_dev=False)
+
+    session.run("python", "-m", "pip", "list", "--format=columns")
+    print(f"PYTHON INTERPRETER LOCATION: {sys.executable}")
+
+
+@nox.session
+def setup_pre_commit(session: Session) -> None:
+    """Set up pre-commit.
+
+    ReCreate pre-commit tox env, install pre-commit hook, run tox env.
+    """
+    session.run("tox", "-re", "pre_commit", "--notest")
+    session.run("pre-commit", "install", "-t", "pre-commit", "-t", "commit-msg")
+    session.run("tox", "-e", "pre_commit")
+
+
+@nox.session
+def debug_import(session: Session) -> None:  # noqa: W0613
+    """Hack for global import of `devtools.debug` in venv."""
+    file_path = get_venv_site_packages_dir(get_venv_path())
+    filename = "__devtools_debug_import_hack"
+
+    with open(f"{file_path / f'{filename}.pth'}", "w") as pth_file:
+        pth_file.write(f"import {filename}\n")
+
+    with open(f"{file_path / f'{filename}.py'}", "w") as py_file:
+        py_file.writelines(_DEBUG_PY_FILE)
+
+
+@nox.session
+def pdbrc(session: Session) -> None:  # noqa: W0613
+    """Create .pdbrc file.
+
+    Does not overwrite existing file.
+    """
+    pdbrc_file_path = NOXFILE_DIR / ".pdbrc"
+    if not pdbrc_file_path.is_file():
+        with open(pdbrc_file_path, "w") as pdbrc_file:
+            pdbrc_file.writelines(PDBRC_FILE)
+
+
+#: -- WRAPPER SESSIONS RUN BY NOX ONLY -------------------------------------------------
+@nox.session
+@monkeypatch_session
+def tox_lint(session: Session) -> None:
+    """Call tox to run all lint tests."""
+    session.env["TOXENV"] = "safety,pre_commit"
+    session.run("tox", *session.posargs)
+
+
+@nox.session
+@monkeypatch_session
+def tox_code(session: Session) -> None:
+    """Call tox to run all code tests incl. package and coverage."""
+    toxenv = ""
+    if "nopkg" not in session.posargs:
+        toxenv += "package"
+
+    if "notest" not in session.posargs:
+        if not TOXENV_PYTHON_TEST_VERSIONS:
+            session.error(
+                "Could not find 'python_test_version' in "
+                "'[tox]' section in 'tox.ini' file"
+            )
+        toxenv += "," if toxenv else ""
+        toxenv += TOXENV_PYTHON_TEST_VERSIONS
+
+    if "nocov" not in session.posargs:
+        toxenv += "," if toxenv else ""
+        toxenv += "coverage-all"
+
+    if not toxenv:
+        session.skip("No toxenv left to run")
+
+    session.env["TOXENV"] = toxenv
+    session.run("tox", *session.posargs)
+
+
+@nox.session
+@monkeypatch_session
+def tox_docs(session: Session) -> None:
+    """Call tox to run all docs tests."""
+    if not TOXENV_SPHINX_BUILDER:
+        session.error("Could not find 'test_docs' from envlist in 'tox.ini' file")
+
+    session.env["TOXENV"] = TOXENV_SPHINX_BUILDER
+    session.run("tox", *session.posargs)
+
+
+@nox.session
+@monkeypatch_session
+def dev(session: Session) -> None:
+    """Call basic dev setup nox sessions."""
+    session.run("nox", "--session", "install_extras", "setup_pre_commit")
+
+
+@nox.session
+@monkeypatch_session
+def dev2(session: Session) -> None:
+    """Call all dev setup nox sessions."""
+    sessions = ["install_extras", "setup_pre_commit", "debug_import", "pdbrc"]
+    session.run("nox", "--session", *sessions)
