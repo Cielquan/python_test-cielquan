@@ -170,8 +170,13 @@ def monkeypatch_session(session_func: Callable) -> Callable:
 @monkeypatch_session
 def safety(session: Session) -> None:
     """Check all dependencies for known vulnerabilities."""
-    if "skip_install" not in session.posargs and not tox_calls():
-        session.poetry_install("poetry safety", no_root=True)
+    # if "skip_install" not in session.posargs and not tox_calls():
+    #     session.poetry_install("poetry safety", no_root=True)
+    if "skip_install" not in session.posargs:
+        extras = "poetry safety"
+        if tox_calls():
+            extras += " nox"
+        session.poetry_install(extras, no_root=True, no_dev=tox_calls())
     else:
         session.log("Skipping install step.")
 
@@ -193,12 +198,18 @@ def safety(session: Session) -> None:
     session.run("safety", "check", "-r", str(req_file_path), "--full-report")
 
 
+# FIXME: test tox env with new install logic
 @nox.session
 @monkeypatch_session
 def pre_commit(session: Session) -> None:  # noqa: R0912
     """Format and check the code."""
-    if "skip_install" not in session.posargs and not tox_calls():
-        session.poetry_install("pre-commit testing docs poetry")
+    # if "skip_install" not in session.posargs and not tox_calls():
+    #     session.poetry_install("pre-commit testing docs poetry")
+    if "skip_install" not in session.posargs:
+        extras = "pre-commit testing docs poetry"
+        if tox_calls():
+            extras += " nox"
+        session.poetry_install(extras, no_root=(not tox_calls()), no_dev=tox_calls())
     else:
         session.log("Skipping install step.")
 
@@ -259,8 +270,13 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
 @monkeypatch_session
 def package(session: Session) -> None:
     """Check sdist and wheel."""
-    if "skip_install" not in session.posargs and not tox_calls():
-        session.poetry_install("poetry twine", no_root=True)
+    # if "skip_install" not in session.posargs and not tox_calls():
+    #     session.poetry_install("poetry twine", no_root=True)
+    if "skip_install" not in session.posargs:
+        extras = "poetry twine"
+        if tox_calls():
+            extras += " nox"
+        session.poetry_install(extras, no_root=True, no_dev=tox_calls())
     else:
         session.log("Skipping install step.")
 
@@ -268,12 +284,18 @@ def package(session: Session) -> None:
     session.run("twine", "check", "dist/*")
 
 
+# FIXME: test tox/nox env with new install logic
 @nox.session
 @monkeypatch_session
 def test_code(session: Session) -> None:
     """Run tests with given python version."""
-    if "skip_install" not in session.posargs and not tox_calls():
-        session.install(".[testing]")
+    # if "skip_install" not in session.posargs and not tox_calls():
+    #     session.install(".[testing]")
+    if "skip_install" not in session.posargs:
+        extras = "testing"
+        if tox_calls():
+            extras += " nox"
+        session.poetry_install(extras, no_root=(not tox_calls()), no_dev=tox_calls())
     else:
         session.log("Skipping install step.")
 
@@ -307,11 +329,18 @@ def coverage(session: Session) -> None:
 
     Diff coverage is against origin/master (or DIFF_AGAINST)
     """
-    if "skip_install" not in session.posargs and not tox_calls():
+    # if "skip_install" not in session.posargs and not tox_calls():
+    #     extras = "coverage"
+    #     if "report" in session.posargs or not session.posargs:
+    #         extras += " diff-cover"
+    #     session.poetry_install(extras, no_root=True)
+    if "skip_install" not in session.posargs:
         extras = "coverage"
         if "report" in session.posargs or not session.posargs:
             extras += " diff-cover"
-        session.poetry_install(extras, no_root=True)
+        if tox_calls():
+            extras += " nox"
+        session.poetry_install(extras, no_root=True, no_dev=tox_calls())
     else:
         session.log("Skipping install step.")
 
@@ -358,13 +387,7 @@ def coverage(session: Session) -> None:
 @monkeypatch_session
 def docs(session: Session) -> None:
     """Build docs with sphinx."""
-    extras = ""
-
-    if "skip_install" not in session.posargs and not tox_calls():
-        extras += " docs"
-    else:
-        session.log("Skipping install step.")
-
+    extras = "docs"
     cmd = "sphinx-build"
     args = ["-b", "html", "-aE", "docs/source", "docs/build/html"]
 
@@ -378,7 +401,13 @@ def docs(session: Session) -> None:
         with contextlib.suppress(ValueError):
             session.posargs.remove(arg)
 
-    session.poetry_install(extras.strip())
+    if "skip_install" not in session.posargs:
+        if tox_calls():
+            extras += " nox"
+        session.poetry_install(extras, no_root=(not tox_calls()), no_dev=tox_calls())
+        # session.poetry_install(extras.strip())
+    else:
+        session.log("Skipping install step.")
 
     session.run(cmd, *args, *session.posargs)
 
@@ -391,8 +420,13 @@ def docs(session: Session) -> None:
 @monkeypatch_session
 def test_docs(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
-    if "skip_install" not in session.posargs and not tox_calls():
-        session.poetry_install("docs")
+    # if "skip_install" not in session.posargs and not tox_calls():
+    #     session.poetry_install("docs")
+    if "skip_install" not in session.posargs:
+        extras = "docs"
+        if tox_calls():
+            extras += " nox"
+        session.poetry_install(extras, no_root=(not tox_calls()), no_dev=tox_calls())
     else:
         session.log("Skipping install step.")
 
