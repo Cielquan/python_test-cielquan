@@ -41,9 +41,8 @@ TOX_SKIP_SDIST = PYPROJECT["tool"]["_testing"]["tox_skip_sdist"]
 TOX_PYTHON_VERSIONS = PYPROJECT["tool"]["_testing"]["tox_python_versions"]
 TOX_DOCS_BUILDERS = PYPROJECT["tool"]["_testing"]["tox_docs_builders"]
 # Currently used
-__TOXENV_PYTHON_TEST_VERSIONS = TOX_PYTHON_VERSIONS
-__TOXENV_SPHINX_BUILDER = TOX_DOCS_BUILDERS
-__SPHINX_BUILDERS = __TOXENV_SPHINX_BUILDER[11:-1].split(",")
+TOX_PYTHON_VERSIONS = TOX_PYTHON_VERSIONS
+TOX_DOCS_BUILDERS = TOX_DOCS_BUILDERS
 
 
 #: -- FILE GEN SOURCE ------------------------------------------------------------------
@@ -469,7 +468,8 @@ def docs(session: Session) -> None:
     print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
 
 
-@nox.parametrize("builder", __SPHINX_BUILDERS)
+# FIXME: check for compatiblity withh tox
+@nox.parametrize("builder", TOX_DOCS_BUILDERS[11:-1].split(","))
 @nox.session
 @monkeypatch_session
 def test_docs(session: Session, builder: str) -> None:
@@ -585,13 +585,13 @@ def tox_code(session: Session) -> None:
         toxenv += "package"
 
     if "notest" not in session.posargs:
-        if not __TOXENV_PYTHON_TEST_VERSIONS:
+        if not TOX_PYTHON_VERSIONS:
             session.error(
                 "Could not find 'python_test_version' in "
                 "'[tox]' section in 'tox.ini' file"
             )
         toxenv += "," if toxenv else ""
-        toxenv += __TOXENV_PYTHON_TEST_VERSIONS
+        toxenv += TOX_PYTHON_VERSIONS
 
     if "nocov" not in session.posargs:
         toxenv += "," if toxenv else ""
@@ -607,4 +607,4 @@ def tox_code(session: Session) -> None:
 @monkeypatch_session
 def tox_docs_test(session: Session) -> None:
     """Call tox to run all docs tests."""
-    _tox_caller(session, __TOXENV_SPHINX_BUILDER)
+    _tox_caller(session, TOX_DOCS_BUILDERS)
