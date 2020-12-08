@@ -1,0 +1,44 @@
+name: Dependency safety
+
+
+env:
+  # DO NOT FORGET TO UPDATE `dependency-safety-skip.yml` TOO !!!
+  default_python_version: 3.8  # CHANGE ME
+
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  safety:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ env.default_python_version }}
+      - run: python -VV
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+      - run: python -VV
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.6
+      - run: python -VV
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: python -VV
+
+      - run: |
+          python3.6 -VV
+          python3.7 -VV
+          python3.8 -VV
+          python3.9 -VV
