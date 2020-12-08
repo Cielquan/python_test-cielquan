@@ -197,6 +197,7 @@ def package(session: Session) -> None:
     session.run("twine", "check", "dist/*")
 
 
+# FIXME: check for compatiblity with tox
 @nox.session
 @monkeypatch_session
 def test_code(session: Session) -> None:
@@ -468,7 +469,7 @@ def docs(session: Session) -> None:
     print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
 
 
-# FIXME: check for compatiblity withh tox
+# FIXME: check for compatiblity with tox
 @nox.parametrize("builder", TOX_DOCS_BUILDERS[11:-1].split(","))
 @nox.session
 @monkeypatch_session
