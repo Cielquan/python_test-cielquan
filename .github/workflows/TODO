@@ -1,5 +1,3 @@
 TODO: simplify code test by running all py versions in 1 VM .. so 1 VM for each OS
 
-TODO: simplify docs test by running all tests in 1 VM
-
 TODO: update SKIPs after simplification
