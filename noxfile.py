@@ -1,14 +1,13 @@
 """Config file for nox."""
-# TODO: control settings via envvars set by nox and taken from pyproject
-# TODO: make all sessions double starting with tox_ for the tox variant
-# TODO: update the tox wrapper for more than 1 env
+# FIXME: control tox settings via envvars set by nox and taken from pyproject
+# FIXME: make all sessions double starting with tox_ for the tox variant
+# FIXME: update the tox wrapper (for more than 1 env)
 import contextlib
 import os
 import re
 import subprocess  # noqa: S404
 import sys
 
-from configparser import ConfigParser
 from pathlib import Path
 from typing import Any, Callable, Dict, Optional
 
@@ -39,37 +38,15 @@ with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
 
 COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
 JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
-PACKAGE_NAME = str(PYPROJECT["tool"]["poetry"]["name"])
+PACKAGE_NAME = PYPROJECT["tool"]["poetry"]["name"]
 
-
-#: -- CONFIG FROM TOX.INI --------------------------------------------------------------
-tox_ini = ConfigParser()
-tox_ini.read("tox.ini")
-
-#: Set python test versions from tox.ini
-TOXENV_PYTHON_TEST_VERSIONS = ""
-with contextlib.suppress(KeyError):
-    TOXENV_PYTHON_TEST_VERSIONS = tox_ini["tox"]["python_test_version"]
-
-#: Set sphinx builder from tox.ini
-_ENVLIST = []
-with contextlib.suppress(KeyError):
-    _ENVLIST = tox_ini["tox"]["envlist"].splitlines()
-
-TOXENV_SPHINX_BUILDER = ""
-with contextlib.suppress(IndexError):
-    _builder_str = [e for e in _ENVLIST if e.startswith("test_docs")][0]
-    _end_pos = _builder_str.index("}")
-    TOXENV_SPHINX_BUILDER = _builder_str[: (_end_pos + 1)]
-
-SPHINX_BUILDERS = []
-if TOXENV_SPHINX_BUILDER:
-    SPHINX_BUILDERS = TOXENV_SPHINX_BUILDER[11:-1].split(",")
-
-
-#: -- OS SPECIFIC CONFIG ---------------------------------------------------------------
-IS_WIN = sys.platform == "win32"
-OS_BIN = "Scripts" if IS_WIN else "bin"
+TOX_SKIP_SDIST = PYPROJECT["tool"]["_testing"]["tox_skip_sdist"]
+TOX_PYTHON_VERSIONS = PYPROJECT["tool"]["_testing"]["tox_python_versions"]
+TOX_DOCS_BUILDERS = PYPROJECT["tool"]["_testing"]["tox_docs_builders"]
+# Currently used
+TOXENV_PYTHON_TEST_VERSIONS = TOX_PYTHON_VERSIONS
+TOXENV_SPHINX_BUILDER = TOX_DOCS_BUILDERS
+SPHINX_BUILDERS = TOXENV_SPHINX_BUILDER[11:-1].split(",")
 
 
 #: -- FILE GEN SOURCE ------------------------------------------------------------------
