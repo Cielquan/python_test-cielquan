@@ -1,8 +1,4 @@
 """Config file for nox."""
-# FIXME: control tox settings via envvars set by nox and taken from pyproject
-# FIXME: make all sessions double starting with tox_ for the tox variant
-# FIXME: update the tox wrapper (for more than 1 env)
-# FIXME: make venv/tox checker a decorator
 import contextlib
 import os
 import re
@@ -163,6 +159,9 @@ def monkeypatch_session(session_func: Callable) -> Callable:
     return switch_session_class
 
 
+# FIXME: make venv/tox checker a decorator
+
+
 #: -- UTILS ----------------------------------------------------------------------------
 TOX_CALLS = os.getenv("_NOX_TOX_CALLS") == "true"
 IN_CI = os.getenv("_NOX_IN_CI") == "true"
@@ -199,7 +198,6 @@ def package(session: Session) -> None:
     session.run("twine", "check", "dist/*")
 
 
-# FIXME: test tox/nox env with new install logic
 @nox.session
 @monkeypatch_session
 def test_code(session: Session) -> None:
@@ -365,7 +363,6 @@ def safety(session: Session) -> None:
     session.run("safety", "check", "-r", str(req_file_path), "--full-report")
 
 
-# FIXME: test tox env with new install logic
 @nox.session
 @monkeypatch_session
 def pre_commit(session: Session) -> None:  # noqa: R0912
@@ -504,6 +501,7 @@ def test_docs(session: Session, builder: str) -> None:
 
 
 #: -- DEV NOX SESSIONS -----------------------------------------------------------------
+# FIXME: update the tox wrapper (for more than 1 env)
 @nox.session
 @monkeypatch_session
 def install_extras(session: Session) -> None:
@@ -570,6 +568,7 @@ def tox_test_docs(session: Session) -> None:
 
 
 #: -- TOX MULTI WRAPPER SESSIONS -------------------------------------------------------
+# FIXME: update the tox wrapper (for more than 1 env)
 @nox.session
 @monkeypatch_session
 def tox_lint(session: Session) -> None:
