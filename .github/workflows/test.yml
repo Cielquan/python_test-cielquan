@@ -17,30 +17,30 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ env.default_python_version }}
-      - run: python -VV
+      # - uses: actions/setup-python@v2
+      #   with:
+      #     python-version: ${{ env.default_python_version }}
+      # - run: python -VV
 
       - uses: actions/setup-python@v2
         with:
-          python-version: 3.7
+          python-version: '3.x'
       - run: python -VV
 
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.6
-      - run: python -VV
+      # - uses: actions/setup-python@v2
+      #   with:
+      #     python-version: 3.6
+      # - run: python -VV
 
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - run: python -VV
+      # - uses: actions/setup-python@v2
+      #   with:
+      #     python-version: 3.9
+      # - run: python -VV
 
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.10.0-alpha.2
-      - run: python -VV
+      # - uses: actions/setup-python@v2
+      #   with:
+      #     python-version: 3.10.0-alpha.2
+      # - run: python -VV
 
       - run: |
           python3.6 -VV
