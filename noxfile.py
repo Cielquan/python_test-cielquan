@@ -2,6 +2,7 @@
 # FIXME: control tox settings via envvars set by nox and taken from pyproject
 # FIXME: make all sessions double starting with tox_ for the tox variant
 # FIXME: update the tox wrapper (for more than 1 env)
+# FIXME: make venv/tox checker a decorator
 import contextlib
 import os
 import re
@@ -44,9 +45,9 @@ TOX_SKIP_SDIST = PYPROJECT["tool"]["_testing"]["tox_skip_sdist"]
 TOX_PYTHON_VERSIONS = PYPROJECT["tool"]["_testing"]["tox_python_versions"]
 TOX_DOCS_BUILDERS = PYPROJECT["tool"]["_testing"]["tox_docs_builders"]
 # Currently used
-TOXENV_PYTHON_TEST_VERSIONS = TOX_PYTHON_VERSIONS
-TOXENV_SPHINX_BUILDER = TOX_DOCS_BUILDERS
-SPHINX_BUILDERS = TOXENV_SPHINX_BUILDER[11:-1].split(",")
+__TOXENV_PYTHON_TEST_VERSIONS = TOX_PYTHON_VERSIONS
+__TOXENV_SPHINX_BUILDER = TOX_DOCS_BUILDERS
+__SPHINX_BUILDERS = __TOXENV_SPHINX_BUILDER[11:-1].split(",")
 
 
 #: -- FILE GEN SOURCE ------------------------------------------------------------------
@@ -86,9 +87,6 @@ if find_spec('devtools'):
     import devtools
     __builtins__.update(debug=devtools.debug)
 """
-
-
-tox_calls = lambda: os.getenv("_NOX_TOX_CALLS") == "true"
 
 
 #: -- MONKEYPATCH SESSION --------------------------------------------------------------
@@ -165,27 +163,196 @@ def monkeypatch_session(session_func: Callable) -> Callable:
     return switch_session_class
 
 
+#: -- UTILS ----------------------------------------------------------------------------
+TOX_CALLS = os.getenv("_NOX_TOX_CALLS") == "true"
+IN_CI = os.getenv("_NOX_IN_CI") == "true"
+IN_VENV = False
+with contextlib.suppress(FileNotFoundError):
+    IN_VENV = get_venv_path() is not None
+
+
+def _tox_caller(session: Session, tox_env: str) -> None:
+    session.poetry_install("tox", no_root=True, no_dev=IN_CI)
+    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
+    session.run("tox", "-e", tox_env, *session.posargs)
+
+
 #: -- TEST SESSIONS --------------------------------------------------------------------
+@nox.session
+@monkeypatch_session
+def package(session: Session) -> None:
+    """Check sdist and wheel."""
+    if not IN_VENV or "tox" in session.posargs:
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("tox")
+        session.log("Using `tox` as venv backend.")
+        _tox_caller(session, "package")
+        return
+
+    if "skip_install" not in session.posargs:
+        extras = "poetry twine"
+        session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
+    else:
+        session.log("Skipping install step.")
+
+    session.run("poetry", "build", "-vvv")
+    session.run("twine", "check", "dist/*")
+
+
+# FIXME: test tox/nox env with new install logic
+@nox.session
+@monkeypatch_session
+def test_code(session: Session) -> None:
+    """Run tests with given python version."""
+    if not IN_VENV or "tox" in session.posargs:
+        session.log("Using `tox` as venv backend.")
+        _tox_caller(session, TOX_PYTHON_VERSIONS)
+        return
+
+    if "skip_install" not in session.posargs:
+        extras = "testing"
+        session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
+        # TODO: check if coverage path can be changed to make cov work for .venv
+        # TODO: and change no_root to dynamic
+        if not TOX_CALLS:
+            session.install(".")
+    else:
+        session.log("Skipping install step.")
+        #: Remove processed posargs
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("skip_install")
+
+    interpreter = sys.implementation.__getattribute__("name")
+    version = ".".join([str(v) for v in sys.version_info[0:2]])
+    name = f"{interpreter}{version}"
+
+    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{name}")
+
+    venv_path = get_venv_path()
+
+    session.run(
+        "pytest",
+        f"--basetemp={get_venv_tmp_dir(venv_path)}",
+        f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
+        f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
+        f"--cov-fail-under={session.env.get('MIN_COVERAGE') or 100}",
+        f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
+        f"{session.posargs or 'tests'}",
+    )
+
+
+def _coverage(session: Session, job: str = "all") -> None:
+    if "skip_install" not in session.posargs:
+        extras = "coverage"
+        if job in ["report", "all"]:
+            extras += " diff-cover"
+        session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
+    else:
+        session.log("Skipping install step.")
+        #: Remove processed posargs
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("skip_install")
+
+    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
+
+    if job in ["merge", "all"]:
+        session.run("coverage", "combine")
+
+        cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
+        session.run("coverage", "xml", "-o", cov_xml)
+
+        cov_html_dir = f"{COV_CACHE_DIR / 'htmlcov'}"
+        session.run("coverage", "html", "-d", cov_html_dir)
+
+    if job in ["report", "all"]:
+        raise_error = False
+        min_cov = session.env.get("MIN_COVERAGE") or 100
+
+        try:
+            session.run("coverage", "report", "-m", f"--fail-under={min_cov}")
+        except CommandFailed:
+            raise_error = True
+
+        cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
+        session.run(
+            "diff-cover",
+            f"--compare-branch={session.env.get('DIFF_AGAINST') or 'origin/master'}",
+            "--ignore-staged",
+            "--ignore-unstaged",
+            f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
+            f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
+            cov_xml,
+        )
+
+        if raise_error:
+            raise CommandFailed
+
+
+@nox.session
+@monkeypatch_session
+def coverage_merge(session: Session) -> None:
+    """Combine coverage data and create xml/html reports."""
+    if not IN_VENV or "tox" in session.posargs:
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("tox")
+        session.log("Using `tox` as venv backend.")
+        _tox_caller(session, "coverage_merge")
+        return
+
+    _coverage(session, "merge")
+
+
+@nox.session
+@monkeypatch_session
+def coverage_report(session: Session) -> None:
+    """Report total and diff coverage against origin/master (or DIFF_AGAINST)."""
+    if not IN_VENV or "tox" in session.posargs:
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("tox")
+        session.log("Using `tox` as venv backend.")
+        _tox_caller(session, "coverage_report")
+        return
+
+    _coverage(session, "report")
+
+
+@nox.session
+@monkeypatch_session
+def coverage(session: Session) -> None:
+    """Run coverage_merge + coverage_report."""
+    if not IN_VENV or "tox" in session.posargs:
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("tox")
+        session.log("Using `tox` as venv backend.")
+        _tox_caller(session, "coverage")
+        return
+
+    _coverage(session, "all")
+
+
 @nox.session
 @monkeypatch_session
 def safety(session: Session) -> None:
     """Check all dependencies for known vulnerabilities."""
-    # if "skip_install" not in session.posargs and not tox_calls():
-    #     session.poetry_install("poetry safety", no_root=True)
+    if not IN_VENV or "tox" in session.posargs:
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("tox")
+        session.log("Using `tox` as venv backend.")
+        _tox_caller(session, "safety")
+        return
+
     if "skip_install" not in session.posargs:
         extras = "poetry safety"
-        if tox_calls():
-            extras += " nox"
-        session.poetry_install(extras, no_root=True, no_dev=tox_calls())
+        session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
     else:
         session.log("Skipping install step.")
 
     venv_path = get_venv_path()
     req_file_path = get_venv_tmp_dir(venv_path) / "requirements.txt"
 
-    # TODO: simplify when py36 is not longer supported.  # noqa: W0511
     #: Use `poetry show` to fill `requirements.txt`
     command = [str(get_venv_bin_dir(venv_path) / "poetry"), "show"]
+    # TODO: simplify when py36 is not longer supported.  # noqa: W0511
     if sys.version_info[0:2] > (3, 6):
         cmd = subprocess.run(command, check=True, capture_output=True)  # noqa: S603
     else:
@@ -203,13 +370,16 @@ def safety(session: Session) -> None:
 @monkeypatch_session
 def pre_commit(session: Session) -> None:  # noqa: R0912
     """Format and check the code."""
-    # if "skip_install" not in session.posargs and not tox_calls():
-    #     session.poetry_install("pre-commit testing docs poetry")
+    if not IN_VENV or "tox" in session.posargs:
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("tox")
+        session.log("Using `tox` as venv backend.")
+        _tox_caller(session, "pre_commit")
+        return
+
     if "skip_install" not in session.posargs:
-        extras = "pre-commit testing docs poetry"
-        if tox_calls():
-            extras += " nox"
-        session.poetry_install(extras, no_root=(not tox_calls()), no_dev=tox_calls())
+        extras = "pre-commit testing docs poetry nox"
+        session.poetry_install(extras, no_root=TOX_CALLS, no_dev=(TOX_CALLS or IN_CI))
     else:
         session.log("Skipping install step.")
 
@@ -268,125 +438,15 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
 
 @nox.session
 @monkeypatch_session
-def package(session: Session) -> None:
-    """Check sdist and wheel."""
-    # if "skip_install" not in session.posargs and not tox_calls():
-    #     session.poetry_install("poetry twine", no_root=True)
-    if "skip_install" not in session.posargs:
-        extras = "poetry twine"
-        if tox_calls():
-            extras += " nox"
-        session.poetry_install(extras, no_root=True, no_dev=tox_calls())
-    else:
-        session.log("Skipping install step.")
-
-    session.run("poetry", "build", "-vvv")
-    session.run("twine", "check", "dist/*")
-
-
-# FIXME: test tox/nox env with new install logic
-@nox.session
-@monkeypatch_session
-def test_code(session: Session) -> None:
-    """Run tests with given python version."""
-    # if "skip_install" not in session.posargs and not tox_calls():
-    #     session.install(".[testing]")
-    if "skip_install" not in session.posargs:
-        extras = "testing"
-        if tox_calls():
-            extras += " nox"
-        session.poetry_install(extras, no_root=(not tox_calls()), no_dev=tox_calls())
-    else:
-        session.log("Skipping install step.")
-
-        #: Remove processed posargs
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("skip_install")
-
-    interpreter = sys.implementation.__getattribute__("name")
-    version = ".".join([str(v) for v in sys.version_info[0:2]])
-    name = f"{interpreter}{version}"
-
-    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{name}")
-
-    venv_path = get_venv_path()
-
-    session.run(
-        "pytest",
-        f"--basetemp={get_venv_tmp_dir(venv_path)}",
-        f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
-        f"--cov={get_venv_site_packages_dir(venv_path) / PACKAGE_NAME}",
-        f"--cov-fail-under={session.env.get('MIN_COVERAGE') or 100}",
-        f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
-        f"{session.posargs or 'tests'}",
-    )
-
-
-@nox.session
-@monkeypatch_session
-def coverage(session: Session) -> None:
-    """Combine coverage, create xml/html reports and report total/diff coverage.
-
-    Diff coverage is against origin/master (or DIFF_AGAINST)
-    """
-    # if "skip_install" not in session.posargs and not tox_calls():
-    #     extras = "coverage"
-    #     if "report" in session.posargs or not session.posargs:
-    #         extras += " diff-cover"
-    #     session.poetry_install(extras, no_root=True)
-    if "skip_install" not in session.posargs:
-        extras = "coverage"
-        if "report" in session.posargs or not session.posargs:
-            extras += " diff-cover"
-        if tox_calls():
-            extras += " nox"
-        session.poetry_install(extras, no_root=True, no_dev=tox_calls())
-    else:
-        session.log("Skipping install step.")
-
-        #: Remove processed posargs
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("skip_install")
-
-    session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / ".coverage")
-
-    if "merge" in session.posargs or not session.posargs:
-        session.run("coverage", "combine")
-
-        cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
-        session.run("coverage", "xml", "-o", cov_xml)
-
-        cov_html_dir = f"{COV_CACHE_DIR / 'htmlcov'}"
-        session.run("coverage", "html", "-d", cov_html_dir)
-
-    if "report" in session.posargs or not session.posargs:
-        raise_error = False
-        min_cov = session.env.get("MIN_COVERAGE") or 100
-
-        try:
-            session.run("coverage", "report", "-m", f"--fail-under={min_cov}")
-        except CommandFailed:
-            raise_error = True
-
-        cov_xml = f"{COV_CACHE_DIR / 'coverage.xml'}"
-        session.run(
-            "diff-cover",
-            f"--compare-branch={session.env.get('DIFF_AGAINST') or 'origin/master'}",
-            "--ignore-staged",
-            "--ignore-unstaged",
-            f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
-            f"--diff-range-notation={session.env.get('DIFF_RANGE_NOTATION') or '..'}",
-            cov_xml,
-        )
-
-        if raise_error:
-            raise CommandFailed
-
-
-@nox.session
-@monkeypatch_session
 def docs(session: Session) -> None:
     """Build docs with sphinx."""
+    if not IN_VENV or "tox" in session.posargs:
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("tox")
+        session.log("Using `tox` as venv backend.")
+        _tox_caller(session, "docs")
+        return
+
     extras = "docs"
     cmd = "sphinx-build"
     args = ["-b", "html", "-aE", "docs/source", "docs/build/html"]
@@ -402,10 +462,7 @@ def docs(session: Session) -> None:
             session.posargs.remove(arg)
 
     if "skip_install" not in session.posargs:
-        if tox_calls():
-            extras += " nox"
-        session.poetry_install(extras, no_root=(not tox_calls()), no_dev=tox_calls())
-        # session.poetry_install(extras.strip())
+        session.poetry_install(extras, no_root=TOX_CALLS, no_dev=(TOX_CALLS or IN_CI))
     else:
         session.log("Skipping install step.")
 
@@ -415,21 +472,23 @@ def docs(session: Session) -> None:
     print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
 
 
-@nox.parametrize("builder", SPHINX_BUILDERS)
+@nox.parametrize("builder", __SPHINX_BUILDERS)
 @nox.session
 @monkeypatch_session
 def test_docs(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
-    # if "skip_install" not in session.posargs and not tox_calls():
-    #     session.poetry_install("docs")
+    if not IN_VENV or "tox" in session.posargs:
+        with contextlib.suppress(ValueError):
+            session.posargs.remove("tox")
+        session.log("Using `tox` as venv backend.")
+        _tox_caller(session, TOX_DOCS_BUILDERS)
+        return
+
     if "skip_install" not in session.posargs:
         extras = "docs"
-        if tox_calls():
-            extras += " nox"
-        session.poetry_install(extras, no_root=(not tox_calls()), no_dev=tox_calls())
+        session.poetry_install(extras, no_root=TOX_CALLS, no_dev=(TOX_CALLS or IN_CI))
     else:
         session.log("Skipping install step.")
-
         #: Remove processed posargs
         with contextlib.suppress(ValueError):
             session.posargs.remove("skip_install")
@@ -444,7 +503,7 @@ def test_docs(session: Session, builder: str) -> None:
     )
 
 
-#: -- SESSIONS RUN BY NOX ONLY ---------------------------------------------------------
+#: -- DEV NOX SESSIONS -----------------------------------------------------------------
 @nox.session
 @monkeypatch_session
 def install_extras(session: Session) -> None:
@@ -503,55 +562,6 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
             pdbrc_file.writelines(PDBRC_FILE)
 
 
-#: -- TOX WRAPPER SESSIONS -------------------------------------------------------------
-def _tox_caller(session: Session, tox_env: str) -> None:
-    session.poetry_install("tox", no_dev=True)
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", "-e", tox_env, *session.posargs)
-
-
-@nox.session
-@monkeypatch_session
-def tox_safety(session: Session) -> None:
-    """Call tox to run `safety` env."""
-    _tox_caller(session, "safety")
-
-
-@nox.session
-@monkeypatch_session
-def tox_pre_commit(session: Session) -> None:
-    """Call tox to run `pre_commit` env."""
-    _tox_caller(session, "pre_commit")
-
-
-@nox.session
-@monkeypatch_session
-def tox_package(session: Session) -> None:
-    """Call tox to run `package` env."""
-    _tox_caller(session, "package")
-
-
-@nox.session
-@monkeypatch_session
-def tox_test_code(session: Session) -> None:
-    """Call tox to run `test_code` envs."""
-    _tox_caller(session, TOX_PYTHON_VERSIONS)
-
-
-@nox.session
-@monkeypatch_session
-def tox_coverage(session: Session) -> None:
-    """Call tox to run `coverage` env."""
-    _tox_caller(session, "coverage-all")
-
-
-@nox.session
-@monkeypatch_session
-def tox_docs(session: Session) -> None:
-    """Call tox to run `docs` env."""
-    _tox_caller(session, "docs")
-
-
 @nox.session
 @monkeypatch_session
 def tox_test_docs(session: Session) -> None:
@@ -576,13 +586,13 @@ def tox_code(session: Session) -> None:
         toxenv += "package"
 
     if "notest" not in session.posargs:
-        if not TOXENV_PYTHON_TEST_VERSIONS:
+        if not __TOXENV_PYTHON_TEST_VERSIONS:
             session.error(
                 "Could not find 'python_test_version' in "
                 "'[tox]' section in 'tox.ini' file"
             )
         toxenv += "," if toxenv else ""
-        toxenv += TOXENV_PYTHON_TEST_VERSIONS
+        toxenv += __TOXENV_PYTHON_TEST_VERSIONS
 
     if "nocov" not in session.posargs:
         toxenv += "," if toxenv else ""
@@ -598,19 +608,4 @@ def tox_code(session: Session) -> None:
 @monkeypatch_session
 def tox_docs_test(session: Session) -> None:
     """Call tox to run all docs tests."""
-    _tox_caller(session, TOXENV_SPHINX_BUILDER)
-
-
-@nox.session
-@monkeypatch_session
-def dev(session: Session) -> None:
-    """Call basic dev setup nox sessions."""
-    session.run("nox", "--session", "install_extras", "setup_pre_commit")
-
-
-@nox.session
-@monkeypatch_session
-def dev2(session: Session) -> None:
-    """Call all dev setup nox sessions."""
-    sessions = ["install_extras", "setup_pre_commit", "debug_import", "pdbrc"]
-    session.run("nox", "--session", *sessions)
+    _tox_caller(session, __TOXENV_SPHINX_BUILDER)

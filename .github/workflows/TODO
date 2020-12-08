@@ -1,3 +1,5 @@
 TODO: simplify code test by running all py versions in 1 VM .. so 1 VM for each OS
 
 TODO: update SKIPs after simplification
+
+# FIXME: set _NOX_IN_CI in workflows
