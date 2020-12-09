@@ -5,7 +5,6 @@ import re
 import subprocess  # noqa: S404
 import sys
 
-from copy import deepcopy
 from pathlib import Path
 from typing import Any, Callable, Dict, Optional
 
@@ -21,7 +20,7 @@ from formelsammlung.venv_utils import (
 )
 from nox.command import CommandFailed
 from nox.logger import logger as nox_logger
-from nox.sessions import Session as _Session, SessionRunner
+from nox.sessions import Session as _Session
 
 
 #: -- NOX OPTIONS ----------------------------------------------------------------------
@@ -157,7 +156,9 @@ def monkeypatch_session(session_func: Callable) -> Callable:
     return switch_session_class
 
 
-def tox_caller(tox_target: Optional[str] = None, parametrized: bool = False) -> Callable:
+def tox_caller(
+    tox_target: Optional[str] = None, parametrized: bool = False
+) -> Callable:
     """Decorate nox session functions to add option to run them via `tox`.
 
     :param tox_target: Optionally give the name of the tox env to call.
@@ -197,6 +198,12 @@ def tox_caller(tox_target: Optional[str] = None, parametrized: bool = False) -> 
         return check_for_tox_call
 
     return decorator
+
+
+def _tox_caller(session: Session, tox_env: str) -> None:
+    session.poetry_install("tox", no_root=True, no_dev=IN_CI)
+    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
+    session.run("tox", "-e", tox_env, *session.posargs)
 
 
 #: -- UTILS ----------------------------------------------------------------------------
