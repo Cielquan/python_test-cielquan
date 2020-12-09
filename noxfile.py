@@ -585,6 +585,6 @@ def tox_code(session: Session) -> None:
 
 @nox.session
 @monkeypatch_session
-def tox_docs_test(session: Session) -> None:
+def tox_docs(session: Session) -> None:
     """Call tox to run all docs tests."""
     _tox_caller(session, TOXENV_DOCS_BUILDERS, [])
