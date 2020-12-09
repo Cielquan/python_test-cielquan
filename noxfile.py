@@ -7,7 +7,7 @@ import subprocess  # noqa: S404
 import sys
 
 from pathlib import Path
-from typing import Any, Callable, Dict, Optional
+from typing import Any, Callable, Dict, List, Optional
 
 import nox
 import tomlkit  # type: ignore[import]
@@ -199,10 +199,7 @@ def tox_caller(
             if not IN_VENV or "tox" in session.posargs:
                 posargs = [arg for arg in session.posargs if arg != "tox"]
                 session.log("Using `tox` as venv backend.")
-                session.poetry_install("tox", no_root=True, no_dev=IN_CI)
-                session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-                session.run("tox", "-e", tox_env, *posargs)
-
+                _tox_caller(session, tox_env, posargs)
             else:
                 session_func(session=session, **kwargs)
 
@@ -215,10 +212,12 @@ def tox_caller(
     return decorator
 
 
-def _tox_caller(session: Session, tox_env: str) -> None:
+def _tox_caller(session: Session, tox_env: str, posargs: Optional[List[str]] = None) -> None:
+    if posargs is None:
+        posargs = session.posargs
     session.poetry_install("tox", no_root=True, no_dev=IN_CI)
     session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", "-e", tox_env, *session.posargs)
+    session.run("tox", "-e", tox_env, *posargs)
 
 
 #: -- TEST SESSIONS --------------------------------------------------------------------
@@ -494,11 +493,10 @@ def test_docs(session: Session, builder: str) -> None:
 
 
 #: -- DEV NOX SESSIONS -----------------------------------------------------------------
-# FIXME: update the tox wrapper (for more than 1 env)
 @nox.session
 @monkeypatch_session
 def install_extras(session: Session) -> None:
-    """Set up dev environment in current venv."""
+    """Install all specified extras."""
     extras = PYPROJECT["tool"]["poetry"].get("extras")
 
     if not extras:
@@ -521,16 +519,16 @@ def install_extras(session: Session) -> None:
 def setup_pre_commit(session: Session) -> None:
     """Set up pre-commit.
 
-    ReCreate pre-commit tox env, install pre-commit hook, run tox env.
+    (Re)Create pre-commit tox env, install pre-commit hook, run tox env.
     """
-    session.run("tox", "-re", "pre_commit", "--notest")
+    _tox_caller(session, "pre_commit", ["-r", "--notest"])
     session.run("pre-commit", "install", "-t", "pre-commit", "-t", "commit-msg")
-    session.run("tox", "-e", "pre_commit")
+    _tox_caller(session, "pre_commit", [])
 
 
 @nox.session
 def debug_import(session: Session) -> None:  # noqa: W0613
-    """Hack for global import of `devtools.debug` in venv."""
+    """Hack for global import of `devtools.debug` in active venv."""
     file_path = get_venv_site_packages_dir(get_venv_path())
     filename = "__devtools_debug_import_hack"
 
@@ -543,30 +541,19 @@ def debug_import(session: Session) -> None:  # noqa: W0613
 
 @nox.session
 def pdbrc(session: Session) -> None:  # noqa: W0613
-    """Create .pdbrc file.
-
-    Does not overwrite existing file.
-    """
+    """Create .pdbrc file (no overwrite)."""
     pdbrc_file_path = NOXFILE_DIR / ".pdbrc"
     if not pdbrc_file_path.is_file():
         with open(pdbrc_file_path, "w") as pdbrc_file:
             pdbrc_file.writelines(PDBRC_FILE)
 
 
-@nox.session
-@monkeypatch_session
-def tox_test_docs(session: Session) -> None:
-    """Call tox to run `test_docs` envs."""
-    _tox_caller(session, TOXENV_DOCS_BUILDERS)
-
-
 #: -- TOX MULTI WRAPPER SESSIONS -------------------------------------------------------
-# FIXME: update the tox wrapper (for more than 1 env)
 @nox.session
 @monkeypatch_session
 def tox_lint(session: Session) -> None:
     """Call tox to run all lint tests."""
-    _tox_caller(session, "safety,pre_commit")
+    _tox_caller(session, "safety,pre_commit", [])
 
 
 @nox.session
@@ -593,11 +580,11 @@ def tox_code(session: Session) -> None:
     if not toxenv:
         session.skip("No toxenv left to run")
 
-    _tox_caller(session, toxenv)
+    _tox_caller(session, toxenv, [])
 
 
 @nox.session
 @monkeypatch_session
 def tox_docs_test(session: Session) -> None:
     """Call tox to run all docs tests."""
-    _tox_caller(session, TOXENV_DOCS_BUILDERS)
+    _tox_caller(session, TOXENV_DOCS_BUILDERS, [])
