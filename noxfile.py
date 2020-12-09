@@ -13,6 +13,7 @@ import nox
 import tomlkit  # type: ignore[import]
 
 # BUG: get_venv_path nox gets .venv as venv and not tox when calling tox
+# NOTE: tox uses external nox -> py-interpreter calling nox is sys
 from formelsammlung.venv_utils import (
     get_venv_bin_dir,
     get_venv_path,
@@ -255,7 +256,7 @@ def test_code(session: Session) -> None:
         #: Remove processed posargs
         with contextlib.suppress(ValueError):
             session.posargs.remove("skip_install")
-
+    
     interpreter = sys.implementation.__getattribute__("name")
     version = ".".join([str(v) for v in sys.version_info[0:2]])
     name = f"{interpreter}{version}"
