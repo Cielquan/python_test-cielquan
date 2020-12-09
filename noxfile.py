@@ -189,7 +189,7 @@ def tox_caller(
         """
 
         def check_for_tox_call(session: Session, **kwargs: Dict[str, Any]) -> None:
-            """Call session function with session object overwritten by custom one.
+            """Call session function or tox.
 
             :param session: nox session object
             :param kwargs: keyword arguments from e.g. parametrize
