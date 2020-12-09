@@ -1,5 +1,4 @@
 """Config file for nox."""
-# TODO: let nox create mini tox-conf-files in .nox/tox_conf for each env
 import contextlib
 import os
 import re
