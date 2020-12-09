@@ -8,10 +8,9 @@
     first_release_year = 2019
 
 
-# FIXME: control settings via envvars set by nox and taken from pyproject
 #: -- TESTING COFIGURATION -------------------------------------------------------------
 [tool._testing]
-    # FIXME: adaption for applications
+    # TODO: adaption for applications
     tox_skip_sdist = false  #: tox setting || Application -> true; Library -> false
     # _TOX_SKIP_SDIST
     toxenv_python_versions = "py{py3,310,39,38,37,36}"
