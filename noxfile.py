@@ -30,6 +30,14 @@ nox.options.default_venv_backend = "none"
 nox.options.sessions = ["tox_lint", "tox_code", "tox_docs_test"]
 
 
+#: -- UTILS ----------------------------------------------------------------------------
+TOX_CALLS = os.getenv("_NOX_TOX_CALLS") == "true"
+IN_CI = os.getenv("_NOX_IN_CI") == "true"
+IN_VENV = False
+with contextlib.suppress(FileNotFoundError):
+    IN_VENV = get_venv_path() is not None
+
+
 #: -- CONFIG FROM PYPROJECT.TOML -------------------------------------------------------
 NOXFILE_DIR = Path(__file__).parent
 with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
@@ -92,7 +100,7 @@ class Session(_Session):  # noqa: R0903
         extras: Optional[str] = None,
         no_dev: bool = False,
         no_root: bool = False,
-        require_venv: bool = False,
+        require_venv: Optional[bool] = None,
         **kwargs: Any,
     ) -> None:
         """Wrap `poetry install` for nox sessions.
@@ -100,6 +108,9 @@ class Session(_Session):  # noqa: R0903
         :param extras: string of space separated extras to install
         :param no_dev: if `--no-dev` should be set; defaults to: True
         :param no_root: if `--no-root` should be set; defaults to: False
+        :param require_venv: If ``True`` requires to be run in a venv. If ``False`` does
+            not require a venv to be run inside. If unset autodetection is used: if no
+            venv is active abort install except when inside CI.
         """
         #: Safety hurdle copied from nox.sessions.Session.install()
         if not isinstance(
@@ -117,7 +128,11 @@ class Session(_Session):  # noqa: R0903
         _env = {"PIP_DISABLE_VERSION_CHECK": "1"}
         _req_venv = {"PIP_REQUIRE_VIRTUALENV": "true"}
 
-        if require_venv or isinstance(self.virtualenv, nox.sessions.PassthroughEnv):
+        if require_venv is True or (
+            isinstance(self.virtualenv, nox.sessions.PassthroughEnv)
+            and not IN_CI
+            and require_venv is not False
+        ):
             _env.update(_req_venv)
             if "env" in kwargs:
                 kwargs["env"].update(_req_venv)
@@ -205,14 +220,6 @@ def _tox_caller(session: Session, tox_env: str) -> None:
     session.poetry_install("tox", no_root=True, no_dev=IN_CI)
     session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
     session.run("tox", "-e", tox_env, *session.posargs)
-
-
-#: -- UTILS ----------------------------------------------------------------------------
-TOX_CALLS = os.getenv("_NOX_TOX_CALLS") == "true"
-IN_CI = os.getenv("_NOX_IN_CI") == "true"
-IN_VENV = False
-with contextlib.suppress(FileNotFoundError):
-    IN_VENV = get_venv_path() is not None
 
 
 #: -- TEST SESSIONS --------------------------------------------------------------------
