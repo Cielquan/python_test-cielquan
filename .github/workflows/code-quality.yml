@@ -3,6 +3,7 @@ name: Code qualitiy
 
 env:
   default_python_version: 3.8  # CHANGE ME
+  _NOX_IN_CI: true
 
 
 on:
