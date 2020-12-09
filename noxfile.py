@@ -11,7 +11,7 @@ from typing import Any, Callable, Dict, Optional
 import nox
 import tomlkit  # type: ignore[import]
 
-# FIXME: get_venv_path nox gets .venv as venv and not tox when calling tox
+# BUG: get_venv_path nox gets .venv as venv and not tox when calling tox
 from formelsammlung.venv_utils import (
     get_venv_bin_dir,
     get_venv_path,
