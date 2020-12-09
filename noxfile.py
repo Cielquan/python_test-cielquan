@@ -12,6 +12,7 @@ from typing import Any, Callable, Dict, Optional
 import nox
 import tomlkit  # type: ignore[import]
 
+# FIXME: get_venv_path nox gets .venv as venv and not tox when calling tox
 from formelsammlung.venv_utils import (
     get_venv_bin_dir,
     get_venv_path,
@@ -156,7 +157,46 @@ def monkeypatch_session(session_func: Callable) -> Callable:
     return switch_session_class
 
 
-# FIXME: make venv/tox checker a decorator
+def tox_caller(tox_target: Optional[str] = None, parametrized: bool = False) -> Callable:
+    """Decorate nox session functions to add option to run them via `tox`.
+
+    :param tox_target: Optionally give the name of the tox env to call.
+        Defaults to the decorated function's name.
+    """
+
+    def decorator(session_func: Callable) -> Callable:
+        """Actual decorator.
+
+        :param session_func: decorated function with commands for nox session
+        """
+
+        def check_for_tox_call(session: Session, **kwargs: Dict[str, Any]) -> None:
+            """Call session function with session object overwritten by custom one.
+
+            :param session: nox session object
+            :param kwargs: keyword arguments from e.g. parametrize
+            """
+            tox_env = session_func.__name__
+            if tox_target:
+                tox_env = tox_target.format(**kwargs) if parametrized else tox_target
+
+            if not IN_VENV or "tox" in session.posargs:
+                posargs = [arg for arg in session.posargs if arg != "tox"]
+                session.log("Using `tox` as venv backend.")
+                session.poetry_install("tox", no_root=True, no_dev=IN_CI)
+                session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
+                session.run("tox", "-e", tox_env, *posargs)
+
+            else:
+                session_func(session=session, **kwargs)
+
+        #: Overwrite name and docstring to imitate decorated function for nox
+        check_for_tox_call.__name__ = session_func.__name__
+        check_for_tox_call.__doc__ = session_func.__doc__
+
+        return check_for_tox_call
+
+    return decorator
 
 
 #: -- UTILS ----------------------------------------------------------------------------
@@ -167,38 +207,12 @@ with contextlib.suppress(FileNotFoundError):
     IN_VENV = get_venv_path() is not None
 
 
-def _tox_caller(session: Session, tox_env: str) -> None:
-    session.poetry_install("tox", no_root=True, no_dev=IN_CI)
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
-    session.run("tox", "-e", tox_env, *session.posargs)
-
-
-def copy_session(session: Session) -> Session:
-    """Create copy of session object with independent posargs."""
-    ses_runner = session._runner  # noqa: W0212
-    new_ses_runner = SessionRunner(
-        name=ses_runner.name,
-        signatures=ses_runner.signatures,
-        func=ses_runner.func,
-        global_config=deepcopy(ses_runner.global_config),
-        manifest=ses_runner.manifest,
-    )
-    new_ses_runner.venv = ses_runner.venv
-    return Session(new_ses_runner)
-
-
 #: -- TEST SESSIONS --------------------------------------------------------------------
 @nox.session
 @monkeypatch_session
+@tox_caller()
 def package(session: Session) -> None:
     """Check sdist and wheel."""
-    if not IN_VENV or "tox" in session.posargs:
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("tox")
-        session.log("Using `tox` as venv backend.")
-        _tox_caller(session, "package")
-        return
-
     if "skip_install" not in session.posargs:
         extras = "poetry twine"
         session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
@@ -211,13 +225,9 @@ def package(session: Session) -> None:
 
 @nox.session
 @monkeypatch_session
+@tox_caller(TOXENV_PYTHON_VERSIONS)
 def test_code(session: Session) -> None:
     """Run tests with given python version."""
-    if not IN_VENV or "tox" in session.posargs:
-        session.log("Using `tox` as venv backend.")
-        _tox_caller(session, TOXENV_PYTHON_VERSIONS)
-        return
-
     if "skip_install" not in session.posargs:
         extras = "testing"
         session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
@@ -299,57 +309,33 @@ def _coverage(session: Session, job: str = "all") -> None:
 
 @nox.session
 @monkeypatch_session
+@tox_caller()
 def coverage_merge(session: Session) -> None:
     """Combine coverage data and create xml/html reports."""
-    if not IN_VENV or "tox" in session.posargs:
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("tox")
-        session.log("Using `tox` as venv backend.")
-        _tox_caller(session, "coverage_merge")
-        return
-
     _coverage(session, "merge")
 
 
 @nox.session
 @monkeypatch_session
+@tox_caller()
 def coverage_report(session: Session) -> None:
     """Report total and diff coverage against origin/master (or DIFF_AGAINST)."""
-    if not IN_VENV or "tox" in session.posargs:
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("tox")
-        session.log("Using `tox` as venv backend.")
-        _tox_caller(session, "coverage_report")
-        return
-
     _coverage(session, "report")
 
 
 @nox.session
 @monkeypatch_session
+@tox_caller()
 def coverage(session: Session) -> None:
-    """Run coverage_merge + coverage_report."""
-    if not IN_VENV or "tox" in session.posargs:
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("tox")
-        session.log("Using `tox` as venv backend.")
-        _tox_caller(session, "coverage")
-        return
-
+    """Run `coverage_merge` + `coverage_report`."""
     _coverage(session, "all")
 
 
 @nox.session
 @monkeypatch_session
+@tox_caller()
 def safety(session: Session) -> None:
     """Check all dependencies for known vulnerabilities."""
-    if not IN_VENV or "tox" in session.posargs:
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("tox")
-        session.log("Using `tox` as venv backend.")
-        _tox_caller(session, "safety")
-        return
-
     if "skip_install" not in session.posargs:
         extras = "poetry safety"
         session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
@@ -376,15 +362,9 @@ def safety(session: Session) -> None:
 
 @nox.session
 @monkeypatch_session
+@tox_caller()
 def pre_commit(session: Session) -> None:  # noqa: R0912
     """Format and check the code."""
-    if not IN_VENV or "tox" in session.posargs:
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("tox")
-        session.log("Using `tox` as venv backend.")
-        _tox_caller(session, "pre_commit")
-        return
-
     if "skip_install" not in session.posargs:
         extras = "pre-commit testing docs poetry nox"
         session.poetry_install(extras, no_root=TOX_CALLS, no_dev=(TOX_CALLS or IN_CI))
@@ -446,15 +426,9 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
 
 @nox.session
 @monkeypatch_session
+@tox_caller()
 def docs(session: Session) -> None:
     """Build docs with sphinx."""
-    if not IN_VENV or "tox" in session.posargs:
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("tox")
-        session.log("Using `tox` as venv backend.")
-        _tox_caller(session, "docs")
-        return
-
     extras = "docs"
     cmd = "sphinx-build"
     args = ["-b", "html", "-aE", "docs/source", "docs/build/html"]
@@ -483,18 +457,9 @@ def docs(session: Session) -> None:
 @nox.parametrize("builder", TOXENV_DOCS_BUILDERS[11:-1].split(","))
 @nox.session
 @monkeypatch_session
+@tox_caller("test_docs-{builder}", parametrized=True)
 def test_docs(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
-    use_tox = "tox" in session.posargs
-    if not IN_VENV or use_tox:
-        _session = session
-        if use_tox:
-            _session = copy_session(session)
-            _session.posargs.remove("tox")
-        session.log("Using `tox` as venv backend.")
-        _tox_caller(_session, f"test_docs-{builder}")
-        return
-
     if "skip_install" not in session.posargs:
         extras = "docs"
         session.poetry_install(extras, no_root=TOX_CALLS, no_dev=(TOX_CALLS or IN_CI))
