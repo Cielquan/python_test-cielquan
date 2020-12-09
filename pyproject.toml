@@ -14,9 +14,9 @@
     # FIXME: adaption for applications
     tox_skip_sdist = false  #: tox setting || Application -> true; Library -> false
     # _TOX_SKIP_SDIST
-    tox_python_versions = "py{py3,310,39,38,37,36}"
+    toxenv_python_versions = "py{py3,310,39,38,37,36}"
     # _TOX_PYTHON_VERSIONS
-    tox_docs_builders = "test_docs-{html,linkcheck,coverage,doctest,spelling}"
+    toxenv_docs_builders = "test_docs-{html,linkcheck,coverage,doctest,spelling}"
     # _TOX_DOCS_BUILDERS
 
 

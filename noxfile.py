@@ -5,6 +5,7 @@ import re
 import subprocess  # noqa: S404
 import sys
 
+from copy import deepcopy
 from pathlib import Path
 from typing import Any, Callable, Dict, Optional
 
@@ -19,13 +20,13 @@ from formelsammlung.venv_utils import (
 )
 from nox.command import CommandFailed
 from nox.logger import logger as nox_logger
-from nox.sessions import Session as _Session
+from nox.sessions import Session as _Session, SessionRunner
 
 
 #: -- NOX OPTIONS ----------------------------------------------------------------------
 nox.options.reuse_existing_virtualenvs = True
 nox.options.default_venv_backend = "none"
-nox.options.sessions = ["tox_lint", "tox_code", "tox_docs"]
+nox.options.sessions = ["tox_lint", "tox_code", "tox_docs_test"]
 
 
 #: -- CONFIG FROM PYPROJECT.TOML -------------------------------------------------------
@@ -38,11 +39,8 @@ JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
 PACKAGE_NAME = PYPROJECT["tool"]["poetry"]["name"]
 
 TOX_SKIP_SDIST = PYPROJECT["tool"]["_testing"]["tox_skip_sdist"]
-TOX_PYTHON_VERSIONS = PYPROJECT["tool"]["_testing"]["tox_python_versions"]
-TOX_DOCS_BUILDERS = PYPROJECT["tool"]["_testing"]["tox_docs_builders"]
-# Currently used
-TOX_PYTHON_VERSIONS = TOX_PYTHON_VERSIONS
-TOX_DOCS_BUILDERS = TOX_DOCS_BUILDERS
+TOXENV_PYTHON_VERSIONS = PYPROJECT["tool"]["_testing"]["toxenv_python_versions"]
+TOXENV_DOCS_BUILDERS = PYPROJECT["tool"]["_testing"]["toxenv_docs_builders"]
 
 
 #: -- FILE GEN SOURCE ------------------------------------------------------------------
@@ -175,6 +173,20 @@ def _tox_caller(session: Session, tox_env: str) -> None:
     session.run("tox", "-e", tox_env, *session.posargs)
 
 
+def copy_session(session: Session) -> Session:
+    """Create copy of session object with independent posargs."""
+    ses_runner = session._runner  # noqa: W0212
+    new_ses_runner = SessionRunner(
+        name=ses_runner.name,
+        signatures=ses_runner.signatures,
+        func=ses_runner.func,
+        global_config=deepcopy(ses_runner.global_config),
+        manifest=ses_runner.manifest,
+    )
+    new_ses_runner.venv = ses_runner.venv
+    return Session(new_ses_runner)
+
+
 #: -- TEST SESSIONS --------------------------------------------------------------------
 @nox.session
 @monkeypatch_session
@@ -197,14 +209,13 @@ def package(session: Session) -> None:
     session.run("twine", "check", "dist/*")
 
 
-# FIXME: check for compatiblity with tox
 @nox.session
 @monkeypatch_session
 def test_code(session: Session) -> None:
     """Run tests with given python version."""
     if not IN_VENV or "tox" in session.posargs:
         session.log("Using `tox` as venv backend.")
-        _tox_caller(session, TOX_PYTHON_VERSIONS)
+        _tox_caller(session, TOXENV_PYTHON_VERSIONS)
         return
 
     if "skip_install" not in session.posargs:
@@ -415,7 +426,7 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
 
     error_hooks = []
     for hook in hooks:
-        add_args = show_diff + session.posargs + [hook]
+        add_args = show_diff + session.posargs + ([hook] if hook else [])
         try:
             session.run("pre-commit", "run", "--all-files", *add_args, env=env)
         except CommandFailed:
@@ -469,17 +480,19 @@ def docs(session: Session) -> None:
     print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
 
 
-# FIXME: check for compatiblity with tox
-@nox.parametrize("builder", TOX_DOCS_BUILDERS[11:-1].split(","))
+@nox.parametrize("builder", TOXENV_DOCS_BUILDERS[11:-1].split(","))
 @nox.session
 @monkeypatch_session
 def test_docs(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
-    if not IN_VENV or "tox" in session.posargs:
-        with contextlib.suppress(ValueError):
-            session.posargs.remove("tox")
+    use_tox = "tox" in session.posargs
+    if not IN_VENV or use_tox:
+        _session = session
+        if use_tox:
+            _session = copy_session(session)
+            _session.posargs.remove("tox")
         session.log("Using `tox` as venv backend.")
-        _tox_caller(session, TOX_DOCS_BUILDERS)
+        _tox_caller(_session, f"test_docs-{builder}")
         return
 
     if "skip_install" not in session.posargs:
@@ -565,7 +578,7 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
 @monkeypatch_session
 def tox_test_docs(session: Session) -> None:
     """Call tox to run `test_docs` envs."""
-    _tox_caller(session, TOX_DOCS_BUILDERS)
+    _tox_caller(session, TOXENV_DOCS_BUILDERS)
 
 
 #: -- TOX MULTI WRAPPER SESSIONS -------------------------------------------------------
@@ -586,13 +599,13 @@ def tox_code(session: Session) -> None:
         toxenv += "package"
 
     if "notest" not in session.posargs:
-        if not TOX_PYTHON_VERSIONS:
+        if not TOXENV_PYTHON_VERSIONS:
             session.error(
                 "Could not find 'python_test_version' in "
                 "'[tox]' section in 'tox.ini' file"
             )
         toxenv += "," if toxenv else ""
-        toxenv += TOX_PYTHON_VERSIONS
+        toxenv += TOXENV_PYTHON_VERSIONS
 
     if "nocov" not in session.posargs:
         toxenv += "," if toxenv else ""
@@ -608,4 +621,4 @@ def tox_code(session: Session) -> None:
 @monkeypatch_session
 def tox_docs_test(session: Session) -> None:
     """Call tox to run all docs tests."""
-    _tox_caller(session, TOX_DOCS_BUILDERS)
+    _tox_caller(session, TOXENV_DOCS_BUILDERS)
