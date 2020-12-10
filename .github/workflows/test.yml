@@ -1,0 +1,23 @@
+
+on:
+  workflow_dispatch:
+
+  push:
+    tags:
+      - '!*' # Do not execute on tag push
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - '**'
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo $RUNNER_TOOL_CACHE
+      - run: ls $RUNNER_TOOL_CACHE
+      - run: ls $RUNNER_TOOL_CACHE/python
+      - run: ls $RUNNER_TOOL_CACHE/pypy
