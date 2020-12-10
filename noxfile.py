@@ -5,6 +5,7 @@ import re
 import subprocess  # noqa: S404
 import sys
 
+from importlib.util import find_spec
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 
@@ -199,11 +200,7 @@ def test_code(session: Session) -> None:
     """Run tests with given python version."""
     if "skip_install" not in session.posargs:
         extras = "testing"
-        session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
-        # TODO: check if coverage path can be changed to make cov work for .venv
-        # TODO: and change no_root to dynamic
-        if not TOX_CALLS:
-            session.install(".")
+        session.poetry_install(extras, no_root=TOX_CALLS, no_dev=(TOX_CALLS or IN_CI))
     else:
         session.log("Skipping install step.")
         #: Remove processed posargs
@@ -215,11 +212,17 @@ def test_code(session: Session) -> None:
     name = f"{interpreter}{version}"
     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{name}")
 
+    cov_source_dir = Path("no-spec-found")
+    with contextlib.suppress(AttributeError, TypeError):
+        cov_source_dir = Path(
+            find_spec(PACKAGE_NAME).origin  # type: ignore[union-attr, arg-type]
+        ).parent
+
     session.run(
         "pytest",
         f"--basetemp={get_venv_tmp_dir(get_venv_path())}",
         f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
-        f"--cov={get_venv_site_packages_dir(get_venv_path()) / PACKAGE_NAME}",
+        f"--cov={cov_source_dir}",
         f"--cov-fail-under={session.env.get('MIN_COVERAGE') or 100}",
         f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
         f"{session.posargs or 'tests'}",

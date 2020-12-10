@@ -279,11 +279,14 @@
         ]
 
     [tool.coverage.paths]
-        combine = [
+        tox_combine = [
             "src/python_test_cielquan",
             "*/.tox/*/lib/python*/site-packages/python_test_cielquan",
             "*/.tox/pypy*/site-packages/python_test_cielquan",
             "*/.tox\\*\\Lib\\site-packages\\python_test_cielquan",
+        ]
+        local_combine = [
+            "src/python_test_cielquan",
             "*/.venv/lib/python*/site-packages/python_test_cielquan",
             "*/.venv\\*\\Lib\\site-packages\\python_test_cielquan",
             "*/src/python_test_cielquan",
