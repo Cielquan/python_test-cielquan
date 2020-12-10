@@ -1,5 +1,4 @@
 """Config file for nox."""
-# FIXME: try to reduce install statements
 # FIXME: py310 poetry needs crashtest, but why fail?
 import contextlib
 import os
@@ -19,6 +18,7 @@ from formelsammlung.venv_utils import (
     get_venv_path,
     get_venv_site_packages_dir,
     get_venv_tmp_dir,
+    where_installed,
 )
 from nox.command import CommandFailed
 from nox.logger import logger as nox_logger
@@ -98,7 +98,8 @@ class Session(_Session):  # noqa: R0903
             else:
                 kwargs["env"] = req_venv
 
-        self.install("poetry>=1", env=env)
+        if where_installed("poetry")[0] == 0:
+            self.install("poetry>=1", env=env)
 
         extra_deps = ["--extras", extras] if extras else []
         no_dev_flag = ["--no-dev"] if no_dev else []
@@ -174,7 +175,8 @@ def _tox_caller(
 ) -> None:
     if posargs is None:
         posargs = session.posargs
-    session.poetry_install("tox", no_root=True, no_dev=IN_CI)
+    if not find_spec("tox"):
+        session.poetry_install("tox", no_root=True, no_dev=IN_CI)
     session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
     if FORCE_COLOR:
         #: Force color for nox when called by tox
