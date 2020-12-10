@@ -108,11 +108,10 @@
 #        pyenchant = {version = "^3.1.1", optional = true}
 
     [tool.poetry.dev-dependencies]
-        nox = "^2020.8.22"
-        tomlkit = ">=0.7.0,<1.0.0"
-        formelsammlung = "^3"
-        tox = "^3.20.1"
-        poetry = "^1.1.4"
+        nox = "*"  #: Version managed above
+        tomlkit = "*"  #: Version managed above
+        formelsammlung = "*"  #: Version managed above
+        poetry = "*"  #: Version managed above
         devtools = {version = "^0.6", extras = ["pygments"]}
         ipython = "^7.15.0"
 
