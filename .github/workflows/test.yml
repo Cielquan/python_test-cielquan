@@ -23,11 +23,7 @@ jobs:
         shell: bash
       - run: ls $RUNNER_TOOL_CACHE/PyPy
         shell: bash
-      - run: ls $RUNNER_TOOL_CACHE/Python/3.6.12/x64/bin
+      - run: ls $RUNNER_TOOL_CACHE/Python/3.6.12/x64/Scripts
         shell: bash
-      - run: ls $RUNNER_TOOL_CACHE/Python/3.6.12/x64.complete
-        shell: bash
-      - run: ls $RUNNER_TOOL_CACHE/PyPy/3.6.12/x64/bin
-        shell: bash
-      - run: ls $RUNNER_TOOL_CACHE/PyPy/3.6.12/x64.complete
+      - run: ls $RUNNER_TOOL_CACHE/PyPy/3.6.12/x64/Scripts
         shell: bash
