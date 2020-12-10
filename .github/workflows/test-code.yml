@@ -3,7 +3,6 @@ name: Test code
 
 env:
   # DO NOT FORGET TO UPDATE `test-code-skip.yml` && `publish.yml` TOO !!!
-  default_python_version: 3.8  # TODO: remove
   TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2]'  # CHANGE ME
   TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
   TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
@@ -50,8 +49,40 @@ on:
 
 
 jobs:
+  py-default-version:
+    name: Get default python version from pyproject.toml
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-default-version.outputs.default_python_version }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+
+      - name: Install poetry
+        run: |
+          python -m pip install -U pip
+          pip install -U poetry
+
+      - name: Install dependencies
+        run: |
+          poetry config --ansi virtualenvs.create false
+          poetry install --ansi --no-root --no-dev --extras tomlkit
+
+      - name: Get default version
+        id: get-default-version
+        shell: python
+        run: |
+          import tomlkit
+          with open("pyproject.toml") as pyproject_file:
+              PYPROJECT = tomlkit.parse(pyproject_file.read())
+          ver = PYPROJECT["tool"]["_testing"]["ci_default_python_version"]
+          print(f"::set-output name=default_python_version::{ver}")
+
+
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA and GIT_BRANCH
+    needs: py-default-version
     # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
     runs-on: ubuntu-latest
     outputs:
@@ -62,7 +93,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.default_python_version }}
+          python-version: ${{ needs.py-default-version.outputs.version }}
 
       - name: Get merge commit message
         id: merge-commit-msg
@@ -134,6 +165,7 @@ jobs:
 
   package-tests:
     name: tox / package / ${{ matrix.os }}
+    needs: py-default-version
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
@@ -150,7 +182,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.default_python_version }}
+          python-version: ${{ needs.py-default-version.outputs.version }}
 
       - name: Install tox
         run: |
@@ -182,13 +214,14 @@ jobs:
 
   create-python-test-matrix:
     name: Set test matrix
+    needs: py-default-version
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.default_python_version }}
+          python-version: ${{ needs.py-default-version.outputs.version }}
 
       - name: Set test matrix
         id: set-matrix
@@ -213,7 +246,7 @@ jobs:
 
   test-code:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
-    needs: [create-python-test-matrix, notify-code-climate, package-tests]
+    needs: [create-python-test-matrix, notify-code-climate, package-tests, py-default-version]
     if: needs.create-python-test-matrix.result == 'success'
     runs-on: ${{ matrix.os }}-latest
     strategy:
@@ -310,7 +343,7 @@ jobs:
 
   merge-coverage:
     name: tox / coverage-merge
-    needs: test-code
+    needs: [test-code, py-default-version]
     if: always()
     runs-on: ubuntu-latest
     env:
@@ -320,7 +353,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.default_python_version }}
+          python-version: ${{ needs.py-default-version.outputs.version }}
 
       - name: Install tox
         run: |
@@ -365,7 +398,7 @@ jobs:
 
   report-coverage:
     name: tox / coverage-report
-    needs: merge-coverage
+    needs: [merge-coverage, py-default-version]
     runs-on: ubuntu-latest
     env:
       TOXENV: coverage-report
@@ -376,7 +409,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.default_python_version }}
+          python-version: ${{ needs.py-default-version.outputs.version }}
 
       - name: Install tox
         run: |
