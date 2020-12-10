@@ -11,6 +11,7 @@
 #: -- TESTING COFIGURATION -------------------------------------------------------------
 [tool._testing]
     # TODO: adaption for applications
+    ci_default_python_version = "3.8"
     tox_skip_sdist = false  #: tox setting || Application -> true; Library -> false
     toxenv_python_versions = "py{py3,310,39,38,37,36}"
     toxenv_docs_builders = "test_docs-{html,linkcheck,coverage,doctest,spelling}"
@@ -170,6 +171,7 @@
         ]
         poetry = ["poetry"]
         nox = ["nox", "tomlkit", "formelsammlung"]
+        tomlkit = ["tomlkit"]
         tox = ["tox"]
         twine = ["twine"]
         safety = ["safety"]
