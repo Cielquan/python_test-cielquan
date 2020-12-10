@@ -31,6 +31,7 @@ nox.options.default_venv_backend = "none"
 nox.options.sessions = ["tox_lint", "tox_code", "tox_docs"]
 
 #: -- UTIL -----------------------------------------------------------------------------
+OS = sys.platform
 TOX_CALLS = os.getenv("_NOX_TOX_CALLS") == "true"
 FORCE_COLOR = os.getenv("_NOX_FORCE_COLOR") == "true"
 IN_CI = os.getenv("_NOX_IN_CI") == "true"
@@ -48,7 +49,7 @@ with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
     PYPROJECT = tomlkit.parse(pyproject_file.read())
 PACKAGE_NAME = PYPROJECT["tool"]["poetry"]["name"]
 TOX_SKIP_SDIST = PYPROJECT["tool"]["_testing"]["tox_skip_sdist"]
-TOXENV_PYTHON_VERSIONS = PYPROJECT["tool"]["_testing"]["toxenv_python_versions"]
+TOXENV_PYTHON_VERSIONS = PYPROJECT["tool"]["_testing"][f"toxenv_python_versions_{OS}"]
 TOXENV_DOCS_BUILDERS = PYPROJECT["tool"]["_testing"]["toxenv_docs_builders"]
 
 
