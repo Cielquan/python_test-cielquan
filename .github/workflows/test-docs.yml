@@ -4,8 +4,7 @@ name: Test documentation
 env:
   # DO NOT FORGET TO UPDATE `test-docs-skip.yml` TOO !!!
   _NOX_IN_CI: true
-  _NOX_POETRY_COLOR: true  #: Activate colorful output for poetry when run by nox
-  PY_COLORS: 1  #: Activate colorful output for tox
+  _NOX_FORCE_COLOR: true
 
 
 on:
@@ -118,10 +117,12 @@ jobs:
         run: timeout 10s .tox/test_docs-html/bin/pip --version || rm -rf .tox
 
       - name: Generate tox envs via nox
-        run: nox --forcecolor --session tox_docs -- -vv --skip-missing-interpreters false  -- --forcecolor -v --install-only
+        # run: nox --forcecolor --session tox_docs -- -vv --skip-missing-interpreters false  -- --forcecolor -v --install-only
+        run: nox --forcecolor --session tox_docs -- -vv --skip-missing-interpreters false  -- -v --install-only
 
       - name: Run tox envs via nox
-        run: nox --forcecolor --session tox_docs -- -- --forcecolor -- --color
+        # run: nox --forcecolor --session tox_docs -- -- --forcecolor -- --color
+        run: nox --forcecolor --session tox_docs
 
 
   set-git-env-vars:

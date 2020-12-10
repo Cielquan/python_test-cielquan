@@ -4,8 +4,7 @@ name: Dependency safety
 env:
   # DO NOT FORGET TO UPDATE `dependency-safety-skip.yml` TOO !!!
   _NOX_IN_CI: true
-  _NOX_POETRY_COLOR: true  #: Activate colorful output for poetry when run by nox
-  PY_COLORS: 1  #: Activate colorful output for tox
+  _NOX_FORCE_COLOR: true
 
 
 on:
@@ -92,10 +91,12 @@ jobs:
           poetry install --ansi --no-root --no-dev --extras nox
 
       - name: Generate tox envs via nox
-        run: nox --forcecolor --session safety -- -vv --skip-missing-interpreters false  -- --forcecolor -v --install-only
+        # run: nox --forcecolor --session safety -- -vv --skip-missing-interpreters false  -- --forcecolor -v --install-only
+        run: nox --forcecolor --session safety -- -vv --skip-missing-interpreters false  -- -v --install-only
 
       - name: Run tox envs via nox
-        run: nox --forcecolor --session safety -- -- --forcecolor
+        # run: nox --forcecolor --session safety -- -- --forcecolor
+        run: nox --forcecolor --session safety
 
 
   set-git-env-vars:

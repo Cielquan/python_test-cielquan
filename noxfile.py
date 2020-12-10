@@ -1,6 +1,5 @@
 """Config file for nox."""
 # FIXME: try to reduce install statements
-# FIXME: add ENVVAR for forceing color output from sub commands in nox and set in CI
 # FIXME: py310 poetry needs crashtest, but why fail?
 import contextlib
 import os
@@ -33,6 +32,7 @@ nox.options.sessions = ["tox_lint", "tox_code", "tox_docs"]
 
 #: -- UTIL -----------------------------------------------------------------------------
 TOX_CALLS = os.getenv("_NOX_TOX_CALLS") == "true"
+FORCE_COLOR = os.getenv("_NOX_FORCE_COLOR") == "true"
 IN_CI = os.getenv("_NOX_IN_CI") == "true"
 IN_VENV = False
 with contextlib.suppress(FileNotFoundError):
@@ -104,10 +104,9 @@ class Session(_Session):  # noqa: R0903
         no_dev_flag = ["--no-dev"] if no_dev else []
         no_root_flag = ["--no-root"] if no_root else []
         install_args = no_root_flag + no_dev_flag + extra_deps
+        color = ["--ansi"] if FORCE_COLOR else []
 
-        poetry_args = ["--ansi"] if os.getenv("_NOX_POETRY_COLOR") == "true" else []
-
-        self._run("poetry", "install", *poetry_args, *install_args, **kwargs)
+        self._run("poetry", "install", *color, *install_args, **kwargs)
 
 
 def monkeypatch_session(session_func: Callable) -> Callable:
@@ -177,6 +176,11 @@ def _tox_caller(
         posargs = session.posargs
     session.poetry_install("tox", no_root=True, no_dev=IN_CI)
     session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
+    if FORCE_COLOR:
+        #: Force color for nox when called by tox
+        session.env["_TOX_FORCE_NOX_COLOR"] = "--forcecolor"
+        #: Activate colorful output for tox
+        session.env["PY_COLORS"] = "1"
     session.run("tox", "-e", tox_env, *posargs)
 
 
@@ -192,7 +196,8 @@ def package(session: Session) -> None:
     else:
         session.log("Skipping install step.")
 
-    session.run("poetry", "build", "-vvv")
+    color = ["--ansi"] if FORCE_COLOR else []
+    session.run("poetry", "build", *color, "-vvv")
     session.run("twine", "check", "dist/*")
 
 
@@ -221,8 +226,11 @@ def test_code(session: Session) -> None:
             find_spec(PACKAGE_NAME).origin  # type: ignore[union-attr, arg-type]
         ).parent
 
+    color = ["--color=yes"] if FORCE_COLOR else []
+
     session.run(
         "pytest",
+        *color,
         f"--basetemp={get_venv_tmp_dir(get_venv_path())}",
         f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
         f"--cov={cov_source_dir}",
@@ -373,11 +381,13 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
 
     hooks = hooks_arg[6:].split(",") if hooks_arg else [""]
 
+    color = ["--color=always"] if FORCE_COLOR else []
+
     error_hooks = []
     for hook in hooks:
         add_args = show_diff + session.posargs + ([hook] if hook else [])
         try:
-            session.run("pre-commit", "run", "--all-files", *add_args, env=env)
+            session.run("pre-commit", "run", *color, "--all-files", *add_args, env=env)
         except CommandFailed:
             error_hooks.append(hook)
 
@@ -417,7 +427,9 @@ def docs(session: Session) -> None:
         with contextlib.suppress(ValueError):
             session.posargs.remove(arg)
 
-    session.run(cmd, *args, *session.posargs)
+    color = ["--color"] if FORCE_COLOR else []
+
+    session.run(cmd, *color, *args, *session.posargs)
 
     index_file = NOXFILE_DIR / "docs/build/html/index.html"
     print(f"DOCUMENTATION AVAILABLE UNDER: {index_file.as_uri()}")
@@ -443,7 +455,11 @@ def test_docs(session: Session, builder: str) -> None:
     std_args = ["-aE", "-v", "-nW", "--keep-going", source_dir, target_dir]
     add_args = ["-t", "builder_confluence"] if builder == "confluence" else []
 
-    session.run("sphinx-build", "-b", builder, *std_args, *add_args, *session.posargs)
+    color = ["--color"] if FORCE_COLOR else []
+
+    session.run(
+        "sphinx-build", "-b", builder, *color, *std_args, *add_args, *session.posargs
+    )
 
 
 #: -- DEV NOX SESSIONS -----------------------------------------------------------------
