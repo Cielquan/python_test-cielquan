@@ -17,7 +17,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo $RUNNER_TOOL_CACHE
       - run: ls $RUNNER_TOOL_CACHE
       - run: ls $RUNNER_TOOL_CACHE/Python
       - run: ls $RUNNER_TOOL_CACHE/PyPy
+      - run: ls $RUNNER_TOOL_CACHE/Python/3.6.12
+      - run: ls $RUNNER_TOOL_CACHE/PyPy/3.6.12
