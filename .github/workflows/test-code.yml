@@ -7,7 +7,6 @@ env:
   TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
   TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
   TEST_OS_PYPY: '[ubuntu, macos]'  # CHANGE ME
-  CC_TEST_REPORTER_URL: https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64  # CHANGE ME
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 
@@ -49,11 +48,12 @@ on:
 
 
 jobs:
-  py-default-version:
-    name: Get default python version from pyproject.toml
+  pyproject-config:
+    name: Get config from pyproject.toml
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.get-default-version.outputs.default_python_version }}
+      default_py_version: ${{ steps.get-config.outputs.default_python_version }}
+      cc_test_reporter_url: ${{ steps.get-config.outputs.reporter_url }}
     steps:
       - uses: actions/checkout@v2
 
@@ -69,20 +69,23 @@ jobs:
           poetry config --ansi virtualenvs.create false
           poetry install --ansi --no-root --no-dev --extras tomlkit
 
-      - name: Get default version
-        id: get-default-version
+      - name: Get config
+        id: get-config
         shell: python
         run: |
           import tomlkit
           with open("pyproject.toml") as pyproject_file:
               PYPROJECT = tomlkit.parse(pyproject_file.read())
-          ver = PYPROJECT["tool"]["_testing"]["ci_default_python_version"]
-          print(f"::set-output name=default_python_version::{ver}")
+          conf = PYPROJECT["tool"]["_testing"]
+          version = conf["ci_default_python_version"]
+          print(f"::set-output name=default_python_version::{version}")
+          reporter_url = conf["cc_test_reporter_url"]
+          print(f"::set-output name=reporter_url::{reporter_url}")
 
 
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA and GIT_BRANCH
-    needs: py-default-version
+    needs: pyproject-config
     # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
     runs-on: ubuntu-latest
     outputs:
@@ -93,7 +96,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ needs.py-default-version.outputs.version }}
+          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
 
       - name: Get merge commit message
         id: merge-commit-msg
@@ -141,10 +144,11 @@ jobs:
 
   notify-code-climate:
     name: Notify code-climate
-    needs: [set-git-env-vars]
+    needs: [set-git-env-vars, pyproject-config]
     runs-on: ubuntu-latest
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      CC_TEST_REPORTER_URL: ${{ needs.pyproject-config.outputs.cc_test_reporter_url }}
     steps:
       - name: Download reporter
         shell: bash
@@ -165,7 +169,7 @@ jobs:
 
   package-tests:
     name: tox / package / ${{ matrix.os }}
-    needs: py-default-version
+    needs: pyproject-config
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
@@ -182,7 +186,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ needs.py-default-version.outputs.version }}
+          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
 
       - name: Install tox
         run: |
@@ -214,14 +218,14 @@ jobs:
 
   create-python-test-matrix:
     name: Set test matrix
-    needs: py-default-version
+    needs: pyproject-config
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ needs.py-default-version.outputs.version }}
+          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
 
       - name: Set test matrix
         id: set-matrix
@@ -246,7 +250,7 @@ jobs:
 
   test-code:
     name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
-    needs: [create-python-test-matrix, notify-code-climate, package-tests, py-default-version]
+    needs: [create-python-test-matrix, notify-code-climate, package-tests, pyproject-config]
     if: needs.create-python-test-matrix.result == 'success'
     runs-on: ${{ matrix.os }}-latest
     strategy:
@@ -343,7 +347,7 @@ jobs:
 
   merge-coverage:
     name: tox / coverage-merge
-    needs: [test-code, py-default-version]
+    needs: [test-code, pyproject-config]
     if: always()
     runs-on: ubuntu-latest
     env:
@@ -353,7 +357,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ needs.py-default-version.outputs.version }}
+          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
 
       - name: Install tox
         run: |
@@ -398,7 +402,7 @@ jobs:
 
   report-coverage:
     name: tox / coverage-report
-    needs: [merge-coverage, py-default-version]
+    needs: [merge-coverage, pyproject-config]
     runs-on: ubuntu-latest
     env:
       TOXENV: coverage-report
@@ -409,7 +413,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ needs.py-default-version.outputs.version }}
+          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
 
       - name: Install tox
         run: |
@@ -435,13 +439,14 @@ jobs:
 
   push-coverage-to-code-climate:
     name: Push coverage to code-climate
-    needs: [set-git-env-vars, notify-code-climate, merge-coverage]
+    needs: [set-git-env-vars, notify-code-climate, merge-coverage, pyproject-config]
     runs-on: ubuntu-latest
     env:
       CI_NAME: Github Actions
       CI_BUILD_ID: ${{ github.run_id }}
       CI_BUILD_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      CC_TEST_REPORTER_URL: ${{ needs.pyproject-config.outputs.cc_test_reporter_url }}
       GIT_COMMIT_SHA: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
       GIT_BRANCH: ${{ needs.set-git-env-vars.outputs.GIT_BRANCH }}
     steps:
