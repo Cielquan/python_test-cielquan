@@ -19,5 +19,5 @@ jobs:
     steps:
       - run: echo $RUNNER_TOOL_CACHE
       - run: ls $RUNNER_TOOL_CACHE
-      - run: ls $RUNNER_TOOL_CACHE/python
-      - run: ls $RUNNER_TOOL_CACHE/pypy
+      - run: ls $RUNNER_TOOL_CACHE/Python
+      - run: ls $RUNNER_TOOL_CACHE/PyPy
