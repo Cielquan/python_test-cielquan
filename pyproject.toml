@@ -12,8 +12,11 @@
 [tool._testing]
     # TODO: adaption for applications
     ci_default_python_version = "3.8"
+    ci_test_python_versions = ["3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2"]
     tox_skip_sdist = false  #: tox setting || Application -> true; Library -> false
-    toxenv_python_versions = "py{py3,310,39,38,37,36}"
+    toxenv_python_versions_win32 = "py{310,39,38,37,36}"
+    toxenv_python_versions_darwin = "py{py3,310,39,38,37,36}"
+    toxenv_python_versions_linux = "py{py3,310,39,38,37,36}"
     toxenv_docs_builders = "test_docs-{html,linkcheck,coverage,doctest,spelling}"
 
 
