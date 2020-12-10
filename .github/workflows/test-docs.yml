@@ -78,7 +78,7 @@ jobs:
           with open("pyproject.toml") as pyproject_file:
               PYPROJECT = tomlkit.parse(pyproject_file.read())
           ver = PYPROJECT["tool"]["_testing"]["ci_default_python_version"]
-          print("::set-output name=default_python_version::{ver}")
+          print(f"::set-output name=default_python_version::{ver}")
 
 
   test-docs:
