@@ -50,15 +50,47 @@ on:
 
 
 jobs:
+  py-default-version:
+    name: Get default python version from pyproject.toml
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get-default-version.outputs.default_python_version }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-python@v2
+
+      - name: Install poetry
+        run: |
+          python -m pip install -U pip
+          pip install -U poetry
+
+      - name: Install dependencies
+        run: |
+          poetry config --ansi virtualenvs.create false
+          poetry install --ansi --no-root --no-dev --extras tomlkit
+
+      - name: Get default version
+        id: get-default-version
+        shell: python
+        run: |
+          import tomlkit
+          with open("pyproject.toml") as pyproject_file:
+              PYPROJECT = tomlkit.parse(pyproject_file.read())
+          ver = PYPROJECT["tool"]["_testing"]["ci_default_python_version"]
+          print("::set-output name=default_python_version::{ver}")
+
+
   test-docs:
     name: nox / tox_docs
+    needs: py-default-version
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.default_python_version }}
+          python-version: ${{ needs.py-default-version.outputs.version }}
 
       - name: Install poetry
         run: |
@@ -95,6 +127,7 @@ jobs:
 
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA
+    needs: py-default-version
     # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
     runs-on: ubuntu-latest
     outputs:
@@ -104,7 +137,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.default_python_version }}
+          python-version: ${{ needs.py-default-version.outputs.version }}
 
       - name: Get merge commit message
         id: merge-commit-msg
