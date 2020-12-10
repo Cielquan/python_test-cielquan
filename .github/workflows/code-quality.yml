@@ -2,8 +2,9 @@ name: Code qualitiy
 
 
 env:
-  default_python_version: 3.8  # CHANGE ME
   _NOX_IN_CI: true
+  _NOX_POETRY_COLOR: true  #: Activate colorful output for poetry when run by nox
+  PY_COLORS: 1  #: Activate colorful output for tox
 
 
 on:
@@ -21,73 +22,57 @@ on:
 
 
 jobs:
-  is-merge:
-    name: Is current commit a merge commit?
+  py-default-version:
+    name: Get default python version from pyproject.toml
     runs-on: ubuntu-latest
     outputs:
-      is-merge: ${{ steps.set-output.outputs.is-merge }}
-      repo-name: ${{ steps.repo-dir.outputs.repo-dir }}
+      version: ${{ steps.get-default-version.outputs.default_python_version }}
     steps:
-      - name: Clone repo
-        if: github.event_name == 'push'
-        run: git clone https://github.com/${{ github.repository }}.git
+      - uses: actions/checkout@v2
 
-      - name: Get repo dir name
-        id: repo-dir
-        if: github.event_name == 'push'
-        shell: bash
+      - uses: actions/setup-python@v2
+
+      - name: Install poetry
         run: |
-          repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
-          echo "::set-output name=repo-dir::$repo_dir"
+          python -m pip install -U pip
+          pip install -U poetry
 
-      - name: Checkout current branch
-        if: github.event_name == 'push'
-        working-directory: ${{ steps.repo-dir.outputs.repo-dir }}
-        shell: bash
-        run: git checkout ${GITHUB_REF#refs/heads/}
-
-      - name: Is merge commit?
-        id: is-merge
-        if: github.event_name == 'push'
-        working-directory: ${{ steps.repo-dir.outputs.repo-dir }}
-        shell: bash
+      - name: Install dependencies
         run: |
-          last_merge_commit=$(git log --merges -1 --pretty=format:"%H")
-          echo "Last merge: ${last_merge_commit}"
-          if [[ $last_merge_commit == ${{ github.sha }} ]]; then
-            echo "::set-output name=is-merge::true"
-          else
-            echo "::set-output name=is-merge::false"
-          fi
+          poetry config --ansi virtualenvs.create false
+          poetry install --ansi --no-root --no-dev --extras tomlkit
 
-      - name: Set output value
-        id: set-output
-        shell: bash
+      - name: Get default version
+        id: get-default-version
+        shell: python
         run: |
-          if [[ ${{ github.event_name }} == 'push' ]]; then
-            echo "::set-output name=is-merge::${{ steps.is-merge.outputs.is-merge }}"
-          else
-            echo "::set-output name=is-merge::true"
-          fi
+          import tomlkit
+          with open("pyproject.toml") as pyproject_file:
+              PYPROJECT = tomlkit.parse(pyproject_file.read())
+          ver = PYPROJECT["tool"]["_testing"]["ci_default_python_version"]
+          print(f"::set-output name=default_python_version::{ver}")
 
 
   pre-commit:
-    name: tox / pre_commit
-    needs: is-merge
+    name: nox / pre_commit
+    needs: py-default-version
     runs-on: ubuntu-latest
-    env:
-      TOXENV: pre_commit
     steps:
       - uses: actions/checkout@v2
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.default_python_version }}
+          python-version: ${{ needs.py-default-version.outputs.version }}
 
-      - name: Install tox
+      - name: Install poetry
         run: |
           python -m pip install -U pip
-          pip install tox
+          pip install -U poetry
+
+      - name: Install dependencies
+        run: |
+          poetry config --ansi virtualenvs.create false
+          poetry install --ansi --no-root --no-dev --extras nox
 
       - name: Set python version hash
         shell: bash
@@ -101,20 +86,16 @@ jobs:
             ~/.cache/pypoetry
           key: pre-commit|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('.pre-commit-config.yaml') }}
 
-      - name: Generate tox env
-        run: tox --notest -vv --skip-missing-interpreters false
+      - name: Generate tox envs via nox
+        run: nox --forcecolor --session pre_commit -- -vv --skip-missing-interpreters false  -- --forcecolor -v --install-only
 
-      - name: Run tox env (skip no-commit-to-branch)
-        run: SKIP=no-commit-to-branch tox
-        if: needs.is-merge.outputs.is-merge == 'true'
-
-      - name: Run tox env
-        run: tox -- -- --color=always
-        if: needs.is-merge.outputs.is-merge == 'false'
+      - name: Run tox envs via nox
+        run: nox --forcecolor --session pre_commit -- -- --forcecolor -- --color=always
 
 
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA
+    needs: py-default-version
     # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
     runs-on: ubuntu-latest
     outputs:
@@ -124,7 +105,7 @@ jobs:
 
       - uses: actions/setup-python@v2
         with:
-          python-version: ${{ env.default_python_version }}
+          python-version: ${{ needs.py-default-version.outputs.version }}
 
       - name: Get merge commit message
         id: merge-commit-msg
