@@ -206,7 +206,7 @@ jobs:
 
 
 # FIXME: Add full old test suit if not first release .. if fail and not breaking change .. fail
-# TODO: for release run old tests against the current package. If they do not pass its a breaking change and if the breaking change is not in commit msg ... error
+# NOTE: If they do not pass its a breaking change and if the breaking change is not in commit msg ... error
 
 
   publish:
@@ -237,7 +237,7 @@ jobs:
       run: python -m poetry build
 
     - name: Publish package on test.PyPI
-      # TODO: remove current upload to test.pypi
+      # CHANGE ME: remove current upload to test.pypi
       env:
         POETRY_REPOSITORIES_TEST_URL: ${{ secrets.POETRY_REPOSITORIES_TEST_URL }}
         POETRY_HTTP_BASIC_TEST_USERNAME: ${{ secrets.POETRY_HTTP_BASIC_TEST_USERNAME }}

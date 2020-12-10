@@ -1,7 +1,7 @@
 name: Update pre-commit config dependencies
+# TODO: fix pre-commit autoupdate workflow
 # TODO: Move this to pre-commit.ci when released ?
 # TODO: notify when changes are uploaded
-# FIXME: fix pre-commit autoupdate workflow
 
 
 on:
