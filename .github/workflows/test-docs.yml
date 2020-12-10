@@ -1,6 +1,6 @@
 name: Test documentation
 # FIXME: update/fix workflow
-  # NOTE: update workflow with new nox->tox->nox system  
+  # NOTE: update workflow with new nox->tox->nox system
   # NOTE: find way to install multiple py ver in WF VM via envvar  
   # NOTE: simplify code test by running all py versions in 1 VM .. so 1 VM for each OS
 # TODO: update SKIP WF after simplification
