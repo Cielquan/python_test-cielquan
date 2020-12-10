@@ -1,4 +1,6 @@
 """Config file for nox."""
+# FIXME: try to reduce install statements
+# FIXME: py310 poetry needs crashtest, but why fail?
 import contextlib
 import os
 import re
