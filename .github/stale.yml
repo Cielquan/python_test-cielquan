@@ -1,3 +1,4 @@
+# TODO: overhaul concept for stale
 exemptProjects: true
 exemptMilestones: true
 exemptLabels:
