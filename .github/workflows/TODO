@@ -1,7 +1,5 @@
-FIXME: update workflows with new nox->tox->nox system
-
-TODO: simplify code test by running all py versions in 1 VM .. so 1 VM for each OS
-
-TODO: update SKIPs after simplification
-
-TODO: set workflow ddefault python in pyprject.toml
+CODE TEST:
+    TODO: find way to install multiple py ver in WF VM via envvar
+    TODO: simplify code test by running all py versions in 1 VM .. so 1 VM for each OS
+    TODO: update workflow with new nox->tox->nox system
+    TODO: update SKIP WF after simplification

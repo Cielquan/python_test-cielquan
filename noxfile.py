@@ -1,6 +1,6 @@
 """Config file for nox."""
-# FIXME: add ENVVAR for forceing color output from sub commands
 # FIXME: try to reduce install statements
+# FIXME: add ENVVAR for forceing color output from sub commands in nox and set in CI
 # FIXME: py310 poetry needs crashtest, but why fail?
 import contextlib
 import os

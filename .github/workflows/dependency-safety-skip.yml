@@ -19,7 +19,7 @@ on:
 
 jobs:
   safety:
-    name: tox / safety
+    name: nox / safety
     runs-on: ubuntu-latest
     steps:
       - run: exit 0
