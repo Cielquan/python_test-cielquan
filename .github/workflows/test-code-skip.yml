@@ -5,7 +5,7 @@ name: Test code (Skip)
 
 env:
   # DO NOT FORGET TO UPDATE `test-code.yml` TOO !!!
-  default_python_version: 3.8  # CHANGE ME
+  default_python_version: 3.8  # TODO: remove
   TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2]'  # CHANGE ME
   TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
   TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
