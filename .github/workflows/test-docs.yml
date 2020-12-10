@@ -63,12 +63,12 @@ jobs:
       - name: Install poetry
         run: |
           python -m pip install -U pip
-          pip install poetry
+          pip install -U poetry
 
       - name: Install dependencies
         run: |
           poetry config --ansi virtualenvs.create false
-          poetry install --ansi --no-root --no-dev --extras "nox tox"
+          poetry install --ansi --no-root --no-dev --extras nox
 
       - name: Set python version hash
         shell: bash
@@ -87,7 +87,7 @@ jobs:
         run: timeout 10s .tox/test_docs-html/bin/pip --version || rm -rf .tox
 
       - name: Generate tox envs via nox
-        run: nox --forcecolor --session tox_docs -- --notest -vv --skip-missing-interpreters false  -- --forcecolor
+        run: nox --forcecolor --session tox_docs -- -vv --skip-missing-interpreters false  -- --forcecolor -v --install-only
 
       - name: Run tox envs via nox
         run: nox --forcecolor --session tox_docs -- -- --forcecolor -- --color

@@ -541,18 +541,18 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
 @monkeypatch_session
 def tox_lint(session: Session) -> None:
     """Call tox to run all lint tests."""
-    _tox_caller(session, "safety,pre_commit", [])
+    _tox_caller(session, "safety,pre_commit")
 
 
 @nox.session
 @monkeypatch_session
 def tox_code(session: Session) -> None:
     """Call tox to run all code tests incl. package and coverage."""
-    _tox_caller(session, f"package,{TOXENV_PYTHON_VERSIONS},coverage", [])
+    _tox_caller(session, f"package,{TOXENV_PYTHON_VERSIONS},coverage")
 
 
 @nox.session
 @monkeypatch_session
 def tox_docs(session: Session) -> None:
     """Call tox to run all docs tests."""
-    _tox_caller(session, TOXENV_DOCS_BUILDERS, [])
+    _tox_caller(session, TOXENV_DOCS_BUILDERS)
