@@ -3,10 +3,9 @@ name: Test documentation
 
 env:
   # DO NOT FORGET TO UPDATE `test-docs-skip.yml` TOO !!!
-  default_python_version: 3.8  # CHANGE ME
+  _NOX_IN_CI: true
   _NOX_POETRY_COLOR: true  #: Activate colorful output for poetry
   PY_COLORS: 1  #: Activate colorful output for tox
-  _NOX_IN_CI: true
 
 
 on:
