@@ -12,7 +12,9 @@
 [tool._testing]
     # TODO: adaption for applications
     ci_default_python_version = "3.8"
-    ci_test_python_versions = ["3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2 - 3.10"]
+    #: Max 10 python versions are currently installed
+    ci_test_python_versions = ["pypy3", "3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2 - 3.10"]
+    ci_test_os = ["ubuntu", "macos", "windows"]
     cc_test_reporter_url = "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64"
     tox_skip_sdist = false  #: tox setting || Application -> true; Library -> false
     toxenv_python_versions_win32 = "py{310,39,38,37,36}"
@@ -56,7 +58,7 @@
         #: Docs
         sphinx = {version = "^3.1", optional = true}
         sphinx-autobuild = {version = "^0.7.1", optional = true}
-        formelsammlung = {version = "^3", optional = true}  #: Also for pre-commit, nox
+        formelsammlung = {version = "^3.0.1", optional = true}  #: Also for pre-commit, nox
         python-dotenv = {version = "^0.14.0", optional = true}
         sphinx-rtd-theme = {version = "^0.5", optional = true}
         sphinx-autodoc-typehints = {version = "^1.10.3", optional = true}
