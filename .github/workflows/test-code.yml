@@ -84,8 +84,6 @@ jobs:
               "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
               # "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
           }
-          print(f"""{matrix}""".replace("'", '"'))
-
           import tomlkit
 
           with open("pyproject.toml") as pyproject_file:
@@ -97,8 +95,9 @@ jobs:
           print(f"::set-output name=default_python_version::{std_ver}")
 
           test_os = {"os": conf["ci_test_os"]}
-          print(f"""::set-output name=test_os::{matrix}""")
+          print(f"""{matrix}""".replace("'", '"'))
           print(f"""{test_os}""".replace("'", '"'))
+          print(f"""::set-output name=test_os::{matrix}""")
 
           test_ver = conf["ci_test_python_versions"]
           print(f"::set-output name=test_python_versions::{test_ver}")
