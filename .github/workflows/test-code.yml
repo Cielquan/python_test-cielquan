@@ -76,13 +76,6 @@ jobs:
           poetry config --ansi virtualenvs.create false
           poetry install --ansi --no-root --no-dev --extras tomlkit
 
-      - name: Set test matrix
-        id: set-matrix
-        shell: python
-        run: |
-          matrix = {"os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", ")}
-          print(matrix)
-
       - name: Get config
         id: get-config
         shell: python
@@ -98,7 +91,6 @@ jobs:
           print(f"::set-output name=default_python_version::{std_ver}")
 
           test_os = {"os": conf["ci_test_os"]}
-          print(test_os)
           print(f"::set-output name=test_os::{test_os}")
 
           test_ver = conf["ci_test_python_versions"]
