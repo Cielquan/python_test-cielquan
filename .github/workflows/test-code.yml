@@ -91,6 +91,8 @@ jobs:
           print(f"::set-output name=default_python_version::{std_ver}")
 
           test_os = conf["ci_test_os"]
+          print(test_os)
+          print(f"{test_os}")
           print(f"::set-output name=test_os::{test_os}")
 
           test_ver = conf["ci_test_python_versions"]
@@ -174,7 +176,7 @@ jobs:
 
   notify-code-climate:
     name: Notify code-climate
-    needs: [set-git-env-vars, pyproject-config]
+    needs: pyproject-config
     runs-on: ubuntu-latest
     env:
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
