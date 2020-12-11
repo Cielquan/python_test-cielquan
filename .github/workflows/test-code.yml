@@ -60,6 +60,11 @@ jobs:
       test_python_version_3: ${{ steps.get-config.outputs.test_python_version_3 }}
       test_python_version_4: ${{ steps.get-config.outputs.test_python_version_4 }}
       test_python_version_5: ${{ steps.get-config.outputs.test_python_version_5 }}
+      test_python_version_6: ${{ steps.get-config.outputs.test_python_version_6 }}
+      test_python_version_7: ${{ steps.get-config.outputs.test_python_version_7 }}
+      test_python_version_8: ${{ steps.get-config.outputs.test_python_version_8 }}
+      test_python_version_9: ${{ steps.get-config.outputs.test_python_version_9 }}
+      test_python_version_10: ${{ steps.get-config.outputs.test_python_version_10 }}
       cc_test_reporter_url: ${{ steps.get-config.outputs.reporter_url }}
     steps:
       - uses: actions/checkout@v2
@@ -107,6 +112,14 @@ jobs:
               print(f"::set-output name=test_python_version_5::{test_ver[4]}")
           if len(test_ver) >= 6:
               print(f"::set-output name=test_python_version_6::{test_ver[5]}")
+          if len(test_ver) >= 7:
+              print(f"::set-output name=test_python_version_7::{test_ver[6]}")
+          if len(test_ver) >= 8:
+              print(f"::set-output name=test_python_version_8::{test_ver[7]}")
+          if len(test_ver) >= 9:
+              print(f"::set-output name=test_python_version_9::{test_ver[8]}")
+          if len(test_ver) >= 10:
+              print(f"::set-output name=test_python_version_10::{test_ver[9]}")
 
           reporter_url = conf["cc_test_reporter_url"]
           print(f"::set-output name=reporter_url::{reporter_url}")
@@ -323,6 +336,26 @@ jobs:
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_6 }}
         if: ${{ needs.pyproject-config.outputs.test_python_version_6 }} != ""
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.test_python_version_7 }}
+        if: ${{ needs.pyproject-config.outputs.test_python_version_7 }} != ""
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.test_python_version_8 }}
+        if: ${{ needs.pyproject-config.outputs.test_python_version_8 }} != ""
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.test_python_version_9 }}
+        if: ${{ needs.pyproject-config.outputs.test_python_version_9 }} != ""
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.test_python_version_10 }}
+        if: ${{ needs.pyproject-config.outputs.test_python_version_10 }} != ""
 
       - name: Set python version hash
         shell: bash
