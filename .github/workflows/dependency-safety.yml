@@ -92,10 +92,10 @@ jobs:
           poetry config --ansi virtualenvs.create false
           poetry install --ansi --no-root --no-dev --extras nox
 
-      - name: Generate tox envs via nox
+      - name: Generate tox env via nox
         run: nox --forcecolor --session safety -- -vv --skip-missing-interpreters false  -- -v --install-only
 
-      - name: Run tox envs via nox
+      - name: Run tox env via nox
         run: nox --forcecolor --session safety
 
 
