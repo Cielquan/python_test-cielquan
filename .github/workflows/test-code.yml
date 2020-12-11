@@ -53,6 +53,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       default_py_version: ${{ steps.get-config.outputs.default_python_version }}
+      test_python_versions: ${{ steps.get-config.outputs.test_python_version }}
       cc_test_reporter_url: ${{ steps.get-config.outputs.reporter_url }}
     steps:
       - uses: actions/checkout@v2
@@ -74,11 +75,18 @@ jobs:
         shell: python
         run: |
           import tomlkit
+
           with open("pyproject.toml") as pyproject_file:
               PYPROJECT = tomlkit.parse(pyproject_file.read())
+
           conf = PYPROJECT["tool"]["_testing"]
-          version = conf["ci_default_python_version"]
-          print(f"::set-output name=default_python_version::{version}")
+
+          std_ver = conf["ci_default_python_version"]
+          print(f"::set-output name=default_python_version::{std_ver}")
+
+          test_ver = conf["ci_test_python_versions"]
+          print(f"::set-output name=test_python_versions::{test_ver}")
+
           reporter_url = conf["cc_test_reporter_url"]
           print(f"::set-output name=reporter_url::{reporter_url}")
 
@@ -110,14 +118,14 @@ jobs:
         run: |
           import re
           import sys
+
           sha = re.fullmatch(
               r"^Merge ([a-z0-9]{40}) into [a-z0-9]{40}$",
               "${{ steps.merge-commit-msg.outputs.COMMIT_MSG }}"
           )
-          if sha:
-              print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
-          else:
+          if not sha:
               sys.exit(1)
+          print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
         if: github.event_name == 'pull_request'
 
       - name: Set GIT_COMMIT_SHA
@@ -135,10 +143,12 @@ jobs:
         shell: python
         run: |
           branch = "${{ github.ref }}".replace("refs/heads/", "")
+
           if "${{ github.event_name }}" == "pull_request":
               head_ref = "${{ github.head_ref }}"
               if head_ref:
                   branch = head_ref
+
           print(f"::set-output name=GIT_BRANCH::{branch}")
 
 
@@ -205,6 +215,7 @@ jobs:
         shell: python
         run: |
           import sys
+
           if "${{ steps.test.outcome }}" != "success":
               sys.exit(1)
           else:
@@ -235,6 +246,7 @@ jobs:
               "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
               "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
           }
+
           if "${{ env.TEST_OS_PYPY }}" and "${{ env.TEST_PYPY_VERSIONS }}":
               matrix.update(
                   {
@@ -269,6 +281,7 @@ jobs:
         shell: python
         run: |
           import sys
+
           if "${{ matrix.os }}" == "ubuntu" and "${{ needs.package-tests.outputs.ubuntu-success }}" == "true":
               sys.exit(0)
           elif "${{ matrix.os }}" == "macos" and "${{ needs.package-tests.outputs.macos-success }}" == "true":
@@ -284,15 +297,19 @@ jobs:
           import os
           import re
           import sys
-          gh_env_file = os.environ["GITHUB_ENV"]
+
           py_ver = "${{ matrix.python_version }}"
           regex_result = re.search(r"^\d+\.\d+|^pypy\d+", py_ver)
           if not regex_result:
               sys.exit(1)
+
           version = f"py{regex_result.group(0)}"
           if version.startswith("pypy"):
               version = version[2:]
+
           toxenv = version.replace(".", "")
+
+          gh_env_file = os.environ["GITHUB_ENV"]
           with open(gh_env_file, "a") as f:
               f.write(f"TOXENV={toxenv}\n")
 
@@ -381,6 +398,7 @@ jobs:
           artifact_dir = Path("coverage-artifacts")
           cov_dir = Path(".coverage_cache")
           cov_dir.mkdir()
+
           for coverage_file in artifact_dir.glob("*/.coverage*"):
               destination = cov_dir / f".coverage.{coverage_file.parent.name[9:]}"
               print(f"{coverage_file} copy to {destination}")
@@ -500,6 +518,7 @@ jobs:
           tests=${{ needs.test-code.result }}
           cov=${{ needs.report-coverage.result }}
           send_cov=${{ needs.push-coverage-to-code-climate.result }}
+
           if [[ $tests == 'success' ]] && [[ $cov == 'success' ]] && [[ $send_cov == 'success' ]]; then
             state=success
           else
