@@ -80,6 +80,22 @@ jobs:
         id: get-config
         shell: python
         run: |
+          matrix = {
+              "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
+              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
+          }
+          if "${{ env.TEST_OS_PYPY }}" and "${{ env.TEST_PYPY_VERSIONS }}":
+              matrix.update(
+                  {
+                      "include": [
+                          {"os": os, "python_version": v}
+                          for os in "${{ env.TEST_OS_PYPY }}"[1:-1].split(", ")
+                          for v in "${{ env.TEST_PYPY_VERSIONS }}"[1:-1].split(", ")
+                      ]
+                  }
+              )
+          print(matrix)
+          print(f"""{matrix}""")
           import tomlkit
 
           with open("pyproject.toml") as pyproject_file:
@@ -91,7 +107,7 @@ jobs:
           print(f"::set-output name=default_python_version::{std_ver}")
 
           test_os = {"os": conf["ci_test_os"]}
-          print(f"::set-output name=test_os::{test_os}")
+          print(f"""::set-output name=test_os::{test_os}""")
 
           test_ver = conf["ci_test_python_versions"]
           print(f"::set-output name=test_python_versions::{test_ver}")
