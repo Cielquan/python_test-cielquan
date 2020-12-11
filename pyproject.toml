@@ -58,7 +58,7 @@
         #: Docs
         sphinx = {version = "^3.1", optional = true}
         sphinx-autobuild = {version = "^0.7.1", optional = true}
-        formelsammlung = {version = "^3", optional = true}  #: Also for pre-commit, nox
+        formelsammlung = {version = "^3.0.1", optional = true}  #: Also for pre-commit, nox
         python-dotenv = {version = "^0.14.0", optional = true}
         sphinx-rtd-theme = {version = "^0.5", optional = true}
         sphinx-autodoc-typehints = {version = "^1.10.3", optional = true}
