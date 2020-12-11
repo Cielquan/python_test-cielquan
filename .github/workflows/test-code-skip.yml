@@ -3,15 +3,6 @@ name: Test code (Skip)
 # Dummy tests for pleasing PR merge requirements
 
 
-env:
-  # DO NOT FORGET TO UPDATE `test-code.yml` TOO !!!
-  default_python_version: 3.8  # TODO: remove
-  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2]'  # CHANGE ME
-  TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
-  TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
-  TEST_OS_PYPY: '[ubuntu, macos]'  # CHANGE ME
-
-
 on:
   pull_request:
     branches:
@@ -30,45 +21,45 @@ on:
 
 
 jobs:
-  create-python-test-matrix:
-    name: Set test matrix
+  pyproject-config:
+    name: Get config from pyproject.toml
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
+      test_os: ${{ steps.get-config.outputs.test_ostest_os }}
     steps:
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ env.default_python_version }}
+      - uses: actions/checkout@v2
 
-      - name: Set test matrix
-        id: set-matrix
+      - uses: actions/setup-python@v2
+
+      - name: Install poetry
+        run: |
+          python -m pip install -U pip
+          pip install -U poetry
+
+      - name: Install dependencies
+        run: |
+          poetry config --ansi virtualenvs.create false
+          poetry install --ansi --no-root --no-dev --extras tomlkit
+
+      - name: Get config
+        id: get-config
         shell: python
         run: |
-          matrix = {
-              "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
-              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
-          }
+          import tomlkit
 
-          if "${{ env.TEST_OS_PYPY }}" and "${{ env.TEST_PYPY_VERSIONS }}":
-              matrix.update(
-                  {
-                      "include": [
-                          {"os": os, "python_version": v}
-                          for os in "${{ env.TEST_OS_PYPY }}"[1:-1].split(", ")
-                          for v in "${{ env.TEST_PYPY_VERSIONS }}"[1:-1].split(", ")
-                      ]
-                  }
-              )
-          print(f"""::set-output name=matrix::{matrix}""")
+          with open("pyproject.toml") as pyproject_file:
+              PYPROJECT = tomlkit.parse(pyproject_file.read())
+
+          test_os = {"os": PYPROJECT["tool"]["_testing"]["ci_test_os"]}
+          print(f"::set-output name=test_os::{test_os}")
 
 
   test-code:
-    name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
-    needs: create-python-test-matrix
-    if: needs.create-python-test-matrix.result == 'success'
+    name: nox / test_code / ${{ matrix.os }}
+    needs: pyproject-config
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJson(needs.create-python-test-matrix.outputs.matrix) }}
+      matrix: ${{ fromJson(needs.pyproject-config.outputs.test_os) }}
     steps:
       - run: exit 0
 
