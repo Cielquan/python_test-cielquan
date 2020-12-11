@@ -547,7 +547,7 @@ alias sl s;;l
 
 
 @nox.session
-def pdbrc(session: Session) -> None:  # noqa: W0613
+def create_pdbrc(session: Session) -> None:  # noqa: W0613
     """Create .pdbrc file (no overwrite)."""
     pdbrc_file_path = NOXFILE_DIR / ".pdbrc"
     if not pdbrc_file_path.is_file():
@@ -555,23 +555,53 @@ def pdbrc(session: Session) -> None:  # noqa: W0613
             pdbrc_file.writelines(PDBRC_FILE)
 
 
+@nox.session
+def create_spellignore(session: Session) -> None:  # noqa: W0613
+    """Create .pdbrc file (no overwrite)."""
+    gitignore_file_path = NOXFILE_DIR / ".gitignore"
+    with open(gitignore_file_path, "w") as gitignore_file:
+        gitignore_content = gitignore_file.read()
+
+    spellignore_file_path = NOXFILE_DIR / ".spellignore"
+    if not spellignore_file_path.is_file():
+        with open(spellignore_file_path, "w") as spellignore_file:
+            spellignore_file.writelines(gitignore_content)
+
+
+@nox.session
+def dev(session: Session) -> None:
+    """Call basic dev setup nox sessions."""
+    session.run("nox", "--session", "install_extras", "setup_pre_commit")
+
+
+@nox.session
+def dev2(session: Session) -> None:
+    """Call all dev setup nox sessions."""
+    session.run(
+        "nox",
+        "--session",
+        "install_extras",
+        "setup_pre_commit",
+        "debug_import",
+        "create_pdbrc",
+        "create_spellignore",
+    )
+
+
 #: -- TOX MULTI WRAPPER SESSIONS -------------------------------------------------------
 @nox.session
-@monkeypatch_session
 def tox_lint(session: Session) -> None:
     """Call tox to run all lint tests."""
     _tox_caller(session, "safety,pre_commit")
 
 
 @nox.session
-@monkeypatch_session
 def tox_code(session: Session) -> None:
     """Call tox to run all code tests incl. package and coverage."""
     _tox_caller(session, f"package,{TOXENV_PYTHON_VERSIONS},coverage")
 
 
 @nox.session
-@monkeypatch_session
 def tox_docs(session: Session) -> None:
     """Call tox to run all docs tests."""
     _tox_caller(session, TOXENV_DOCS_BUILDERS)

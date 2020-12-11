@@ -135,8 +135,11 @@ node_modules/
 _backupfiles
 .backupfiles
 
-# Python debugger config
-.pdbrc
-
 # auto generated API docs
 docs/source/autoapi
+
+## created via nox sessions
+# Python debugger config
+.pdbrc
+# ignorefile for spellchecking
+.spellignore
