@@ -202,7 +202,7 @@ environment. For development we use the following tools:
 - `nox <https://nox.thea.codes/>`__:
     for running standardized tests or automated dev-tasks in an existing virtualenv
 - `tox <https://tox.readthedocs.io/>`__:
-    for the creation of isolated test virtualenvs and running tests inside via ``nox``
+    for the creation of isolated test virtualenvs (does not get called by user)
 - `pre-commit <https://pre-commit.com/>`__:
     for automated linting and quality checking before commiting
 
@@ -223,20 +223,45 @@ To test the code you can run::
 
 to lint, test the code or test the docs respectively.
 
-For more specific testing we have several different ``tox``/``nox``
-environment/sessions available. You can invoke them with ``tox -e <environment>`` or
-``nox -s <session>``. Some take additional arguments which need to be added at the end
-after a double dash and separated by a space like so: ``nox -s session -- arg1 arg2``.
-All ``nox`` sessions skip the install steps when invoked by ``tox`` as ``tox`` manages
-the dependencies itself.
+For more specific testing and development environment setup we have several different
+``nox`` sessions available. You can invoke them with ``nox -s <session>``. Some take
+additional arguments which need to be added at the end after a double dash and separated
+by a space like so: ``nox -s session -- arg1 arg2``. For local development and testing
+``nox`` sessions are meant to be called from the development virtualenv. If a testing
+``nox`` session is invoked without an active virtualenv ``tox`` is automatically invoked
+as a *virtualenv backend* to create a virtualenv and the session is then run inside it.
+You can force this behavior also by giving ``tox`` as an additional argument to ``nox``.
 
-``tox`` / ``nox``:
+``nox`` testing sessions:
 
-- ``safety`` / ``safety``:
+- ``package``:
+    Build a package with ``poetry`` from the current source and test it with ``twine``.
+
+- ``test_code``:
+    The session will run all tests with the python version used by the virtualenv from
+    where its invoked. If ``tox`` is used as virtualenv backend the tests are run with
+    all specified and available python versions.
+
+    **Addtional arguments**:
+
+    * Any argument understood by ``pytest``. Defaults to ``tests`` (for the tests
+      directory)
+
+- ``coverage_merge``:
+    Merge existing ``.coverage.*`` artifacts into one ``.coverage`` file and create XML
+    (*coverage.xml*) and HTML (*/htmlcov*) reports.
+
+- ``coverage_report``:
+    Report the total coverage and diff coverage against origin/master.
+
+- ``coverage``:
+    Merge and report the coverage. (runs both coverage sessions above)
+
+- ``safety``:
     Run ``safety`` over all specified dependencies to check for dependency versions that
     are known to be vulnerable.
 
-- ``pre_commit`` / ``pre_commit``:
+- ``pre_commit``:
     Run ``pre-commit`` over all project files to lint, format and check them.
 
     **Addtional arguments**:
@@ -247,30 +272,7 @@ the dependencies itself.
       no hook is specified as the diff will be printed on every failing hook otherwise.
     * Any argument understood by ``pre-commit``.
 
-- ``package`` / ``package``:
-    Build a package with ``poetry`` from the current source and test it with ``twine``.
-
-- ``py<PYTHON-VERSION>`` / ``test_code``:
-    *PYTHON-VERSION* can by either e.g. *py3* for *pypy3* or e.g. *310* for *python3.10*.
-    The ``nox`` session ``test_code`` will run the tests with the python version used by
-    the virtualenv from where its invoked.
-
-    **Addtional arguments**:
-
-    * Any argument understood by ``pytest``. Defaults to ``tests`` (for the tests
-      directory)
-
-- ``coverage-merge`` / ``coverage -- merge``:
-    Merge existing ``.coverage.*`` artifacts into one ``.coverage`` file and create XML
-    (*coverage.xml*) and HTML (*/htmlcov*) reports.
-
-- ``coverage-report`` / ``coverage -- report``:
-    Report the total coverage and diff coverage against origin/master.
-
-- ``coverage-all`` / ``coverage``:
-    Merge and report the coverage. (runs both coverage sessions above)
-
-- ``docs`` / ``docs``:
+- ``docs``:
     Build the docs as HTML in */docs/build/html*.
 
     **Addtional arguments**:
@@ -279,7 +281,7 @@ the dependencies itself.
       after starting a development webserver via ``sphinx-autobuild``.
     * Any argument understood by ``sphinx`` or ``sphinx-autobuild``.
 
-- ``test_docs-html`` / ``"test_docs(builder='html')"``:
+- ``"test_docs(builder='html')"``:
     Build the docs with the **html** builder in */docs/build/test/html*
     under nitpicky test conditions.
 
@@ -287,7 +289,7 @@ the dependencies itself.
 
     * Any argument understood by ``sphinx``.
 
-- ``test_docs-linkcheck`` / ``"test_docs(builder='linkcheck')"``:
+- ``"test_docs(builder='linkcheck')"``:
     Build the docs with the **linkcheck** builder in */docs/build/test/linkcheck*
     under nitpicky test conditions.
 
@@ -295,7 +297,7 @@ the dependencies itself.
 
     * Any argument understood by ``sphinx``.
 
-- ``test_docs-coverage`` / ``"test_docs(builder='coverage')"``:
+- ``"test_docs(builder='coverage')"``:
     Build the docs with the **coverage** builder in */docs/build/test/coverage*
     under nitpicky test conditions.
 
@@ -303,7 +305,7 @@ the dependencies itself.
 
     * Any argument understood by ``sphinx``.
 
-- ``test_docs-doctest`` / ``"test_docs(builder='doctest')"``:
+- ``"test_docs(builder='doctest')"``:
     Build the docs with the **doctest** builder in */docs/build/test/doctest*
     under nitpicky test conditions.
 
@@ -311,13 +313,48 @@ the dependencies itself.
 
     * Any argument understood by ``sphinx``.
 
-- ``test_docs-spelling`` / ``"test_docs(builder='spelling')"``:
+- ``"test_docs(builder='spelling')"``:
     Build the docs with the **spelling** builder in */docs/build/test/spelling*
     under nitpicky test conditions.
 
     **Addtional arguments**:
 
     * Any argument understood by ``sphinx``.
+
+- ``test_docs``:
+    Run all ``test_code`` sessions from above.
+
+    **Addtional arguments**:
+
+    * Any argument understood by ``sphinx``.
+
+
+``nox`` dev setup sessions:
+
+- ``install_extras``:
+    Install all specified extras into the active venv.
+
+- ``setup_pre_commit``:
+    Create ``pre_commit`` ``tox`` environment, install *pre-commit* and *commit-msg*
+    hooks and run the prior created environment once with all *pre-commit* hooks.
+
+- ``debug_import``:
+    Add/Install files to active virtualenv's site-packages directory which add
+    ``devtools.debug()`` as ``debug`` to python builtins. ``devtools`` gets installed
+    as dev-dependency by ``poetry``.
+
+- ``create_pdbrc``:
+    Create ``.pdbrc`` file at project root if non exists.
+
+- ``create_spellignore``:
+    Create ``.spellignore`` file at project root if non exists. The content is a copy of
+    the ``.gitignore`` file.
+
+- ``dev``:
+    Run ``install_extras`` and ``setup_pre_commit`` ``nox`` sessions.
+
+- ``dev2``:
+    Run all other dev setup ``nox`` sessions.
 
 
 Git(hub) Workflow
