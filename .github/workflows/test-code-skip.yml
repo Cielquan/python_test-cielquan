@@ -3,6 +3,15 @@ name: Test code (Skip)
 # Dummy tests for pleasing PR merge requirements
 
 
+# TODO: remove env
+env:
+  # DO NOT FORGET TO UPDATE `test-code-skip.yml` && `publish.yml` TOO !!!
+  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2 - 3.10]'  # CHANGE ME
+  TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
+  TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
+  TEST_OS_PYPY: '[ubuntu, macos]'  # CHANGE ME
+
+
 on:
   pull_request:
     branches:
@@ -45,13 +54,26 @@ jobs:
         id: get-config
         shell: python
         run: |
+          matrix = {
+              "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
+              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
+          }
           import tomlkit
 
           with open("pyproject.toml") as pyproject_file:
               PYPROJECT = tomlkit.parse(pyproject_file.read())
 
-          test_os = {"os": PYPROJECT["tool"]["_testing"]["ci_test_os"]}
-          print(f""""::set-output name=test_os::{test_os}""")
+          conf = PYPROJECT["tool"]["_testing"]
+
+          std_ver = conf["ci_default_python_version"]
+          print(f"::set-output name=default_python_version::{std_ver}")
+
+          test_os = {"os": conf["ci_test_os"]}
+          print(f"""{matrix}""".replace("'", '"'))
+          print(f"""{test_os}""".replace("'", '"'))
+          print(f"""set-output name=test_os::{matrix}""".replace("'", '"'))
+          print(f"""set-output name=test_os::{test_os}""".replace("'", '"'))
+          print(f"""::set-output name=test_os::{matrix}""")
 
 
   test-code:

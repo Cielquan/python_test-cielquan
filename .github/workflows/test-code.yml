@@ -95,11 +95,7 @@ jobs:
           print(f"::set-output name=default_python_version::{std_ver}")
 
           test_os = {"os": conf["ci_test_os"]}
-          print(f"""{matrix}""".replace("'", '"'))
-          print(f"""{test_os}""".replace("'", '"'))
-          print(f"""set-output name=test_os::{matrix}""".replace("'", '"'))
-          print(f"""set-output name=test_os::{test_os}""".replace("'", '"'))
-          print(f"""::set-output name=test_os::{matrix}""")
+          print(f"""::set-output name=test_os::{test_os}""")
 
           test_ver = conf["ci_test_python_versions"]
           print(f"::set-output name=test_python_versions::{test_ver}")
