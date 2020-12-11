@@ -235,7 +235,7 @@ def test_code(session: Session) -> None:
         "pytest",
         *color,
         f"--basetemp={get_venv_tmp_dir(get_venv_path())}",
-        f"--junitxml={JUNIT_CACHE_DIR / f'junit.{session.python}.xml'}",
+        f"--junitxml={JUNIT_CACHE_DIR / f'junit.{name}.xml'}",
         f"--cov={cov_source_dir}",
         f"--cov-fail-under={session.env.get('MIN_COVERAGE') or 100}",
         f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
