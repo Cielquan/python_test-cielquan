@@ -76,6 +76,27 @@ jobs:
           poetry config --ansi virtualenvs.create false
           poetry install --ansi --no-root --no-dev --extras tomlkit
 
+      - name: Set test matrix
+        id: set-matrix
+        shell: python
+        run: |
+          matrix = {
+              "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
+              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
+          }
+          if "${{ env.TEST_OS_PYPY }}" and "${{ env.TEST_PYPY_VERSIONS }}":
+              matrix.update(
+                  {
+                      "include": [
+                          {"os": os, "python_version": v}
+                          for os in "${{ env.TEST_OS_PYPY }}"[1:-1].split(", ")
+                          for v in "${{ env.TEST_PYPY_VERSIONS }}"[1:-1].split(", ")
+                      ]
+                  }
+              )
+          print(matrix)
+          print(f"""::set-output name=matrix::{matrix}""")
+
       - name: Get config
         id: get-config
         shell: python
@@ -515,7 +536,7 @@ jobs:
 
   set-status:
     name: Set status on commit
-    needs: [test-code, report-coverage, push-coverage-to-code-climate, set-git-env-vars]
+    needs: [report-coverage, push-coverage-to-code-climate, set-git-env-vars]
     if: always()
     runs-on: ubuntu-latest
     steps:
