@@ -123,6 +123,7 @@ jobs:
               r"^Merge ([a-z0-9]{40}) into [a-z0-9]{40}$",
               "${{ steps.merge-commit-msg.outputs.COMMIT_MSG }}"
           )
+
           if not sha:
               sys.exit(1)
           print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
