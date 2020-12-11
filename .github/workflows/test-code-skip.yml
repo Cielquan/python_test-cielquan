@@ -3,15 +3,6 @@ name: Test code (Skip)
 # Dummy tests for pleasing PR merge requirements
 
 
-# TODO: remove env
-env:
-  # DO NOT FORGET TO UPDATE `test-code-skip.yml` && `publish.yml` TOO !!!
-  TEST_PYTHON_VERSIONS: '[3.6, 3.7, 3.8, 3.9, 3.10.0-alpha.2 - 3.10]'  # CHANGE ME
-  TEST_OS_PYTHON: '[ubuntu, macos, windows]'  # CHANGE ME
-  TEST_PYPY_VERSIONS: '[pypy3]'  # CHANGE ME
-  TEST_OS_PYPY: '[ubuntu, macos]'  # CHANGE ME
-
-
 on:
   pull_request:
     branches:
