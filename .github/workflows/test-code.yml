@@ -53,7 +53,13 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       default_py_version: ${{ steps.get-config.outputs.default_python_version }}
-      test_python_versions: ${{ steps.get-config.outputs.test_python_version }}
+      test_os: ${{ steps.get-config.outputs.test_ostest_os }}
+      test_python_versions: ${{ steps.get-config.outputs.test_python_versions }}
+      test_python_version_1: ${{ steps.get-config.outputs.test_python_version_1 }}
+      test_python_version_2: ${{ steps.get-config.outputs.test_python_version_2 }}
+      test_python_version_3: ${{ steps.get-config.outputs.test_python_version_3 }}
+      test_python_version_4: ${{ steps.get-config.outputs.test_python_version_4 }}
+      test_python_version_5: ${{ steps.get-config.outputs.test_python_version_5 }}
       cc_test_reporter_url: ${{ steps.get-config.outputs.reporter_url }}
     steps:
       - uses: actions/checkout@v2
@@ -84,8 +90,21 @@ jobs:
           std_ver = conf["ci_default_python_version"]
           print(f"::set-output name=default_python_version::{std_ver}")
 
+          test_os = conf["ci_test_os"]
+          print(f"::set-output name=test_os::{test_os}")
+
           test_ver = conf["ci_test_python_versions"]
           print(f"::set-output name=test_python_versions::{test_ver}")
+          if len(test_ver) >= 1:
+              print(f"::set-output name=test_python_version_1::{test_ver[0]}")
+          if len(test_ver) >= 2:
+              print(f"::set-output name=test_python_version_2::{test_ver[1]}")
+          if len(test_ver) >= 3:
+              print(f"::set-output name=test_python_version_3::{test_ver[2]}")
+          if len(test_ver) >= 4:
+              print(f"::set-output name=test_python_version_4::{test_ver[3]}")
+          if len(test_ver) >= 5:
+              print(f"::set-output name=test_python_version_5::{test_ver[4]}")
 
           reporter_url = conf["cc_test_reporter_url"]
           print(f"::set-output name=reporter_url::{reporter_url}")
@@ -179,15 +198,13 @@ jobs:
 
 
   package-tests:
-    name: tox / package / ${{ matrix.os }}
+    name: nox / package / ${{ matrix.os }}
     needs: pyproject-config
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
       matrix:
         os: [ubuntu, macos, windows]
-    env:
-      TOXENV: package
     outputs:
       ubuntu-success: ${{ steps.set-result.outputs.ubuntu-success }}
       macos-success: ${{ steps.set-result.outputs.macos-success }}
@@ -199,17 +216,22 @@ jobs:
         with:
           python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
 
-      - name: Install tox
+      - name: Install poetry
         run: |
           python -m pip install -U pip
-          pip install tox
+          pip install -U poetry
 
-      - name: Generate tox env
-        run: tox --notest -vv --skip-missing-interpreters false
+      - name: Install dependencies
+        run: |
+          poetry config --ansi virtualenvs.create false
+          poetry install --ansi --no-root --no-dev --extras nox
 
-      - name: Run tox env
+      - name: Generate tox envs via nox
+        run: nox --forcecolor --session package -- -vv --skip-missing-interpreters false  -- -v --install-only
+
+      - name: Run tox envs via nox
         id: test
-        run: tox
+        run: nox --forcecolor --session package
 
       - name: Set result variable
         id: set-result
@@ -228,55 +250,23 @@ jobs:
                   print("::set-output name=windows-success::true")
 
 
-  create-python-test-matrix:
-    name: Set test matrix
-    needs: pyproject-config
-    runs-on: ubuntu-latest
-    outputs:
-      matrix: ${{ steps.set-matrix.outputs.matrix }}
-    steps:
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
-
-      - name: Set test matrix
-        id: set-matrix
-        shell: python
-        run: |
-          matrix = {
-              "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
-              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
-          }
-
-          if "${{ env.TEST_OS_PYPY }}" and "${{ env.TEST_PYPY_VERSIONS }}":
-              matrix.update(
-                  {
-                      "include": [
-                          {"os": os, "python_version": v}
-                          for os in "${{ env.TEST_OS_PYPY }}"[1:-1].split(", ")
-                          for v in "${{ env.TEST_PYPY_VERSIONS }}"[1:-1].split(", ")
-                      ]
-                  }
-              )
-          print(f"""::set-output name=matrix::{matrix}""")
-
-
   test-code:
-    name: tox / python ${{ matrix.python_version }} / ${{ matrix.os }}
-    needs: [create-python-test-matrix, notify-code-climate, package-tests, pyproject-config]
-    if: needs.create-python-test-matrix.result == 'success'
+    name: nox / test_code / ${{ matrix.os }}
+    needs: [notify-code-climate, package-tests, pyproject-config]
+    if: needs.pyproject-config.result == 'success'
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
-      matrix: ${{ fromJson(needs.create-python-test-matrix.outputs.matrix) }}
+      matrix:
+        os: ${{ fromJson(needs.pyproject-config.outputs.test_os) }}
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
     steps:
-      - name: Set up python ${{ matrix.python_version }}
-        uses: actions/setup-python@v2
+
+      - uses: actions/setup-python@v2
         with:
-          python-version: ${{ matrix.python_version }}
+          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
 
       - name: Abort if package test failed
         shell: python
@@ -292,34 +282,42 @@ jobs:
           else:
               sys.exit(1)
 
-      - name: Set TOXENV variable
-        shell: python
-        run: |
-          import os
-          import re
-          import sys
-
-          py_ver = "${{ matrix.python_version }}"
-          regex_result = re.search(r"^\d+\.\d+|^pypy\d+", py_ver)
-          if not regex_result:
-              sys.exit(1)
-
-          version = f"py{regex_result.group(0)}"
-          if version.startswith("pypy"):
-              version = version[2:]
-
-          toxenv = version.replace(".", "")
-
-          gh_env_file = os.environ["GITHUB_ENV"]
-          with open(gh_env_file, "a") as f:
-              f.write(f"TOXENV={toxenv}\n")
-
       - uses: actions/checkout@v2
 
-      - name: Install tox
+      - name: Install poetry
         run: |
           python -m pip install -U pip
-          pip install tox
+          pip install -U poetry
+
+      - name: Install dependencies
+        run: |
+          poetry config --ansi virtualenvs.create false
+          poetry install --ansi --no-root --no-dev --extras nox
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.test_python_version_1 }}
+        if: ${{ needs.pyproject-config.outputs.test_python_version_1 }} != ""
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.test_python_version_2 }}
+        if: ${{ needs.pyproject-config.outputs.test_python_version_2 }} != ""
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.test_python_version_3 }}
+        if: ${{ needs.pyproject-config.outputs.test_python_version_3 }} != ""
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.test_python_version_4 }}
+        if: ${{ needs.pyproject-config.outputs.test_python_version_4 }} != ""
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.test_python_version_5 }}
+        if: ${{ needs.pyproject-config.outputs.test_python_version_5 }} != ""
 
       - name: Set python version hash
         shell: bash
@@ -329,47 +327,45 @@ jobs:
         uses: actions/cache@v2
         id: cache
         with:
-          path: .tox/${{ env.TOXENV }}
-          key: tox-env|${{ env.TOXENV }}|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
+          path: .tox/${{ runner.os }}
+          key: tox-env|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
 
       - name: Ensure cache is healthy (windows)
         if: steps.cache.outputs.cache-hit == 'true' && matrix.os == 'windows'
         shell: bash
-        run: timeout 10s .tox/${{ env.TOXENV }}/Scripts/pip --version || rm -rf .tox
+        run: timeout 10s .tox/.package/Scripts/pip --version || rm -rf .tox
 
       - name: Ensure cache is healthy (unix)
         if: steps.cache.outputs.cache-hit == 'true' && matrix.os != 'windows'
         shell: bash
-        run: timeout 10s .tox/${{ env.TOXENV }}/bin/pip --version || rm -rf .tox
+        run: timeout 10s .tox/.package/bin/pip --version || rm -rf .tox
 
-      - name: Generate tox env
-        run: tox --notest -vv --skip-missing-interpreters false
+      - name: Generate tox envs via nox
+        run: nox --forcecolor --session test_code -- -vv --skip-missing-interpreters false  -- -v --install-only
 
-      - name: Run tox env
-        run: tox
+      - name: Run tox envs via nox
+        run: nox --forcecolor --session test_code
 
-      - name: Upload coverage artifact
+      - name: Upload coverage artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: coverage-${{ matrix.os }}-py${{ matrix.python_version }}
+          name: coverage-${{ matrix.os }}-${{ needs.pyproject-config.outputs.test_python_versions }}
           path: .coverage_cache/.coverage*
           if-no-files-found: error
 
-      - name: Upload junit artifact
+      - name: Upload junit artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: junit-${{ matrix.os }}-py${{ matrix.python_version }}
+          name: junit-${{ matrix.os }}-${{ needs.pyproject-config.outputs.test_python_versions }}
           path: .junit_cache/junit*.xml
           if-no-files-found: error
 
 
   merge-coverage:
-    name: tox / coverage-merge
+    name: nox / coverage_merge
     needs: [test-code, pyproject-config]
     if: always()
     runs-on: ubuntu-latest
-    env:
-      TOXENV: coverage-merge
     steps:
       - uses: actions/checkout@v2
 
@@ -377,20 +373,25 @@ jobs:
         with:
           python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
 
-      - name: Install tox
+      - name: Install poetry
         run: |
           python -m pip install -U pip
-          pip install tox
+          pip install -U poetry
 
-      - name: Generate tox env
-        run: tox --notest -vv --skip-missing-interpreters false
+      - name: Install dependencies
+        run: |
+          poetry config --ansi virtualenvs.create false
+          poetry install --ansi --no-root --no-dev --extras nox
+
+      - name: Generate tox env via nox
+        run: nox --forcecolor --session coverage_merge -- -vv --skip-missing-interpreters false  -- -v --install-only
 
       - name: Download coverage artifacts
         uses: actions/download-artifact@v2
         with:
           path: coverage-artifacts/
 
-      - name: Move coverage files to .tox/
+      - name: Move coverage files to .coverage_cache/
         shell: python
         run: |
           from pathlib import Path
@@ -405,8 +406,8 @@ jobs:
               print(f"{coverage_file} copy to {destination}")
               shutil.copy(str(coverage_file), str(destination))
 
-      - name: Run tox env
-        run: tox
+      - name: Run tox env via nox
+        run: nox --forcecolor --session coverage_merge
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v2
@@ -420,11 +421,10 @@ jobs:
 
 
   report-coverage:
-    name: tox / coverage-report
+    name: nox / coverage_report
     needs: [merge-coverage, pyproject-config]
     runs-on: ubuntu-latest
     env:
-      TOXENV: coverage-report
       MIN_COVERAGE: 100
       MIN_DIFF_COVERAGE: 100
     steps:
@@ -434,13 +434,18 @@ jobs:
         with:
           python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
 
-      - name: Install tox
+      - name: Install poetry
         run: |
           python -m pip install -U pip
-          pip install tox
+          pip install -U poetry
 
-      - name: Generate tox env
-        run: tox --notest -vv --skip-missing-interpreters false
+      - name: Install dependencies
+        run: |
+          poetry config --ansi virtualenvs.create false
+          poetry install --ansi --no-root --no-dev --extras nox
+
+      - name: Generate tox env via nox
+        run: nox --forcecolor --session coverage_report -- -vv --skip-missing-interpreters false  -- -v --install-only
 
       - name: Download coverage-merged artifact
         uses: actions/download-artifact@v2
@@ -452,8 +457,8 @@ jobs:
         # https://github.com/Bachmann1234/diff_cover#troubleshooting
         run: git fetch --no-tags origin master:refs/remotes/origin/master
 
-      - name: Run tox env
-        run: tox
+      - name: Run tox env via nox
+        run: nox --forcecolor --session coverage_report
 
 
   push-coverage-to-code-climate:

@@ -12,7 +12,9 @@
 [tool._testing]
     # TODO: adaption for applications
     ci_default_python_version = "3.8"
+    #: Max 5 python versions are currently installed
     ci_test_python_versions = ["3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2 - 3.10"]
+    ci_test_os = ["ubuntu", "macos", "windows"]
     cc_test_reporter_url = "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64"
     tox_skip_sdist = false  #: tox setting || Application -> true; Library -> false
     toxenv_python_versions_win32 = "py{310,39,38,37,36}"
