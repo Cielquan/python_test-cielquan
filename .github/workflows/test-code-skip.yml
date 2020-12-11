@@ -60,7 +60,7 @@ jobs:
               PYPROJECT = tomlkit.parse(pyproject_file.read())
 
           test_os = {"os": PYPROJECT["tool"]["_testing"]["ci_test_os"]}
-          print(f"::set-output name=test_os::{matrix}")
+          print(f"::set-output name=test_os::{test_os}")
 
 
   test-code:
