@@ -220,7 +220,7 @@ def test_code(session: Session) -> None:
 
     interpreter = sys.implementation.__getattribute__("name")
     version = ".".join([str(v) for v in sys.version_info[0:2]])
-    name = f"{interpreter}{version}"
+    name = f"{OS}.{interpreter}{version}"
     session.env["COVERAGE_FILE"] = str(COV_CACHE_DIR / f".coverage.{name}")
 
     cov_source_dir = Path("no-spec-found")
