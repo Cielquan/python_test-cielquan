@@ -105,6 +105,8 @@ jobs:
               print(f"::set-output name=test_python_version_4::{test_ver[3]}")
           if len(test_ver) >= 5:
               print(f"::set-output name=test_python_version_5::{test_ver[4]}")
+          if len(test_ver) >= 6:
+              print(f"::set-output name=test_python_version_6::{test_ver[5]}")
 
           reporter_url = conf["cc_test_reporter_url"]
           print(f"::set-output name=reporter_url::{reporter_url}")
@@ -316,6 +318,11 @@ jobs:
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_5 }}
         if: ${{ needs.pyproject-config.outputs.test_python_version_5 }} != ""
+
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.test_python_version_6 }}
+        if: ${{ needs.pyproject-config.outputs.test_python_version_6 }} != ""
 
       - name: Set python version hash
         shell: bash
