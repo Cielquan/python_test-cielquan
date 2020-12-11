@@ -252,7 +252,7 @@ jobs:
   test-code:
     name: nox / test_code / ${{ matrix.os }}
     needs: [notify-code-climate, package-tests, pyproject-config]
-    if: needs.pyproject-config.result == 'success'
+    if: always()
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
