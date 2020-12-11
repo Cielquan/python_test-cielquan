@@ -34,7 +34,7 @@ jobs:
     name: Get config from pyproject.toml
     runs-on: ubuntu-latest
     outputs:
-      test_os: ${{ steps.get-config.outputs.test_ostest_os }}
+      test_os: ${{ steps.get-config.outputs.test_os }}
     steps:
       - uses: actions/checkout@v2
 
@@ -54,27 +54,13 @@ jobs:
         id: get-config
         shell: python
         run: |
-          matrix = {
-              "os": "${{ env.TEST_OS_PYTHON }}"[1:-1].split(", "),
-              "python_version": "${{ env.TEST_PYTHON_VERSIONS }}"[1:-1].split(", "),
-          }
           import tomlkit
 
           with open("pyproject.toml") as pyproject_file:
               PYPROJECT = tomlkit.parse(pyproject_file.read())
 
-          conf = PYPROJECT["tool"]["_testing"]
-
-          std_ver = conf["ci_default_python_version"]
-          print(f"::set-output name=default_python_version::{std_ver}")
-
-          test_os = {"os": conf["ci_test_os"]}
-
-          print(f"""{matrix}""".replace("'", '"'))
-          print(f"""{test_os}""".replace("'", '"'))
-          print(f""":set-output name=test_os::{matrix}""")
-          print(f""":set-output name=test_os::{test_os}""")
-          print(f"""::set-output name=test_os::{matrix}""")
+          test_os = {"os": PYPROJECT["tool"]["_testing"]["ci_test_os"]}
+          print(f"::set-output name=test_os::{matrix}")
 
 
   test-code:
