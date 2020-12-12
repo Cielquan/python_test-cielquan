@@ -182,8 +182,8 @@ jobs:
 
   old-test-code:
     name: (old tests) nox / test_code / ${{ matrix.os }}
-    needs: pyproject-config
-    # needs: [check-ci-status, pyproject-config] # TODO: turn back
+    needs: pyproject-config   # TODO: turn back
+    # needs: [check-ci-status, pyproject-config]
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: true
@@ -289,8 +289,8 @@ jobs:
 
       - name: Check for BREAKING CHANGES in commit messages
         run: |
-          git log ${{ needs.pyproject-config.outputs.last_version }}..HEAD --pretty="%b"
-          git log ${{ needs.pyproject-config.outputs.last_version }}..HEAD --pretty="%b" | grep "BREAKING CHANGES"
+          git log ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b"
+          git log ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b" | grep "BREAKING CHANGES"
         if: needs.old-test-code.result != 'success'
 
 
