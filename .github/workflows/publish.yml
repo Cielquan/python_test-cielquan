@@ -182,8 +182,7 @@ jobs:
 
   old-test-code:
     name: (old tests) nox / test_code / ${{ matrix.os }}
-    needs: pyproject-config   # TODO: turn back
-    # needs: [check-ci-status, pyproject-config]
+    needs: [check-ci-status, pyproject-config]
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: true
@@ -295,7 +294,8 @@ jobs:
 
 
   publish:
-    needs: [check-commit-messages, pyproject-config]
+    needs: [pyproject-config]
+    # needs: [check-commit-messages, pyproject-config]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -316,9 +316,17 @@ jobs:
       # NOTE: update changelog
       # NOTE: git tag
 
-    # FIXME: git push --tags
+    # - name: Python Semantic Release
+    #   uses: relekang/python-semantic-release@master
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     pypi_token: ${{ secrets.PYPI_TOKEN }}
 
-    # TODO: whl for different py-ver / os ?!
+    - name: Push git update to github.event_name
+      run: |
+        git push
+        git push --tags
+
     - name: Build package
       run: poetry build
 
