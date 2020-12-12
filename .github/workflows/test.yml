@@ -24,10 +24,11 @@ jobs:
       - run: pwd
       - run: ls -ahlF --color=auto
 
+# creatordate
+
       - id: latest-commit
         run: |
-          git fetch
-          git describe --abbrev=0
+          git describe --tags $(git rev-list --tags --max-count=1)
 
       - uses: actions/checkout@v2
         with:
