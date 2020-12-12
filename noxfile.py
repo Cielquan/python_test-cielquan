@@ -105,7 +105,8 @@ class Session(_Session):  # noqa: R0903
         no_dev_flag = ["--no-dev"] if no_dev else []
         no_root_flag = ["--no-root"] if no_root else []
         install_args = no_root_flag + no_dev_flag + extra_deps
-        color = ["--ansi"] if FORCE_COLOR else []
+        color = []
+        # color = ["--ansi"] if FORCE_COLOR else []
 
         self._run("poetry", "install", *color, *install_args, **kwargs)
 
