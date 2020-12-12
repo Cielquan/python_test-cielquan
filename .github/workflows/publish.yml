@@ -284,7 +284,9 @@ jobs:
         if: needs.old-test-code.result != 'success'
 
       - name: Check for BREAKING CHANGES in commit messages
-        run: git log ${{ needs.pyproject-config.outputs.last_version }}..HEAD --pretty="%b" | grep "BREAKING CHANGES"
+        run: |
+          git fetch --tags
+          git log ${{ needs.pyproject-config.outputs.last_version }}..HEAD --pretty="%b" | grep "BREAKING CHANGES"
         if: needs.old-test-code.result != 'success'
 
 
