@@ -16,14 +16,18 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - run: pwd
       - run: ls -ahlF --color=auto
 
       - uses: actions/checkout@v2
 
+      - run: pwd
       - run: ls -ahlF --color=auto
 
       - id: latest-commit
-        run: git describe --abbrev=0
+        run: |
+          git fetch
+          git describe --abbrev=0
 
       - uses: actions/checkout@v2
         with:
