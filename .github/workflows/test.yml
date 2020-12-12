@@ -28,6 +28,9 @@ jobs:
 
       - id: latest-commit
         run: |
+          git rev-list --tags --max-count=1
+          git fetch
+          git rev-list --tags --max-count=1
           git describe --tags $(git rev-list --tags --max-count=1)
 
       - uses: actions/checkout@v2
