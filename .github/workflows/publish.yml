@@ -287,15 +287,11 @@ jobs:
         run: git fetch --tags
         if: needs.old-test-code.result != 'success'
 
-      - name: Git pull
-        run: git pull
-        if: needs.old-test-code.result != 'success'
-
       - name: Check for BREAKING CHANGES in commit messages
         run: |
-          git log -5
+          git checkout master
           git log ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b" --remotes="origin"
-          # git log origin ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b" | grep "BREAKING CHANGES"
+          # git log ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b" | grep "BREAKING CHANGES"
         if: needs.old-test-code.result != 'success'
 
 
