@@ -282,7 +282,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          depth: 0
+          fetch-depth: 0
         if: needs.old-test-code.result != 'success'
 
       - name: Fetch git tags
