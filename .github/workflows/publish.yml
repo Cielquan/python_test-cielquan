@@ -281,6 +281,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          depth: 0
         if: needs.old-test-code.result != 'success'
 
       - name: Fetch git tags
@@ -289,7 +291,6 @@ jobs:
 
       - name: Check for BREAKING CHANGES in commit messages
         run: |
-          git checkout master
           git log ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b" --remotes="origin"
           # git log ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b" | grep "BREAKING CHANGES"
         if: needs.old-test-code.result != 'success'
