@@ -285,7 +285,7 @@ jobs:
           fetch-depth: 0
         if: needs.old-test-code.result != 'success'
 
-      - name: Fetch git tags
+      - name: Fetch git origin
         run: git fetch origin
         if: needs.old-test-code.result != 'success'
 
