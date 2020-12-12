@@ -283,9 +283,13 @@ jobs:
       - uses: actions/checkout@v2
         if: needs.old-test-code.result != 'success'
 
+      - name: Fetch git tags
+        run: git fetch --tags
+        if: needs.old-test-code.result != 'success'
+
       - name: Check for BREAKING CHANGES in commit messages
         run: |
-          git fetch --tags
+          git log ${{ needs.pyproject-config.outputs.last_version }}..HEAD --pretty="%b"
           git log ${{ needs.pyproject-config.outputs.last_version }}..HEAD --pretty="%b" | grep "BREAKING CHANGES"
         if: needs.old-test-code.result != 'success'
 
@@ -294,9 +298,6 @@ jobs:
     needs: [check-commit-messages, pyproject-config]
     runs-on: ubuntu-latest
     steps:
-    # TODO: remove safety
-    - run: exit 1
-
     - uses: actions/checkout@v2
 
     - uses: actions/setup-python@v2
@@ -319,7 +320,7 @@ jobs:
 
     # TODO: whl for different py-ver / os ?!
     - name: Build package
-      run: python -m poetry build
+      run: poetry build
 
     - name: Publish package on test.PyPI
       # CHANGE ME: remove current upload to test.pypi
@@ -329,5 +330,5 @@ jobs:
         POETRY_HTTP_BASIC_TEST_PASSWORD: ${{ secrets.POETRY_HTTP_BASIC_TEST_PASSWORD }}
 #        POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
 #        POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-#      run: python -m poetry publish
-      run: python -m poetry publish -r test
+#      run: poetry publish
+      run: poetry publish -r test --dry-run
