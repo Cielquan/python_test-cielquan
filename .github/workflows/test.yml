@@ -21,9 +21,10 @@ jobs:
       - name: Get last tag
         id: last-tag
         #: https://gist.github.com/rponte/fdc0724dd984088606b0#gistcomment-3266206
+        shell: bash
         run: |
           git fetch
-          tag=$(git describe --tags $(git rev-list --tags --max-count=1 | grep -o '^v?[0-9]+\.[0-9]+\.[0-9]+$'))
+          tag=$(git tag --sort=creatordate | grep -oE '^v?[0-9]+\.[0-9]+\.[0-9]+$' | tail -1)
           echo "::set-output name=last-tag::${tag}"
 
       - uses: actions/checkout@v2
