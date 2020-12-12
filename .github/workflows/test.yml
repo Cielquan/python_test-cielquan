@@ -1,0 +1,33 @@
+on:
+  workflow_dispatch:
+
+  push:
+    tags:
+      - '!*' # Do not execute on tag push
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - '**'
+
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: ls -ahlF --color=auto
+
+      - uses: actions/checkout@v2
+
+      - run: ls -ahlF --color=auto
+
+      - id: latest-commit
+        run: git describe --abbrev=0
+
+      - uses: actions/checkout@v2
+        with:
+          path: old-tests
+          ref: master
+
+      - run: ls -ahlF --color=auto
