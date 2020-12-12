@@ -230,6 +230,7 @@ def test_code(session: Session) -> None:
         ).parent
 
     color = ["--color=yes"] if FORCE_COLOR else []
+    posargs = session.posargs if session.posargs else ["tests"]
 
     session.run(
         "pytest",
@@ -239,7 +240,7 @@ def test_code(session: Session) -> None:
         f"--cov={cov_source_dir}",
         f"--cov-fail-under={session.env.get('MIN_COVERAGE') or 100}",
         f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
-        f"{session.posargs or 'tests'}",
+        *posargs,
     )
 
 
