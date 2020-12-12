@@ -16,21 +16,14 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: pwd
-      - run: ls -ahlF --color=auto
-
       - uses: actions/checkout@v2
 
-      - run: pwd
-      - run: ls -ahlF --color=auto
-
-# creatordate
-
-      - id: last-tag
+      - name: Get last tag
+        id: last-tag
         #: https://gist.github.com/rponte/fdc0724dd984088606b0#gistcomment-3266206
         run: |
           git fetch
-          tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+          tag=$(git describe --tags $(git rev-list --tags --max-count=1 | grep -o '^v?[0-9]+\.[0-9]+\.[0-9]+'))
           echo "::set-output name=last-tag::${tag}"
 
       - uses: actions/checkout@v2
@@ -38,4 +31,4 @@ jobs:
           path: tests-last-version
           ref: ${{ steps.last-tag.outputs.last-tag }}
 
-      - run: ls -ahlF --color=auto
+      - run: ls -ahlF --color=auto tests-last-version
