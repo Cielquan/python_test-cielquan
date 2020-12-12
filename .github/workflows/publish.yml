@@ -199,6 +199,10 @@ jobs:
           path: tests-last-version
           ref: ${{ needs.pyproject-config.outputs.last_version }}
 
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
+
       - name: Install poetry
         run: |
           python -m pip install -U pip
