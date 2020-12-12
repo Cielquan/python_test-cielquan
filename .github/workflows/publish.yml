@@ -55,7 +55,7 @@ jobs:
               PYPROJECT = tomlkit.parse(pyproject_file.read())
 
           last_version = PYPROJECT["tool"]["poetry"]["version"]
-          print(f"::set-output name=last-version::{last_version}")
+          print(f"::set-output name=last_version::{last_version}")
 
           conf = PYPROJECT["tool"]["_testing"]
 
@@ -195,7 +195,8 @@ jobs:
       - run: exit 1
       - uses: actions/checkout@v2
 
-      - uses: actions/checkout@v2
+      - name: Checkout repo at last tag
+        uses: actions/checkout@v2
         with:
           path: tests-last-version
           ref: ${{ needs.pyproject-config.outputs.last_version }}
