@@ -182,7 +182,7 @@ jobs:
 
   old-test-code:
     name: (old tests) nox / test_code / ${{ matrix.os }}
-    needs: [pyproject-config]
+    needs: pyproject-config
     # needs: [check-ci-status, pyproject-config] # TODO: turn back
     runs-on: ${{ matrix.os }}-latest
     strategy:
@@ -292,13 +292,15 @@ jobs:
   check-for-breaking-change:
     needs: old-test-code
     runs-on: ubuntu-latest
+    steps:
+      - run: exit 0
 
 # FIXME: Add full old test suit if not first release .. if fail and not breaking change .. fail
 # NOTE: If they do not pass its a breaking change and if the breaking change is not in commit msg ... error
 
 
   publish:
-    needs: [old-test-code, pyproject-config]
+    needs: [check-for-breaking-change, pyproject-config]
     runs-on: ubuntu-latest
     steps:
     # TODO: remove safety
