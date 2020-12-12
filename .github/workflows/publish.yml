@@ -192,6 +192,7 @@ jobs:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
     steps:
+      - run: exit 1
       - uses: actions/checkout@v2
 
       - uses: actions/checkout@v2
