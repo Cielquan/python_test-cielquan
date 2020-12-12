@@ -275,7 +275,7 @@ jobs:
 
   check-commit-messages:
     name: Check for BREAKING CHANGES in commit messages
-    needs: old-test-code
+    needs: [old-test-code, pyproject-config]
     if: always()
     runs-on: ubuntu-latest
     steps:
