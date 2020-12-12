@@ -16,6 +16,7 @@ jobs:
     name: Get config from pyproject.toml
     runs-on: ubuntu-latest
     outputs:
+      last_version: ${{ steps.get-config.outputs.last_version }}
       default_py_version: ${{ steps.get-config.outputs.default_python_version }}
       test_os: ${{ steps.get-config.outputs.test_os }}
       test_python_versions: ${{ steps.get-config.outputs.test_python_versions }}
@@ -52,6 +53,9 @@ jobs:
 
           with open("pyproject.toml") as pyproject_file:
               PYPROJECT = tomlkit.parse(pyproject_file.read())
+
+          last_version = PYPROJECT["tool"]["poetry"]["version"]
+          print(f"::set-output name=last-version::{last_version}")
 
           conf = PYPROJECT["tool"]["_testing"]
 
@@ -181,7 +185,7 @@ jobs:
     needs: [check-ci-status, pyproject-config]
     runs-on: ${{ matrix.os }}-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix: ${{ fromJson(needs.pyproject-config.outputs.test_os) }}
     env:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
@@ -189,9 +193,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: clone repo latest tag
-      # get last tag
-      # clone repo on last tag
+      - uses: actions/checkout@v2
+        with:
+          path: tests-last-version
+          ref: ${{ needs.pyproject-config.outputs.last_version }}
 
       - name: Install poetry
         run: |
@@ -278,21 +283,9 @@ jobs:
         run: nox --forcecolor --session test_code -- -vv --skip-missing-interpreters false  -- -v --install-only
 
       - name: Run tox envs via nox
-        run: nox --forcecolor --session test_code
-
-      - name: Upload coverage artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: coverage-${{ matrix.os }}-${{ needs.pyproject-config.outputs.test_python_versions }}
-          path: .coverage_cache/.coverage*
-          if-no-files-found: error
-
-      - name: Upload junit artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: junit-${{ matrix.os }}-${{ needs.pyproject-config.outputs.test_python_versions }}
-          path: .junit_cache/junit*.xml
-          if-no-files-found: error
+        run: nox --forcecolor --session test_code -- -- -- tests-last-version/tests
+        env:
+          MIN_COVERAGE: 0
 
 
 # FIXME: Add full old test suit if not first release .. if fail and not breaking change .. fail
@@ -303,6 +296,9 @@ jobs:
     needs: pyproject-config
     runs-on: ubuntu-latest
     steps:
+    # TODO: remove safety
+    - run: exit 1
+
     - uses: actions/checkout@v2
 
     - uses: actions/setup-python@v2
