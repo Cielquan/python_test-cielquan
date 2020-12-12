@@ -286,7 +286,7 @@ jobs:
         if: needs.old-test-code.result != 'success'
 
       - name: Fetch git tags
-        run: git fetch --tags
+        run: git fetch origin
         if: needs.old-test-code.result != 'success'
 
       - name: Check for BREAKING CHANGES in commit messages
