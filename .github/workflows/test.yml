@@ -23,7 +23,7 @@ jobs:
         #: https://gist.github.com/rponte/fdc0724dd984088606b0#gistcomment-3266206
         shell: bash
         run: |
-          git fetch --tags
+          git fetch
           git tag --sort=creatordate
           git tag --sort=creatordate | grep -oE '^v?[0-9]+\.[0-9]+\.[0-9]+$'
           tag=$(git tag --sort=creatordate | grep -oE '^v?[0-9]+\.[0-9]+\.[0-9]+$' | tail -1)
