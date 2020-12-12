@@ -273,18 +273,22 @@ jobs:
           MIN_COVERAGE: 0
 
 
-  check-for-breaking-change:
+  check-commit-messages:
+    name: Check for BREAKING CHANGES in commit messages
     needs: old-test-code
     if: always()
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+        if: needs.old-test-code.result != 'success'
+
       - name: Check for BREAKING CHANGES in commit messages
         run: git log ${{ needs.pyproject-config.outputs.last_version }}..HEAD --pretty="%b" | grep "BREAKING CHANGES"
         if: needs.old-test-code.result != 'success'
 
 
   publish:
-    needs: [check-for-breaking-change, pyproject-config]
+    needs: [check-commit-messages, pyproject-config]
     runs-on: ubuntu-latest
     steps:
     # TODO: remove safety
