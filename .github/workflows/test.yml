@@ -26,21 +26,15 @@ jobs:
 
 # creatordate
 
-      - id: latest-commit
+      - id: last-tag
         run: |
-          echo '#####'
-          git rev-list --tags --max-count=1
-          echo '#####'
           git fetch
-          echo '#####'
-          git rev-list --tags --max-count=1
-          echo '#####'
-          git describe --tags $(git rev-list --tags --max-count=1)
-          echo '#####'
+          tag=$(git describe --tags $(git rev-list --tags --max-count=1))
+          echo "::set-output name=last-tag::${tag}"
 
       - uses: actions/checkout@v2
         with:
-          path: old-tests
-          ref: master
+          path: tests-last-version
+          ref: steps.last-tag.outputs.last-tag
 
       - run: ls -ahlF --color=auto
