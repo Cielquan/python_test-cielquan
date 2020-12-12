@@ -293,7 +293,7 @@ jobs:
 
       - name: Check for BREAKING CHANGES in commit messages
         run: |
-          git log orgit log origin 0.5.9..a42bb630f98d25946ff1479a20edaf54b400c454 --pretty="%b"igin ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b"
+          git log origin ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b"
           git log origin ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b" | grep "BREAKING CHANGES"
         if: needs.old-test-code.result != 'success'
 
