@@ -309,18 +309,18 @@ jobs:
         python -m pip install -U pip
         pip install poetry
 
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '12'
+
+    - name: Install standard-version and dependencies
+      run: npm install --global standard-version @iarna/toml
+
+    - name: Run standard-version
+      run: standard-version
+
     # TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
     # FIXME: run standard-version which does:
-      # NOTE: auto version bump
-      # NOTE: poetry version
-      # NOTE: update changelog
-      # NOTE: git tag
-
-    # - name: Python Semantic Release
-    #   uses: relekang/python-semantic-release@master
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     pypi_token: ${{ secrets.PYPI_TOKEN }}
 
     - name: Push git update to github.event_name
       run: git push --follow-tags

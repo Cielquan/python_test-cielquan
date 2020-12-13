@@ -11,7 +11,7 @@
 #: -- POETRY CONFIG --------------------------------------------------------------------
 [tool.poetry]
     name = "python_test_cielquan"
-    version = "0.0.2"
+    version = "0.5.9"
     description = "test stufff"
     authors = ["Cielquan <cielquan@protonmail.com>"]
     license = "GPL-3.0-or-later"
@@ -343,12 +343,11 @@
     version_variable = ["pyproject.toml:tool.poetry.version"]
 
     commit_parser = "semantic_release.history.angular_parser"
-
     changelog_file = "CHANGELOG.rst"
-    build_command = "pip install -m poetry && poetry build"
+    commit_version_number = true
 
-    # NOTE: change after testing
-    commit_version_number = false
-    check_build_status = false
-    upload_to_pypi = false
-    upload_to_release = false
+    build_command = "pip install -m poetry && poetry build"
+    check_build_status = true
+
+    upload_to_pypi = true
+    upload_to_release = true
