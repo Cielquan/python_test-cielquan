@@ -111,6 +111,7 @@ env.bak/
 # IDE folder
 .idea/
 .vscode/
+# from vscode or an extension
 cache.txt
 
 # Tool installation dir

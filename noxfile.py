@@ -105,10 +105,8 @@ class Session(_Session):  # noqa: R0903
         no_dev_flag = ["--no-dev"] if no_dev else []
         no_root_flag = ["--no-root"] if no_root else []
         install_args = no_root_flag + no_dev_flag + extra_deps
-        color = []
-        # color = ["--ansi"] if FORCE_COLOR else []
 
-        self._run("poetry", "install", *color, *install_args, **kwargs)
+        self._run("poetry", "install", *install_args, **kwargs)
 
 
 def monkeypatch_session(session_func: Callable) -> Callable:
@@ -573,7 +571,9 @@ def create_spellignore(session: Session) -> None:  # noqa: W0613
 @nox.session
 def dev(session: Session) -> None:
     """Call basic dev setup nox sessions."""
-    session.run("nox", "--session", "install_extras", "setup_pre_commit")
+    session.run(
+        "nox", "--session", "install_extras", "setup_pre_commit", "create_spellignore"
+    )
 
 
 @nox.session

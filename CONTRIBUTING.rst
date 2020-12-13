@@ -348,7 +348,8 @@ You can force this behavior also by giving ``tox`` as an additional argument to 
     the ``.gitignore`` file.
 
 - ``dev``:
-    Run ``install_extras`` and ``setup_pre_commit`` ``nox`` sessions.
+    Run ``install_extras``, ``setup_pre_commit`` and ``create_spellignore`` ``nox``
+    sessions.
 
 - ``dev2``:
     Run all other dev setup ``nox`` sessions.
