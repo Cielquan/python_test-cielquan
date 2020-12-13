@@ -364,6 +364,7 @@ jobs:
       with:
         tag_name: ${{ steps.new-tag.outputs.tag }}
         release_name: ${{ steps.new-tag.outputs.tag }}
+        body: "see [Changelog](https://github.com/${{ github.repository }}/blob/${{ steps.new-tag.outputs.tag }}/CHANGELOG.md)"
         draft: false
         prerelease: false
 

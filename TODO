@@ -1,1 +1,3 @@
 TODO: CODDEOWNERS: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/about-code-owners
+
+TODO: add way to include *.md files in docs: https://stackoverflow.com/questions/46278683/include-my-markdown-readme-into-sphinx
