@@ -314,7 +314,7 @@ jobs:
         node-version: '12'
 
     - name: Install standard-version and dependencies
-      run: npm install --global standard-version @iarna/toml
+      run: npm install --no-save standard-version @iarna/toml
 
     - name: Run standard-version
       run: standard-version
