@@ -557,7 +557,7 @@ def create_pdbrc(session: Session) -> None:  # noqa: W0613
 
 @nox.session
 def create_spellignore(session: Session) -> None:  # noqa: W0613
-    """Create .pdbrc file (no overwrite)."""
+    """Create .spellignore file (no overwrite)."""
     gitignore_file_path = NOXFILE_DIR / ".gitignore"
     with open(gitignore_file_path, "w") as gitignore_file:
         gitignore_content = gitignore_file.read()
