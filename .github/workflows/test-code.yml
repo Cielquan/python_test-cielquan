@@ -570,7 +570,7 @@ jobs:
         id: repo-dir
         shell: bash
         run: |
-          repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
+          repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
           echo "::set-output name=repo-dir::$repo_dir"
 
       - name: Set status via gihub API

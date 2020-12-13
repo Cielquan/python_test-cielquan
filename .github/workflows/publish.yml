@@ -12,11 +12,6 @@ env:
 
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
-
   pyproject-config:
     name: Get config from pyproject.toml
     runs-on: ubuntu-latest
@@ -155,7 +150,7 @@ jobs:
         id: repo-dir
         shell: bash
         run: |
-          repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
+          repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
           echo "::set-output name=repo-dir::$repo_dir"
 
       - name: Get status via gihub API
@@ -358,7 +353,7 @@ jobs:
       id: repo-dir
       shell: bash
       run: |
-        repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
+        repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
         echo "::set-output name=repo-dir::$repo_dir"
 
     - name: Create GH Release
