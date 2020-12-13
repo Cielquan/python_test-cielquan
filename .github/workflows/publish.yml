@@ -323,9 +323,7 @@ jobs:
     #     pypi_token: ${{ secrets.PYPI_TOKEN }}
 
     - name: Push git update to github.event_name
-      run: |
-        git push
-        git push --tags
+      run: git push --follow-tags
 
     - name: Build package
       run: poetry build
@@ -339,4 +337,4 @@ jobs:
 #        POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
 #        POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 #      run: poetry publish
-      run: poetry publish -r test --dry-run
+      run: poetry publish -r test

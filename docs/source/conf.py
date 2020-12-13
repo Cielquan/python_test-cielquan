@@ -7,6 +7,7 @@
     :copyright: 2020 (c) Christian Riedel
     :license: MIT, see LICENSE.rst for more details
 """  # noqa: D205,D208,D400
+# TODO: add way to include *.md files: https://stackoverflow.com/questions/46278683/include-my-markdown-readme-into-sphinx
 import contextlib
 import os
 import re
