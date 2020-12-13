@@ -12,6 +12,11 @@ env:
 
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo ${GITHUB_REPOSITORY#${{ github.repository_owner }}}
+
   pyproject-config:
     name: Get config from pyproject.toml
     runs-on: ubuntu-latest
@@ -198,7 +203,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           path: tests-last-version
-          ref: ${{ needs.pyproject-config.outputs.last_version }}
+          ref: v${{ needs.pyproject-config.outputs.last_version }}
 
       - uses: actions/setup-python@v2
         with:
@@ -325,6 +330,13 @@ jobs:
     - name: Run standard-version
       run: standard-version
 
+    - name: Set new tag as ENVVAR
+      id: new-tag
+      shell: bash
+      run: |
+        tag=$(git describe --tags --abbrev=0)
+        echo "::set-output name=tag::$tag"
+
     - name: Push git update to github.event_name
       run: git push --follow-tags
 
@@ -341,3 +353,41 @@ jobs:
 #        POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 #      run: poetry publish
       run: poetry publish -r test
+
+    - name: Get repo dir name
+      id: repo-dir
+      shell: bash
+      run: |
+        repo_dir=$(echo ${{ github.repository }} | grep -oE "\/(.*)$" | sed 's,/,,')
+        echo "::set-output name=repo-dir::$repo_dir"
+
+    - name: Create GH Release
+      id: create-release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.new-tag.outputs.tag }}
+        release_name: ${{ steps.new-tag.outputs.tag }}
+        draft: false
+        prerelease: false
+
+    - name: Upload tarball
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: dist/${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}.tar.gz
+        asset_name: ${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}.tar.gz
+        asset_content_type: application/gzip
+
+    - name: Upload wheel
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: dist/${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}-py3-none-any.whl
+        asset_name: ${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}-py3-none-any.whl
+        asset_content_type: application/zip
