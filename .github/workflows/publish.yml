@@ -294,8 +294,7 @@ jobs:
 
 
   publish:
-    needs: [pyproject-config]
-    # needs: [check-commit-messages, pyproject-config]
+    needs: [check-commit-messages, pyproject-config]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -326,8 +325,8 @@ jobs:
     - name: Run standard-version
       run: standard-version
 
-    # - name: Push git update to github.event_name
-    #   run: git push --follow-tags
+    - name: Push git update to github.event_name
+      run: git push --follow-tags
 
     - name: Build package
       run: poetry build
@@ -341,4 +340,4 @@ jobs:
 #        POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
 #        POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 #      run: poetry publish
-      run: poetry publish -r test --dry-run
+      run: poetry publish -r test
