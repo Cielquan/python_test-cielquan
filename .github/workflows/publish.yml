@@ -313,10 +313,14 @@ jobs:
       with:
         node-version: '12'
 
+    - run: ls -ahlF --color=auto
+
     - name: Install standard-version and dependencies
       run: |
         npm install --no-save @iarna/toml
         npm install --global standard-version @iarna/toml
+
+    - run: ls -ahlF --color=auto
 
     - name: Set git user
       run: |
@@ -342,3 +346,5 @@ jobs:
 #        POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 #      run: poetry publish
       run: poetry publish -r test --dry-run
+
+    - run: ls -ahlF --color=auto
