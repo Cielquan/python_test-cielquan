@@ -326,9 +326,6 @@ jobs:
     - name: Run standard-version
       run: standard-version
 
-    # TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
-    # FIXME: run standard-version which does:
-
     # - name: Push git update to github.event_name
     #   run: git push --follow-tags
 
