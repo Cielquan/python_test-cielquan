@@ -318,6 +318,11 @@ jobs:
         npm install --no-save @iarna/toml
         npm install --global standard-version @iarna/toml
 
+    - name: Set git user
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "github-actions"
+
     - name: Run standard-version
       run: standard-version
 
