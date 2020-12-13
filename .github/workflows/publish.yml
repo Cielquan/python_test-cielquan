@@ -322,8 +322,8 @@ jobs:
     # TODO: setup standard-version + poetry or https://python-semantic-release.readthedocs.io/en/latest/ ?
     # FIXME: run standard-version which does:
 
-    - name: Push git update to github.event_name
-      run: git push --follow-tags
+    # - name: Push git update to github.event_name
+    #   run: git push --follow-tags
 
     - name: Build package
       run: poetry build
@@ -337,4 +337,4 @@ jobs:
 #        POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
 #        POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 #      run: poetry publish
-      run: poetry publish -r test
+      run: poetry publish -r test --dry-run
