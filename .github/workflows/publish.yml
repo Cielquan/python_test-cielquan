@@ -15,7 +15,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${GITHUB_REPOSITORY#${{ github.repository_owner }}}
+      - run: echo ${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
 
   pyproject-config:
     name: Get config from pyproject.toml
