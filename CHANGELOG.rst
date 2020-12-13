@@ -8,6 +8,13 @@ python_test Change Log
   Not all commits are linked. Commits are only linked when they match the specific note.
 
 .. towncrier release notes start
+.. <!--next-version-placeholder-->
+
+## v0.5.10 (2020-12-13)
+
+
+## v0.5.10 (2020-12-13)
+
 
 Release 1.0.0
 -------------
