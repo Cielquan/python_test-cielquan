@@ -484,6 +484,7 @@ def install_extras(session: Session) -> None:
 
 
 @nox.session
+@monkeypatch_session
 def setup_pre_commit(session: Session) -> None:
     """Set up pre-commit.
 
@@ -592,18 +593,21 @@ def dev2(session: Session) -> None:
 
 #: -- TOX MULTI WRAPPER SESSIONS -------------------------------------------------------
 @nox.session
+@monkeypatch_session
 def tox_lint(session: Session) -> None:
     """Call tox to run all lint tests."""
     _tox_caller(session, "safety,pre_commit")
 
 
 @nox.session
+@monkeypatch_session
 def tox_code(session: Session) -> None:
     """Call tox to run all code tests incl. package and coverage."""
     _tox_caller(session, f"package,{TOXENV_PYTHON_VERSIONS},coverage")
 
 
 @nox.session
+@monkeypatch_session
 def tox_docs(session: Session) -> None:
     """Call tox to run all docs tests."""
     _tox_caller(session, TOXENV_DOCS_BUILDERS)
