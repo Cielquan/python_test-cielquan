@@ -3,7 +3,6 @@ const tracker = {
   updater: require('./updater.js')
 }
 
-// TODO: commit msg .. add [skip ci] for gha
 module.exports = {
   bumpFiles: [tracker],
   packageFiles: [tracker],
@@ -16,5 +15,6 @@ module.exports = {
     {"type": "refactor", "hidden": true},
     {"type": "perf", "hidden": true},
     {"type": "test", "hidden": true}
-  ]
+  ],
+  releaseCommitMessageFormat: "chore(release): {{currentTag}} [skip ci]"
 }
