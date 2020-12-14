@@ -3,6 +3,7 @@ const tracker = {
   updater: require('./updater.js')
 }
 
+// TODO: commit msg .. add [skip ci] for gha
 module.exports = {
   bumpFiles: [tracker],
   packageFiles: [tracker],
