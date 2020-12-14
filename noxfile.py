@@ -326,7 +326,7 @@ def safety(session: Session) -> None:
 
     #: Use `poetry show` to fill `requirements.txt`
     command = [str(get_venv_bin_dir(venv_path) / "poetry"), "show"]
-    # TODO: simplify when py36 is not longer supported.  # noqa: W0511
+    # TODO:#i# simplify when py36 is not longer supported.
     if sys.version_info[0:2] > (3, 6):
         cmd = subprocess.run(command, check=True, capture_output=True)  # noqa: S603
     else:

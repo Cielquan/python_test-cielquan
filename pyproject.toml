@@ -196,12 +196,16 @@
     [tool.flakehell.plugins]
         pylint = [
             "+*",
+            #: deactivate
             "-C040?",  # spelling
+            "-W0511",  # fixme
             "-C0326", "-C0330",  #: deactivated for black
+            #: double checks
             "-C0301",  # same as E501[pyflakes]
             "-W0611",  # same as F401[pyflakes]
             "-W0612",  # same as F841[pyflakes]
             "-W0622",  # same as VNE003[flake8-variables-names]
+            #: bugs
             "-W1203",  # Use % format in logger funcs | https://github.com/PyCQA/pylint/issues/2354
         ]
         pyflakes = [
