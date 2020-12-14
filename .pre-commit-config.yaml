@@ -9,7 +9,7 @@ repos:
   - repo: local
     hooks:
       - id: find-todos
-        name: Find todos
+        name: 'Find TODO:|FIXME:|BUG: comments'
         description: 'Check for TODO:|FIXME:|BUG: comments in all files'
         language: pygrep
         entry: '(^|//|#|<!--|;|/\*|\.\.)\s*(TODO:|FIXME:|BUG:)'
