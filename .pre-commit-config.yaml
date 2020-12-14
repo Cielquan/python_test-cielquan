@@ -5,6 +5,15 @@ repos:
 #: -------------------------------------------------------------------------------------
 #: General hooks
 #: -------------------------------------------------------------------------------------
+  #: Find TODO:|FIXME:|BUG: comments in all files
+  - repo: local
+    hooks:
+      - id: find-todos
+        name: Find todos
+        description: 'Check for TODO:|FIXME:|BUG: comments in all files'
+        language: pygrep
+        entry: '(^|//|#|<!--|;|/\*|\.\.)\s*(TODO:|FIXME:|BUG:)'
+
   #: code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: 9136088a246768144165fcc3ecc3d31bb686920a  # frozen: v3.3.0
