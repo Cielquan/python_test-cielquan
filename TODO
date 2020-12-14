@@ -1,6 +1,5 @@
 NOTE: general:
-FIXME: implement SKIP CI logic https://github.com/actions/runner/issues/774
-TODO: CODDEOWNERS: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/about-code-owners
+TODO: CODEOWNERS: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/about-code-owners
 
 
 # NOTE: .githhub/workflows/publish.yml
