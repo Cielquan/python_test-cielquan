@@ -344,10 +344,10 @@ jobs:
         POETRY_REPOSITORIES_TEST_URL: ${{ secrets.POETRY_REPOSITORIES_TEST_URL }}
         POETRY_HTTP_BASIC_TEST_USERNAME: ${{ secrets.POETRY_HTTP_BASIC_TEST_USERNAME }}
         POETRY_HTTP_BASIC_TEST_PASSWORD: ${{ secrets.POETRY_HTTP_BASIC_TEST_PASSWORD }}
+      run: poetry publish -r test
 #        POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
 #        POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
 #      run: poetry publish
-      run: poetry publish -r test
 
     - name: Get repo dir name
       id: repo-dir
