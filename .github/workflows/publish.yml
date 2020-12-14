@@ -387,3 +387,5 @@ jobs:
         asset_path: dist/${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}-py3-none-any.whl
         asset_name: ${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}-py3-none-any.whl
         asset_content_type: application/zip
+
+# TODO: check semantic-release JS again
