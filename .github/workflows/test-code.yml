@@ -264,7 +264,7 @@ jobs:
   test-code:
     name: nox / test_code / ${{ matrix.os }}
     needs: [notify-code-climate, package-tests, pyproject-config]
-    if: always()
+    if: github.event_name == 'push' && contains(toJson(github.event.commits), '[skip ci]') == false
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: false
