@@ -40,7 +40,7 @@ on:
 jobs:
   pyproject-config:
     name: Get default python version from pyproject.toml
-    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get-default-version.outputs.default_python_version }}
