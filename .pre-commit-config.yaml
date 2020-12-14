@@ -13,6 +13,7 @@ repos:
         description: 'Check for TODO:|FIXME:|BUG: comments in all files'
         language: pygrep
         entry: '(^|//|#|<!--|;|/\*|\.\.)\s*(TODO:|FIXME:|BUG:)'
+        exclude: 'TODO'
 
   #: code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
