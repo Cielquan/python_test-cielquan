@@ -46,6 +46,7 @@ on:
 jobs:
   pyproject-config:
     name: Get config from pyproject.toml
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
     runs-on: ubuntu-latest
     outputs:
       default_py_version: ${{ steps.get-config.outputs.default_python_version }}
@@ -397,7 +398,6 @@ jobs:
   merge-coverage:
     name: nox / coverage_merge
     needs: [test-code, pyproject-config]
-    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -496,7 +496,7 @@ jobs:
 
   push-coverage-to-code-climate:
     name: Push coverage to code-climate
-    needs: [set-git-env-vars, notify-code-climate, merge-coverage, pyproject-config]
+    needs: [merge-coverage, set-git-env-vars, pyproject-config]
     runs-on: ubuntu-latest
     env:
       CI_NAME: Github Actions
@@ -546,7 +546,7 @@ jobs:
 
   set-status:
     name: Set status on commit
-    needs: [report-coverage, push-coverage-to-code-climate, set-git-env-vars]
+    needs: [test-code, report-coverage, push-coverage-to-code-climate, set-git-env-vars]
     if: always()
     runs-on: ubuntu-latest
     steps:
