@@ -1,6 +1,32 @@
+NOTE: general:
+FIXME: implement SKIP CI logic https://github.com/actions/runner/issues/774
 TODO: CODDEOWNERS: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/about-code-owners
 
-TODO: add way to include *.md files in docs: https://stackoverflow.com/questions/46278683/include-my-markdown-readme-into-sphinx
+
+# NOTE: .githhub/workflows/publish.yml
+TODO: check semantic-release JS again
+
+
+NOTE: noxfile.py / tox.ini
+# FIXME: adaption for applications
+
+
+NOTE: .github/stale.yml:
+TODO: overhaul concept for stale
+
+
+NOTE: .github/workflows/test-code.yml:
+TODO: find way to install multiple py ver in WF VM via envvar https://github.com/actions/setup-python/issues/167
+
+
+NOTE: .github/workflows/update-pre-commit-config.yml
+TODO: Move this to pre-commit.ci when released ?
+TODO: fix pre-commit autoupdate workflow
+TODO: notify when changes are uploaded
+
+
+NOTE: docs/conf.py:
+FIXME: add way to include *.md files in docs: https://stackoverflow.com/questions/46278683/include-my-markdown-readme-into-sphinx
 
 only MD changelog supported .. for integration in sphinx:
 

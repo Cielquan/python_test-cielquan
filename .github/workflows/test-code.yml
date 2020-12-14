@@ -1,5 +1,4 @@
 name: Test code
-# TODO: find way to install multiple py ver in WF VM via envvar
 
 
 env:
