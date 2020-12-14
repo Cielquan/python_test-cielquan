@@ -32,4 +32,5 @@ only MD changelog supported .. for integration in sphinx:
 
 https://github.com/miyakogi/m2r#sphinx-integration
 
-remove ".md" here because of error: https://github.com/miyakogi/m2r/blob/dev/m2r.py#L656
+remove ".md" here because of error:
+https://github.com/miyakogi/m2r/blob/dev/m2r.py#L656
