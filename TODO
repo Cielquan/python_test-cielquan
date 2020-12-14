@@ -1,3 +1,10 @@
 TODO: CODDEOWNERS: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/about-code-owners
 
 TODO: add way to include *.md files in docs: https://stackoverflow.com/questions/46278683/include-my-markdown-readme-into-sphinx
+
+only MD changelog supported .. for integration in sphinx:
+
+https://github.com/miyakogi/m2r#sphinx-integration
+
+remove ".md" here because of error:
+https://github.com/miyakogi/m2r/blob/dev/m2r.py#L656
