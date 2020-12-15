@@ -99,6 +99,11 @@ rst_epilog = """
 tls_cacerts = os.getenv("SSL_CERT_FILE")
 
 
+#: -- M2R2 -----------------------------------------------------------------------------
+extensions.append("m2r2")
+source_suffix = [".rst", ".md"]
+
+
 #: -- LINKCHECK CONFIG -----------------------------------------------------------------
 #: 1 Worker 5 Retries to fix 429 error
 linkcheck_workers = 1
