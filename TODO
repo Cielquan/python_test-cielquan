@@ -1,13 +1,5 @@
-NOTE: general:
-TODO: CODEOWNERS: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/about-code-owners
-
-
 NOTE: noxfile.py / tox.ini
 # FIXME: adaption for applications
-
-
-NOTE: .github/stale.yml:
-TODO: overhaul concept for stale
 
 
 NOTE: .github/workflows/test-code.yml:
