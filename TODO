@@ -2,10 +2,6 @@ NOTE: general:
 TODO: CODEOWNERS: https://docs.github.com/en/free-pro-team@latest/github/creating-cloning-and-archiving-repositories/about-code-owners
 
 
-# NOTE: .githhub/workflows/publish.yml
-TODO: check semantic-release JS again
-
-
 NOTE: noxfile.py / tox.ini
 # FIXME: adaption for applications
 
