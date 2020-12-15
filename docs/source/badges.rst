@@ -1,27 +1,27 @@
 badges
 ======
 
-+-------------------+-----------------------------------------------------------------------------+
-| **General**       | |maintenance| |license| |rtd| |semver|                                      |
-+-------------------+-----------------------------------------------------------------------------+
-| **PyPI**          | |pypi_release| |pypi_py_versions| |pypi_implementations|                    |
-|                   +-----------------------------------------------------------------------------+
-|                   | |pypi_status| |pypi_format| |pypi_downloads|                                |
-+-------------------+-----------------------------------------------------------------------------+
-| **Pipeline**      | |gha_test_code| |codeclimate_cov| |gha_code_quality| |codeclimate_maintain| |
-|                   +-----------------------------------------------------------------------------+
-|                   | |gha_test_docs| |gha_dep_safety| |dependabot|                               |
-+-------------------+-----------------------------------------------------------------------------+
-| **Github**        | |gh_release| |gh_commits_since| |gh_last_commit|                            |
-|                   +-----------------------------------------------------------------------------+
-|                   | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|                       |
-+-------------------+-----------------------------------------------------------------------------+
-| **Dev tools**     | |pre-commit| |black| |isort| |bandit| |mypy|                                |
-|                   +-----------------------------------------------------------------------------+
-|                   | |tox| |nox| |pytest| |sphinx|                                               |
-|                   +-----------------------------------------------------------------------------+
-|                   | |conventional_commits| |semantic_release| |poetry|                          |
-+-------------------+-----------------------------------------------------------------------------+
++-------------------+---------------------------------------------------------------------------------------------+
+| **General**       | |maintenance| |license| |rtd| |semver|                                                      |
++-------------------+---------------------------------------------------------------------------------------------+
+| **PyPI**          | |pypi_release| |pypi_py_versions| |pypi_implementations|                                    |
+|                   +---------------------------------------------------------------------------------------------+
+|                   | |pypi_status| |pypi_format| |pypi_downloads|                                                |
++-------------------+---------------------------------------------------------------------------------------------+
+| **Pipeline**      | |gha_test_code| |codeclimate_cov| |gha_code_quality| |pre-commit-ci| |codeclimate_maintain| |
+|                   +---------------------------------------------------------------------------------------------+
+|                   | |gha_test_docs| |gha_dep_safety| |dependabot|                                               |
++-------------------+---------------------------------------------------------------------------------------------+
+| **Github**        | |gh_release| |gh_commits_since| |gh_last_commit|                                            |
+|                   +---------------------------------------------------------------------------------------------+
+|                   | |gh_stars| |gh_forks| |gh_contributors| |gh_watchers|                                       |
++-------------------+---------------------------------------------------------------------------------------------+
+| **Dev tools**     | |pre-commit| |black| |isort| |bandit| |mypy|                                                |
+|                   +---------------------------------------------------------------------------------------------+
+|                   | |tox| |nox| |pytest| |sphinx|                                                               |
+|                   +---------------------------------------------------------------------------------------------+
+|                   | |conventional_commits| |semantic_release| |poetry|                                          |
++-------------------+---------------------------------------------------------------------------------------------+
 
 
 .. General
@@ -93,6 +93,10 @@ badges
 .. |codeclimate_cov_o| image:: https://api.codeclimate.com/v1/badges/dd84c2e0ec53f19156dd/test_coverage
     :target: https://codeclimate.com/github/Cielquan/python_test-cielquan/test_coverage
     :alt: Test Coverage
+
+.. |pre-commit-ci| image:: https://results.pre-commit.ci/badge/github/Cielquan/python_test-cielquan/master.svg
+   :target: https://results.pre-commit.ci/latest/github/Cielquan/python_test-cielquan/master
+   :alt: pre-commit.ci status
 
 
 .. Testing

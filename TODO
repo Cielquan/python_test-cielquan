@@ -2,11 +2,11 @@ NOTE: noxfile.py / tox.ini
 # FIXME: adaption for applications
 
 
-NOTE: .github/workflows/test-code.yml:
-TODO: find way to install multiple py ver in WF VM via envvar https://github.com/actions/setup-python/issues/167
-
-
 NOTE: .github/workflows/update-pre-commit-config.yml
 TODO: Move this to pre-commit.ci when released ?
 TODO: fix pre-commit autoupdate workflow
 TODO: notify when changes are uploaded
+
+
+NOTE: .github/workflows/test-code.yml:
+TODO: find way to install multiple py ver in WF VM via envvar https://github.com/actions/setup-python/issues/167
