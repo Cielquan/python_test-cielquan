@@ -18,14 +18,3 @@ NOTE: .github/workflows/update-pre-commit-config.yml
 TODO: Move this to pre-commit.ci when released ?
 TODO: fix pre-commit autoupdate workflow
 TODO: notify when changes are uploaded
-
-
-NOTE: docs/conf.py:
-FIXME: add way to include *.md files in docs: https://stackoverflow.com/questions/46278683/include-my-markdown-readme-into-sphinx
-
-only MD changelog supported .. for integration in sphinx:
-
-https://github.com/miyakogi/m2r#sphinx-integration
-
-remove ".md" here because of error:
-https://github.com/miyakogi/m2r/blob/dev/m2r.py#L656
