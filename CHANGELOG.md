@@ -1,5 +1,5 @@
-# Changelog of {{repository}} 
-
+Changelog of {{repository}}
+### [0.5.15](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.14...v0.5.15) (2020-12-15)
 
 ### [0.5.14](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.13...v0.5.14) (2020-12-15)
 
