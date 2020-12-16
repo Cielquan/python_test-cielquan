@@ -10,13 +10,12 @@ env:
 on:
   workflow_dispatch:
     inputs:
-      # ${{ github.event.inputs.firstReleaseVersion }}
       releaseAs:
         description: 'Force this version (w/o pre-prelease identifiers)'
         required: false
 
       preRelease:
-        description: 'Pre-release level: alpha|beta|rc'
+        description: 'Pre-release level: alpha|a|beta|b|rc'
         required: false
 
       firstRelease:
@@ -30,6 +29,71 @@ on:
 
 
 jobs:
+  check-input:
+    name: Check given inputs
+    runs-on: ubuntu-latest
+    outputs:
+      std-ver-args: ""
+    steps:
+      - uses: actions/setup-python@v2
+      - name: Check releaseAs
+        shell: python
+        run: |
+          import re
+          import sys
+
+          version = "${{ github.event.inputs.releaseAs }}"
+
+          if not re.fullmatch(r"^\d+\.\d+\.\d+$", version):
+              print(f"'{version}' is not a valid version.")
+              sys.exit(1)
+
+          for ver_part in version.split("."):
+              if ver_part.startswith("0") and len(ver_part) > 1:
+                  print(f"'{version}' is not a valid version.")
+                  sys.exit(1)
+
+      - name: Check preRelease
+        shell: python
+        run: |
+          import sys
+
+          pre_prelease = "${{ github.event.inputs.preRelease }}"
+          allowed_pre_relrease = ("alpha", "a", "beta", "b", "rc")
+
+          if pre_prelease not in allowed_pre_relrease:
+              print(f"'{pre_prelease}' is not allowed.")
+              sys.exit(1)
+
+      - name: Check firstRelease
+        shell: python
+        run: |
+          import sys
+
+          first_release = "${{ github.event.inputs.firstRelease }}"
+
+          if pre_prelease not in ("true", "false"):
+              print(f"'{first_release}' is not allowed.")
+              sys.exit(1)
+
+      - name: Check firstReleaseVersion
+        shell: python
+        run: |
+          import re
+          import sys
+
+          version = "${{ github.event.inputs.firstReleaseVersion }}"
+
+          if not re.fullmatch(r"^\d+\.\d+\.\d+$", version):
+              print(f"'{version}' is not a valid version.")
+              sys.exit(1)
+
+          for ver_part in version.split("."):
+              if ver_part.startswith("0") and len(ver_part) > 1:
+                  print(f"'{version}' is not a valid version.")
+                  sys.exit(1)
+
+
   pyproject-config:
     name: Get config from pyproject.toml
     runs-on: ubuntu-latest
