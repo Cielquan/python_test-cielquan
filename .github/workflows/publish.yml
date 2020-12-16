@@ -3,6 +3,12 @@ name: Release new version
 
 on:
   workflow_dispatch:
+    inputs:
+      firstReleaseVersion:
+        description: 'Version for first release'     
+        required: true
+        default: '1.0.0'
+        # ${{ github.event.inputs.firstReleaseVersion }}
 
 
 env:
