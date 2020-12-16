@@ -21,16 +21,9 @@ on:
 
 
 jobs:
-  printer:
-    runs-on: ubuntu-latest
-    steps:
-    - run: echo "${{ toJSON(github.event) }}}"
-
-
   pyproject-config:
     name: Get default python version from pyproject.toml
-    # if: "!contains(github.event.head_commit.message, '[skip ci]')"
-    if: github.event_name == 'pull_request' || (github.event_name == 'push' && contains(toJson(github.event.commits), '[skip ci]') == false)
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
     runs-on: ubuntu-latest
     outputs:
       version: ${{ steps.get-default-version.outputs.default_python_version }}
@@ -153,7 +146,7 @@ jobs:
   set-status:
     name: Set status on commit
     needs: [pre-commit, set-git-env-vars]
-    if: github.event_name == 'pull_request' || (github.event_name == 'push' && contains(toJson(github.event.commits), '[skip ci]') == false)
+    if: github.event_name == 'pull_request' || (github.event_name == 'push' && contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
     runs-on: ubuntu-latest
     steps:
       - name: Get repo dir name
