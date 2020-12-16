@@ -2,6 +2,9 @@ NOTE: noxfile.py / tox.ini
 # FIXME: adaption for applications
 
 
+NOTE: .github/workflows/publish.yml
+TODO: add logic for first release starting with 1.0.0 if not other is specified
+
 NOTE: .github/workflows/update-pre-commit-config.yml
 TODO: Move this to pre-commit.ci when released ?
 TODO: fix pre-commit autoupdate workflow
