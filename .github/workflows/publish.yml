@@ -11,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       releaseAs:
-        description: 'Force this version (w/o pre-prelease identifiers)'
+        description: 'Force this version major|minor|patch or full version (w/o pre-prelease identifiers)'
         required: false
 
       preRelease:
@@ -33,7 +33,7 @@ jobs:
     name: Check given inputs
     runs-on: ubuntu-latest
     outputs:
-      std-ver-args: ""
+      std_ver_args: ${{ steps.set-std-ver-args.outputs.std_ver_args }}
     steps:
       - uses: actions/setup-python@v2
       - name: Check releaseAs
@@ -43,8 +43,9 @@ jobs:
           import sys
 
           version = "${{ github.event.inputs.releaseAs }}"
+          allowed = ("major", "minor", "patch")
 
-          if not re.fullmatch(r"^\d+\.\d+\.\d+$", version):
+          if not re.fullmatch(r"^\d+\.\d+\.\d+$", version) and version not in allowed:
               print(f"'{version}' is not a valid version.")
               sys.exit(1)
 
@@ -93,9 +94,34 @@ jobs:
                   print(f"'{version}' is not a valid version.")
                   sys.exit(1)
 
+      - name: Set standart-version args
+        id: set-std-ver-args
+        shell: python
+        run: |
+          args = []
+
+          release_as = "${{ github.event.inputs.releaseAs }}"
+          pre_prelease = "${{ github.event.inputs.preRelease }}"
+          first_release = "${{ github.event.inputs.firstRelease }}"
+          first_version = "${{ github.event.inputs.firstReleaseVersion }}"
+
+          if release_as:
+              args += ["--release-as", release_as]
+
+          if pre_prelease:
+              args += ["--prerelease", pre_prelease]
+
+          if first_release:
+              args += ["--first-release"]
+
+          args_str = ' '.join(args)
+          print(args_str)
+          print(f"::set-output name=std_ver_args::{args_str}")
+
 
   pyproject-config:
     name: Get config from pyproject.toml
+    needs: check-input
     runs-on: ubuntu-latest
     outputs:
       last_version: ${{ steps.get-config.outputs.last_version }}
@@ -376,7 +402,7 @@ jobs:
 
 
   publish:
-    needs: [check-commit-messages, pyproject-config]
+    needs: [check-commit-messages, pyproject-config, check-input]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -405,7 +431,7 @@ jobs:
         git config --global user.name "github-actions"
 
     - name: Run standard-version
-      run: standard-version
+      run: standard-version ${{ needs.check-input.outputs.std_ver_args }}
 
     - name: Set new tag as ENVVAR
       id: new-tag
