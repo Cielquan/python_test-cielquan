@@ -2,8 +2,8 @@ name: Update pre-commit config dependencies
 
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
+#   schedule:
+#     - cron: '0 0 * * *'
   workflow_dispatch:
 
 
