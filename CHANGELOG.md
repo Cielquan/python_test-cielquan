@@ -11,3 +11,5 @@ All notable changes to this project will be documented in this file. See [standa
 * empty. ([a41bab0](https://github.com/Cielquan/python_test-cielquan/commit/a41bab08740c29047ea5068f4fc468139218d07d))
 
 # Changelog
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
