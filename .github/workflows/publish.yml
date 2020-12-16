@@ -4,11 +4,27 @@ name: Release new version
 on:
   workflow_dispatch:
     inputs:
+      # ${{ github.event.inputs.firstReleaseVersion }}
+      firstRelease:
+        description: 'First release: true|false'
+        required: true
+        default: 'false'
       firstReleaseVersion:
-        description: 'Version for first release'     
+        description: 'Version for first release'
         required: true
         default: '1.0.0'
-        # ${{ github.event.inputs.firstReleaseVersion }}
+
+      releaseAs:
+        description: 'Force this version'
+        required: false
+
+      prerelease:
+        description: 'Is prerelease: true|false'
+        required: true
+        default: 'false'
+      prereleaseLevel:
+        description: 'Prerelease level: alpha|beta|rc'
+        required: false
 
 
 env:
