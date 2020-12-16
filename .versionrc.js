@@ -6,6 +6,7 @@ const tracker = {
 module.exports = {
   bumpFiles: [tracker],
   packageFiles: [tracker],
+  header: "# Change Log\n\n",
   types: [
     {"type": "feat", "section": "Features"},
     {"type": "fix", "section": "Bug Fixes"},
@@ -17,5 +18,4 @@ module.exports = {
     {"type": "test", "hidden": true}
   ],
   releaseCommitMessageFormat: "chore(release): {{currentTag}} [skip ci]",
-  header: "# Change Log\n\n"
 }
