@@ -7,10 +7,9 @@ TODO: add logic for first release starting with 1.0.0 if not other is specified
 TODO: add logic for backwards code test to not fail for first release
 
 NOTE: .github/workflows/update-pre-commit-config.yml
-TODO: Move this to pre-commit.ci when released ?
+TODO: Test pre-commit.ci
     TODO: wait for autoupdate from pre-commit.ci on monday 18:00UTC
-TODO: fix pre-commit autoupdate workflow
-TODO: notify when changes are uploaded
+    TODO: notify when changes are uploaded
 
 
 NOTE: .github/workflows/test-code.yml:

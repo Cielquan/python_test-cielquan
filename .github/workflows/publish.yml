@@ -34,6 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       std_ver_args: ${{ steps.set-std-ver-args.outputs.std_ver_args }}
+      pre_release: ${{ steps.set-std-ver-args.outputs.pre_release }}
     steps:
       - uses: actions/setup-python@v2
       - name: Check releaseAs
@@ -59,12 +60,18 @@ jobs:
         run: |
           import sys
 
-          pre_prelease = "${{ github.event.inputs.preRelease }}"
-          allowed_pre_relrease = ("alpha", "a", "beta", "b", "rc")
+          pre_release_stage = "${{ github.event.inputs.preRelease }}"
+          allowed_pre_release_stage = ("alpha", "a", "beta", "b", "rc")
 
-          if pre_prelease not in allowed_pre_relrease:
-              print(f"'{pre_prelease}' is not allowed.")
-              sys.exit(1)
+          pre_release = False
+
+          if pre_release_stage:
+              if pre_release_stage not in allowed_pre_release_stage:
+                  print(f"'{pre_release_stage}' is not allowed.")
+                  sys.exit(1)
+              pre_release = True
+
+          print(f"::set-output name=std_ver_args::{pre_release}")
 
       - name: Check firstRelease
         shell: python
@@ -73,7 +80,7 @@ jobs:
 
           first_release = "${{ github.event.inputs.firstRelease }}"
 
-          if pre_prelease not in ("true", "false"):
+          if pre_release not in ("true", "false"):
               print(f"'{first_release}' is not allowed.")
               sys.exit(1)
 
@@ -101,15 +108,15 @@ jobs:
           args = []
 
           release_as = "${{ github.event.inputs.releaseAs }}"
-          pre_prelease = "${{ github.event.inputs.preRelease }}"
+          pre_release = "${{ github.event.inputs.preRelease }}"
           first_release = "${{ github.event.inputs.firstRelease }}"
           first_version = "${{ github.event.inputs.firstReleaseVersion }}"
 
           if release_as:
               args += ["--release-as", release_as]
 
-          if pre_prelease:
-              args += ["--prerelease", pre_prelease]
+          if pre_release:
+              args += ["--prerelease", pre_release]
 
           if first_release:
               args += ["--first-release"]
@@ -474,7 +481,7 @@ jobs:
         release_name: ${{ steps.new-tag.outputs.tag }}
         body: "see [Changelog](https://github.com/${{ github.repository }}/blob/${{ steps.new-tag.outputs.tag }}/CHANGELOG.md)"
         draft: false
-        prerelease: false
+        prerelease: ${{ needs.check-input.outputs.pre_release }}
 
     - name: Upload tarball
       uses: actions/upload-release-asset@v1.0.1
