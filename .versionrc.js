@@ -16,5 +16,6 @@ module.exports = {
     {"type": "perf", "hidden": true},
     {"type": "test", "hidden": true}
   ],
-  releaseCommitMessageFormat: "chore(release): {{currentTag}} [skip ci]"
+  releaseCommitMessageFormat: "chore(release): {{currentTag}} [skip ci]",
+  header: "# Change Log\n\n"
 }

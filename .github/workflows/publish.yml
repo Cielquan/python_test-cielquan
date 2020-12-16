@@ -67,7 +67,7 @@ jobs:
 
       - name: Check if first release
         id: first-release
-        run: 
+        run:
           first_release=$(git tag | grep -oE "v[0-9]+\.[0-9]+\.[0-9]+" && echo False || echo True)
           echo "::set-output name=first_release::${first_release}"
 
