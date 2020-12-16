@@ -24,7 +24,8 @@ jobs:
   printer:
     runs-on: ubuntu-latest
     steps:
-    - run: echo ${{ toJSON(github.event) }}}
+    - run: echo "${{ toJSON(github.event) }}}"
+
 
   pyproject-config:
     name: Get default python version from pyproject.toml
