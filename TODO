@@ -7,13 +7,10 @@ TODO: add logic for first release starting with 1.0.0 if not other is specified
 
 NOTE: .github/workflows/update-pre-commit-config.yml
 TODO: Move this to pre-commit.ci when released ?
+    TODO: add workflow in push to `pre-commit-update` to create PR
 TODO: fix pre-commit autoupdate workflow
 TODO: notify when changes are uploaded
 
 
 NOTE: .github/workflows/test-code.yml:
 TODO: find way to install multiple py ver in WF VM via envvar https://github.com/actions/setup-python/issues/167
-
-
-NOTE: .github/workflows/
-TODO: add workflow in push to `pre-commit-update` to create PR
