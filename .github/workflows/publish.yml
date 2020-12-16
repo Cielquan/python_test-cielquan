@@ -13,19 +13,9 @@ on:
       releaseAs:
         description: 'Force this version major|minor|patch or full version (w/o pre-prelease identifiers)'
         required: false
-
       preRelease:
         description: 'Pre-release level: alpha|a|beta|b|rc'
         required: false
-
-      firstRelease:
-        description: 'First release: true|false'
-        required: true
-        default: 'false'
-      firstReleaseVersion:
-        description: 'Version for first release. ATTENTION: Only change if really necessary!'
-        required: true
-        default: '1.0.0'
 
 
 jobs:
@@ -35,8 +25,10 @@ jobs:
     outputs:
       std_ver_args: ${{ steps.set-std-ver-args.outputs.std_ver_args }}
       pre_release: ${{ steps.set-std-ver-args.outputs.pre_release }}
+      first_release: ${{ stepts.first-release.outputs.first_release }}
     steps:
       - uses: actions/setup-python@v2
+
       - name: Check releaseAs
         shell: python
         run: |
@@ -73,33 +65,11 @@ jobs:
 
           print(f"::set-output name=std_ver_args::{pre_release}")
 
-      - name: Check firstRelease
-        shell: python
-        run: |
-          import sys
-
-          first_release = "${{ github.event.inputs.firstRelease }}"
-
-          if pre_release not in ("true", "false"):
-              print(f"'{first_release}' is not allowed.")
-              sys.exit(1)
-
-      - name: Check firstReleaseVersion
-        shell: python
-        run: |
-          import re
-          import sys
-
-          version = "${{ github.event.inputs.firstReleaseVersion }}"
-
-          if not re.fullmatch(r"^\d+\.\d+\.\d+$", version):
-              print(f"'{version}' is not a valid version.")
-              sys.exit(1)
-
-          for ver_part in version.split("."):
-              if ver_part.startswith("0") and len(ver_part) > 1:
-                  print(f"'{version}' is not a valid version.")
-                  sys.exit(1)
+      - name: Check if first release
+        id: first-release
+        run: 
+          first_release=$(git tag | grep -oE "v[0-9]+\.[0-9]+\.[0-9]+" && echo False || echo True)
+          echo "::set-output name=first_release::${first_release}"
 
       - name: Set standart-version args
         id: set-std-ver-args
@@ -109,8 +79,6 @@ jobs:
 
           release_as = "${{ github.event.inputs.releaseAs }}"
           pre_release = "${{ github.event.inputs.preRelease }}"
-          first_release = "${{ github.event.inputs.firstRelease }}"
-          first_version = "${{ github.event.inputs.firstReleaseVersion }}"
 
           if release_as:
               args += ["--release-as", release_as]
@@ -118,7 +86,7 @@ jobs:
           if pre_release:
               args += ["--prerelease", pre_release]
 
-          if first_release:
+          if ${{ stepts.first-release.outputs.first_release }}:
               args += ["--first-release"]
 
           args_str = ' '.join(args)
@@ -297,7 +265,7 @@ jobs:
 
   old-test-code:
     name: (old tests) nox / test_code / ${{ matrix.os }}
-    needs: [check-ci-status, pyproject-config]
+    needs: [check-ci-status, pyproject-config, check-input]
     runs-on: ${{ matrix.os }}-latest
     strategy:
       fail-fast: true
@@ -306,86 +274,92 @@ jobs:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
     steps:
-      - run: exit 1
       - uses: actions/checkout@v2
+        if: needs.check-input.outputs.first_release != 'False'
 
       - name: Checkout repo at last tag
         uses: actions/checkout@v2
         with:
           path: tests-last-version
           ref: v${{ needs.pyproject-config.outputs.last_version }}
+        if: needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
+        if: needs.check-input.outputs.first_release != 'False'
 
       - name: Install poetry
         run: |
           python -m pip install -U pip
           pip install -U poetry
+        if: needs.check-input.outputs.first_release != 'False'
 
       - name: Install dependencies
         run: |
           poetry config --ansi virtualenvs.create false
           poetry install --ansi --no-root --no-dev --extras nox
+        if: needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_1 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_1 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_1 != "" && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_2 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_2 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_2 != "" && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_3 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_3 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_3 != "" && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_4 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_4 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_4 != "" && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_5 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_5 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_5 != "" && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_6 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_6 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_6 != "" && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_7 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_7 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_7 != "" && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_8 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_8 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_8 != "" && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_9 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_9 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_9 != "" && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_10 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_10 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_10 != "" && needs.check-input.outputs.first_release != 'False'
 
       - name: Generate tox envs via nox
         run: nox --forcecolor --session test_code -- -vv --skip-missing-interpreters false  -- -v --install-only
+        if: needs.check-input.outputs.first_release != 'False'
 
       - name: Run tox envs via nox
         run: nox --forcecolor --session test_code -- -- -- tests-last-version/tests
         env:
           MIN_COVERAGE: 0
+        if: needs.check-input.outputs.first_release != 'False'
 
 
   check-commit-messages:
