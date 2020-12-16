@@ -12,14 +12,10 @@ on:
     inputs:
       # ${{ github.event.inputs.firstReleaseVersion }}
       releaseAs:
-        description: 'Force this version'
+        description: 'Force this version (w/o pre-prelease identifiers)'
         required: false
 
-      prerelease:
-        description: 'Is pre-release: true|false'
-        required: true
-        default: 'false'
-      prereleaseLevel:
+      preRelease:
         description: 'Pre-release level: alpha|beta|rc'
         required: false
 
