@@ -10,7 +10,3 @@ TODO: Test pre-commit.ci
 
 NOTE: .github/workflows/test-code.yml:
 TODO: find way to install multiple py ver in WF VM via envvar https://github.com/actions/setup-python/issues/167
-
-
-NOTE: general
-TODO: fix if step in workflows for man. trigger
