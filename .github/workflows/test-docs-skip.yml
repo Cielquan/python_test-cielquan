@@ -11,7 +11,7 @@ on:
       #: Source changes
       - 'docs/**'
       - 'src/**/*.py'
-      - 'CHANGELOG.rst'
+      - 'CHANGELOG.md'
       - 'LICENSE.txt'
       #: Dependency changes
       - 'poetry.lock'
