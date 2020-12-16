@@ -1,10 +1,28 @@
 name: Release new version
 
 
+env:
+  # DO NOT FORGET TO UPDATE `test-code-skip.yml` && `test-code.yml` TOO !!!
+  _NOX_IN_CI: true
+  _NOX_FORCE_COLOR: true
+
+
 on:
   workflow_dispatch:
     inputs:
       # ${{ github.event.inputs.firstReleaseVersion }}
+      releaseAs:
+        description: 'Force this version'
+        required: false
+
+      prerelease:
+        description: 'Is pre-release: true|false'
+        required: true
+        default: 'false'
+      prereleaseLevel:
+        description: 'Pre-release level: alpha|beta|rc'
+        required: false
+
       firstRelease:
         description: 'First release: true|false'
         required: true
@@ -13,24 +31,6 @@ on:
         description: 'Version for first release'
         required: true
         default: '1.0.0'
-
-      releaseAs:
-        description: 'Force this version'
-        required: false
-
-      prerelease:
-        description: 'Is prerelease: true|false'
-        required: true
-        default: 'false'
-      prereleaseLevel:
-        description: 'Prerelease level: alpha|beta|rc'
-        required: false
-
-
-env:
-  # DO NOT FORGET TO UPDATE `test-code-skip.yml` && `test-code.yml` TOO !!!
-  _NOX_IN_CI: true
-  _NOX_FORCE_COLOR: true
 
 
 jobs:
