@@ -17,9 +17,7 @@
     license = "GPL-3.0-or-later"
     repository = "https://github.com/Cielquan/python_test-cielquan"
     readme = "README.rst"
-    packages = [
-        { include = "python_test_cielquan", from = "src" },
-    ]
+    packages = [{ include = "python_test_cielquan", from = "src" }]
 
     [tool.poetry.dependencies]
         python = "^3.6.1"
@@ -95,8 +93,6 @@
         twine = {version = "^3.2.0", optional = true}
         safety = {version = "^1.9.0", optional = true}
         diff-cover = {version = "^4.0.1", optional = true}
-        # Additional tools
-#        python-semantic-release = {version = "^7.3.0", optional = true}
 
     [tool.poetry.dev-dependencies]
         nox = "*"  #: Version managed above
@@ -188,7 +184,6 @@
 #: -- FLAKEHELL CONFIG -----------------------------------------------------------------
 [tool.flakehell]
     format="colored"
-    # show_source = true
     max_line_length = 88
     max_complexity = 20
     max_cognitive_complexity = 10
@@ -282,8 +277,6 @@
         branch = true
         parallel = true
         context = "static-context"
-#        dynamic_context = "test_function"
-#        relative_files = true
         omit = [
             "tests/*",
             "docs/*",
