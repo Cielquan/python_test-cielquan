@@ -7,7 +7,7 @@ TODO: add logic for first release starting with 1.0.0 if not other is specified
 
 NOTE: .github/workflows/update-pre-commit-config.yml
 TODO: Move this to pre-commit.ci when released ?
-    TODO: add workflow in push to `pre-commit-update` to create PR
+    TODO: wait for autoupdate from pre-commit.ci on monday 18:00UTC
 TODO: fix pre-commit autoupdate workflow
 TODO: notify when changes are uploaded
 
