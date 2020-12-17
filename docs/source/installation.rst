@@ -12,7 +12,7 @@ It is recommended to install the package in a virtual environment.
 Create virtual environment
 --------------------------
 There are several packages/modules for creating python virtual environments.
-Here is a 
+Here is a
 `manual <https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/>`__
 by the PyPA.
 
