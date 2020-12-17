@@ -92,7 +92,7 @@ jobs:
           key: pre-commit|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('.pre-commit-config.yaml') }}
 
       - name: Generate tox env via nox
-        run: nox --forcecolor --session pre_commit -- -vv --skip-missing-interpreters false  -- -v --install-only
+        run: nox --forcecolor --session pre_commit -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox env via nox
         run: nox --forcecolor --session pre_commit
