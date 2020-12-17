@@ -132,6 +132,7 @@ repos:
 #: -------------------------------------------------------------------------------------
 #: Poetry hooks
 #: -------------------------------------------------------------------------------------
+  # TODO:#i# move to original poetry repo after merge of #2511
   - repo: https://github.com/Cielquan/mirrors-poetry
     rev: 028e18fbe668509954227aba99158434dab1c713  # frozen: 1.1.4
     hooks:
