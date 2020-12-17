@@ -247,9 +247,6 @@
         spelling-dict = "en_US"
         spelling-private-dict-file = "docs/source/spelling_dict.txt"
 
-    [tool.pylint.messages_control]
-        flakehell_doesnt_get = ["E0602"]
-
 
 #: -- TESTING COFIGURATION -------------------------------------------------------------
 [tool._testing]
