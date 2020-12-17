@@ -101,6 +101,7 @@
         poetry = "*"  #: Version managed above
         devtools = {version = "^0.6", extras = ["pygments"]}
         ipython = "^7.15.0"
+        virtualenv = "^20, !=20.2.2"  #: 20.2.2 breaks smth
 
     [tool.poetry.extras]
         testing = [
@@ -212,6 +213,7 @@
         pycodestyle = [
             "+*",
             "-E203", "-W503",  #: deactivated for black
+            "-E402",  #: same as C0413[pylint]
             "-E713",  #: same as SIM203[flake8-simplify]
             "-E731",  #: forbids lambda
         ]
