@@ -1,6 +1,5 @@
 NOTE: noxfile.py / tox.ini
     TODO: fix workflows afterwards
-    TODO: fix CONTRI afterwards
 
 
 NOTE: .github/workflows/update-pre-commit-config.yml
