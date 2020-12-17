@@ -34,11 +34,10 @@ from python_test_cielquan import (
 
 
 needs_sphinx = "3.1"  #: Minimum Sphinx version to build the docs
-REPO_DIR = Path(__file__).parents[2]
-sys.path.insert(0, str(REPO_DIR))  #: Add Repo to PATH
 
 
 #: -- GLOB VARS ------------------------------------------------------------------------
+REPO_DIR = Path(__file__).parents[2]
 CONF_DIR = Path(__file__)
 NOT_LOADED_MSGS = []
 YEAR = f"{date.today().year}"
@@ -61,7 +60,7 @@ copyright = (  # noqa: VNE003
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
 version_parts = re.search(
-    r"^[v]?(?P<version>\d+\.\d+)\.\d+[+-]?(?P<tag>[a-zA-Z]*)\d*", __version__
+    r"^v(?P<version>\d+\.\d+)\.\d+[-.]?(?P<tag>[a-z]*)[\.]?\d*", __version__
 )
 version = (
     None if not version_parts else version_parts.group("version")
