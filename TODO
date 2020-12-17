@@ -8,10 +8,6 @@ NOTE: .github/workflows/test-code.yml:
       https://github.com/actions/setup-python/issues/167
 
 
-NOTE: pyproject.toml
-    TODO: clean up
-
-
 TODO: update CONTRI
 TODO: update STEP_GUIDE
 TODO: add commit msg linting
