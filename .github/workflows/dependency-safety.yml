@@ -97,7 +97,7 @@ jobs:
           poetry install --ansi --no-root --no-dev --extras nox
 
       - name: Generate tox env via nox
-        run: nox --forcecolor --session pre_commit -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
+        run: nox --forcecolor --session safety -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox env via nox
         run: nox --forcecolor --session safety
