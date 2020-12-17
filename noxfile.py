@@ -174,15 +174,34 @@ def _tox_caller(
 ) -> None:
     if posargs is None:
         posargs = session.posargs
+
+    #: Extract tox args
+    tox_args = []
+    for arg in posargs:
+        if arg.startswith("TOX_ARGS="):
+            tox_args = arg[9:].split(",")
+            posargs.remove(arg)
+            break
+
+    #: Extract nox args for nox called by tox
+    nox_args = []
+    for arg in posargs:
+        if arg.startswith("NOX_ARGS="):
+            nox_args = arg[9:].split(",")
+            posargs.remove(arg)
+            break
+
     if not find_spec("tox"):
         session.poetry_install("tox", no_root=True, no_dev=IN_CI)
+
     session.env["_TOX_SKIP_SDIST"] = str(SKIP_INSTALL)
     if FORCE_COLOR:
         #: Force color for nox when called by tox
         session.env["_TOX_FORCE_NOX_COLOR"] = "--forcecolor"
         #: Activate colorful output for tox
         session.env["PY_COLORS"] = "1"
-    session.run("tox", "-e", tox_env, *posargs)
+
+    session.run("tox", "-e", tox_env, *tox_args, "--", *nox_args, "--", *posargs)
 
 
 #: -- TEST SESSIONS --------------------------------------------------------------------
