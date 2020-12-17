@@ -123,7 +123,7 @@ jobs:
         run: timeout 10s .tox/test_docs-html/bin/pip --version || rm -rf .tox
 
       - name: Generate tox envs via nox
-        run: nox --forcecolor --session tox_docs -- -vv --skip-missing-interpreters false  -- -v --install-only
+        run: nox --forcecolor --session tox_docs -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox envs via nox
         run: nox --forcecolor --session tox_docs
