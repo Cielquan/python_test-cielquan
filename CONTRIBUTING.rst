@@ -7,10 +7,10 @@ At first thanks for taking the time to contribute!
 In the following you will find a bunch of guidelines/rules for contributing to
 ``python_test-cielquan``.
 For the guidelines use your best judgement to follow them. Rules only apply to
-Pull Requests and must be followed as otherwise the contribution cannot be included.
+pull requests and must be followed as otherwise the contribution cannot be included.
 
 If you have ideas for improvement of this paper feel free to submit them in an issue or
-even a Pull Request.
+even a pull request.
 
 Table of contents:
 
@@ -67,6 +67,8 @@ If:
 
 - you have specific examples to reproduce the problem like config/code snippets, files
   or links to a Github project
+
+.. CHANGE ME
 
 - the problem is an error which unexpectedly occurs and you ran the command again with
   the ``--debug`` option to get a more information
@@ -186,8 +188,9 @@ steps::
 
 This will create a virtualenv (if you did not create and activate one yourself),
 install the project plus its dependencies and then install all specified extras so that
-you have all development dependencies installed. At last it will create a ``tox``
-environment for ``pre-commit``, install ``pre-commit`` as ``git`` hook and run all
+you have all development dependencies installed. Next it will create a ``.spellignore``
+file, which is just a copy of the ``.gitignore`` file. At last it will create a ``tox``
+environment for ``pre-commit``, install ``pre-commit`` as a ``git`` hook and run all
 hooks once.
 
 
@@ -202,7 +205,7 @@ environment. For development we use the following tools:
 - `nox <https://nox.thea.codes/>`__:
     for running standardized tests or automated dev-tasks in an existing virtualenv
 - `tox <https://tox.readthedocs.io/>`__:
-    for the creation of isolated test virtualenvs (does not get called by user)
+    as virtualenv backend for ``nox`` to create isolated test virtualenvs
 - `pre-commit <https://pre-commit.com/>`__:
     for automated linting and quality checking before commiting
 
@@ -223,11 +226,12 @@ to lint, test the code or test the docs respectively.
 For more specific testing and development environment setup we have several different
 ``nox`` sessions available. You can invoke them with ``nox -s <session>``. Some take
 additional arguments which need to be added at the end after a double dash and separated
-by a space like so: ``nox -s session -- arg1 arg2``. For local development and testing
+by a space like so: ``nox -s <session> -- arg1 arg2``. For local development and testing
 ``nox`` sessions are meant to be called from the development virtualenv. If a testing
 ``nox`` session is invoked without an active virtualenv ``tox`` is automatically invoked
-as a *virtualenv backend* to create a virtualenv and the session is then run inside it.
-You can force this behavior also by giving ``tox`` as an additional argument to ``nox``.
+as a *virtualenv backend* to create a virtualenv for the given task specificly and the
+session is then run inside it. You can force this behavior also by giving ``tox`` as an
+additional argument.
 
 ``nox`` testing sessions:
 
@@ -235,21 +239,20 @@ You can force this behavior also by giving ``tox`` as an additional argument to 
     Build a package with ``poetry`` from the current source and test it with ``twine``.
 
 - ``test_code``:
-    The session will run all tests with the python version used by the virtualenv from
-    where its invoked. If ``tox`` is used as virtualenv backend the tests are run with
+    This session will run all tests with the python version used by the virtualenv from
+    where it's invoked. If ``tox`` is used as virtualenv backend the tests are run with
     all specified and available python versions.
 
     **Addtional arguments**:
 
-    * Any argument understood by ``pytest``. Defaults to ``tests`` (for the tests
-      directory)
+    * Any argument understood by ``pytest``. Defaults to ``tests`` (tests directory)
 
 - ``coverage_merge``:
     Merge existing ``.coverage.*`` artifacts into one ``.coverage`` file and create XML
     (*coverage.xml*) and HTML (*/htmlcov*) reports.
 
 - ``coverage_report``:
-    Report the total coverage and diff coverage against origin/master.
+    Report the total coverage and diff coverage against origin/master or DIFF_AGAINST.
 
 - ``coverage``:
     Merge and report the coverage. (runs both coverage sessions above)
@@ -263,7 +266,8 @@ You can force this behavior also by giving ``tox`` as an additional argument to 
 
     **Addtional arguments**:
 
-    * ``HOOKS=<hook-id>``: Specify hooks (seperated by comma) to run.
+    * ``HOOKS=<hook-id>``: Specify hooks (seperated by comma) to run. If you want to run
+      a single hook just add its name without the ``HOOKS=`` prefix.
     * ``SKIP=<hook-id>`` Specify hooks (seperated by comma) to skip.
     * ``diff``: Print the diff when a hook fails. Recommended to only set when one or
       no hook is specified as the diff will be printed on every failing hook otherwise.
@@ -382,8 +386,8 @@ Development
 ~~~~~~~~~~~
 
 We have no dedicated development branch so all changes are expected to be submitted and
-merged into `master`. Merging into ``master`` is only allowed after all CI tests
-succeeded. Pull requests must be merged with a merge commit.
+merged into ``master``. Merging into ``master`` is only allowed after all CI tests
+**succeeded**. Pull requests must be merged with a merge commit.
 
 Bugfixes are also expected to be merged into ``master``. Buf if they are
 critical the next release will be much sooner.
@@ -407,7 +411,8 @@ test suit of the previous version and when the test suit fails it will look for 
 declaring *BREAKING CHANGES*. If none is found the worklow will fail. After success the
 workflow will automatically bump the version counter based on semantic versioning and
 conventional commits, update the changelog, create a new git tag, build the
-package(s)/wheel(s) and push it/them to PyPI.
+package + wheel and push them to PyPI. At last a Github release is created with the built
+source as assets.
 
     **Note**: As all changes are merged into ``master`` only the current released
     version is supported and will receive bugfixes. Bugfixes for older versions are not
