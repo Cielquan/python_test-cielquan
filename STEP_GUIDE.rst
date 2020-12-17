@@ -40,45 +40,37 @@ Github repo
 Code base
 =========
 
-#. Update issue templates
+#. Update .github/ISSUE_TEMPLATES/*
     - Repo name
     - links
     - if not cli remove part from bug report
+    - CHANGE ME in publish.yml
 
-#. Update workflow
+#. Update docs:
+    - badges.rst
+    - index.rst: rm badges from toxtree
+    - installation.rst: links && rm pypi if not there
+    - usage.rst
+
+#. Update src
+    - init: docstr
+
+#. Update tests
+    - conftest: docstr
 
 #. Update pyproject.toml
-    - metadata (desc: same as repo (see above))
-    - deps
+    - _testing: config
+    - _metadata: first_release_year
+    - poetry:
+        * metadata (desc: same as repo (see above))
+        * deps / extras
+    - pytest.ini_options: rm mock_use_standalone_module if not needed
     - coverage config: [plugins and plugin-conf, combine paths]
 
-#. Update tox.ini
-    - Repo name
-    - Build setting
-    - Remove confluence builder?
+#. Create/Update LICENSE.txt
 
-#. Update docs
-    - conf
-    - source
+#. Create/Update README.rst
 
-#. Update LICENSE
-
-#. Update README
-
-#. Update CONTRIBUTION:
+#. Update CONTRIBUTION.rst:
     - Change links
     - If not CLI remove this part
-
-
-Files with CHANGE ME
-====================
-
-- tox.ini
-- READEME.rst
-- pyproject.toml
-- CONTRIBUTION.rst
-- CHANGELOG.rst
-- tests/
-- src/
-- docs/source/
-- .github/
