@@ -231,7 +231,8 @@ by a space like so: ``nox -s <session> -- arg1 arg2``. For local development and
 ``nox`` session is invoked without an active virtualenv ``tox`` is automatically invoked
 as a *virtualenv backend* to create a virtualenv for the given task specificly and the
 session is then run inside it. You can force this behavior also by giving ``tox`` as an
-additional argument.
+additional argument. If you want to give arguments to ``tox`` you need to specify them
+as a comma separated list like this: ``TOX_ARGS=<tox-args>``.
 
 ``nox`` testing sessions:
 
