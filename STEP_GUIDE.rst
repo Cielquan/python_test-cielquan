@@ -66,6 +66,7 @@ Code base
         * deps / extras
     - pytest.ini_options: rm mock_use_standalone_module if not needed
     - coverage config: [plugins and plugin-conf, combine paths]
+    - coverage-conditional-plugin rm if not used
 
 #. Create/Update LICENSE.txt
 

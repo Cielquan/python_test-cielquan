@@ -44,14 +44,14 @@
         coverage-conditional-plugin = {version = "^0.3.1", optional = true}
         pytest-sugar = {version = "^0.9.4", optional = true}
         pytest-randomly = {version = "^3.4", optional = true}
-#        pytest-mock = {version = "^3.2.0", optional = true}
-#        mock = {version = "^4.0.2", optional = true}
-#        faker = {version = "^4.1.1", optional = true}
-#        pytest-factoryboy = {version = "^2.0.3", optional = true}
-#        pytest-benchmark = {version = "^3.2.3", optional = true}
-#        pytest-profiling = {version = "^1.7.0", optional = true}
-#        pytest-bdd = {version = "^3.3.0", optional = true}
-#        behave = {version = "^1.2.6", optional = true}
+        # pytest-mock = {version = "^3.2.0", optional = true}
+        # mock = {version = "^4.0.2", optional = true}
+        # faker = {version = "^4.1.1", optional = true}
+        # pytest-factoryboy = {version = "^2.0.3", optional = true}
+        # pytest-benchmark = {version = "^3.2.3", optional = true}
+        # pytest-profiling = {version = "^1.7.0", optional = true}
+        # pytest-bdd = {version = "^3.3.0", optional = true}
+        # behave = {version = "^1.2.6", optional = true}
         #: Docs
         sphinx = {version = "^3.1", optional = true}
         m2r2 = {version = "^0.2.7", optional = true}
@@ -62,8 +62,8 @@
         sphinx-autodoc-typehints = {version = "^1.10.3", optional = true}
         sphinxcontrib-apidoc = {version = "^0.3.0", optional = true}
         sphinxcontrib-spelling = {version = "^7.1.0", optional = true}
-#        sphinx-click = {version = "^2.3.2", optional = true}
-#        sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
+        # sphinx-click = {version = "^2.3.2", optional = true}
+        # sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
         # sphinxcontrib-confluencebuilder = {git = "https://github.com/sphinx-contrib/confluencebuilder.git", rev = "6e6edbb64260ea09858eb844dd46c79c7697267e", optional = true}
         #: Code check
         pre-commit = {version = "^2.4", optional = true}
@@ -101,8 +101,9 @@
         flake8-walrus = {version = "^1.1.0", python = ">=3.8", optional = true}
         #: nox env dependencies
         nox = {version = "^2020.8.22", optional = true}
-        tox = {version = "^3.20.1", optional = true}
         tomlkit = {version = ">=0.7.0, <1.0.0", optional = true}
+        tox = {version = "^3.20.1", optional = true}
+        #: Additional tools
         poetry = {version = "^1.1.4", optional = true}
         twine = {version = "^3.2.0", optional = true}
         safety = {version = "^1.9.0", optional = true}
@@ -115,7 +116,7 @@
         poetry = "*"  #: Version managed above
         devtools = {version = "^0.6", extras = ["pygments"]}
         ipython = "^7.15.0"
-        virtualenv = "^20, !=20.2.2"  #: 20.2.2 breaks smth
+        virtualenv = "^20, !=20.2.2"  #: 20.2.2 breaks smth with nox/tox
 
     [tool.poetry.extras]
         testing = [
