@@ -1,11 +1,6 @@
-NOTE: noxfile.py / tox.ini
-# FIXME: adaption for applications
-
-
 NOTE: .github/workflows/update-pre-commit-config.yml
 TODO: Test pre-commit.ci
     TODO: wait for autoupdate from pre-commit.ci on monday 18:00UTC
-    TODO: notify when changes are uploaded
 
 
 NOTE: .github/workflows/test-code.yml:
