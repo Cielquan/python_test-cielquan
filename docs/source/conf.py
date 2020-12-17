@@ -10,7 +10,6 @@
 import contextlib
 import os
 import re
-import sys
 
 from datetime import date
 from importlib.util import find_spec
