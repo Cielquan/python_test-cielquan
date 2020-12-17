@@ -47,7 +47,7 @@ JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
 with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
     PYPROJECT = tomlkit.parse(pyproject_file.read())
 PACKAGE_NAME = PYPROJECT["tool"]["poetry"]["name"]
-TOX_SKIP_SDIST = PYPROJECT["tool"]["_testing"]["tox_skip_sdist"]
+SKIP_INSTALL = PYPROJECT["tool"]["_testing"]["skip_install"]
 TOXENV_PYTHON_VERSIONS = PYPROJECT["tool"]["_testing"][f"toxenv_python_versions_{OS}"]
 TOXENV_DOCS_BUILDERS = PYPROJECT["tool"]["_testing"]["toxenv_docs_builders"]
 
@@ -176,7 +176,7 @@ def _tox_caller(
         posargs = session.posargs
     if not find_spec("tox"):
         session.poetry_install("tox", no_root=True, no_dev=IN_CI)
-    session.env["_TOX_SKIP_SDIST"] = str(TOX_SKIP_SDIST)
+    session.env["_TOX_SKIP_SDIST"] = str(SKIP_INSTALL)
     if FORCE_COLOR:
         #: Force color for nox when called by tox
         session.env["_TOX_FORCE_NOX_COLOR"] = "--forcecolor"
@@ -209,7 +209,9 @@ def test_code(session: Session) -> None:
     """Run tests with given python version."""
     if "skip_install" not in session.posargs:
         extras = "testing"
-        session.poetry_install(extras, no_root=TOX_CALLS, no_dev=(TOX_CALLS or IN_CI))
+        session.poetry_install(
+            extras, no_root=(TOX_CALLS or SKIP_INSTALL), no_dev=(TOX_CALLS or IN_CI)
+        )
     else:
         session.log("Skipping install step.")
         #: Remove processed posargs
@@ -346,7 +348,9 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
     """Format and check the code."""
     if "skip_install" not in session.posargs:
         extras = "pre-commit testing docs poetry nox"
-        session.poetry_install(extras, no_root=TOX_CALLS, no_dev=(TOX_CALLS or IN_CI))
+        session.poetry_install(
+            extras, no_root=(TOX_CALLS or SKIP_INSTALL), no_dev=(TOX_CALLS or IN_CI)
+        )
     else:
         session.log("Skipping install step.")
 
@@ -420,7 +424,9 @@ def docs(session: Session) -> None:
         args += ["--open-browser"]
 
     if "skip_install" not in session.posargs:
-        session.poetry_install(extras, no_root=TOX_CALLS, no_dev=(TOX_CALLS or IN_CI))
+        session.poetry_install(
+            extras, no_root=(TOX_CALLS or SKIP_INSTALL), no_dev=(TOX_CALLS or IN_CI)
+        )
     else:
         session.log("Skipping install step.")
 
@@ -445,7 +451,9 @@ def test_docs(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
     if "skip_install" not in session.posargs:
         extras = "docs"
-        session.poetry_install(extras, no_root=TOX_CALLS, no_dev=(TOX_CALLS or IN_CI))
+        session.poetry_install(
+            extras, no_root=(TOX_CALLS or SKIP_INSTALL), no_dev=(TOX_CALLS or IN_CI)
+        )
     else:
         session.log("Skipping install step.")
         #: Remove processed posargs
@@ -478,7 +486,7 @@ def install_extras(session: Session) -> None:
     for extra in extras:
         extras_to_install += f" {extra}"
 
-    session.poetry_install(extras_to_install.strip(), no_dev=False)
+    session.poetry_install(extras_to_install.strip(), no_root=True, no_dev=False)
     session.run("python", "-m", "pip", "list", "--format=columns")
     print(f"PYTHON INTERPRETER LOCATION: {sys.executable}")
 
