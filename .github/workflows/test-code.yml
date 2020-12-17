@@ -241,7 +241,7 @@ jobs:
           poetry install --ansi --no-root --no-dev --extras nox
 
       - name: Generate tox envs via nox
-        run: nox --forcecolor --session package -- -vv --skip-missing-interpreters false  -- -v --install-only
+        run: nox --forcecolor --session package -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox envs via nox
         id: test
@@ -381,7 +381,7 @@ jobs:
         run: timeout 10s .tox/.package/bin/pip --version || rm -rf .tox
 
       - name: Generate tox envs via nox
-        run: nox --forcecolor --session test_code -- -vv --skip-missing-interpreters false  -- -v --install-only
+        run: nox --forcecolor --session test_code -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox envs via nox
         run: nox --forcecolor --session test_code
@@ -423,7 +423,7 @@ jobs:
           poetry install --ansi --no-root --no-dev --extras nox
 
       - name: Generate tox env via nox
-        run: nox --forcecolor --session coverage_merge -- -vv --skip-missing-interpreters false  -- -v --install-only
+        run: nox --forcecolor --session coverage_merge -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Download coverage artifacts
         uses: actions/download-artifact@v2
@@ -484,7 +484,7 @@ jobs:
           poetry install --ansi --no-root --no-dev --extras nox
 
       - name: Generate tox env via nox
-        run: nox --forcecolor --session coverage_report -- -vv --skip-missing-interpreters false  -- -v --install-only
+        run: nox --forcecolor --session coverage_report -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Download coverage-merged artifact
         uses: actions/download-artifact@v2
