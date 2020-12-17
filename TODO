@@ -19,12 +19,6 @@ NOTE: pyproject.toml
     TODO: clean up
 
 
-NOTE: docs/
-    TODO: fix issues
-    WARNING: The config value `version' has type `NoneType', defaults to `str'.
-    WARNING: The config value `RELEASE_LEVEL' has type `NoneType', defaults to `str'.
-
-
 TODO: update CONTRI
 TODO: update STEP_GUIDE
 TODO: add commit msg linting
