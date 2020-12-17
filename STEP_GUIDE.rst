@@ -32,7 +32,7 @@ Github repo
 #. Add protection rule for ``master``
     - Require checks
     - Require up to date branch
-    - Require signed commits ??
+    - Include admins
     - No force push
     - No deletion
 
