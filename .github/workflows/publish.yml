@@ -352,7 +352,7 @@ jobs:
         if: needs.pyproject-config.outputs.test_python_version_10 != "" && needs.check-input.outputs.first_release != 'False'
 
       - name: Generate tox envs via nox
-        run: nox --forcecolor --session pre_commit -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
+        run: nox --forcecolor --session test_code -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
         if: needs.check-input.outputs.first_release != 'False'
 
       - name: Run tox envs via nox
