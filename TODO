@@ -1,6 +1,8 @@
 NOTE: noxfile.py / tox.ini
     TODO: fix posarg transfer, when tox is specified, as currently
         ``nox -e pre_commit -- tox mypy`` calls ``tox -e pre_commit mypy``
+    TODO: fix workflows afterwards
+    TODO: fix CONTRI afterwards
 
 
 NOTE: .github/workflows/update-pre-commit-config.yml
