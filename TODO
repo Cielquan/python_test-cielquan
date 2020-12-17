@@ -10,4 +10,18 @@ NOTE: .github/workflows/test-code.yml:
 
 TODO: update CONTRI
 TODO: update STEP_GUIDE
+
+
+TODO: centralize config
+https://github.com/andreoliwa/nitpick
+
+
 TODO: add commit msg linting
+https://www.conventionalcommits.org/en/v1.0.0/
+
+https://github.com/jorisroovers/gitlint/
+https://github.com/conventional-changelog/commitlint
+https://github.com/alessandrojcm/commitlint-pre-commit-hook
+
+https://github.com/commitizen/cz-cli
+https://github.com/commitizen-tools/commitizen
