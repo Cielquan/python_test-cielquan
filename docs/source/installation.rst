@@ -12,25 +12,18 @@ It is recommended to install the package in a virtual environment.
 Create virtual environment
 --------------------------
 There are several packages/modules for creating python virtual environments.
-You are free to use which you want. Here I use ``venv`` because it is build in::
+Here is a 
+`manual <https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/>`__
+by the PyPA.
 
-    $ python -m venv venv
 
-After creation activate the `venv` to work with it (Linux)::
+Installation from PyPI
+----------------------
 
-    $ source venv/bin/activate
+You can simply install the package from PyPI::
 
-.. only:: not builder_confluence
+    $ pip install python_test_cielquan
 
-    .. highlight:: default
-
-On windows machines call instead::
-
-    > venv\Scripts\activate
-
-.. only:: not builder_confluence
-
-    .. highlight:: console
 
 Installation from source
 ------------------------
