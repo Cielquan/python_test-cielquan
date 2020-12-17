@@ -3,6 +3,20 @@
     build-backend = "poetry.masonry.api"
 
 
+#: -- TESTING COFIGURATION -------------------------------------------------------------
+[tool._testing]
+    ci_default_python_version = "3.8"
+    #: Max 10 python versions are currently installed
+    ci_test_python_versions = ["pypy3", "3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2 - 3.10"]
+    ci_test_os = ["ubuntu", "macos", "windows"]
+    cc_test_reporter_url = "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64"
+    skip_install = false  #: Application -> true || Library -> false
+    toxenv_python_versions_win32 = "py{310,39,38,37,36}"
+    toxenv_python_versions_darwin = "py{py3,310,39,38,37,36}"
+    toxenv_python_versions_linux = "py{py3,310,39,38,37,36}"
+    toxenv_docs_builders = "test_docs-{html,linkcheck,coverage,doctest,spelling}"
+
+
 #: -- ADDITIONAL METADATA POETRY DOES NOT HOLD -----------------------------------------
 [tool._metadata]
     first_release_year = 2019
@@ -246,20 +260,6 @@
     [tool.pylint.spelling]
         spelling-dict = "en_US"
         spelling-private-dict-file = "docs/source/spelling_dict.txt"
-
-
-#: -- TESTING COFIGURATION -------------------------------------------------------------
-[tool._testing]
-    ci_default_python_version = "3.8"
-    #: Max 10 python versions are currently installed
-    ci_test_python_versions = ["pypy3", "3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2 - 3.10"]
-    ci_test_os = ["ubuntu", "macos", "windows"]
-    cc_test_reporter_url = "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64"
-    skip_install = false  #: Application -> true || Library -> false
-    toxenv_python_versions_win32 = "py{310,39,38,37,36}"
-    toxenv_python_versions_darwin = "py{py3,310,39,38,37,36}"
-    toxenv_python_versions_linux = "py{py3,310,39,38,37,36}"
-    toxenv_docs_builders = "test_docs-{html,linkcheck,coverage,doctest,spelling}"
 
 
 #: -- PYTEST CONFIG --------------------------------------------------------------------
