@@ -1,7 +1,3 @@
-NOTE: noxfile.py / tox.ini
-    TODO: fix workflows afterwards
-
-
 NOTE: .github/workflows/update-pre-commit-config.yml
     TODO: Test pre-commit.ci
     TODO: wait for autoupdate from pre-commit.ci on monday 18:00UTC
