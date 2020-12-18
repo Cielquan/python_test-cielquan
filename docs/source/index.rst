@@ -6,6 +6,9 @@
 Welcome to python_test's documentation!
 =======================================
 
+.. include:: _badges.rst
+
+
 This a test documentation.
 
 
