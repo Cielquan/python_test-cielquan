@@ -25,7 +25,7 @@ jobs:
     outputs:
       std_ver_args: ${{ steps.set-std-ver-args.outputs.std_ver_args }}
       pre_release: ${{ steps.set-std-ver-args.outputs.pre_release }}
-      first_release: ${{ stepts.first-release.outputs.first_release }}
+      first_release: ${{ steps.first-release.outputs.first_release }}
     steps:
       - uses: actions/setup-python@v2
 
@@ -86,7 +86,7 @@ jobs:
           if pre_release:
               args += ["--prerelease", pre_release]
 
-          if ${{ stepts.first-release.outputs.first_release }}:
+          if ${{ steps.first-release.outputs.first_release }}:
               args += ["--first-release"]
 
           args_str = ' '.join(args)
