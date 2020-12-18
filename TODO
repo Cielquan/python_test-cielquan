@@ -1,3 +1,16 @@
+NOTE: CONTRIBUTION.rst
+    TODO: move contri guidelines to docs
+    TODO: add link to docs section(s) into CONTRI.rst
+    TODO: update STEP_GUIDE
+
+NOTE: docs/source/badges.rst
+    TODO: add more tool icons
+        https://svgtopng.com/de/
+        https://onlinepngtools.com/resize-png
+        https://www.base64-image.de/
+    TODO: move dev tools badges to contri-docs
+    TODO: update STEP_GUIDE
+
 NOTE: .github/workflows/update-pre-commit-config.yml
     TODO: Test pre-commit.ci
     TODO: wait for autoupdate from pre-commit.ci on monday 18:00UTC
@@ -5,23 +18,24 @@ NOTE: .github/workflows/update-pre-commit-config.yml
 
 NOTE: .github/workflows/test-code.yml:
     TODO: find way to install multiple py ver in workflow VM via envvar
-      https://github.com/actions/setup-python/issues/167
+        https://github.com/actions/setup-python/issues/98
 
 
-TODO: update CONTRI
-TODO: update STEP_GUIDE
-
-
-TODO: centralize config
-https://github.com/andreoliwa/nitpick
+TODO: centralize configs
+    https://github.com/andreoliwa/nitpick
+    TODO: update STEP_GUIDE
 
 
 TODO: add commit msg linting
-https://www.conventionalcommits.org/en/v1.0.0/
+    https://www.conventionalcommits.org/en/v1.0.0/
 
-https://github.com/jorisroovers/gitlint/
-https://github.com/conventional-changelog/commitlint
-https://github.com/alessandrojcm/commitlint-pre-commit-hook
+    https://github.com/jorisroovers/gitlint/
+    https://github.com/conventional-changelog/commitlint
+    https://github.com/alessandrojcm/commitlint-pre-commit-hook
 
-https://github.com/commitizen/cz-cli
-https://github.com/commitizen-tools/commitizen
+    https://github.com/commitizen/cz-cli
+    https://github.com/commitizen-tools/commitizen
+    TODO: update STEP_GUIDE
+
+
+TODO: update STEP_GUIDE
