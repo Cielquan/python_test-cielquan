@@ -7,7 +7,7 @@
 [tool._testing]
     ci_default_python_version = "3.8"
     #: Max 10 python versions are currently installed
-    ci_test_python_versions = ["pypy3", "3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2 - 3.10"]
+    ci_test_python_versions = ["pypy-3.6", "pypy-3.7", "3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2 - 3.10"]
     ci_test_os = ["ubuntu", "macos", "windows"]
     cc_test_reporter_url = "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64"
     skip_install = false  #: Application -> true || Library -> false
