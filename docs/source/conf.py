@@ -181,15 +181,6 @@ spelling_show_suggestions = True
 spelling_exclude_patterns = ["autoapi/**"]
 
 
-#: -- CLICK ----------------------------------------------------------------------------
-if find_spec("sphinx_click") is not None and find_spec("click") is not None:
-    extensions.append("sphinx_click.ext")
-else:
-    NOT_LOADED_MSGS.append(
-        "## 'sphinx-click' extension not loaded - extension or 'click' not installed"
-    )
-
-
 #: -- HTML THEME -----------------------------------------------------------------------
 #: needs install: "sphinx-rtd-theme"
 extensions.append("sphinx_rtd_theme")

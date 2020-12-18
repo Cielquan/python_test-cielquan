@@ -7,7 +7,12 @@
 [tool._testing]
     ci_default_python_version = "3.8"
     #: Max 10 python versions are currently installed
-    ci_test_python_versions = ["pypy-3.6", "pypy-3.7", "3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2 - 3.10"]
+    ci_test_python_versions = [
+        #: pypy
+        "pypy-3.6", "pypy-3.7",
+        #: cpython
+        "3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2 - 3.10"
+    ]
     ci_test_os = ["ubuntu", "macos", "windows"]
     cc_test_reporter_url = "https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64"
     skip_install = false  #: Application -> true || Library -> false
@@ -62,10 +67,9 @@
         sphinx-autodoc-typehints = {version = "^1.10.3", optional = true}
         sphinxcontrib-apidoc = {version = "^0.3.0", optional = true}
         sphinxcontrib-spelling = {version = "^7.1.0", optional = true}
-        # sphinx-click = {version = "^2.3.2", optional = true}
         #: Code check
         pre-commit = {version = "^2.4", optional = true}
-        rstcheck = { git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b", optional = true}
+        rstcheck = {git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b", optional = true}
         mypy = {version = "0.790", optional = true}
         #: flakehell & flake8-plugins
         pylint = {version = "^2.5.3", optional = true}

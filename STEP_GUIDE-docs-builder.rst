@@ -1,3 +1,38 @@
+click
+=====
+
+
+Add this to ``conf.py``:
+
+.. code-block:: python
+
+    #: -- CLICK ----------------------------------------------------------------------------
+    if find_spec("sphinx_click") is not None and find_spec("click") is not None:
+        extensions.append("sphinx_click.ext")
+    else:
+        NOT_LOADED_MSGS.append(
+            "## 'sphinx-click' extension not loaded - extension or 'click' not installed"
+        )
+
+
+#####
+
+
+Add dependency to ``pyproject.toml`` **and to** ``docs`` **extras! Add also** ``formelsammlung``:
+
+.. code-block:: toml
+
+    [tool.poetry.dependencies]
+        sphinx-click = {version = "^2.3.2", optional = true}
+
+
+#####
+
+
+confluence
+==========
+
+
 Add this to ``conf.py``:
 
 .. code-block:: python
@@ -53,6 +88,7 @@ Add this to ``setup()`` in ``conf.py``:
 
 #####
 
+
 Add dependency to ``pyproject.toml`` **and to** ``docs`` **extras! Add also** ``formelsammlung``:
 
 .. code-block:: toml
@@ -63,6 +99,7 @@ Add dependency to ``pyproject.toml`` **and to** ``docs`` **extras! Add also** ``
 
 
 #####
+
 
 Add test to ``tox.ini``:
 
