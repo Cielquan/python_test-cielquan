@@ -2,6 +2,8 @@ Add this to ``conf.py``:
 
 .. code-block:: python
 
+    from formelsammlung.envvar import getenv_typed
+
     #: -- CONFLUENCE BUILDER ---------------------------------------------------------------
     #: needs install: "sphinxcontrib-confluencebuilder"
     if tags.has("builder_confluence"):  # type:ignore[name-defined]
@@ -17,6 +19,17 @@ Add this to ``conf.py``:
     confluence_prev_next_buttons_location = "bottom"
     confluence_timeout = 30
     confluence_purge = True
+
+
+Add this to ``extlinks =`` in ``conf.py``:
+
+.. code-block:: python
+
+    from formelsammlung.envvar import getenv_typed
+
+    extlinks = {
+        "jira_issue": (f"{getenv_typed('JIRA_LINK')}%s", ""),
+    }
 
 
 Add this to ``setup()`` in ``conf.py``:
@@ -40,7 +53,7 @@ Add this to ``setup()`` in ``conf.py``:
 
 #####
 
-Add dependency to ``pyproject.toml`` **and to** ``docs`` **extra!**:
+Add dependency to ``pyproject.toml`` **and to ``docs`` extras! Add also** ``formelsammlung``:
 
 .. code-block:: toml
 
