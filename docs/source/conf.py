@@ -14,7 +14,7 @@ import re
 from datetime import date
 from importlib.util import find_spec
 from pathlib import Path
-from typing import Any, List, Optional
+from typing import List, Optional
 
 import sphinx_rtd_theme  # type: ignore[import]
 import tomlkit  # type: ignore[import]
@@ -22,7 +22,6 @@ import tomlkit  # type: ignore[import]
 from dotenv import find_dotenv, load_dotenv
 from formelsammlung.envvar import getenv_typed
 from sphinx.application import Sphinx
-from sphinx.directives.other import SeeAlso
 
 from python_test_cielquan import (
     __author__,
@@ -193,23 +192,6 @@ else:
     )
 
 
-#: -- CONFLUENCE BUILDER ---------------------------------------------------------------
-#: needs install: "sphinxcontrib-confluencebuilder"
-if tags.has("builder_confluence"):  # type:ignore[name-defined]
-    extensions.remove("sphinx.ext.viewcode")
-    extensions.append("sphinxcontrib.confluencebuilder")
-confluence_publish = True
-confluence_server_url = getenv_typed("CONFLUENCE_SERVER_URL")
-confluence_server_user = getenv_typed("CONFLUENCE_SERVER_USER")
-confluence_server_pass = getenv_typed("CONFLUENCE_SERVER_PASS")
-confluence_space_name = "SWFPTOOL"
-confluence_parent_page = "SPHINXTEST"
-confluence_page_hierarchy = True
-confluence_prev_next_buttons_location = "bottom"
-confluence_timeout = 30
-confluence_purge = True
-
-
 #: -- HTML THEME -----------------------------------------------------------------------
 #: needs install: "sphinx-rtd-theme"
 extensions.append("sphinx_rtd_theme")
@@ -256,15 +238,6 @@ def setup(app: Sphinx) -> None:
     app.connect("autodoc-process-docstring", _remove_module_docstring)
 
     app.add_config_value("RELEASE_LEVEL", "", "env")
-
-    if not tags.has("builder_confluence"):  # type:ignore[name-defined]
-
-        class _SeeAlso(SeeAlso):
-            def run(self) -> Any:
-                self.content[0] = "JIRA issue: " + f":jira_issue:`{self.content[0]}`"
-                return super().run()
-
-        app.add_directive("jira_issue", _SeeAlso)
 
 
 for msg in NOT_LOADED_MSGS:
