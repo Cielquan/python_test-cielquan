@@ -18,7 +18,6 @@ This a test documentation.
 
    installation
    usage
-   badges
    contribution/index
 
 
