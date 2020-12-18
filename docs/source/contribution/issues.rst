@@ -1,6 +1,8 @@
 Contribution through `Github issues <https://github.com/cielquan/python_test-cielquan/issues>`__
 ================================================================================================
 
+This section will guide you through the process of contributing through github issues.
+Use your best judgement to follow the guidelines below.
 
 Table of contents:
     - `Bug reports`_
