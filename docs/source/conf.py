@@ -20,7 +20,6 @@ import sphinx_rtd_theme  # type: ignore[import]
 import tomlkit  # type: ignore[import]
 
 from dotenv import find_dotenv, load_dotenv
-from formelsammlung.envvar import getenv_typed
 from sphinx.application import Sphinx
 
 from python_test_cielquan import (
@@ -131,7 +130,6 @@ extlinks = {
     "issue": (f"{__gh_repository_link__}/issues/%s", "#"),
     "pull": (f"{__gh_repository_link__}/pull/%s", "pr"),
     "user": ("https://github.com/%s", "@"),
-    "jira_issue": (f"{getenv_typed('JIRA_LINK')}%s", ""),
 }
 
 
