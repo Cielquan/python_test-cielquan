@@ -173,6 +173,12 @@ def tox_caller(
 def _tox_caller(
     session: Session, tox_env: str, posargs: Optional[List[str]] = None
 ) -> None:
+    """Call given tox env with given posargs.
+
+    :param session: nox session object
+    :param tox_env: tox env(s) to call; parameter to ``tox -e``
+    :param posargs: posargs; defaults to None
+    """
     if posargs is None:
         posargs = session.posargs
 
