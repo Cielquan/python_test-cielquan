@@ -47,3 +47,14 @@ Add dependency to ``pyproject.toml`` **and to ``docs`` extra!**:
     [tool.poetry.dependencies]
         sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
         # sphinxcontrib-confluencebuilder = {git = "https://github.com/sphinx-contrib/confluencebuilder.git", rev = "6e6edbb64260ea09858eb844dd46c79c7697267e", optional = true}
+
+
+###
+
+Add test to ``tox.ini``:
+
+.. code-block:: ini
+
+    [testenv:test_docs-{confluence}]
+    commands =
+        confluence: nox {env:_TOX_FORCE_NOX_COLOR:} --session "test_docs(builder='confluence')" {posargs}
