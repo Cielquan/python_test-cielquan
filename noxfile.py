@@ -35,14 +35,10 @@ OS = sys.platform
 TOX_CALLS = os.getenv("_NOX_TOX_CALLS") == "true"
 FORCE_COLOR = os.getenv("_NOX_FORCE_COLOR") == "true"
 IN_CI = os.getenv("_NOX_IN_CI") == "true"
-IN_VENV = False
-with contextlib.suppress(FileNotFoundError):
-    IN_VENV = get_venv_path() is not None
 
 #: -- PATHS ----------------------------------------------------------------------------
 NOXFILE_DIR = Path(__file__).parent
 COV_CACHE_DIR = NOXFILE_DIR / ".coverage_cache"
-JUNIT_CACHE_DIR = NOXFILE_DIR / ".junit_cache"
 
 #: -- CONFIG FROM PYPROJECT.TOML -------------------------------------------------------
 with open(NOXFILE_DIR / "pyproject.toml") as pyproject_file:
@@ -154,7 +150,11 @@ def tox_caller(
             if tox_target:
                 tox_env = tox_target.format(**kwargs) if parametrized else tox_target
 
-            if not IN_VENV or "tox" in session.posargs:
+            in_venv = False
+            with contextlib.suppress(FileNotFoundError):
+                in_venv = get_venv_path() is not None
+
+            if not in_venv or "tox" in session.posargs:
                 posargs = [arg for arg in session.posargs if arg != "tox"]
                 session.log("Using `tox` as venv backend.")
                 _tox_caller(session, tox_env, posargs)
@@ -262,7 +262,7 @@ def test_code(session: Session) -> None:
         "pytest",
         *color,
         f"--basetemp={get_venv_tmp_dir(get_venv_path())}",
-        f"--junitxml={JUNIT_CACHE_DIR / f'junit.{name}.xml'}",
+        f"--junitxml={NOXFILE_DIR / '.junit_cache' / f'junit.{name}.xml'}",
         f"--cov={cov_source_dir}",
         f"--cov-fail-under={session.env.get('MIN_COVERAGE') or 100}",
         f"--numprocesses={session.env.get('PYTEST_XDIST_N') or 'auto'}",
