@@ -95,7 +95,7 @@ jobs:
           std_ver = conf["ci_default_python_version"]
           print(f"::set-output name=default_python_version::{std_ver}")
 
-          test_os = {"os": conf["ci_test_os"]}
+          test_os = {"os": [f'{os}-latest' for os in conf["ci_test_os"]]}
           print(f"::set-output name=test_os::{test_os}")
 
           test_ver = conf["ci_test_python_versions"]
@@ -215,7 +215,7 @@ jobs:
   package-tests:
     name: nox / package / ${{ matrix.os }}
     needs: pyproject-config
-    runs-on: ${{ matrix.os }}-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.pyproject-config.outputs.test_os) }}
@@ -271,7 +271,7 @@ jobs:
       github.event_name == 'pull_request' ||
       github.event_name == 'workflow_dispatch' ||
       (github.event_name == 'push' && contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
-    runs-on: ${{ matrix.os }}-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix: ${{ fromJson(needs.pyproject-config.outputs.test_os) }}
