@@ -153,7 +153,7 @@ jobs:
           std_ver = conf["ci_default_python_version"]
           print(f"::set-output name=default_python_version::{std_ver}")
 
-          test_os = {"os": conf["ci_test_os"]}
+          test_os = {"os": [f'{os}-latest' for os in conf["ci_test_os"]]}
           print(f"::set-output name=test_os::{test_os}")
 
           test_ver = conf["ci_test_python_versions"]
@@ -274,7 +274,7 @@ jobs:
   old-test-code:
     name: (old tests) nox / test_code / ${{ matrix.os }}
     needs: [check-ci-status, pyproject-config, check-input]
-    runs-on: ${{ matrix.os }}-latest
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: true
       matrix: ${{ fromJson(needs.pyproject-config.outputs.test_os) }}
