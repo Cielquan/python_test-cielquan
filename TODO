@@ -1,11 +1,3 @@
-NOTE: docs/source/badges.rst
-    TODO: add more tool icons
-        https://svgtopng.com/de/
-        https://onlinepngtools.com/resize-png
-        https://www.base64-image.de/
-    TODO: move dev tools badges to contri-docs
-    TODO: update STEP_GUIDE
-
 NOTE: .github/workflows/update-pre-commit-config.yml
     TODO: Test pre-commit.ci
     TODO: wait for autoupdate from pre-commit.ci on monday 18:00UTC
