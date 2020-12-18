@@ -47,6 +47,9 @@ Code base
     - CHANGE ME in publish.yml
 
 #. Update docs:
+    - contribution section:
+        * If not CLI remove this part
+        * update links
     - badges.rst
     - index.rst: rm badges from toxtree
     - installation.rst: links && rm pypi if not there
@@ -73,5 +76,4 @@ Code base
 #. Create/Update README.rst
 
 #. Update CONTRIBUTION.rst:
-    - Change links
-    - If not CLI remove this part
+    - Change link
