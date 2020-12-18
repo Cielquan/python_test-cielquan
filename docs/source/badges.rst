@@ -150,7 +150,7 @@ badges
     :target: https://black.readthedocs.io
     :alt: Code Style - black
 
-.. |isort| image:: https://img.shields.io/badge/Imports-isort-%231674b1?style=flat-square&labelColor=ef8336
+.. |isort| image:: https://img.shields.io/badge/Imports-isort-%231674b1?style=flat-square&labelColor=ef8336&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAMAAADzN3VRAAAAsVBMVEUVdbQWdLEXdLAXdLEYdLAYdLEada4bdLEcdLEddK8ddaweeaAfdqkfeaAgdqknda8pdK8rdawuda8veJ8yeJ48dqc/da1FdqdRd6BYd59adqRleZRxeJ15ttaIe4OPvNqYe3+lfXCmfnC2fmfDgj/DgkDIf17LgkbRgkPTgkbU8/jXgkPZgF3fgU3fgkPigFfkgznl+fzqgk/rgzrsgzztgjjtgzbtgzjugzbvgzb///+RcCogAAAAxklEQVQoz3WSBQ7DMAxF420dMzMz8+re/2ALOm22fqmR/Z+cNHYYxImZIDVHrnvXJXkkrSPkgGGFyBujyhmyRVeaNMnwTdBTRGc1ubsfqinTBkEgnPaDx31BVhLUuXcL6DIoiD1zNBHrgH8LSz7C28uaAuITMWvIyxImjeqfmpI0MpFzFNnonMESseJ5liCRIo71r0pyleCoeuDBmSctsBWoutOgnPp2ovnE9Bpg6ICknekubqYAaetP3beTmAn70vl9VT/6AiI3Qb9AnYdrAAAAAElFTkSuQmCC
     :target: https://pycqa.github.io/isort
     :alt: Imports - isort
 
