@@ -38,10 +38,12 @@ Add this to ``setup()`` in ``conf.py``:
             app.add_directive("jira_issue", _SeeAlso)
 
 
-##############################################
-##############################################
-##############################################
-##############################################
-##############################################
+###
 
+Add dependency to ``pyproject.toml`` **and to ``docs`` extra!**:
 
+.. code-block:: toml
+
+    [tool.poetry.dependencies]
+        sphinxcontrib-confluencebuilder = {version = "^1.2.0", optional = true}
+        # sphinxcontrib-confluencebuilder = {git = "https://github.com/sphinx-contrib/confluencebuilder.git", rev = "6e6edbb64260ea09858eb844dd46c79c7697267e", optional = true}
