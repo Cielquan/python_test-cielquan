@@ -38,7 +38,7 @@ Add this to ``setup()`` in ``conf.py``:
             app.add_directive("jira_issue", _SeeAlso)
 
 
-###
+#####
 
 Add dependency to ``pyproject.toml`` **and to ``docs`` extra!**:
 
@@ -49,7 +49,7 @@ Add dependency to ``pyproject.toml`` **and to ``docs`` extra!**:
         # sphinxcontrib-confluencebuilder = {git = "https://github.com/sphinx-contrib/confluencebuilder.git", rev = "6e6edbb64260ea09858eb844dd46c79c7697267e", optional = true}
 
 
-###
+#####
 
 Add test to ``tox.ini``:
 
@@ -58,3 +58,17 @@ Add test to ``tox.ini``:
     [testenv:test_docs-{confluence}]
     commands =
         confluence: nox {env:_TOX_FORCE_NOX_COLOR:} --session "test_docs(builder='confluence')" {posargs}
+
+
+#####
+
+
+Add this to ``test_docs()`` in ``noxfile.py``:
+
+.. code-block:: python
+
+    def test_docs():
+        ...
+        add_args = ["-t", "builder_confluence"] if builder == "confluence" else []
+        ...
+        session.run("sphinx-build", "-b", builder, *color, *std_args, *add_args, *session.posargs)
