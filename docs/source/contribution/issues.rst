@@ -1,3 +1,5 @@
+.. _Contribution-through-Github-issues:
+
 Contribution through `Github issues <https://github.com/cielquan/python_test-cielquan/issues>`__
 ================================================================================================
 
