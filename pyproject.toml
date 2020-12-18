@@ -141,7 +141,6 @@
             "sphinx-autodoc-typehints",
             "sphinxcontrib-apidoc",
             "sphinxcontrib-spelling",
-            "sphinx-click",
         ]
         pre-commit = [
             "pre-commit", "formelsammlung",
