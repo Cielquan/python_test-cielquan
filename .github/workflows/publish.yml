@@ -36,6 +36,10 @@ jobs:
           import sys
 
           version = "${{ github.event.inputs.releaseAs }}"
+
+          if not version:
+              sys.exit(0)
+
           allowed = ("major", "minor", "patch")
 
           if not re.fullmatch(r"^\d+\.\d+\.\d+$", version) and version not in allowed:
@@ -53,6 +57,10 @@ jobs:
           import sys
 
           pre_release_stage = "${{ github.event.inputs.preRelease }}"
+
+          if not pre_release_stage:
+              sys.exit(0)
+
           allowed_pre_release_stage = ("alpha", "a", "beta", "b", "rc")
 
           pre_release = False
