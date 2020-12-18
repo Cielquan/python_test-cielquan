@@ -1,6 +1,6 @@
 const tracker = {
   filename: 'pyproject.toml',
-  updater: require('./updater.js')
+  updater: require('./.pyproject_version.js')
 }
 
 module.exports = {
