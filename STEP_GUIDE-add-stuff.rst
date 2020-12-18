@@ -103,6 +103,7 @@ Add this to ``setup()`` in ``conf.py``:
 
     from sphinx.directives.other import SeeAlso
 
+
     def setup():
         if not tags.has("builder_confluence"):  # type:ignore[name-defined]
 
@@ -149,4 +150,6 @@ Add this to ``test_docs()`` in ``noxfile.py``:
         ...
         add_args = ["-t", "builder_confluence"] if builder == "confluence" else []
         ...
-        session.run("sphinx-build", "-b", builder, *color, *std_args, *add_args, *session.posargs)
+        session.run(
+            "sphinx-build", "-b", builder, *color, *std_args, *add_args, *session.posargs
+        )
