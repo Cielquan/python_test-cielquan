@@ -489,13 +489,10 @@ def test_docs(session: Session, builder: str) -> None:
     source_dir = "docs/source"
     target_dir = f"docs/build/test/{builder}"
     std_args = ["-aE", "-v", "-nW", "--keep-going", source_dir, target_dir]
-    add_args = ["-t", "builder_confluence"] if builder == "confluence" else []
 
     color = ["--color"] if FORCE_COLOR else []
 
-    session.run(
-        "sphinx-build", "-b", builder, *color, *std_args, *add_args, *session.posargs
-    )
+    session.run("sphinx-build", "-b", builder, *color, *std_args, *session.posargs)
 
 
 #: -- DEV NOX SESSIONS -----------------------------------------------------------------
