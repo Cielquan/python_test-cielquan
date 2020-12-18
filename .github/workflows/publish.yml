@@ -301,52 +301,52 @@ jobs:
           poetry install --ansi --no-root --no-dev --extras nox
         if: needs.check-input.outputs.first_release != 'False'
 
-      - uses: actions/setup-python@v2.1.4
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_1 }}
         if: needs.pyproject-config.outputs.test_python_version_1 != '' && needs.check-input.outputs.first_release != 'False'
 
-      - uses: actions/setup-python@v2.1.4
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_2 }}
         if: needs.pyproject-config.outputs.test_python_version_2 != '' && needs.check-input.outputs.first_release != 'False'
 
-      - uses: actions/setup-python@v2.1.4
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_3 }}
         if: needs.pyproject-config.outputs.test_python_version_3 != '' && needs.check-input.outputs.first_release != 'False'
 
-      - uses: actions/setup-python@v2.1.4
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_4 }}
         if: needs.pyproject-config.outputs.test_python_version_4 != '' && needs.check-input.outputs.first_release != 'False'
 
-      - uses: actions/setup-python@v2.1.4
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_5 }}
         if: needs.pyproject-config.outputs.test_python_version_5 != '' && needs.check-input.outputs.first_release != 'False'
 
-      - uses: actions/setup-python@v2.1.4
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_6 }}
         if: needs.pyproject-config.outputs.test_python_version_6 != '' && needs.check-input.outputs.first_release != 'False'
 
-      - uses: actions/setup-python@v2.1.4
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_7 }}
         if: needs.pyproject-config.outputs.test_python_version_7 != '' && needs.check-input.outputs.first_release != 'False'
 
-      - uses: actions/setup-python@v2.1.4
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_8 }}
         if: needs.pyproject-config.outputs.test_python_version_8 != '' && needs.check-input.outputs.first_release != 'False'
 
-      - uses: actions/setup-python@v2.1.4
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_9 }}
         if: needs.pyproject-config.outputs.test_python_version_9 != '' && needs.check-input.outputs.first_release != 'False'
 
-      - uses: actions/setup-python@v2.1.4
+      - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_10 }}
         if: needs.pyproject-config.outputs.test_python_version_10 != '' && needs.check-input.outputs.first_release != 'False'
