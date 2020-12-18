@@ -40,7 +40,7 @@ Add this to ``setup()`` in ``conf.py``:
 
 #####
 
-Add dependency to ``pyproject.toml`` **and to ``docs`` extra!**:
+Add dependency to ``pyproject.toml`` **and to** ``docs`` **extra!**:
 
 .. code-block:: toml
 
