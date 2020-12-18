@@ -37,7 +37,10 @@ Add this to ``conf.py``:
 
 .. code-block:: python
 
+    from dotenv import find_dotenv, load_dotenv
     from formelsammlung.envvar import getenv_typed
+
+    load_dotenv(find_dotenv())  #: Load .env file from project root
 
     #: -- CONFLUENCE BUILDER ---------------------------------------------------------------
     #: needs install: "sphinxcontrib-confluencebuilder"
@@ -60,7 +63,10 @@ Add this to ``extlinks =`` in ``conf.py``:
 
 .. code-block:: python
 
+    from dotenv import find_dotenv, load_dotenv
     from formelsammlung.envvar import getenv_typed
+
+    load_dotenv(find_dotenv())  #: Load .env file from project root
 
     extlinks = {
         "jira_issue": (f"{getenv_typed('JIRA_LINK')}%s", ""),

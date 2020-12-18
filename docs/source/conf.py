@@ -19,7 +19,6 @@ from typing import List, Optional
 import sphinx_rtd_theme  # type: ignore[import]
 import tomlkit  # type: ignore[import]
 
-from dotenv import find_dotenv, load_dotenv
 from sphinx.application import Sphinx
 
 from python_test_cielquan import (
@@ -41,7 +40,6 @@ YEAR = f"{date.today().year}"
 
 
 #: -- UTILS ----------------------------------------------------------------------------
-load_dotenv(find_dotenv())  #: Load .env file from project root
 with open(REPO_DIR / "pyproject.toml") as pyproject_file:
     PYPROJECT = tomlkit.parse(pyproject_file.read())
 

@@ -135,7 +135,7 @@
         ]
         coverage = ["coverage", "coverage-conditional-plugin"]
         docs = [
-            "sphinx", "formelsammlung", "python-dotenv", "tomlkit",
+            "sphinx", "tomlkit",
             "m2r2",
             "sphinx-rtd-theme",
             "sphinx-autodoc-typehints",
