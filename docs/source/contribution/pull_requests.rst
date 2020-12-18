@@ -6,7 +6,7 @@ requests. Use your best judgement to follow the guidelines and rules below.
 
 Rules are not meant to be broken as there are worklows depending on the complience with
 the rules. Very important here are the
-:ref:`contribution/development:Commit message rules`.
+:ref:`contribution/git_workflow:Commit message rules`.
 If you are unsure about specific things regarding your contribution just open a pull
 request or :ref:`issue<Contribution-through-Github-issues>` and ask.
 

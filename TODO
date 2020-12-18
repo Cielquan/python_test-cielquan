@@ -1,8 +1,3 @@
-NOTE: CONTRIBUTION.rst
-    TODO: move contri guidelines to docs
-    TODO: add link to docs section(s) into CONTRI.rst
-    TODO: update STEP_GUIDE
-
 NOTE: docs/source/badges.rst
     TODO: add more tool icons
         https://svgtopng.com/de/
@@ -31,6 +26,8 @@ TODO: add commit msg linting
 
     https://github.com/jorisroovers/gitlint/
     https://github.com/conventional-changelog/commitlint
+    npm install --no-save @commitlint/{config-conventional,cli}
+
     https://github.com/alessandrojcm/commitlint-pre-commit-hook
 
     https://github.com/commitizen/cz-cli
