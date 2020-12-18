@@ -1,3 +1,25 @@
+Additional test stuff
+=====================
+
+
+Add dependency to ``pyproject.toml`` **and to** ``test`` **extras!**:
+
+.. code-block:: toml
+
+    [tool.poetry.dependencies]
+        pytest-mock = {version = "^3.2.0", optional = true}
+        mock = {version = "^4.0.2", optional = true}
+        faker = {version = "^4.1.1", optional = true}
+        pytest-factoryboy = {version = "^2.0.3", optional = true}
+        pytest-benchmark = {version = "^3.2.3", optional = true}
+        pytest-profiling = {version = "^1.7.0", optional = true}
+        pytest-bdd = {version = "^3.3.0", optional = true}
+        behave = {version = "^1.2.6", optional = true}
+
+
+#####
+
+
 click
 =====
 
@@ -18,7 +40,7 @@ Add this to ``conf.py``:
 #####
 
 
-Add dependency to ``pyproject.toml`` **and to** ``docs`` **extras! Add also** ``formelsammlung``:
+Add dependency to ``pyproject.toml`` **and to** ``docs`` **extras!**:
 
 .. code-block:: toml
 
@@ -95,7 +117,7 @@ Add this to ``setup()`` in ``conf.py``:
 #####
 
 
-Add dependency to ``pyproject.toml`` **and to** ``docs`` **extras! Add also** ``formelsammlung``:
+Add dependency to ``pyproject.toml`` **and to** ``docs`` **extras! Add also** ``formelsammlung`` + ``python-dotenv``:
 
 .. code-block:: toml
 
