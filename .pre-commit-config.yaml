@@ -18,7 +18,7 @@ repos:
 
   #: code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 9136088a246768144165fcc3ecc3d31bb686920a  # frozen: v3.3.0
+    rev: 6e2418c5521b7d606e72914dced3253f9ace1205  # frozen: v3.4.0
     hooks:
       - id: check-case-conflict
       - id: check-json
@@ -48,14 +48,14 @@ repos:
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 6f441f2ee6a61659b821d14a2611688e9b761ecf  # frozen: v2.7.3
+    rev: 928901205243fe52292052b8b0757d93f174d5e8  # frozen: v2.7.4
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
 
   #: isort - sort imports
   #: Inline skip: `# isort: skip`
-  - repo: https://github.com/timothycrosley/isort
+  - repo: https://github.com/PyCQA/isort
     rev: 6bb47b7acc1554ecb59d2855e9110c447162f674  # frozen: 5.6.4
     hooks:
       - id: isort
@@ -112,7 +112,7 @@ repos:
 #: -------------------------------------------------------------------------------------
   #: blacken-docs - black for python code in docs
   - repo: https://github.com/asottile/blacken-docs
-    rev: 6d80883e826e3490b002dcf90c6807f85d42c871  # frozen: v1.8.0
+    rev: e42b7658515d5178d286a457d35cbecc130bdad8  # frozen: v1.9.1
     hooks:
       - id: blacken-docs
         additional_dependencies: [black==20.8b1]
