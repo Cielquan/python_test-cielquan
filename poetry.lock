@@ -2139,7 +2139,7 @@ twine = ["twine"]
 [metadata]
 lock-version = "1.1"
         python-versions = "^3.6.1"
-content-hash = "23911bc7c8c81d4fdde0ab43146704df44074f48da3838771c54356771867643"
+content-hash = "46a0ae682d8e6bdf9136ad9a9cffb5adb6bbb9b64367e16b7ef07cd68644cf7c"
 
 [metadata.files]
 alabaster = [

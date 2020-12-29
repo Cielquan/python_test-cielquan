@@ -108,6 +108,7 @@
         tomlkit = "*"  #: Version managed above
         formelsammlung = "*"  #: Version managed above
         poetry = "*"  #: Version managed above
+        pygments = "^2.7.3"
         devtools = {version = "^0.6", extras = ["pygments"]}
         pdbpp = "^0.10.2"
         ipython = "^7.15.0"
