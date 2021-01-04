@@ -139,8 +139,9 @@ _backupfiles
 # auto generated API docs
 docs/source/autoapi
 
-## created via nox sessions
-# Python debugger config
+# personal config
 .pdbrc
+
+## created via nox sessions
 # ignorefile for spellchecking
 .spellignore
