@@ -36,3 +36,31 @@ TODO: update STEP_GUIDE
 TODO: make this a template
     https://github.com/ionelmc/python-nameless
     https://github.com/ionelmc/python-cookiepatcher
+
+
+TODO: make concept for my local dev env:
+
+        pygments = "^2.7.3"
+        devtools = {version = "^0.6", extras = ["pygments"]}
+        pdbpp = "^0.10.2"
+        ipython = "^7.15.0"
+
+        DEBUG_PY_FILE = """# Import devtools if installed and add to builtins
+        from importlib.util import find_spec
+        if find_spec('devtools'):
+            import devtools
+            __builtins__.update(debug=devtools.debug)
+        """
+
+
+        @nox.session
+        def debug_import(session: Session) -> None:  # noqa: W0613
+            """Hack for global import of `devtools.debug` in active venv."""
+            file_path = get_venv_site_packages_dir(get_venv_path())
+            filename = "__devtools_debug_import_hack"
+
+            with open(f"{file_path / f'{filename}.pth'}", "w") as pth_file:
+                pth_file.write(f"import {filename}\n")
+
+            with open(f"{file_path / f'{filename}.py'}", "w") as py_file:
+                py_file.writelines(DEBUG_PY_FILE)
