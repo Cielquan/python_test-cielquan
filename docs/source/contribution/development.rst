@@ -179,14 +179,6 @@ should not need it but the same applies for ``nox`` called by ``tox`` with:
     Create ``pre_commit`` ``tox`` environment, install *pre-commit* and *commit-msg*
     hooks and run the prior created environment once with all *pre-commit* hooks.
 
-- ``debug_import``:
-    Add/Install files to active virtualenv's site-packages directory which add
-    ``devtools.debug()`` as ``debug`` to python builtins. ``devtools`` gets installed
-    as dev-dependency by ``poetry``.
-
-- ``create_pdbrc``:
-    Create ``.pdbrc`` file at project root if non exists.
-
 - ``create_spellignore``:
     Create ``.spellignore`` file at project root if non exists. The content is a copy of
     the ``.gitignore`` file.
@@ -194,6 +186,3 @@ should not need it but the same applies for ``nox`` called by ``tox`` with:
 - ``dev``:
     Run ``install_extras``, ``setup_pre_commit`` and ``create_spellignore`` ``nox``
     sessions.
-
-- ``dev2``:
-    Run all other dev setup ``nox`` sessions.
