@@ -1,8 +1,3 @@
-NOTE: .github/workflows/update-pre-commit-config.yml
-    TODO: Test pre-commit.ci
-    TODO: wait for autoupdate from pre-commit.ci on monday 18:00UTC
-
-
 NOTE: .github/workflows/test-code.yml:
     TODO: find way to install multiple py ver in workflow VM via envvar
         https://github.com/actions/setup-python/issues/98
