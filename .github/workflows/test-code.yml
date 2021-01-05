@@ -288,11 +288,11 @@ jobs:
         run: |
           import sys
 
-          if "${{ matrix.os }}" == "ubuntu" and "${{ needs.package-tests.outputs.ubuntu-success }}" == "true":
+          if "${{ matrix.os }}" == "ubuntu-latest" and "${{ needs.package-tests.outputs.ubuntu-success }}" == "true":
               sys.exit(0)
-          elif "${{ matrix.os }}" == "macos" and "${{ needs.package-tests.outputs.macos-success }}" == "true":
+          elif "${{ matrix.os }}" == "macos-latest" and "${{ needs.package-tests.outputs.macos-success }}" == "true":
               sys.exit(0)
-          elif "${{ matrix.os }}" == "windows" and "${{ needs.package-tests.outputs.windows-success }}" == "true":
+          elif "${{ matrix.os }}" == "windows-latest" and "${{ needs.package-tests.outputs.windows-success }}" == "true":
               sys.exit(0)
           else:
               sys.exit(1)
