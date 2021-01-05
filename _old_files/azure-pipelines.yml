@@ -1,3 +1,4 @@
+---
 name: $(BuildDefinitionName)_$(Date:yyyyMMdd)$(Rev:.rr)
 
 trigger:
@@ -8,11 +9,11 @@ trigger:
     include: ['*']
   paths:
     exclude:
-    - .readthedocs.yml
-    - LICENSE.txt
-    - .gitignore
-    - .gitattributes
-    - .github/*
+      - .readthedocs.yml
+      - LICENSE.txt
+      - .gitignore
+      - .gitattributes
+      - .github/*
 
 pr:
   branches:
@@ -30,6 +31,7 @@ variables:
   "System.PreferGit": true
   CI_NAME: Azure Pipelines
   CI_BUILD_ID: $(Build.BuildId)
+  # yamllint disable-line rule:line-length
   CI_BUILD_URL: "https://dev.azure.com/cielquan/python_test-cielquan/_build/results?buildId=$(Build.BuildId)"
   GIT_BRANCH: $(Build.SourceBranch)
   GIT_COMMIT_SHA: $(Build.SourceVersion)
@@ -70,6 +72,7 @@ jobs:
       send_cov_to_codeclimate: true
 
   - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
+    # yamllint disable-line rule:indentation
     - template: jobs/publish-pypi-poetry.yml@cielquan
       parameters:
         custom_repository: true

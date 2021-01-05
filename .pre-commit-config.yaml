@@ -1,3 +1,4 @@
+---
 minimum_pre_commit_version: "1.15"
 default_stages: [commit]
 
@@ -101,7 +102,8 @@ repos:
     hooks:
       - id: pylint
         name: spell-check (pylint+pyenchant)
-        description: spell-check docstrings/comments in py-source via pyenchant and pylint
+        description: >
+          spell-check in docstrings/comments in py-source via pyenchant and pylint
         args: ["--disable=all", "--enable=spelling"]
         additional_dependencies: [pyenchant]
         exclude: '^(?!src).*'
@@ -143,8 +145,8 @@ repos:
 #: YAML hooks
 #: -------------------------------------------------------------------------------------
   #: yamllint - yaml linter
-  #: Inline skip: `# yamllint disable-line`
-  #: Block skip: `# yamllint disable rule:<RULE>`
+  #: Inline skip: `# yamllint disable-line[ rule:<RULE>]`
+  #: Block skip: `# yamllint disable[ rule:<RULE>]`
   #: Block skip end: `# yamllint enable`
   - repo: https://github.com/adrienverge/yamllint
     rev: 16e0f9d7b2ba9d0fc8c27d27611d4473b7c4dd54  # frozen: v1.25.0

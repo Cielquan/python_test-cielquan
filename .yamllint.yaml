@@ -1,0 +1,14 @@
+---
+extends: default
+
+rules:
+  line-length:
+    max: 88
+    level: error
+
+  comments:
+    require-starting-space: false
+
+  comments-indentation:
+    ignore: |
+      .pre-commit-config.yaml

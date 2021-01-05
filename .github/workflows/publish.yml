@@ -1,17 +1,20 @@
+---
 name: Release new version
 
 
 env:
-  # DO NOT FORGET TO UPDATE `test-code-skip.yml` && `test-code.yml` TOO !!!
+  #: DO NOT FORGET TO UPDATE `test-code-skip.yml` && `test-code.yml` TOO !!!
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 
 
-on:
+on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
       releaseAs:
-        description: 'Force this version major|minor|patch or full version (w/o pre-prelease identifiers)'
+        description: >
+          Force this version major|minor|patch or full version
+          (w/o pre-prelease identifiers)
         required: false
       preRelease:
         description: 'Pre-release level: alpha|a|beta|b|rc'
@@ -75,8 +78,10 @@ jobs:
 
       - name: Check if first release
         id: first-release
-        run:
-          first_release=$(git tag | grep -oE "v[0-9]+\.[0-9]+\.[0-9]+" && echo False || echo True)
+        run: |
+          first_release=$(git tag | grep -oE "v[0-9]+\.[0-9]+\.[0-9]+"
+          && echo False || echo True)
+
           echo "::set-output name=first_release::${first_release}"
 
       - name: Set standart-version args
@@ -183,7 +188,8 @@ jobs:
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA
     needs: pyproject-config
-    # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
+    #: Based on:
+    #: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
     runs-on: ubuntu-latest
     outputs:
       GIT_COMMIT_SHA: ${{ steps.set-GIT_COMMIT_SHA.outputs.GIT_COMMIT_SHA }}
@@ -197,7 +203,7 @@ jobs:
       - name: Get merge commit message
         id: merge-commit-msg
         shell: bash
-        run: echo "::set-output name=COMMIT_MSG::$(git log --oneline -n 1 --format='%s')"
+        run: echo "::set-output name=CMT_MSG::$(git log --oneline -n 1 --format='%s')"
         if: github.event_name == 'pull_request'
 
       - name: Extract commit sha from merge commit msg
@@ -209,7 +215,7 @@ jobs:
 
           sha = re.fullmatch(
               r"^Merge ([a-z0-9]{40}) into [a-z0-9]{40}$",
-              "${{ steps.merge-commit-msg.outputs.COMMIT_MSG }}"
+              "${{ steps.merge-commit-msg.outputs.CMT_MSG }}"
           )
           if sha:
               print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
@@ -267,7 +273,10 @@ jobs:
               sys.exit(1)
 
           if len(status_json["statuses"]) < 4:
-              print("Not all CI pipelines ran. Please make sure all CI pipelines ran successfully and try again.")
+              print(
+                  "Not all CI pipelines ran. Please make sure all CI pipelines "
+                  "ran successfully and try again."
+              )
               sys.exit(1)
 
 
@@ -312,55 +321,77 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_1 }}
-        if: needs.pyproject-config.outputs.test_python_version_1 != '' && needs.check-input.outputs.first_release != 'False'
+        if: >
+          needs.pyproject-config.outputs.test_python_version_1 != ''
+          && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_2 }}
-        if: needs.pyproject-config.outputs.test_python_version_2 != '' && needs.check-input.outputs.first_release != 'False'
+        if: >
+          needs.pyproject-config.outputs.test_python_version_2 != ''
+          && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_3 }}
-        if: needs.pyproject-config.outputs.test_python_version_3 != '' && needs.check-input.outputs.first_release != 'False'
+        if: >
+          needs.pyproject-config.outputs.test_python_version_3 != ''
+          && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_4 }}
-        if: needs.pyproject-config.outputs.test_python_version_4 != '' && needs.check-input.outputs.first_release != 'False'
+        if: >
+          needs.pyproject-config.outputs.test_python_version_4 != ''
+          && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_5 }}
-        if: needs.pyproject-config.outputs.test_python_version_5 != '' && needs.check-input.outputs.first_release != 'False'
+        if: >
+          needs.pyproject-config.outputs.test_python_version_5 != ''
+          && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_6 }}
-        if: needs.pyproject-config.outputs.test_python_version_6 != '' && needs.check-input.outputs.first_release != 'False'
+        if: >
+          needs.pyproject-config.outputs.test_python_version_6 != ''
+          && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_7 }}
-        if: needs.pyproject-config.outputs.test_python_version_7 != '' && needs.check-input.outputs.first_release != 'False'
+        if: >
+          needs.pyproject-config.outputs.test_python_version_7 != ''
+          && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_8 }}
-        if: needs.pyproject-config.outputs.test_python_version_8 != '' && needs.check-input.outputs.first_release != 'False'
+        if: >
+          needs.pyproject-config.outputs.test_python_version_8 != ''
+          && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_9 }}
-        if: needs.pyproject-config.outputs.test_python_version_9 != '' && needs.check-input.outputs.first_release != 'False'
+        if: >
+          needs.pyproject-config.outputs.test_python_version_9 != ''
+          && needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_10 }}
-        if: needs.pyproject-config.outputs.test_python_version_10 != '' && needs.check-input.outputs.first_release != 'False'
+        if: >
+          needs.pyproject-config.outputs.test_python_version_10 != ''
+          && needs.check-input.outputs.first_release != 'False'
 
       - name: Generate tox envs via nox
-        run: nox --forcecolor --session test_code -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
+        run: >
+          nox --forcecolor --session test_code
+          -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
         if: needs.check-input.outputs.first_release != 'False'
 
       - name: Run tox envs via nox
@@ -386,7 +417,9 @@ jobs:
         if: needs.old-test-code.result != 'success'
 
       - name: Check for BREAKING CHANGES in commit messages
-        run: git log ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }} --pretty="%b" --remotes="origin" | grep "BREAKING CHANGES"
+        run: >
+          git log ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }}
+          --pretty="%b" --remotes="origin" | grep "BREAKING CHANGES"
         if: needs.old-test-code.result != 'success'
 
 
@@ -394,93 +427,101 @@ jobs:
     needs: [check-commit-messages, pyproject-config, check-input]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - uses: actions/setup-python@v2
-      with:
-        python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
+      - uses: actions/setup-python@v2
+        with:
+          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
 
-    - name: Install poetry
-      run: |
-        python -m pip install -U pip
-        pip install poetry
+      - name: Install poetry
+        run: |
+          python -m pip install -U pip
+          pip install poetry
 
-    - uses: actions/setup-node@v1
-      with:
-        node-version: '12'
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12'
 
-    - name: Install standard-version and dependencies
-      run: |
-        npm install --no-save @iarna/toml
-        npm install --global standard-version @iarna/toml
+      - name: Install standard-version and dependencies
+        run: |
+          npm install --no-save @iarna/toml
+          npm install --global standard-version @iarna/toml
 
-    - name: Set git user
-      run: |
-        git config --global user.email "action@github.com"
-        git config --global user.name "github-actions"
+      - name: Set git user
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "github-actions"
 
-    - name: Run standard-version
-      run: standard-version ${{ needs.check-input.outputs.std_ver_args }}
+      - name: Run standard-version
+        run: standard-version ${{ needs.check-input.outputs.std_ver_args }}
 
-    - name: Set new tag as ENVVAR
-      id: new-tag
-      shell: bash
-      run: |
-        tag=$(git describe --tags --abbrev=0)
-        echo "::set-output name=tag::$tag"
+      - name: Set new tag as ENVVAR
+        id: new-tag
+        shell: bash
+        run: |
+          tag=$(git describe --tags --abbrev=0)
+          echo "::set-output name=tag::$tag"
 
-    - name: Push git update to github.event_name
-      run: git push --follow-tags
+      - name: Push git update to github.event_name
+        run: git push --follow-tags
 
-    - name: Build package
-      run: poetry build
+      - name: Build package
+        run: poetry build
 
-    - name: Publish package on test.PyPI
-      # CHANGE ME: remove current upload to test.pypi
-      env:
-        POETRY_REPOSITORIES_TEST_URL: ${{ secrets.POETRY_REPOSITORIES_TEST_URL }}
-        POETRY_HTTP_BASIC_TEST_USERNAME: ${{ secrets.POETRY_HTTP_BASIC_TEST_USERNAME }}
-        POETRY_HTTP_BASIC_TEST_PASSWORD: ${{ secrets.POETRY_HTTP_BASIC_TEST_PASSWORD }}
-      run: poetry publish -r test
-#        POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-#        POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-#      run: poetry publish
+      - name: Publish package on test.PyPI
+        # CHANGE ME: remove current upload to test.pypi
+        env:
+          POETRY_REPOSITORIES_TEST_URL: ${{ secrets.POETRY_REPOSITORIES_TEST_URL }}
+          POETRY_HTTP_BASIC_TEST_USERNAME: |
+            ${{ secrets.POETRY_HTTP_BASIC_TEST_USERNAME }}
+          POETRY_HTTP_BASIC_TEST_PASSWORD: |
+            ${{ secrets.POETRY_HTTP_BASIC_TEST_PASSWORD }}
+        run: poetry publish -r test
+          # yamllint disable-line rule:comments-indentation
+          # POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          # POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        # run: poetry publish
 
-    - name: Get repo dir name
-      id: repo-dir
-      shell: bash
-      run: |
-        repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
-        echo "::set-output name=repo-dir::$repo_dir"
+      - name: Get repo dir name
+        id: repo-dir
+        shell: bash
+        run: |
+          repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
+          echo "::set-output name=repo-dir::$repo_dir"
 
-    - name: Create GH Release
-      id: create-release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ steps.new-tag.outputs.tag }}
-        release_name: ${{ steps.new-tag.outputs.tag }}
-        body: "see [Changelog](https://github.com/${{ github.repository }}/blob/${{ steps.new-tag.outputs.tag }}/CHANGELOG.md)"
-        draft: false
-        prerelease: ${{ needs.check-input.outputs.pre_release }}
+      - name: Create GH Release
+        id: create-release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ steps.new-tag.outputs.tag }}
+          release_name: ${{ steps.new-tag.outputs.tag }}
+          # yamllint disable-line rule:line-length
+          body: "see [Changelog](https://github.com/${{ github.repository }}/blob/${{ steps.new-tag.outputs.tag }}/CHANGELOG.md)"
+          draft: false
+          prerelease: ${{ needs.check-input.outputs.pre_release }}
 
-    - name: Upload tarball
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create-release.outputs.upload_url }}
-        asset_path: dist/${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}.tar.gz
-        asset_name: ${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}.tar.gz
-        asset_content_type: application/gzip
+      - name: Upload tarball
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          # yamllint disable-line rule:line-length
+          asset_path: dist/${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}.tar.gz
+          # yamllint disable-line rule:line-length
+          asset_name: ${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}.tar.gz
+          asset_content_type: application/gzip
 
-    - name: Upload wheel
-      uses: actions/upload-release-asset@v1.0.1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create-release.outputs.upload_url }}
-        asset_path: dist/${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}-py3-none-any.whl
-        asset_name: ${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}-py3-none-any.whl
-        asset_content_type: application/zip
+      - name: Upload wheel
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create-release.outputs.upload_url }}
+          # yamllint disable-line rule:line-length
+          asset_path: dist/${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}-py3-none-any.whl
+          # yamllint disable-line rule:line-length
+          asset_name: ${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}-py3-none-any.whl
+          asset_content_type: application/zip

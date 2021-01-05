@@ -1,18 +1,19 @@
+---
 name: Test code
 
 
 env:
-  # DO NOT FORGET TO UPDATE `test-code-skip.yml` && `publish.yml` TOO !!!
+  #: DO NOT FORGET TO UPDATE `test-code-skip.yml` && `publish.yml` TOO !!!
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 
 
-on:
+on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
 
   push:
     tags:
-      - '!*' # Do not execute on tag push
+      - '!*'
     branches:
       - master
     paths:
@@ -46,10 +47,11 @@ on:
 jobs:
   pyproject-config:
     name: Get config from pyproject.toml
-    if: |
+    if: >
       github.event_name == 'pull_request' ||
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' && contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
+      (github.event_name == 'push' &&
+      contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
     runs-on: ubuntu-latest
     outputs:
       default_py_version: ${{ steps.get-config.outputs.default_python_version }}
@@ -128,7 +130,8 @@ jobs:
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA and GIT_BRANCH
     needs: pyproject-config
-    # Based on: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
+    #: Based on:
+    #: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
     runs-on: ubuntu-latest
     outputs:
       GIT_COMMIT_SHA: ${{ steps.set-GIT_COMMIT_SHA.outputs.GIT_COMMIT_SHA }}
@@ -143,7 +146,7 @@ jobs:
       - name: Get merge commit message
         id: merge-commit-msg
         shell: bash
-        run: echo "::set-output name=COMMIT_MSG::$(git log --oneline -n 1 --format='%s')"
+        run: echo "::set-output name=CMT_MSG::$(git log --oneline -n 1 --format='%s')"
         if: github.event_name == 'pull_request'
 
       - name: Extract commit sha from merge commit msg
@@ -155,7 +158,7 @@ jobs:
 
           sha = re.fullmatch(
               r"^Merge ([a-z0-9]{40}) into [a-z0-9]{40}$",
-              "${{ steps.merge-commit-msg.outputs.COMMIT_MSG }}"
+              "${{ steps.merge-commit-msg.outputs.CMT_MSG }}"
           )
 
           if not sha:
@@ -241,7 +244,9 @@ jobs:
           poetry install --ansi --no-root --no-dev --extras nox
 
       - name: Generate tox envs via nox
-        run: nox --forcecolor --session package -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
+        run: >
+          nox --forcecolor --session package
+          -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox envs via nox
         id: test
@@ -267,10 +272,11 @@ jobs:
   test-code:
     name: nox / test_code / ${{ matrix.os }}
     needs: [notify-code-climate, package-tests, pyproject-config]
-    if: |
+    if: >
       github.event_name == 'pull_request' ||
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' && contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
+      (github.event_name == 'push' &&
+      contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -288,11 +294,20 @@ jobs:
         run: |
           import sys
 
-          if "${{ matrix.os }}" == "ubuntu-latest" and "${{ needs.package-tests.outputs.ubuntu-success }}" == "true":
+          if (
+              "${{ matrix.os }}" == "ubuntu-latest"
+              and "${{ needs.package-tests.outputs.ubuntu-success }}" == "true"
+          ):
               sys.exit(0)
-          elif "${{ matrix.os }}" == "macos-latest" and "${{ needs.package-tests.outputs.macos-success }}" == "true":
+          elif (
+              "${{ matrix.os }}" == "macos-latest"
+              and "${{ needs.package-tests.outputs.macos-success }}" == "true"
+          ):
               sys.exit(0)
-          elif "${{ matrix.os }}" == "windows-latest" and "${{ needs.package-tests.outputs.windows-success }}" == "true":
+          elif (
+              "${{ matrix.os }}" == "windows-latest"
+              and "${{ needs.package-tests.outputs.windows-success }}" == "true"
+          ):
               sys.exit(0)
           else:
               sys.exit(1)
@@ -361,14 +376,21 @@ jobs:
 
       - name: Set python version hash
         shell: bash
-        run: echo "PYTHON_VERSION_SHA=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
+        run: echo "PY_VER_SHA=$(python -VV | sha256sum | cut -d' ' -f1)" >> $GITHUB_ENV
 
       - name: Load tox-env from cache
         uses: actions/cache@v2
         id: cache
         with:
           path: .tox/${{ runner.os }}
-          key: tox-env|${{ runner.os }}|${{ env.PYTHON_VERSION_SHA }}|${{ hashFiles('**/poetry.lock') }}
+          key: >
+            test-code
+            |tox-env
+            | ${{ runner.os }}
+            | ${{ env.PY_VER_SHA }}
+            | ${{ hashFiles('noxfile.py') }}
+            | ${{ hashFiles('tox.ini') }}
+            | ${{ hashFiles('**/poetry.lock') }}
 
       - name: Ensure cache is healthy (windows)
         if: steps.cache.outputs.cache-hit == 'true' && matrix.os == 'windows'
@@ -381,7 +403,9 @@ jobs:
         run: timeout 10s .tox/.package/bin/pip --version || rm -rf .tox
 
       - name: Generate tox envs via nox
-        run: nox --forcecolor --session test_code -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
+        run: >
+          nox --forcecolor --session test_code
+          -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox envs via nox
         run: nox --forcecolor --session test_code
@@ -389,6 +413,7 @@ jobs:
       - name: Upload coverage artifacts
         uses: actions/upload-artifact@v2
         with:
+          # yamllint disable-line rule:line-length
           name: coverage-${{ matrix.os }}-${{ needs.pyproject-config.outputs.test_python_versions }}
           path: .coverage_cache/.coverage*
           if-no-files-found: error
@@ -396,6 +421,7 @@ jobs:
       - name: Upload junit artifacts
         uses: actions/upload-artifact@v2
         with:
+          # yamllint disable-line rule:line-length
           name: junit-${{ matrix.os }}-${{ needs.pyproject-config.outputs.test_python_versions }}
           path: .junit_cache/junit*.xml
           if-no-files-found: error
@@ -423,7 +449,9 @@ jobs:
           poetry install --ansi --no-root --no-dev --extras nox
 
       - name: Generate tox env via nox
-        run: nox --forcecolor --session coverage_merge -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
+        run: >
+          nox --forcecolor --session coverage_merge
+          -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Download coverage artifacts
         uses: actions/download-artifact@v2
@@ -484,7 +512,9 @@ jobs:
           poetry install --ansi --no-root --no-dev --extras nox
 
       - name: Generate tox env via nox
-        run: nox --forcecolor --session coverage_report -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
+        run: >
+          nox --forcecolor --session coverage_report
+          -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Download coverage-merged artifact
         uses: actions/download-artifact@v2
@@ -493,7 +523,7 @@ jobs:
           path: .coverage_cache/
 
       - name: Fetch origin/master
-        # https://github.com/Bachmann1234/diff_cover#troubleshooting
+        #: https://github.com/Bachmann1234/diff_cover#troubleshooting
         run: git fetch --no-tags origin master:refs/remotes/origin/master
 
       - name: Run tox env via nox
@@ -507,7 +537,8 @@ jobs:
     env:
       CI_NAME: Github Actions
       CI_BUILD_ID: ${{ github.run_id }}
-      CI_BUILD_URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      CI_BUILD_URL: |
+        https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
       CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       CC_TEST_REPORTER_URL: ${{ needs.pyproject-config.outputs.cc_test_reporter_url }}
       GIT_COMMIT_SHA: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
@@ -553,10 +584,11 @@ jobs:
   set-status:
     name: Set status on commit
     needs: [test-code, report-coverage, push-coverage-to-code-climate, set-git-env-vars]
-    if: |
+    if: >
       github.event_name == 'pull_request' ||
       github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' && contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
+      (github.event_name == 'push'
+      && contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
     runs-on: ubuntu-latest
     steps:
       - name: Process total success
@@ -567,7 +599,8 @@ jobs:
           cov=${{ needs.report-coverage.result }}
           send_cov=${{ needs.push-coverage-to-code-climate.result }}
 
-          if [[ $tests == 'success' ]] && [[ $cov == 'success' ]] && [[ $send_cov == 'success' ]]; then
+          if [[ $tests == 'success' ]] && [[ $cov == 'success' ]] &&
+          [[ $send_cov == 'success' ]]; then
             state=success
           else
             state=failure
@@ -589,7 +622,8 @@ jobs:
           repo: ${{ steps.repo-dir.outputs.repo-dir }}
           sha: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
           state: ${{ steps.total-success.outputs.state }}
-          target_url: "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
+          target_url: |
+            "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
           description: CI pipeline for testing documentation
           context: ci-test-docs
         env:

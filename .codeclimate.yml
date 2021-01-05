@@ -1,6 +1,7 @@
+---
 exclude_patterns:
-- "tests/"
-- "docs/source/conf.py"
-- "noxfile.py"
-- ".versionrc.js"
-- ".pyproject_version.js"
+  - "tests/"
+  - "docs/source/conf.py"
+  - "noxfile.py"
+  - ".versionrc.js"
+  - ".pyproject_version.js"
