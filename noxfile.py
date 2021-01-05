@@ -15,7 +15,6 @@ import tomlkit  # type: ignore[import]
 from formelsammlung.venv_utils import (
     get_venv_bin_dir,
     get_venv_path,
-    get_venv_site_packages_dir,
     get_venv_tmp_dir,
     where_installed,
 )
