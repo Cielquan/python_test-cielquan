@@ -1,11 +1,11 @@
 Contribution through Github Pull Requests
 =========================================
 
-This section will guide you through the process of contributing throug
+This section will guide you through the process of contributing through
 `Github Pull Requests <https://github.com/cielquan/python_test-cielquan/pulls>`__
-Use your best judgement to follow the guidelines and rules below.
+Use your best judgment to follow the guidelines and rules below.
 
-Rules are not meant to be broken as there are worklows depending on the complience with
+Rules are not meant to be broken as there are workflows depending on the compliance with
 the rules. Very important here are the
 :ref:`contribution/git_workflow:Commit message rules`.
 If you are unsure about specific things regarding your contribution just open a pull

@@ -1,3 +1,7 @@
+.. spelling::
+
+    virtualenvs
+
 Development
 ===========
 
@@ -8,7 +12,7 @@ Set up Local Development Environment
 The setup of a local development environment is pretty easy. The only tool you need to
 have installed is `poetry <https://python-poetry.org/docs/>`__. You can install it
 via the `recommended way <https://python-poetry.org/docs/#installation>`__, which
-installs it globally or you can install it via ``pip`` in a selfcreated virtualenv:
+installs it globally or you can install it via ``pip`` in a self-created virtualenv:
 `manual here <https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/>`__.
 
 With ``poetry`` set up and ready we can create our development environment in just two
@@ -36,9 +40,9 @@ environment. For development we use the following tools:
     - `nox <https://nox.thea.codes/>`__:
       for running standardized tests or automated dev-tasks in an existing virtualenv
     - `tox <https://tox.readthedocs.io/>`__:
-      as virtualenv backend for ``nox`` to create isolated test virtualenvs
+      as virtualenv back-end for ``nox`` to create isolated test virtualenvs
     - `pre-commit <https://pre-commit.com/>`__:
-      for automated linting and quality checking before commiting
+      for automated linting and quality checking before committing
 
 
 Testing
@@ -60,7 +64,7 @@ additional arguments which need to be added at the end after a double dash and s
 by a space like so: ``nox -s <session> -- arg1 arg2``. For local development and testing
 ``nox`` sessions are meant to be called from the development virtualenv. If a testing
 ``nox`` session is invoked without an active virtualenv ``tox`` is automatically invoked
-as a *virtualenv backend* to create a virtualenv for the given task specificly and the
+as a *virtualenv back-end* to create a virtualenv for the given task specifically and the
 session is then run inside it. You can force this behavior also by giving ``tox`` as an
 additional argument. If you want to give arguments to ``tox`` you need to specify them
 as a comma separated list like this: ``TOX_ARGS=<tox-args>``. For normal development you
@@ -75,7 +79,7 @@ should not need it but the same applies for ``nox`` called by ``tox`` with:
 
 - ``test_code``:
     This session will run all tests with the python version used by the virtualenv from
-    where it's invoked. If ``tox`` is used as virtualenv backend the tests are run with
+    where it's invoked. If ``tox`` is used as virtualenv back-end the tests are run with
     all specified and available python versions.
 
     **Addtional arguments**:
@@ -101,9 +105,9 @@ should not need it but the same applies for ``nox`` called by ``tox`` with:
 
     **Addtional arguments**:
 
-    * ``HOOKS=<hook-id>``: Specify hooks (seperated by comma) to run. If you want to run
+    * ``HOOKS=<hook-id>``: Specify hooks (separated by comma) to run. If you want to run
       a single hook just add its name without the ``HOOKS=`` prefix.
-    * ``SKIP=<hook-id>`` Specify hooks (seperated by comma) to skip.
+    * ``SKIP=<hook-id>`` Specify hooks (separated by comma) to skip.
     * ``diff``: Print the diff when a hook fails. Recommended to only set when one or
       no hook is specified as the diff will be printed on every failing hook otherwise.
     * Any argument understood by ``pre-commit``.
@@ -114,12 +118,12 @@ should not need it but the same applies for ``nox`` called by ``tox`` with:
     **Addtional arguments**:
 
     * ``autobuild`` / ``ab``: Build the docs and open them automatically in your browser
-      after starting a development webserver via ``sphinx-autobuild``.
+      after starting a development web-server via ``sphinx-autobuild``.
     * Any argument understood by ``sphinx`` or ``sphinx-autobuild``.
 
 - ``"test_docs(builder='html')"``:
     Build the docs with the **html** builder in */docs/build/test/html*
-    under nitpicky test conditions.
+    under nit-picky test conditions.
 
     **Addtional arguments**:
 
@@ -127,7 +131,7 @@ should not need it but the same applies for ``nox`` called by ``tox`` with:
 
 - ``"test_docs(builder='linkcheck')"``:
     Build the docs with the **linkcheck** builder in */docs/build/test/linkcheck*
-    under nitpicky test conditions.
+    under nit-picky test conditions.
 
     **Addtional arguments**:
 
@@ -135,7 +139,7 @@ should not need it but the same applies for ``nox`` called by ``tox`` with:
 
 - ``"test_docs(builder='coverage')"``:
     Build the docs with the **coverage** builder in */docs/build/test/coverage*
-    under nitpicky test conditions.
+    under nit-picky test conditions.
 
     **Addtional arguments**:
 
@@ -143,7 +147,7 @@ should not need it but the same applies for ``nox`` called by ``tox`` with:
 
 - ``"test_docs(builder='doctest')"``:
     Build the docs with the **doctest** builder in */docs/build/test/doctest*
-    under nitpicky test conditions.
+    under nit-picky test conditions.
 
     **Addtional arguments**:
 
@@ -151,7 +155,7 @@ should not need it but the same applies for ``nox`` called by ``tox`` with:
 
 - ``"test_docs(builder='spelling')"``:
     Build the docs with the **spelling** builder in */docs/build/test/spelling*
-    under nitpicky test conditions.
+    under nit-picky test conditions.
 
     **Addtional arguments**:
 
