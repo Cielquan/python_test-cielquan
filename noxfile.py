@@ -547,20 +547,6 @@ def dev(session: Session) -> None:
     )
 
 
-@nox.session
-def dev2(session: Session) -> None:
-    """Call all dev setup nox sessions."""
-    session.run(
-        "nox",
-        "--session",
-        "install_extras",
-        "setup_pre_commit",
-        "debug_import",
-        "create_pdbrc",
-        "create_spellignore",
-    )
-
-
 #: -- TOX MULTI WRAPPER SESSIONS -------------------------------------------------------
 @nox.session
 @monkeypatch_session
