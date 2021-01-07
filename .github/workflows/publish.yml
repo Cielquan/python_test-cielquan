@@ -406,14 +406,6 @@ jobs:
         if: needs.check-input.outputs.first_release != 'False'
 
 
-  TEST:
-    name: TEST
-    needs: [old-test-code]
-    if: always()
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo ${{ needs.old-test-code.result }}
-
   check-commit-messages:
     name: Check for BREAKING CHANGES in commit messages
     needs: [old-test-code, pyproject-config]
