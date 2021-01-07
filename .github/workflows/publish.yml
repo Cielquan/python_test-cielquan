@@ -75,7 +75,6 @@ jobs:
                   print(f"'{pre_release_stage}' is not allowed.")
                   sys.exit(1)
 
-      # FIXME: fatal: not a git repository (or any of the parent directories): .git
       - name: Check if first release
         id: first-release
         run: >
@@ -101,12 +100,14 @@ jobs:
           if pre_release:
               args += ["--prerelease", pre_release]
 
-          if ${{ steps.first-release.outputs.first_release }} == "True":
+          if ${{ steps.first-release.outputs.first_release }} == True:
               args += ["--first-release"]
 
           args_str = ' '.join(args)
           print(args_str)
           print(f"::set-output name=std_ver_args::{args_str}")
+      # TODO: remove
+      - run: exit 1
 
 
   pyproject-config:
@@ -190,9 +191,8 @@ jobs:
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA
     needs: pyproject-config
-    #: Based on:
-    #TODO: make link stable with tag or so in every ocurence
-    #: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
+    # yamllint disable-line rule:line-length
+    #: Based on: https://github.com/paambaati/codeclimate-action/blob/26b4414184dd6928c7c8b474732a2dce632925c9/src/main.ts#L39
     runs-on: ubuntu-latest
     outputs:
       GIT_COMMIT_SHA: ${{ steps.set-GIT_COMMIT_SHA.outputs.GIT_COMMIT_SHA }}
@@ -412,7 +412,8 @@ jobs:
   check-commit-messages:
     name: Check for BREAKING CHANGES in commit messages
     needs: [old-test-code, pyproject-config]
-    if: always()  # TODO: run only if old test not skipped
+    if: needs.old-test-code.result != 'skipped'
+    # if: always()  # TODO: run only if old test not skipped
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
