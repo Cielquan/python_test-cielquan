@@ -47,11 +47,9 @@ with open(REPO_DIR / "pyproject.toml") as pyproject_file:
 #: -- PROJECT INFORMATION --------------------------------------------------------------
 project = __project__.replace("-", "_")
 author = __author__
-RELEASE_YEAR = YEAR
-with contextlib.suppress(KeyError):
-    RELEASE_YEAR = PYPROJECT["tool"]["_metadata"]["first_release_year"]
+CREATION_YEAR = 2019  # CHANGE ME
 copyright = (  # noqa: VNE003
-    f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
+    f"{CREATION_YEAR}{('-' + YEAR) if YEAR != CREATION_YEAR else ''}, " + author
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
 version_parts = re.search(

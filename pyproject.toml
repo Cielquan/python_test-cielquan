@@ -22,11 +22,6 @@
     toxenv_docs_builders = "test_docs-{html,linkcheck,coverage,doctest,spelling}"
 
 
-#: -- ADDITIONAL METADATA POETRY DOES NOT HOLD -----------------------------------------
-[tool._metadata]
-    first_release_year = 2019
-
-
 #: -- POETRY CONFIG --------------------------------------------------------------------
 [tool.poetry]
     name = "python_test_cielquan"
