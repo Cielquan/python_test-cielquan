@@ -49,7 +49,7 @@ project = __project__.replace("-", "_")
 author = __author__
 RELEASE_YEAR = YEAR
 with contextlib.suppress(KeyError):
-    PYPROJECT = PYPROJECT["tool"]["_metadata"]["first_release_year"]
+    RELEASE_YEAR = PYPROJECT["tool"]["_metadata"]["first_release_year"]
 copyright = (  # noqa: VNE003
     f"{RELEASE_YEAR}{('-' + YEAR) if YEAR != RELEASE_YEAR else ''}, " + author
 )
