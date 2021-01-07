@@ -410,6 +410,7 @@ jobs:
   TEST:
     name: TEST
     needs: [old-test-code]
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ needs.old-test-code.result }}
