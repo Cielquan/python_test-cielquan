@@ -410,8 +410,7 @@ jobs:
   check-commit-messages:
     name: Check for BREAKING CHANGES in commit messages
     needs: [old-test-code, pyproject-config]
-    if: needs.old-test-code.result != 'skipped'
-    # if: always()  # TODO: run only if old test not skipped
+    if: needs.old-test-code.result != 'skipped' && needs.old-test-code.result != 'cancelled'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
