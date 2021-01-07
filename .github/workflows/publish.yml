@@ -265,6 +265,7 @@ jobs:
         shell: python
         run: |
           import json
+          import sys
 
           status_json = json.loads("""${{ steps.get-status.outputs.data }}""")
 
