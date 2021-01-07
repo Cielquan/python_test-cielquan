@@ -283,7 +283,7 @@ jobs:
       #         sys.exit(1)
 
   # TODO: remove this
-  old-test-code:
+  old-test-code2:
     name: test old test
     needs: [check-ci-status, pyproject-config, check-input]
     runs-on: ubuntu-latest
@@ -291,7 +291,7 @@ jobs:
       - run: exit 0
 
   # TODO: rename this
-  old-test-code2:
+  old-test-code:
     name: (old tests) nox / test_code / ${{ matrix.os }}
     needs: [check-ci-status, pyproject-config, check-input]
     runs-on: ${{ matrix.os }}
