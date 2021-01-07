@@ -106,8 +106,6 @@ jobs:
           args_str = ' '.join(args)
           print(args_str)
           print(f"::set-output name=std_ver_args::{args_str}")
-      # TODO: remove
-      - run: exit 1
 
 
   pyproject-config:
