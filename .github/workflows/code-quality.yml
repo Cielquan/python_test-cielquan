@@ -108,8 +108,8 @@ jobs:
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA
     needs: pyproject-config
-    #: Based on:
-    #: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
+    # yamllint disable-line rule:line-length
+    #: Based on: https://github.com/paambaati/codeclimate-action/blob/26b4414184dd6928c7c8b474732a2dce632925c9/src/main.ts#L39
     runs-on: ubuntu-latest
     outputs:
       GIT_COMMIT_SHA: ${{ steps.set-GIT_COMMIT_SHA.outputs.GIT_COMMIT_SHA }}
