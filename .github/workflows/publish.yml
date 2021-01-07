@@ -418,26 +418,26 @@ jobs:
   check-commit-messages:
     name: Check for BREAKING CHANGES in commit messages
     needs: [old-test-code, pyproject-config]
-    if: needs.old-test-code.result != 'skipped' && needs.old-test-code.result != 'cancelled'
+    if: needs.old-test-code.result == 'failure'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
         # TODO: revert if back to `!=`
-        if: needs.old-test-code.result == 'success'
+        # if: needs.old-test-code.result == 'success'
 
       - name: Fetch git origin
         run: git fetch origin
         # TODO: revert if back to `!=`
-        if: needs.old-test-code.result == 'success'
+        # if: needs.old-test-code.result == 'success'
 
       - name: Check for BREAKING CHANGES in commit messages
         run: >
           git log ${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }}
           --pretty="%b" --remotes="origin" | grep "BREAKING CHANGES"
         # TODO: revert if back to `!=`
-        if: needs.old-test-code.result == 'success'
+        # if: needs.old-test-code.result == 'success'
 
 
   publish:
