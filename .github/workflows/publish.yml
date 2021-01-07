@@ -79,6 +79,8 @@ jobs:
       - name: Check if first release
         id: first-release
         run: >
+          git fetch --tags
+
           first_release=$(git tag | grep -oE "v[0-9]+\.[0-9]+\.[0-9]+"
           && echo False || echo True)
 
@@ -99,7 +101,7 @@ jobs:
           if pre_release:
               args += ["--prerelease", pre_release]
 
-          if ${{ steps.first-release.outputs.first_release }} == True:
+          if ${{ steps.first-release.outputs.first_release }} == "True":
               args += ["--first-release"]
 
           args_str = ' '.join(args)
