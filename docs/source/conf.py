@@ -49,13 +49,9 @@ version_parts = re.search(
     r"^v?(?P<version>\d+\.\d+)\.\d+[-.]?(?P<tag>[a-z]*)[\.]?\d*", __version__
 )
 #: Major + Minor version like (X.Y)
-version = (
-    None if not version_parts else version_parts.group("version")
-)
+version = None if not version_parts else version_parts.group("version")
 #: only tags like alpha/beta/rc
-RELEASE_LEVEL = (
-    None if not version_parts else version_parts.group("tag")
-)
+RELEASE_LEVEL = None if not version_parts else version_parts.group("tag")
 
 
 #: -- GENERAL CONFIG -------------------------------------------------------------------
