@@ -30,6 +30,8 @@ jobs:
       pre_release: ${{ steps.set-std-ver-args.outputs.pre_release }}
       first_release: ${{ steps.first-release.outputs.first_release }}
     steps:
+      - uses: actions/checkout@v2
+
       - uses: actions/setup-python@v2
 
       - name: Check releaseAs
