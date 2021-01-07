@@ -124,7 +124,7 @@ jobs:
               print(f"::set-output name=test_python_version_10::{test_ver[9]}")
 
           cc_url = "https://codeclimate.com/downloads/test-reporter/test-reporter-"
-          reporter_url =  + conf["cc_test_reporter_version"]
+          reporter_url = cc_url + conf["cc_test_reporter_version"]
           print(f"::set-output name=reporter_url::{reporter_url}")
 
 
