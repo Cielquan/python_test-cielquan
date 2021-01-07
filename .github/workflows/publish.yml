@@ -191,6 +191,7 @@ jobs:
     name: Set GIT_COMMIT_SHA
     needs: pyproject-config
     #: Based on:
+    #TODO: make link stable with tag or so in every ocurence
     #: https://github.com/paambaati/codeclimate-action/blob/master/src/main.ts#L39
     runs-on: ubuntu-latest
     outputs:
@@ -411,7 +412,7 @@ jobs:
   check-commit-messages:
     name: Check for BREAKING CHANGES in commit messages
     needs: [old-test-code, pyproject-config]
-    if: always()  # TODO: run only if old test not skipped
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
