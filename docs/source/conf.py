@@ -16,9 +16,15 @@ from pathlib import Path
 from typing import List, Optional
 
 import sphinx_rtd_theme  # type: ignore[import]
-import tomlkit  # type: ignore[import]
 
 from sphinx.application import Sphinx
+
+from python_test_cielquan import (
+    __author__,
+    __gh_repository_link__,
+    __project__,
+    __version__,
+)
 
 
 needs_sphinx = "3.1"  #: Minimum Sphinx version to build the docs
@@ -31,29 +37,25 @@ NOT_LOADED_MSGS = []
 YEAR = f"{date.today().year}"
 
 
-#: -- UTILS ----------------------------------------------------------------------------
-with open(REPO_DIR / "pyproject.toml") as pyproject_file:
-    PYPROJECT = tomlkit.parse(pyproject_file.read())
-
-
 #: -- PROJECT INFORMATION --------------------------------------------------------------
-GH_REPO_URL = PYPROJECT["tool"]["poetry"]["repository"]
-project = PYPROJECT["tool"]["poetry"]["name"]
-author_str = PYPROJECT["tool"]["poetry"]["authors"][0]
-author = author_str[0 : author_str.find("<") - 1]
+project = __project__.replace("-", "_")
+author = __author__
 CREATION_YEAR = 2019  # CHANGE ME
 copyright = (  # noqa: VNE003
     f"{CREATION_YEAR}{('-' + YEAR) if YEAR != CREATION_YEAR else ''}, " + author
 )
-#: The full version, including alpha/beta/rc tags
-release = PYPROJECT["tool"]["poetry"]["version"]
+release = __version__  #: The full version, including alpha/beta/rc tags
 version_parts = re.search(
-    r"^v?(?P<version>\d+\.\d+)\.\d+[-.]?(?P<tag>[a-z]*)[\.]?\d*", release
+    r"^v?(?P<version>\d+\.\d+)\.\d+[-.]?(?P<tag>[a-z]*)[\.]?\d*", __version__
 )
 #: Major + Minor version like (X.Y)
-version = None if not version_parts else version_parts.group("version")
+version = (
+    None if not version_parts else version_parts.group("version")
+)
 #: only tags like alpha/beta/rc
-RELEASE_LEVEL = None if not version_parts else version_parts.group("tag")
+RELEASE_LEVEL = (
+    None if not version_parts else version_parts.group("tag")
+)
 
 
 #: -- GENERAL CONFIG -------------------------------------------------------------------
@@ -117,8 +119,8 @@ intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 
 extensions.append("sphinx.ext.extlinks")
 extlinks = {
-    "issue": (f"{GH_REPO_URL}/issues/%s", "#"),
-    "pull": (f"{GH_REPO_URL}/pull/%s", "pr"),
+    "issue": (f"{__gh_repository_link__}/issues/%s", "#"),
+    "pull": (f"{__gh_repository_link__}/pull/%s", "pr"),
     "user": ("https://github.com/%s", "@"),
 }
 
