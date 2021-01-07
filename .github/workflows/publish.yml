@@ -72,10 +72,8 @@ jobs:
               if pre_release_stage not in allowed_pre_release_stage:
                   print(f"'{pre_release_stage}' is not allowed.")
                   sys.exit(1)
-              pre_release = True
 
-          print(f"::set-output name=std_ver_args::{pre_release}")
-
+      # FIXME: fatal: not a git repository (or any of the parent directories): .git
       - name: Check if first release
         id: first-release
         run: >
@@ -99,7 +97,7 @@ jobs:
           if pre_release:
               args += ["--prerelease", pre_release]
 
-          if ${{ steps.first-release.outputs.first_release }}:
+          if ${{ steps.first-release.outputs.first_release }} == "True":
               args += ["--first-release"]
 
           args_str = ' '.join(args)
