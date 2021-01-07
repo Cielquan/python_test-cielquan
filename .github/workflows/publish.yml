@@ -282,15 +282,6 @@ jobs:
       #         )
       #         sys.exit(1)
 
-  # TODO: remove this
-  old-test-code2:
-    name: test old test
-    needs: [check-ci-status, pyproject-config, check-input]
-    runs-on: ubuntu-latest
-    steps:
-      - run: exit 0
-
-  # TODO: rename this
   old-test-code:
     name: (old tests) nox / test_code / ${{ matrix.os }}
     needs: [check-ci-status, pyproject-config, check-input]
@@ -435,7 +426,7 @@ jobs:
         if: needs.old-test-code.result != 'success'
 
       - name: Fetch git origin
-        run: git fetch origin
+        run: git fetch origin --tags
         if: needs.old-test-code.result != 'success'
 
       - name: Check for BREAKING CHANGES in commit messages
