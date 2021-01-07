@@ -31,3 +31,6 @@ TODO: update STEP_GUIDE
 TODO: make this a template
     https://github.com/ionelmc/python-nameless
     https://github.com/ionelmc/python-cookiepatcher
+
+
+TODO: fix py10 in test-code
