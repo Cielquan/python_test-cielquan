@@ -113,6 +113,7 @@ jobs:
     needs: check-input
     runs-on: ubuntu-latest
     outputs:
+      project_name: ${{ steps.get-config.outputs.project_name }}
       last_version: ${{ steps.get-config.outputs.last_version }}
       default_py_version: ${{ steps.get-config.outputs.default_python_version }}
       test_os: ${{ steps.get-config.outputs.test_os }}
@@ -153,6 +154,9 @@ jobs:
 
           last_version = PYPROJECT["tool"]["poetry"]["version"]
           print(f"::set-output name=last_version::{last_version}")
+
+          project_name = PYPROJECT["tool"]["poetry"]["name"]
+          print(f"::set-output name=project_name::{project_name}")
 
           conf = PYPROJECT["tool"]["_testing"]
 
@@ -483,6 +487,8 @@ jobs:
         run: |
           tag=$(git describe --tags --abbrev=0)
           echo "::set-output name=tag::$tag"
+          version=$(echo $tag | sed 's/v//')
+          echo "::set-output name=version::$version"
 
       - name: Push git update to github.event_name
         # yamllint disable-line rule:line-length
@@ -510,13 +516,6 @@ jobs:
           # POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         # run: poetry publish
 
-      - name: Get repo dir name
-        id: repo-dir
-        shell: bash
-        run: |
-          repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
-          echo "::set-output name=repo-dir::$repo_dir"
-
       - name: Create GH Release
         id: create-release
         uses: actions/create-release@v1
@@ -537,9 +536,9 @@ jobs:
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
           # yamllint disable-line rule:line-length
-          asset_path: dist/${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}.tar.gz
+          asset_path: dist/${{ needs.pyproject-config.outputs.project_name }}-${{ steps.new-tag.outputs.version }}.tar.gz
           # yamllint disable-line rule:line-length
-          asset_name: ${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}.tar.gz
+          asset_name: ${{ needs.pyproject-config.outputs.project_name }}-${{ steps.new-tag.outputs.version }}.tar.gz
           asset_content_type: application/gzip
 
       - name: Upload wheel
@@ -549,7 +548,7 @@ jobs:
         with:
           upload_url: ${{ steps.create-release.outputs.upload_url }}
           # yamllint disable-line rule:line-length
-          asset_path: dist/${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}-py3-none-any.whl
+          asset_path: dist/${{ needs.pyproject-config.outputs.project_name }}-${{ steps.new-tag.outputs.version }}-py3-none-any.whl
           # yamllint disable-line rule:line-length
-          asset_name: ${{ steps.repo-dir.outputs.repo-dir }}-${{ steps.new-tag.outputs.tag }}-py3-none-any.whl
+          asset_name: ${{ needs.pyproject-config.outputs.project_name }}-${{ steps.new-tag.outputs.version }}-py3-none-any.whl
           asset_content_type: application/zip
