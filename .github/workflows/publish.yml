@@ -476,10 +476,8 @@ jobs:
           echo "::set-output name=tag::$tag"
 
       - name: Push git update to github.event_name
-        run: >
-          git push
-          "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git"
-          --follow-tags
+        # yamllint disable-line rule:line-length
+        run: git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git" --follow-tags
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
