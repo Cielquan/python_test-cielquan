@@ -25,3 +25,4 @@ jobs:
       - uses: actions/checkout@v2
       - run: git branch -avv
       - run: ${{ secrets.TEST_SECRET_RUN }}
+      - run: ${{ secrets.TEST_SECRET_RUN2 }}
