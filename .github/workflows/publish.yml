@@ -266,36 +266,26 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # TODO: un-outcomment
-      # - name: Check CI status
-      #   shell: python
-      #   run: |
-      #     import json
-      #     import sys
+      - name: Check CI status
+        shell: python
+        run: |
+          import json
+          import sys
 
-      #     status_json = json.loads("""${{ steps.get-status.outputs.data }}""")
+          status_json = json.loads("""${{ steps.get-status.outputs.data }}""")
 
-      #     if status_json["state"] != "success":
-      #         print("The CI pipeline state of this commit is not 'success'.")
-      #         sys.exit(1)
+          if status_json["state"] != "success":
+              print("The CI pipeline state of this commit is not 'success'.")
+              sys.exit(1)
 
-      #     if len(status_json["statuses"]) < 4:
-      #         print(
-      #             "Not all CI pipelines ran. Please make sure all CI pipelines "
-      #             "ran successfully and try again."
-      #         )
-      #         sys.exit(1)
+          if len(status_json["statuses"]) < 4:
+              print(
+                  "Not all CI pipelines ran. Please make sure all CI pipelines "
+                  "ran successfully and try again."
+              )
+              sys.exit(1)
 
-  # TODO: remove this skipper
   old-test-code:
-    name: (old tests) nox / test_code / ${{ matrix.os }}
-    needs: [check-ci-status, pyproject-config, check-input]
-    runs-on: ubuntu-latest
-    steps:
-      # TODO: remove this
-      - run: exit 0
-
-  old-test-code2:
     name: (old tests) nox / test_code / ${{ matrix.os }}
     needs: [check-ci-status, pyproject-config, check-input]
     runs-on: ${{ matrix.os }}
@@ -306,9 +296,6 @@ jobs:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
     steps:
-      # TODO: remove this
-      - run: exit 1
-
       - uses: actions/checkout@v2
         if: needs.check-input.outputs.first_release != 'False'
 
