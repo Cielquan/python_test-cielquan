@@ -490,7 +490,7 @@ jobs:
           version=$(echo $tag | sed 's/v//')
           echo "::set-output name=version::$version"
 
-      - name: Push git update to github.event_name
+      - name: Push tag and commit to master
         # yamllint disable-line rule:line-length
         run: git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git" --follow-tags
         env:
