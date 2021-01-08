@@ -56,9 +56,9 @@ jobs:
     outputs:
       default_py_version: ${{ steps.get-config.outputs.default_python_version }}
       test_os: ${{ steps.get-config.outputs.test_os }}
-      test_python_versions_Windows: ${{ steps.get-config.outputs.test_python_versions_Windows }}
-      test_python_versions_macOS: ${{ steps.get-config.outputs.test_python_versions_macOS }}
-      test_python_versions_Linux: ${{ steps.get-config.outputs.test_python_versions_Linux }}
+      toxenv_python_versions_win32: ${{ steps.get-config.outputs.test_python_versions_win32 }}
+      toxenv_python_versions_darwin: ${{ steps.get-config.outputs.toxenv_python_versions_darwin }}
+      toxenv_python_versions_linux: ${{ steps.get-config.outputs.toxenv_python_versions_linux }}
       test_python_versions: ${{ steps.get-config.outputs.test_python_versions }}
       test_python_version_1: ${{ steps.get-config.outputs.test_python_version_1 }}
       test_python_version_2: ${{ steps.get-config.outputs.test_python_version_2 }}
@@ -127,11 +127,11 @@ jobs:
               print(f"::set-output name=test_python_version_10::{test_ver[9]}")
 
           win_test_ver = conf["toxenv_python_versions_win32"]
-          print(f"::set-output name=test_python_versions_Windows::{win_test_ver}")
+          print(f"::set-output name=toxenv_python_versions_win32::{win_test_ver}")
           mac_test_ver = conf["toxenv_python_versions_darwin"]
-          print(f"::set-output name=test_python_versions_macOS::{mac_test_ver}")
+          print(f"::set-output name=toxenv_python_versions_darwin::{mac_test_ver}")
           nix_test_ver = conf["toxenv_python_versions_linux"]
-          print(f"::set-output name=test_python_versions_Linux::{nix_test_ver}")
+          print(f"::set-output name=toxenv_python_versions_linux::{nix_test_ver}")
 
           cc_url = "https://codeclimate.com/downloads/test-reporter/test-reporter-"
           reporter_url = cc_url + conf["cc_test_reporter_version"]
@@ -421,11 +421,23 @@ jobs:
       - name: Run tox envs via nox
         run: nox --forcecolor --session test_code
 
+      - name: Set archive name
+        id: archive-name
+        shell: python
+        run: |
+          import sys
+          py_vers = {
+              "win32": "${{ needs.pyproject-config.outputs.test_python_versions_win32 }}",
+              "darwin": "${{ needs.pyproject-config.outputs.test_python_versions_darwin }}",
+              "linux": "${{ needs.pyproject-config.outputs.test_python_versions_linux }}",
+          }
+          print(f"::set-output name=archive_name::{py_vers[sys.platform]}")
+
       - name: Upload coverage artifacts
         uses: actions/upload-artifact@v2
         with:
           # yamllint disable-line rule:line-length
-          name: coverage-${{ matrix.os }}-${{ needs.pyproject-config.outputs.test_python_versions${{ runner.os }} }}
+          name: coverage-${{ matrix.os }}-${{ steps.set-archive-name.outputs.archive_name }}
           path: .coverage_cache/.coverage*
           if-no-files-found: error
 
@@ -433,7 +445,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           # yamllint disable-line rule:line-length
-          name: junit-${{ matrix.os }}-${{ needs.pyproject-config.outputs.test_python_versions${{ runner.os }} }}
+          name: junit-${{ matrix.os }}-${{ steps.set-archive-name.outputs.archive_name }}
           path: .junit_cache/junit*.xml
           if-no-files-found: error
 
