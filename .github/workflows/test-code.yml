@@ -56,9 +56,9 @@ jobs:
     outputs:
       default_py_version: ${{ steps.get-config.outputs.default_python_version }}
       test_os: ${{ steps.get-config.outputs.test_os }}
-      toxenv_python_versions_win32: ${{ steps.get-config.outputs.test_python_versions_win32 }}
-      toxenv_python_versions_darwin: ${{ steps.get-config.outputs.toxenv_python_versions_darwin }}
-      toxenv_python_versions_linux: ${{ steps.get-config.outputs.toxenv_python_versions_linux }}
+      test_python_versions_win32: ${{ steps.get-config.outputs.test_py_vers_win32 }}
+      test_python_versions_darwin: ${{ steps.get-config.outputs.test_py_vers_darwin }}
+      test_python_versions_linux: ${{ steps.get-config.outputs.test_py_vers_linux }}
       test_python_versions: ${{ steps.get-config.outputs.test_python_versions }}
       test_python_version_1: ${{ steps.get-config.outputs.test_python_version_1 }}
       test_python_version_2: ${{ steps.get-config.outputs.test_python_version_2 }}
@@ -126,12 +126,12 @@ jobs:
           if len(test_ver) >= 10:
               print(f"::set-output name=test_python_version_10::{test_ver[9]}")
 
-          win_test_ver = conf["toxenv_python_versions_win32"]
-          print(f"::set-output name=toxenv_python_versions_win32::{win_test_ver}")
-          mac_test_ver = conf["toxenv_python_versions_darwin"]
-          print(f"::set-output name=toxenv_python_versions_darwin::{mac_test_ver}")
-          nix_test_ver = conf["toxenv_python_versions_linux"]
-          print(f"::set-output name=toxenv_python_versions_linux::{nix_test_ver}")
+          win_test_ver = conf["test_python_versions_win32"]
+          print(f"::set-output name=test_py_vers_win32::{win_test_ver}")
+          mac_test_ver = conf["test_python_versions_darwin"]
+          print(f"::set-output name=test_py_vers_darwin::{mac_test_ver}")
+          nix_test_ver = conf["test_python_versions_linux"]
+          print(f"::set-output name=test_py_vers_linux::{nix_test_ver}")
 
           cc_url = "https://codeclimate.com/downloads/test-reporter/test-reporter-"
           reporter_url = cc_url + conf["cc_test_reporter_version"]
