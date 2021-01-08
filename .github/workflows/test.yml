@@ -16,13 +16,20 @@ on:  # yamllint disable-line rule:truthy
       - '**'
 
 jobs:
-  test-code:
+  test-code-win:
     name: Test
     runs-on: windows-latest
     steps:
-      - uses: actions/setup-python@v2
-        with:
-          python-version: "3.10.0-alpha.2 - 3.10"
-      - uses: actions/setup-python@v2
-        with:
-          python-version: "3.10-alpha.2 - 3.10"
+      - run: echo ${{ runner.os }}
+
+  test-code-mac:
+    name: Test
+    runs-on: windows-latest
+    steps:
+      - run: echo ${{ runner.os }}
+
+  test-code-nix:
+    name: Test
+    runs-on: windows-latest
+    steps:
+      - run: echo ${{ runner.os }}
