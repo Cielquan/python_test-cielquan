@@ -282,7 +282,16 @@ jobs:
       #         )
       #         sys.exit(1)
 
+  # TODO: remove this skipper
   old-test-code:
+    name: (old tests) nox / test_code / ${{ matrix.os }}
+    needs: [check-ci-status, pyproject-config, check-input]
+    runs-on: ubuntu-latest
+    steps:
+      # TODO: remove this
+      - run: exit 0
+
+  old-test-code2:
     name: (old tests) nox / test_code / ${{ matrix.os }}
     needs: [check-ci-status, pyproject-config, check-input]
     runs-on: ${{ matrix.os }}
