@@ -126,11 +126,11 @@ jobs:
           if len(test_ver) >= 10:
               print(f"::set-output name=test_python_version_10::{test_ver[9]}")
 
-          win_test_ver = conf["test_python_versions_win32"]
+          win_test_ver = conf["toxenv_python_versions_win32"]
           print(f"::set-output name=test_py_vers_win32::{win_test_ver}")
-          mac_test_ver = conf["test_python_versions_darwin"]
+          mac_test_ver = conf["toxenv_python_versions_darwin"]
           print(f"::set-output name=test_py_vers_darwin::{mac_test_ver}")
-          nix_test_ver = conf["test_python_versions_linux"]
+          nix_test_ver = conf["toxenv_python_versions_linux"]
           print(f"::set-output name=test_py_vers_linux::{nix_test_ver}")
 
           cc_url = "https://codeclimate.com/downloads/test-reporter/test-reporter-"
