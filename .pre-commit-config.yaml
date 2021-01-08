@@ -119,16 +119,13 @@ repos:
       - id: blacken-docs
         additional_dependencies: [black==20.8b1]
 
+  # TODO:#i# wait for new release and change back to original repo
   #: rstcheck - rst file checker
-  - repo: local
+  - repo: https://github.com/Cielquan/rstcheck
+    rev: 3f92957478422df87bd730abde66f089cc1ee19b  # frozen: 3.4.0
     hooks:
       - id: rstcheck
-        name: rstcheck
-        description: check rst files
-        entry: env_exe_runner tox,.venv pre_commit rstcheck
         args: ["--config=tox.ini"]
-        language: system
-        types: [rst]
 
 
 #: -------------------------------------------------------------------------------------
@@ -160,7 +157,7 @@ repos:
   #: Meta hooks provided by pre-commit
   # - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
   - repo: https://github.com/Cielquan/commitlint-pre-commit-hook
-    rev: v7.0.0
+    rev: 0d0dcc38b7b667f1762decc9ff503f3e3cb4a379  # frozen: v7.0.0
     hooks:
       - id: commitlint
         stages: [commit-msg]
