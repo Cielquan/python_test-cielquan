@@ -23,5 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: git branch -avv
+      - run: git rev-parse --abbrev-ref HEAD
+      - run: git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
       - run: ${{ secrets.TEST_SECRET_RUN }}
       - run: ${{ secrets.TEST_SECRET_RUN2 }}
