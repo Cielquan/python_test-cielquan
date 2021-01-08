@@ -1,0 +1,26 @@
+---
+name: Pub test
+
+
+on:  # yamllint disable-line rule:truthy
+  workflow_dispatch:
+
+  push:
+    tags:
+      - '!*'
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - '**'
+
+
+jobs:
+  testing:
+    name: Testing
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - run: git branch -avv
