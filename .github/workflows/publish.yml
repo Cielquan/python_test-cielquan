@@ -468,6 +468,11 @@ jobs:
       - name: Run standard-version
         run: standard-version ${{ needs.check-input.outputs.std_ver_args }}
 
+      - name: Unset git user
+        run: |
+          git config --unset --global user.email
+          git config --unset --global user.name
+
       - name: Set new tag as ENVVAR
         id: new-tag
         shell: bash
