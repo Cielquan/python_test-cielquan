@@ -268,6 +268,7 @@ jobs:
 
       - name: Check CI status
         run: exit 0
+# yamllint disable-line rule:comments-indentation
 #         shell: python
 #         run: |
 #           import json
@@ -498,10 +499,12 @@ jobs:
           POETRY_PYPI_TOKEN_TEST: |
             ${{ secrets.TEST_PYPI_TOKEN }}
         run: poetry publish -r test
+        # yamllint disable-line rule:comments-indentation
         # env:
           # # yamllint disable-line rule:comments-indentation
           # POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
           # POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        # yamllint disable-line rule:comments-indentation
         # run: poetry publish
 
       - name: Create GH Release
