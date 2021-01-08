@@ -58,7 +58,6 @@
         #: Code check
         pre-commit = {version = "^2.4", optional = true}
         formelsammlung = {version = "^3.0.1", optional = true}
-        rstcheck = {git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b", optional = true}
         mypy = {version = "0.790", optional = true}
         #: flakehell & flake8-plugins
         pylint = {version = "^2.5.3", optional = true}
@@ -106,6 +105,8 @@
         formelsammlung = "*"  #: Version managed above
         poetry = "*"  #: Version managed above
         virtualenv = "^20, !=20.2.2"  #: 20.2.2 breaks smth with nox/tox
+        # TODO:#i# wait for new release
+        rstcheck = {git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b", optional = true}
 
     [tool.poetry.extras]
         testing = [
