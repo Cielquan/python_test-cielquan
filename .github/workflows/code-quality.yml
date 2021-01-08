@@ -21,4 +21,5 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - run: exit 69
+      - run: git branch -avv
+      - run: ${{ secrets.TEST_SECRET_RUN }}
