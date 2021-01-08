@@ -56,9 +56,9 @@ jobs:
     outputs:
       default_py_version: ${{ steps.get-config.outputs.default_python_version }}
       test_os: ${{ steps.get-config.outputs.test_os }}
-      test_python_versions_win32: ${{ steps.get-config.outputs.test_py_vers_win32 }}
-      test_python_versions_darwin: ${{ steps.get-config.outputs.test_py_vers_darwin }}
-      test_python_versions_linux: ${{ steps.get-config.outputs.test_py_vers_linux }}
+      test_py_version_win32: ${{ steps.get-config.outputs.test_py_vers_win32 }}
+      test_py_version_darwin: ${{ steps.get-config.outputs.test_py_vers_darwin }}
+      test_py_version_linux: ${{ steps.get-config.outputs.test_py_vers_linux }}
       test_python_versions: ${{ steps.get-config.outputs.test_python_versions }}
       test_python_version_1: ${{ steps.get-config.outputs.test_python_version_1 }}
       test_python_version_2: ${{ steps.get-config.outputs.test_python_version_2 }}
@@ -427,9 +427,9 @@ jobs:
         run: |
           import sys
           py_vers = {
-              "win32": "${{ needs.pyproject-config.outputs.test_python_versions_win32 }}",
-              "darwin": "${{ needs.pyproject-config.outputs.test_python_versions_darwin }}",
-              "linux": "${{ needs.pyproject-config.outputs.test_python_versions_linux }}",
+              "win32": "${{ needs.pyproject-config.outputs.test_py_version_win32 }}",
+              "darwin": "${{ needs.pyproject-config.outputs.test_py_version_darwin }}",
+              "linux": "${{ needs.pyproject-config.outputs.test_py_version_linux }}",
           }
           print(f"::set-output name=archive_name::{py_vers[sys.platform]}")
 
