@@ -430,6 +430,7 @@ jobs:
 
   publish:
     needs: [check-commit-messages, pyproject-config, check-input]
+    if: needs.check-commit-messages.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
