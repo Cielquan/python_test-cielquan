@@ -125,6 +125,7 @@ repos:
     rev: 3f92957478422df87bd730abde66f089cc1ee19b  # frozen: 3.4.0
     hooks:
       - id: rstcheck
+        additional_dependencies: ["sphinx"]
         args: ["--config=tox.ini"]
 
 
