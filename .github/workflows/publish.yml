@@ -488,10 +488,12 @@ jobs:
         # CHANGE ME: remove current upload to test.pypi
         env:
           POETRY_REPOSITORIES_TEST_URL: ${{ secrets.POETRY_REPOSITORIES_TEST_URL }}
-          POETRY_HTTP_BASIC_TEST_USERNAME: |
-            ${{ secrets.POETRY_HTTP_BASIC_TEST_USERNAME }}
-          POETRY_HTTP_BASIC_TEST_PASSWORD: |
-            ${{ secrets.POETRY_HTTP_BASIC_TEST_PASSWORD }}
+          # POETRY_HTTP_BASIC_TEST_USERNAME: |
+          #   ${{ secrets.POETRY_HTTP_BASIC_TEST_USERNAME }}
+          # POETRY_HTTP_BASIC_TEST_PASSWORD: |
+          #   ${{ secrets.POETRY_HTTP_BASIC_TEST_PASSWORD }}
+          POETRY_PYPI_TOKEN_TEST: |
+            ${{ secrets.TEST_PYPI_TOKEN }}
         run: poetry publish -r test
         # env:
           # # yamllint disable-line rule:comments-indentation
