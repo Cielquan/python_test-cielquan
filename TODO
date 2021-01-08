@@ -29,8 +29,4 @@ TODO: make this a template
 TODO: fix py10 in test-code
 
 
-TODO: finish publish ci
-    TODO: why different hashes for release tag -> commit -> commit
-
-
 TODO: simplification
