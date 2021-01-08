@@ -430,9 +430,13 @@ jobs:
 
   publish:
     needs: [check-commit-messages, pyproject-config, check-input]
-    if: needs.check-commit-messages.result == 'success'
+    if: always()
     runs-on: ubuntu-latest
     steps:
+      - name: Abort if tests failed
+        run: exit 1
+        if: needs.check-commit-messages.result != 'success'
+
       - uses: actions/checkout@v2
 
       - uses: actions/setup-python@v2
