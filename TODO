@@ -1,8 +1,3 @@
-NOTE: .github/workflows/test-code.yml:
-    TODO: find way to install multiple py ver in workflow VM via envvar
-        https://github.com/actions/setup-python/issues/98
-
-
 TODO: centralize configs
     https://github.com/andreoliwa/nitpick
 

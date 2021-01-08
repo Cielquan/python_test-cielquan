@@ -7,6 +7,8 @@
 [tool._testing]
     ci_default_python_version = "3.8"
     #: Max 10 python versions are currently installed
+    # TODO:#i# find way to install multiple py ver in workflow VM in one step
+    # https://github.com/actions/setup-python/issues/98
     ci_test_python_versions = [
         #: pypy
         "pypy-3.6", "pypy-3.7",
