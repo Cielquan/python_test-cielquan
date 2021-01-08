@@ -455,7 +455,8 @@ jobs:
       - name: Install standard-version and dependencies
         run: |
           npm install --no-save @iarna/toml
-          npm install --global standard-version @iarna/toml
+          npm install --global standard-version
+          # npm install --global standard-version @iarna/toml
 
       - name: Set git user
         run: |
@@ -487,7 +488,8 @@ jobs:
           POETRY_HTTP_BASIC_TEST_PASSWORD: |
             ${{ secrets.POETRY_HTTP_BASIC_TEST_PASSWORD }}
         run: poetry publish -r test
-          # yamllint disable-line rule:comments-indentation
+        # env:
+          # # yamllint disable-line rule:comments-indentation
           # POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
           # POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         # run: poetry publish
