@@ -475,18 +475,10 @@ jobs:
           tag=$(git describe --tags --abbrev=0)
           echo "::set-output name=tag::$tag"
 
-      - name: Get RELEASE_TOKEN
-        id: get-RELEASE_TOKEN
-        #: NEVER PRINT THE RELEASE_TOKEN !!!
-        run: |
-          RELEASE_TOKEN=${{ secrets.RELEASE_TOKEN }}
-          echo "::set-output name=RELEASE_TOKEN::$RELEASE_TOKEN"
-
       - name: Push git update to github.event_name
         run: git push --follow-tags
         env:
-          #: NEVER PRINT THE RELEASE_TOKEN !!!
-          GITHUB_TOKEN: ${{ steps.get-RELEASE_TOKEN.outputs.RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
       - name: Build package
         run: poetry build
