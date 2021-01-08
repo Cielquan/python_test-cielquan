@@ -422,7 +422,7 @@ jobs:
         run: nox --forcecolor --session test_code
 
       - name: Set archive name
-        id: archive-name
+        id: set-archive-name
         shell: python
         run: |
           import sys
