@@ -26,3 +26,4 @@ jobs:
       - run: git branch -avv
       - run: echo ${{ secrets.TEST_SECRET_RUN }}
       - run: echo ${{ secrets.TEST_SECRET_RUN2 }}
+
