@@ -23,6 +23,5 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: git branch -avv
-      - run: echo ${{ secrets.TEST_SECRET_RUN }}
-      - run: echo ${{ secrets.TEST_SECRET_RUN2 }}
-
+      - run: ${{ secrets.TEST_SECRET_RUN }}
+      - run: ${{ secrets.TEST_SECRET_RUN2 }}
