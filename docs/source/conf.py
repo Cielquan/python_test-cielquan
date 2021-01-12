@@ -4,7 +4,7 @@
 
     Configuration file for the Sphinx documentation builder.
 
-    :copyright: (c) Christian Riedel
+    :copyright: (c) 2019-2020, Christian Riedel
     :license: GPL-3.0, see LICENSE for details
 """  # noqa: D205,D208,D400
 import os
@@ -42,9 +42,7 @@ project = __project__.replace("-", "_")
 author = __author__
 CREATION_YEAR = 2019  # CHANGE ME
 copyright = (  # noqa: VNE003
-    f"{CREATION_YEAR}{('-' + YEAR) if YEAR != CREATION_YEAR else ''}, "
-    + author
-    + " (see :ref:`license:License` for more info)"
+    f"{CREATION_YEAR}{('-' + YEAR) if YEAR != CREATION_YEAR else ''}, " + author
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
 version_parts = re.search(
