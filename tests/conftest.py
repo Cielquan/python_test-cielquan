@@ -5,7 +5,7 @@
     Init file for test suit.
 
     :copyright: (c) Christian Riedel
-    :license: GPL-3.0, see LICENSE.txt for more details
+    :license: GPL-3.0, see LICENSE for details
 """  # noqa: D205,D208,D400
 import pytest
 

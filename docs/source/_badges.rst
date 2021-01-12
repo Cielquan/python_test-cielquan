@@ -30,7 +30,7 @@
     :alt: Maintenance - intended
 
 .. |license| image:: https://img.shields.io/github/license/Cielquan/python_test-cielquan.svg?style=flat-square&label=License
-    :target: https://github.com/Cielquan/python_test-cielquan/blob/master/LICENSE.txt
+    :target: https://github.com/Cielquan/python_test-cielquan/blob/master/LICENSE
     :alt: License
 
 .. |rtd| image:: https://img.shields.io/readthedocs/python_test-cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs

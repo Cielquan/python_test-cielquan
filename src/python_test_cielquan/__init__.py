@@ -4,8 +4,8 @@
 
     Test repo for python stuff
 
-    :copyright: (c) Christian Riedel
-    :license: GPL-3.0, see LICENSE.txt for more details
+    :copyright: (c) 2019-2020 Christian Riedel
+    :license: GPL-3.0, see LICENSE for details
 """  # noqa: D205,D208,D400
 try:
     from importlib.metadata import metadata

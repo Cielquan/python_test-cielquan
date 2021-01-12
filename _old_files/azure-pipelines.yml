@@ -10,7 +10,7 @@ trigger:
   paths:
     exclude:
       - .readthedocs.yml
-      - LICENSE.txt
+      - LICENSE
       - .gitignore
       - .gitattributes
       - .github/*

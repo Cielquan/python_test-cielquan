@@ -13,7 +13,7 @@ on:  # yamllint disable-line rule:truthy
       - 'docs/**'
       - 'src/**/*.py'
       - 'CHANGELOG.md'
-      - 'LICENSE.txt'
+      - 'LICENSE'
       #: Dependency changes
       - 'poetry.lock'
       - 'pyproject.toml'
