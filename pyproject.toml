@@ -38,6 +38,7 @@
     [tool.poetry.dependencies]
         python = "^3.6.1"
         importlib-metadata = {version = ">=1.6, <3.0", python = "<3.8"}
+        ####################
         #: Testing
         pytest = {version = "^6", optional = true}
         pytest-xdist = {version = "^1.34", optional = true}
@@ -46,6 +47,7 @@
         coverage-conditional-plugin = {version = "^0.3.1", optional = true}
         pytest-sugar = {version = "^0.9.4", optional = true}
         pytest-randomly = {version = "^3.4", optional = true}
+        ####################
         #: Docs
         sphinx = {version = "^3.1", optional = true}
         m2r2 = {version = "^0.2.7", optional = true}
@@ -55,6 +57,7 @@
         sphinx-autodoc-typehints = {version = "^1.10.3", optional = true}
         sphinxcontrib-apidoc = {version = "^0.3.0", optional = true}
         sphinxcontrib-spelling = {version = "^7.1.0", optional = true}
+        ####################
         #: Code check
         pre-commit = {version = "^2.4", optional = true}
         formelsammlung = {version = "^3.0.1", optional = true}
@@ -63,7 +66,7 @@
         pylint = {version = "^2.5.3", optional = true}
         pyenchant = {version = "^3.1.1", optional = true}
         #: flakehell 0.9.0 only drops dropqa (prior: yesqa) cmd
-        #: flakehell is now unmaintained
+        #: flakehell is now (0.9.0) unmaintained
         flakehell = {version = "^0.8.0", optional = true}
         flake8 = {version = "^3.8.4", optional = true}
         pydocstyle = {version = "^5.1.1", optional = true}
@@ -91,10 +94,12 @@
         flake8-use-fstring = {version = "^1.1", optional = true}
         flake8-variables-names = {version = "^0.0.3", optional = true}
         flake8-walrus = {version = "^1.1.0", python = ">=3.8", optional = true}
+        ####################
         #: nox env dependencies
         nox = {version = "^2020.8.22", optional = true}
         tomlkit = {version = ">=0.7.0, <1.0.0", optional = true}
         tox = {version = "^3.20.1", optional = true}
+        ####################
         #: Additional tools
         poetry = {version = "^1.1.4", optional = true}
         twine = {version = "^3.2.0", optional = true}
@@ -107,7 +112,7 @@
         formelsammlung = "*"  #: Version managed above
         poetry = "*"  #: Version managed above
         virtualenv = "^20, !=20.2.2"  #: 20.2.2 breaks smth with nox/tox
-        # TODO:#i# wait for new release
+        # TODO:#i# wait for new release: https://github.com/myint/rstcheck/issues/69
         rstcheck = {git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b", optional = true}
 
     [tool.poetry.extras]
@@ -118,6 +123,7 @@
             "pytest-randomly",
         ]
         coverage = ["coverage", "coverage-conditional-plugin"]
+        diff-cover = ["diff-cover"]
         docs = [
             "sphinx",
             "m2r2",
@@ -126,6 +132,7 @@
             "sphinxcontrib-apidoc",
             "sphinxcontrib-spelling",
         ]
+        sphinx-autobuild = ["sphinx-autobuild"]
         pre-commit = [
             "pre-commit", "formelsammlung",
             "rstcheck", "sphinx",
@@ -162,8 +169,6 @@
         tox = ["tox"]
         twine = ["twine"]
         safety = ["safety"]
-        diff-cover = ["diff-cover"]
-        sphinx-autobuild = ["sphinx-autobuild"]
 
 
 #: -- BLACK CONFIG ---------------------------------------------------------------------
