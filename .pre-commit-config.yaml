@@ -93,6 +93,7 @@ repos:
         args: [lint, "--safe"]
         language: system
         types: [python]
+        require_serial: true
 
   #: pylint - python linter
   #: File skip: `# pylint: skip-file`
