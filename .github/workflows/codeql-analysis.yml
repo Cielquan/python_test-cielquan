@@ -1,24 +1,35 @@
 ---
-name: "CodeQL"
+name: CodeQL
+
 
 on:  # yamllint disable-line rule:truthy
+  workflow_dispatch:
+
   push:
-    branches: [master]
+    branches: 
+      - master
+
   pull_request:
-    branches: [master]
+    branches:
+      - master
+
   schedule:
     - cron: '36 15 * * 4'
 
+
 jobs:
   analyze:
-    name: Analyze
+    name: Analyze with CodeQL
+    if: >
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' &&
+      contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
     runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       matrix:
         language: ['python']
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
