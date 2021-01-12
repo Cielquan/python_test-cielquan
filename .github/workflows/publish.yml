@@ -85,7 +85,7 @@ jobs:
 
           # echo "::set-output name=first_release::${first_release}"
 
-          echo "::set-output name=first_release::True"
+          echo "::set-output name=first_release::False"
 
       - name: Set standart-version args
         id: set-std-ver-args
@@ -437,6 +437,7 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
+      - run: exit 1
       - name: Abort if tests failed
         run: exit 1
         if: needs.check-commit-messages.result != 'success'
