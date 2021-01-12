@@ -7,8 +7,10 @@
     :copyright: (c) 2019-2020, Christian Riedel
     :license: GPL-3.0, see LICENSE for details
 """  # noqa: D205,D208,D400
+import contextlib
 import os
 import re
+import sys
 
 from datetime import date
 from importlib.util import find_spec
@@ -31,18 +33,17 @@ needs_sphinx = "3.1"  #: Minimum Sphinx version to build the docs
 
 
 #: -- GLOB VARS ------------------------------------------------------------------------
-REPO_DIR = Path(__file__).parents[2]
-CONF_DIR = Path(__file__)
 NOT_LOADED_MSGS = []
-YEAR = f"{date.today().year}"
 
 
 #: -- PROJECT INFORMATION --------------------------------------------------------------
 project = __project__.replace("-", "_")
 author = __author__
 CREATION_YEAR = 2019  # CHANGE ME
+CURRENT_YEAR = f"{date.today().year}"
 copyright = (  # noqa: VNE003
-    f"{CREATION_YEAR}{('-' + YEAR) if YEAR != CREATION_YEAR else ''}, " + author
+    f"{CREATION_YEAR}{('-' + CURRENT_YEAR) if CURRENT_YEAR != CREATION_YEAR else ''}, "
+    + author
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
 version_parts = re.search(
@@ -60,8 +61,8 @@ today_fmt = "%Y-%m-%d"
 exclude_patterns: List[str] = []  #: Files to exclude for source of doc
 
 #: Added dirs for static and template files if they exist
-html_static_path = ["_static"] if Path(CONF_DIR, "_static").exists() else []
-templates_path = ["_templates"] if Path(CONF_DIR, "_templates").exists() else []
+html_static_path = ["_static"] if Path("_static").exists() else []
+templates_path = ["_templates"] if Path("_templates").exists() else []
 
 rst_prolog = """
 .. ifconfig:: RELEASE_LEVEL in ('alpha', 'beta', 'rc')
@@ -122,16 +123,32 @@ extlinks = {
 
 
 #: -- APIDOC ---------------------------------------------------------------------------
+# TODO: look at https://github.com/readthedocs/sphinx-autoapi
+apidoc_module_dir = f"../../src/{project}/"
+apidoc_output_dir = "autoapi"
+apidoc_toc_file = False
+apidoc_separate_modules = False
+apidoc_module_first = True
+apidoc_extra_args = ["--templatedir", "apidoc_templates"]
+
+
+def _clear_auto_api_dir() -> None:
+    """Remove all files from `apidoc_output_dir` directory."""
+    for apidoc_file in Path(apidoc_output_dir).iterdir():
+        if sys.version_info[0:2] >= (3, 8):
+            apidoc_file.unlink(missing_ok=True)
+        else:
+            with contextlib.suppress(FileNotFoundError):
+                apidoc_file.unlink()
+
+
 if find_spec("sphinxcontrib.apidoc") is not None:
     extensions.append("sphinxcontrib.apidoc")
+    _clear_auto_api_dir()
 else:
     NOT_LOADED_MSGS.append(
         "## 'sphinxcontrib-apidoc' extension not loaded - not installed"
     )
-apidoc_separate_modules = True
-apidoc_module_first = True
-apidoc_module_dir = f"../../src/{project}"
-apidoc_output_dir = "autoapi"
 
 
 #: -- AUTODOC --------------------------------------------------------------------------
@@ -140,13 +157,6 @@ autodoc_typehints = "description"
 autodoc_member_order = "bysource"
 autodoc_mock_imports: List[str] = []
 autodoc_default_options = {"members": True}
-
-if find_spec("sphinx_autodoc_typehints") is not None:
-    extensions.append("sphinx_autodoc_typehints")
-else:
-    NOT_LOADED_MSGS.append(
-        "## 'sphinx-autodoc-typehints' extension not loaded - not installed"
-    )
 
 
 def _remove_module_docstring(  # noqa: R0913
@@ -157,16 +167,25 @@ def _remove_module_docstring(  # noqa: R0913
         del lines[:]
 
 
+if find_spec("sphinx_autodoc_typehints") is not None:
+    extensions.append("sphinx_autodoc_typehints")
+else:
+    NOT_LOADED_MSGS.append(
+        "## 'sphinx-autodoc-typehints' extension not loaded - not installed"
+    )
+
+
 #: -- SPELLING -------------------------------------------------------------------------
+spelling_word_list_filename = "spelling_dict.txt"
+spelling_show_suggestions = True
+spelling_exclude_patterns = ["autoapi/**"]
+
 if find_spec("sphinxcontrib.spelling") is not None:
     extensions.append("sphinxcontrib.spelling")
 else:
     NOT_LOADED_MSGS.append(
         "## 'sphinxcontrib-spelling' extension not loaded - not installed"
     )
-spelling_word_list_filename = "spelling_dict.txt"
-spelling_show_suggestions = True
-spelling_exclude_patterns = ["autoapi/**"]
 
 
 #: -- HTML THEME -----------------------------------------------------------------------
