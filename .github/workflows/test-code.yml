@@ -338,52 +338,52 @@ jobs:
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_1 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_1 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_1 != ""
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_2 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_2 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_2 != ""
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_3 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_3 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_3 != ""
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_4 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_4 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_4 != ""
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_5 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_5 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_5 != ""
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_6 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_6 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_6 != ""
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_7 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_7 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_7 != ""
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_8 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_8 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_8 != ""
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_9 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_9 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_9 != ""
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.test_python_version_10 }}
-        if: ${{ needs.pyproject-config.outputs.test_python_version_10 }} != ""
+        if: needs.pyproject-config.outputs.test_python_version_10 != ""
 
       - name: Set python version hash
         shell: bash
