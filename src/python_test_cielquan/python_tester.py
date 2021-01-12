@@ -1,4 +1,12 @@
-"""docstring."""
+"""
+    python_test-cielquan.python_tester
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Python source for testing
+
+    :copyright: (c) 2019-2020, Christian Riedel
+    :license: GPL-3.0, see LICENSE for details
+"""  # noqa: D205,D208,D400
 import sys
 
 
