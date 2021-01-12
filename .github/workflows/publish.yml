@@ -299,31 +299,31 @@ jobs:
       PYTEST_XDIST_N: 0
     steps:
       - uses: actions/checkout@v2
-        if: '"${{ needs.check-input.outputs.first_release }}" != "False"'
+        if: needs.check-input.outputs.first_release != 'False'
 
       - name: Checkout repo at last tag
         uses: actions/checkout@v2
         with:
           path: tests-last-version
           ref: v${{ needs.pyproject-config.outputs.last_version }}
-        if: '"${{ needs.check-input.outputs.first_release }}" != "False"'
+        if: needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
-        if: '"${{ needs.check-input.outputs.first_release }}" != "False"'
+        if: needs.check-input.outputs.first_release != 'False'
 
       - name: Install poetry
         run: |
           python -m pip install -U pip
           pip install -U poetry
-        if: '"${{ needs.check-input.outputs.first_release }}" != "False"'
+        if: needs.check-input.outputs.first_release != 'False'
 
       - name: Install dependencies
         run: |
           poetry config --ansi virtualenvs.create false
           poetry install --ansi --no-root --no-dev --extras nox
-        if: '"${{ needs.check-input.outputs.first_release }}" != "False"'
+        if: needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
         with:
@@ -399,13 +399,13 @@ jobs:
         run: >
           nox --forcecolor --session test_code
           -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
-        if: '"${{ needs.check-input.outputs.first_release }}" != "False"'
+        if: needs.check-input.outputs.first_release != 'False'
 
       - name: Run tox envs via nox
         run: nox --forcecolor --session test_code -- tests-last-version/tests
         env:
           MIN_COVERAGE: 0
-        if: '"${{ needs.check-input.outputs.first_release }}" != "False"'
+        if: needs.check-input.outputs.first_release != 'False'
 
 
   check-commit-messages:
