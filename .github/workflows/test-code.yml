@@ -396,7 +396,7 @@ jobs:
           path: .tox/${{ runner.os }}
           key: >
             test-code
-            |tox-env
+            | tox-env
             | ${{ runner.os }}
             | ${{ env.PY_VER_SHA }}
             | ${{ hashFiles('noxfile.py') }}
