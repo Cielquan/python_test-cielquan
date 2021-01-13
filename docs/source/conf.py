@@ -167,7 +167,7 @@ else:
 #: -- SPELLING -------------------------------------------------------------------------
 spelling_word_list_filename = "spelling_dict.txt"
 spelling_show_suggestions = True
-spelling_exclude_patterns = ["autoapi/**"]
+spelling_exclude_patterns = ["autoapi/**", "autoapidoc/**"]
 
 if find_spec("sphinxcontrib.spelling") is not None:
     extensions.append("sphinxcontrib.spelling")
