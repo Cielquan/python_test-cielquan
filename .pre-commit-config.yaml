@@ -121,7 +121,9 @@ repos:
         additional_dependencies: [black==20.8b1]
 
   # TODO:#i# wait for new release and change back to original repo
+  # TODO:#i# https://github.com/myint/rstcheck/issues/69
   #: rstcheck - rst file checker
+  # - repo: https://github.com/myint/rstcheck
   - repo: https://github.com/Cielquan/rstcheck
     rev: 3f92957478422df87bd730abde66f089cc1ee19b  # frozen: 3.4.0
     hooks:
@@ -133,7 +135,9 @@ repos:
 #: -------------------------------------------------------------------------------------
 #: Poetry hooks
 #: -------------------------------------------------------------------------------------
-  # TODO:#i# move to original poetry repo after merge of #2511
+  # TODO:#i# wait for new release and change back to original repo
+  # TODO:#i# https://github.com/python-poetry/poetry/pull/2511
+  # - repo: https://github.com/python-poetry/poetry
   - repo: https://github.com/Cielquan/mirrors-poetry
     rev: 028e18fbe668509954227aba99158434dab1c713  # frozen: 1.1.4
     hooks:
