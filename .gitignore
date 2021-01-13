@@ -138,6 +138,7 @@ _backupfiles
 
 # auto generated API docs
 docs/source/autoapi
+docs/source/autoapidoc
 
 # personal config
 .pdbrc

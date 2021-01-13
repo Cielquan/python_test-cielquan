@@ -7,10 +7,9 @@
     :copyright: (c) 2019-2020, Christian Riedel
     :license: GPL-3.0, see LICENSE for details
 """  # noqa: D205,D208,D400
-import contextlib
 import os
 import re
-import sys
+import shutil
 
 from datetime import date
 from importlib.util import find_spec
@@ -124,26 +123,17 @@ extlinks = {
 
 #: -- APIDOC ---------------------------------------------------------------------------
 apidoc_module_dir = f"../../src/{project}/"
-apidoc_output_dir = "autoapi"
+apidoc_output_dir = "autoapidoc"
 apidoc_toc_file = False
 apidoc_separate_modules = False
 apidoc_module_first = True
 apidoc_extra_args = ["--templatedir", "apidoc_templates"]
 
 
-def _clear_auto_api_dir() -> None:
-    """Remove all files from `apidoc_output_dir` directory."""
-    for apidoc_file in Path(apidoc_output_dir).iterdir():
-        if sys.version_info[0:2] >= (3, 8):
-            apidoc_file.unlink(missing_ok=True)
-        else:
-            with contextlib.suppress(FileNotFoundError):
-                apidoc_file.unlink()
-
-
 if find_spec("sphinxcontrib.apidoc") is not None:
     extensions.append("sphinxcontrib.apidoc")
-    _clear_auto_api_dir()
+    if Path(apidoc_output_dir).is_dir():
+        shutil.rmtree(apidoc_output_dir)
 else:
     NOT_LOADED_MSGS.append(
         "## 'sphinxcontrib-apidoc' extension not loaded - not installed"
