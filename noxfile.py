@@ -224,7 +224,7 @@ def package(session: Session) -> None:
 
     color = ["--ansi"] if FORCE_COLOR else []
     session.run("poetry", "build", *color, "-vvv")
-    session.run("twine", "check", "dist/*")
+    session.run("twine", "check", "--strict", "dist/*")
 
 
 @nox.session
