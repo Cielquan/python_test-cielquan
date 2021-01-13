@@ -124,7 +124,7 @@ extlinks = {
 
 #: -- APIDOC ---------------------------------------------------------------------------
 apidoc_module_dir = f"../../src/{project}/"
-apidoc_output_dir = "autoapi"
+apidoc_output_dir = "autoapidoc"
 apidoc_toc_file = False
 apidoc_separate_modules = False
 apidoc_module_first = True
