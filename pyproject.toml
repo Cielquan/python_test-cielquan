@@ -49,7 +49,7 @@
         #: Testing
         pytest = {version = "^6", optional = true}
         pytest-xdist = {version = "^2.2", optional = true}
-        # TODO: bug on py310 when set as extra: xdist is not installed
+        # TODO:#i# bug on py310 when set as extra: xdist is not installed
         psutil = {version = "^5.8.0", optional = true}
         # pytest-xdist = {extras = ["psutil"], version = "^2.2", optional = true}
         pytest-cov = {version = "^2.10.1", optional = true}
