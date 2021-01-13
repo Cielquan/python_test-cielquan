@@ -20,7 +20,7 @@ import sphinx_rtd_theme  # type: ignore[import]
 
 from sphinx.application import Sphinx
 
-from python_test_cielquan import (
+from python_test_cielquan import (  # CHANGE ME
     __author__,
     __gh_repository_link__,
     __project__,
