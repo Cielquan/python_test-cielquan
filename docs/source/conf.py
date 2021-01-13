@@ -123,7 +123,6 @@ extlinks = {
 
 
 #: -- APIDOC ---------------------------------------------------------------------------
-# TODO: look at https://github.com/readthedocs/sphinx-autoapi
 apidoc_module_dir = f"../../src/{project}/"
 apidoc_output_dir = "autoapi"
 apidoc_toc_file = False
