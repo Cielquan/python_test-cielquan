@@ -47,7 +47,7 @@ copyright = (  # noqa: VNE003
 )
 release = __version__  #: The full version, including alpha/beta/rc tags
 version_parts = re.search(
-    r"^v?(?P<version>\d+\.\d+)\.\d+[-.]?(?P<tag>[a-z]*)[\.]?\d*", __version__
+    r"^v?(?P<version>\d+\.\d+)\.\d+[-.]?(?P<tag>[a-z]*)[\.]?\d*", release
 )
 #: Major + Minor version like (X.Y)
 version = None if not version_parts else version_parts.group("version")
