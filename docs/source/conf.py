@@ -110,7 +110,7 @@ extensions.append("sphinx.ext.viewcode")
 
 #: Links
 extensions.append("sphinx.ext.intersphinx")
-# to inspect .inv files: https://github.com/bskinn/sphobjinv
+# NOTE: to inspect .inv files: https://github.com/bskinn/sphobjinv
 intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 
 extensions.append("sphinx.ext.extlinks")
