@@ -212,15 +212,18 @@
         ]
         pyflakes = [
             "+*",
+            #: double checks
             "-F821",  # same as E0602[pylint]
         ]
         mccabe = ["+*"]
         pycodestyle = [
             "+*",
+            #: deactivate
             "-E203", "-W503",  #: deactivated for black
+            "-E731",  #: forbids lambda
+            #: double checks
             "-E402",  #: same as C0413[pylint]
             "-E713",  #: same as SIM203[flake8-simplify]
-            "-E731",  #: forbids lambda
         ]
         pep8-naming = ["+*"]
         "flake8-*" = ["+*"]
@@ -228,6 +231,7 @@
         flake8-bandit = ["+*", "-S322"]
         flake8-logging-format = [
             "+*",
+            #: double checks
             "-G004",  # same as W1203[pylint]
         ]
         flake8-use-fstring = ["+*", "-FS003"]
