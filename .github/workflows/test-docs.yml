@@ -88,7 +88,7 @@ jobs:
 
 
   test-docs:
-    name: nox / tox_docs
+    name: nox / full_test_docs
     needs: pyproject-config
     runs-on: ubuntu-latest
     steps:
@@ -132,11 +132,11 @@ jobs:
 
       - name: Generate tox envs via nox
         run: >
-          nox --forcecolor --session tox_docs
+          nox --forcecolor --session full_test_docs
           -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox envs via nox
-        run: nox --forcecolor --session tox_docs
+        run: nox --forcecolor --session full_test_docs
 
 
   set-git-env-vars:

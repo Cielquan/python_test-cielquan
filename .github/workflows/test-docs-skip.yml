@@ -25,7 +25,7 @@ on:  # yamllint disable-line rule:truthy
 
 jobs:
   test-docs:
-    name: nox / tox_docs
+    name: nox / full_test_docs
     runs-on: ubuntu-latest
     steps:
       - run: exit 0
