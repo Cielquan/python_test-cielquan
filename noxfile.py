@@ -26,7 +26,7 @@ from nox.sessions import Session as _Session
 #: -- NOX OPTIONS ----------------------------------------------------------------------
 nox.options.reuse_existing_virtualenvs = True
 nox.options.default_venv_backend = "none"
-nox.options.sessions = ["tox_lint", "tox_code", "tox_docs"]
+nox.options.sessions = ["full_lint", "full_test_code", "full_test_docs"]
 
 
 #: -- UTIL -----------------------------------------------------------------------------
@@ -549,20 +549,20 @@ def dev(session: Session) -> None:
 #: -- TOX MULTI WRAPPER SESSIONS -------------------------------------------------------
 @nox.session
 @monkeypatch_session
-def tox_lint(session: Session) -> None:
+def full_lint(session: Session) -> None:
     """Call tox to run all lint tests."""
     _tox_caller(session, "safety,pre_commit")
 
 
 @nox.session
 @monkeypatch_session
-def tox_code(session: Session) -> None:
+def full_test_code(session: Session) -> None:
     """Call tox to run all code tests incl. package and coverage."""
     _tox_caller(session, f"package,{TOXENV_PYTHON_VERSIONS},coverage")
 
 
 @nox.session
 @monkeypatch_session
-def tox_docs(session: Session) -> None:
+def full_test_docs(session: Session) -> None:
     """Call tox to run all docs tests."""
     _tox_caller(session, TOXENV_DOCS_BUILDERS)
