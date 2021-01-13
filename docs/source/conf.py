@@ -14,7 +14,7 @@ import shutil
 from datetime import date
 from importlib.util import find_spec
 from pathlib import Path
-from typing import List, Optional
+from typing import List
 
 import sphinx_rtd_theme  # type: ignore[import]
 
@@ -181,40 +181,13 @@ else:
 #: needs install: "sphinx-rtd-theme"
 extensions.append("sphinx_rtd_theme")
 html_theme = "sphinx_rtd_theme"
-html_theme_options = {"style_external_links": True}
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
+html_theme_options = {"style_external_links": True}
 
 
 #: -- HTML OUTPUT ----------------------------------------------------------------------
-def _find_img_file(filename: str) -> Optional[str]:
-    """Search for instances of given filename in sphinx config dir.
-
-    :param filename: filename too search
-    :raises FileExistsError: when more than one file with the given name exists.
-    :return: None if none is found or the path as string.
-    """
-    img_files = list(Path(".").glob(f"{filename}.*"))
-    if len(img_files) == 0:
-        return None
-    if len(img_files) == 1:
-        return str(img_files[0])
-    raise FileExistsError(
-        f"Multiple '{filename}.*' files exist in the docs source dir. Please delete"
-        " or rename all except one or set the appropiate file with extension in"
-        " 'conf.py'."
-    )
-
-
 html_last_updated_fmt = today_fmt
 html_show_sourcelink = True  #: Add links to *.rst source files on HTML pages
-html_logo = _find_img_file("logo")
-html_favicon = _find_img_file("favicon")
-
-
-#: -- LaTeX OUTPUT ---------------------------------------------------------------------
-latex_logo = html_logo
-latex_show_pagerefs = True
-latex_show_urls = "footnote"
 
 
 #: -- FINAL SETUP ----------------------------------------------------------------------
