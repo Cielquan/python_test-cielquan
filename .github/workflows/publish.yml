@@ -381,25 +381,57 @@ jobs:
 
 
   check-breaking-change-notes:
-    name: Check for missing BREAKING CHANGES notes
+    name: Check for missing BREAKING CHANGES release notes
     needs: [old-test-code, pyproject-config]
     if: always()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        if: needs.old-test-code.result != 'success'
+
+      - uses: actions/setup-python@v2
         with:
-          fetch-depth: 0
+          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
         if: needs.old-test-code.result != 'success'
 
-      - name: Fetch git origin
-        run: git fetch origin --tags
+      - name: Check for BREAKING CHANGES in release notes
+        shell: python
+        run: |
+          import sys
+
+          with open("CHANGELOG.md") as changelog_file:
+              changelog = changelog_file.read()
+
+          start_check = False
+
+          for line in changelog.split("\n"):
+              if line.startswith("## Unreleased"):
+                  start_check = True
+                  continue
+
+              if start_check:
+                  if "BREAKING CHANGES" in line:
+                      sys.exit(0)
+                  if line.startswith("##"):
+                      sys.exit(1)
+
+          sys.exit(1)
         if: needs.old-test-code.result != 'success'
 
-      - name: Check for BREAKING CHANGES in commit messages
-        run: >
-          git log v${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }}
-          --pretty="%b" --remotes="origin" | grep "BREAKING CHANGES"
-        if: needs.old-test-code.result != 'success'
+      # - uses: actions/checkout@v2
+      #   with:
+      #     fetch-depth: 0
+      #   if: needs.old-test-code.result != 'success'
+
+      # - name: Fetch git origin
+      #   run: git fetch origin --tags
+      #   if: needs.old-test-code.result != 'success'
+
+      # - name: Check for BREAKING CHANGES in commit messages
+      #   run: >
+      #     git log v${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }}
+      #     --pretty="%b" --remotes="origin" | grep "BREAKING CHANGES"
+      #   if: needs.old-test-code.result != 'success'
 
 
   publish:
