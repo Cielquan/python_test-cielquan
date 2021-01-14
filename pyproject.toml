@@ -37,10 +37,10 @@
     classifiers = []
 
     [tool.poetry.urls]
-        "Source" = "https://github.com/Cielquan/python_test-cielquan"
-        "Documentation" = "https://python-test-cielquan.readthedocs.io"
-        "Changelog" = "https://python-test-cielquan.readthedocs.io/en/latest/changelog/"
         "Issue Tracker" = "https://github.com/Cielquan/python_test-cielquan/issues"
+        "Changelog" = "https://python-test-cielquan.readthedocs.io/en/latest/changelog/"
+        "Documentation" = "https://python-test-cielquan.readthedocs.io"
+        "Source" = "https://github.com/Cielquan/python_test-cielquan"
 
     [tool.poetry.dependencies]
         python = "^3.6.1"
