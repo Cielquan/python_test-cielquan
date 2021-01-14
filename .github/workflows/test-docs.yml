@@ -1,9 +1,9 @@
+# NOTE: DO NOT FORGET TO UPDATE `test-docs-skip.yml` TOO !!!
 ---
 name: Test documentation
 
 
 env:
-  #: DO NOT FORGET TO UPDATE `test-docs-skip.yml` TOO !!!
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 

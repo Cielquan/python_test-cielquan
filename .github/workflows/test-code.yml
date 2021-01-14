@@ -1,9 +1,9 @@
+# NOTE: DO NOT FORGET TO UPDATE `test-code-skip.yml` && `publish.yml` TOO !!!
 ---
 name: Test code
 
 
 env:
-  #: DO NOT FORGET TO UPDATE `test-code-skip.yml` && `publish.yml` TOO !!!
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 

@@ -1,9 +1,9 @@
+# NOTE: DO NOT FORGET TO UPDATE `dependency-safety-skip.yml` TOO !!!
 ---
 name: Dependency safety
 
 
 env:
-  #: DO NOT FORGET TO UPDATE `dependency-safety-skip.yml` TOO !!!
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 
