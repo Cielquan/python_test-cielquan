@@ -153,6 +153,8 @@ jobs:
         run: |
           python -m pip install -U pip
           pip install -U 'poetry>=1'
+          poetry config virtualenvs.create false
+          poetry install --no-root --no-dev --extras poetry
 
       - name: Install dependencies
         run: |
@@ -254,6 +256,7 @@ jobs:
 #               )
 #               sys.exit(1)
 
+
   old-test-code:
     name: (old tests) nox / test_code / ${{ matrix.os }}
     needs: [check-ci-status, pyproject-config, check-input]
@@ -284,6 +287,8 @@ jobs:
         run: |
           python -m pip install -U pip
           pip install -U 'poetry>=1'
+          poetry config virtualenvs.create false
+          poetry install --no-root --no-dev --extras poetry
         if: needs.check-input.outputs.first_release != 'False'
 
       - name: Install dependencies
@@ -417,7 +422,7 @@ jobs:
       - name: Install poetry
         run: |
           python -m pip install -U pip
-          pip install 'poetry>=1'
+          pip install -U 'poetry>=1'
           poetry config virtualenvs.create false
           poetry install --no-root --no-dev --extras poetry
 
