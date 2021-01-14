@@ -380,8 +380,8 @@ jobs:
         if: needs.check-input.outputs.first_release != 'False'
 
 
-  check-commit-messages:
-    name: Check for BREAKING CHANGES in commit messages
+  check-breaking-change-notes:
+    name: Check for missing BREAKING CHANGES notes
     needs: [old-test-code, pyproject-config]
     if: always()
     runs-on: ubuntu-latest
@@ -403,13 +403,13 @@ jobs:
 
 
   publish:
-    needs: [check-commit-messages, pyproject-config, check-input]
+    needs: [check-breaking-change-notes, pyproject-config, check-input]
     if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Abort if tests failed
         run: exit 1
-        if: needs.check-commit-messages.result != 'success'
+        if: needs.check-breaking-change-notes.result != 'success'
 
       - uses: actions/checkout@v2
         with:
