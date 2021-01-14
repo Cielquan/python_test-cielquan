@@ -1,9 +1,25 @@
+# NOTE: DO NOT FORGET TO UPDATE `test-code-skip.yml` && `test-code.yml` TOO !!!
 ---
 name: Release new version
 
+# What this workflow does:
+# 1. Check user input
+# 2. Load testing config from pyproject.toml
+# 3. Check state on commit via API -> all CI succeeded?
+# 4. Run test suit of prior release
+# TODO: Change step 5 to check Changelog instead of cmt msg
+# 5. If old test suit failed check if Breaking Changes are mentioned in Commit Messages
+# 6. Publish
+#   a) Install dependencies
+#   b) Set git user
+# TODO: Create script to finsih changelog, bump version, commit and tag
+# TODO: Change step c) to run script
+#   c) Run standard-version
+#   d) Build and publish via poetry
+#   e) Create GH release with build artifacts
+
 
 env:
-  #: DO NOT FORGET TO UPDATE `test-code-skip.yml` && `test-code.yml` TOO !!!
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 
@@ -136,7 +152,7 @@ jobs:
       - name: Install poetry
         run: |
           python -m pip install -U pip
-          pip install -U poetry
+          pip install -U 'poetry>=1'
 
       - name: Install dependencies
         run: |
@@ -190,58 +206,9 @@ jobs:
               print(f"::set-output name=test_python_version_10::{test_ver[9]}")
 
 
-  set-git-env-vars:
-    name: Set GIT_COMMIT_SHA
-    needs: pyproject-config
-    # yamllint disable-line rule:line-length
-    #: Based on: https://github.com/paambaati/codeclimate-action/blob/26b4414184dd6928c7c8b474732a2dce632925c9/src/main.ts#L39
-    runs-on: ubuntu-latest
-    outputs:
-      GIT_COMMIT_SHA: ${{ steps.set-GIT_COMMIT_SHA.outputs.GIT_COMMIT_SHA }}
-    steps:
-      - uses: actions/checkout@v2
-
-      - uses: actions/setup-python@v2
-        with:
-          python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
-
-      - name: Get merge commit message
-        id: merge-commit-msg
-        shell: bash
-        run: echo "::set-output name=CMT_MSG::$(git log --oneline -n 1 --format='%s')"
-        if: github.event_name == 'pull_request'
-
-      - name: Extract commit sha from merge commit msg
-        id: merge-commit-sha
-        shell: python
-        run: |
-          import re
-          import sys
-
-          sha = re.fullmatch(
-              r"^Merge ([a-z0-9]{40}) into [a-z0-9]{40}$",
-              "${{ steps.merge-commit-msg.outputs.CMT_MSG }}"
-          )
-          if sha:
-              print(f"::set-output name=COMMIT_SHA::{sha.group(1)}")
-          else:
-              sys.exit(1)
-        if: github.event_name == 'pull_request'
-
-      - name: Set GIT_COMMIT_SHA
-        id: set-GIT_COMMIT_SHA
-        shell: python
-        run: |
-          if "${{ github.event_name }}" == "pull_request":
-              sha = "${{ steps.merge-commit-sha.outputs.COMMIT_SHA }}"
-              print(f"::set-output name=GIT_COMMIT_SHA::{sha}")
-          else:
-              print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
-
-
   check-ci-status:
     name: Check CI status on commit
-    needs: [set-git-env-vars, pyproject-config]
+    needs: [pyproject-config]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/setup-python@v2
@@ -262,7 +229,7 @@ jobs:
           route: GET /repos/{owner}/{repo}/commits/{ref}/status
           owner: ${{ github.repository_owner }}
           repo: ${{ steps.repo-dir.outputs.repo-dir }}
-          ref: ${{ needs.set-git-env-vars.outputs.GIT_COMMIT_SHA }}
+          ref: ${{ github.sha }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -316,7 +283,7 @@ jobs:
       - name: Install poetry
         run: |
           python -m pip install -U pip
-          pip install -U poetry
+          pip install -U 'poetry>=1'
         if: needs.check-input.outputs.first_release != 'False'
 
       - name: Install dependencies
@@ -450,7 +417,9 @@ jobs:
       - name: Install poetry
         run: |
           python -m pip install -U pip
-          pip install poetry
+          pip install 'poetry>=1'
+          poetry config virtualenvs.create false
+          poetry install --no-root --no-dev --extras poetry
 
       - uses: actions/setup-node@v1
         with:
