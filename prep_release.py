@@ -28,7 +28,7 @@ def get_pyproject_config() -> tomlkit.toml_document.TOMLDocument:
         return tomlkit.parse(pyproject_file.read())
 
 
-def set_pyproject_config(pyproject_config: tomlkit.toml_document.TOMLDocument):
+def set_pyproject_config(pyproject_config: tomlkit.toml_document.TOMLDocument) -> None:
     """Write given config to pyproect.toml file.
 
     :param pyproject_config: config to write
@@ -42,7 +42,7 @@ def get_current_version() -> str:
 
     :return: version string
     """
-    return get_pyproject_config()["tool"]["poetry"]["version"]
+    return str(get_pyproject_config()["tool"]["poetry"]["version"])
 
 
 def get_repo_url() -> str:
@@ -50,12 +50,12 @@ def get_repo_url() -> str:
 
     :return: URL
     """
-    return get_pyproject_config()["tool"]["poetry"]["urls"]["Source"]
+    return str(get_pyproject_config()["tool"]["poetry"]["urls"]["Source"])
 
 
 def update_changelog(new_version: str, last_version: str, repo_url: str) -> None:
     """Update CHANGELOG.md to be release ready.
-    
+
     :param new_version: new version string
     :param last_version: current version string
     :param repo_url: URL to source code at GitHub
@@ -83,8 +83,6 @@ def update_changelog(new_version: str, last_version: str, repo_url: str) -> None
 
 def bump_version(release_type: str = "patch") -> None:
     """Bump the current version for the next release.
-
-    [extended_summary]
 
     :param release_type: type of release;
         allowed values are: patch | minor/feature | major/breaking;
@@ -129,12 +127,14 @@ def bump_version(release_type: str = "patch") -> None:
     set_pyproject_config(pyproject_config)
 
 
-def commit_and_tag() -> None:
+def commit_and_tag(new_version: str) -> None:
     """Git commit and tag the new release."""
-    cmd_commit = ["git", "commit"]
-    subprocess.run(cmd_commit, check=True)  # noqa: S603
-    cmd_tag = ["git", "tag"]
-    subprocess.run(cmd_tag, check=True)  # noqa: S603
+    subprocess.run(  # noqa: S603,S607
+        ["git", "commit", "-m", f"'release v{new_version}'"], check=True
+    )
+    subprocess.run(  # noqa: S603,S607
+        ["git", "tag", "-am", f"'v{new_version}'", f"v{new_version}"], check=True
+    )
 
 
 if __name__ == "__main__":
