@@ -20,24 +20,46 @@ import tomlkit  # type: ignore[import]
 
 
 def get_pyproject_config() -> tomlkit.toml_document.TOMLDocument:
+    """Load config from pyproject.toml file.
+
+    :return: config as dict-like object
+    """
     with open("pyproject.toml") as pyproject_file:
         return tomlkit.parse(pyproject_file.read())
 
 
 def set_pyproject_config(pyproject_config: tomlkit.toml_document.TOMLDocument):
+    """Write given config to pyproect.toml file.
+
+    :param pyproject_config: config to write
+    """
     with open("pyproject.toml", "w") as pyproject_file:
         pyproject_file.write(tomlkit.dumps(pyproject_config))
 
 
 def get_current_version() -> str:
+    """Extract the version from pyproject.toml file.
+
+    :return: version string
+    """
     return get_pyproject_config()["tool"]["poetry"]["version"]
 
 
 def get_repo_url() -> str:
+    """Extract source code URL at GitHub from pyproject.toml file.
+
+    :return: URL
+    """
     return get_pyproject_config()["tool"]["poetry"]["urls"]["Source"]
 
 
 def update_changelog(new_version: str, last_version: str, repo_url: str) -> None:
+    """Update CHANGELOG.md to be release ready.
+    
+    :param new_version: new version string
+    :param last_version: current version string
+    :param repo_url: URL to source code at GitHub
+    """
     with open("CHANGELOG.md") as changelog_file:
         changelog_lines = changelog_file.read().split("\n")
 
@@ -59,13 +81,23 @@ def update_changelog(new_version: str, last_version: str, repo_url: str) -> None
         changelog_file.write("\n".join(changelog_lines))
 
 
-def bump_version(increase_type: str = "patch"):
+def bump_version(release_type: str = "patch") -> None:
+    """Bump the current version for the next release.
+
+    [extended_summary]
+
+    :param release_type: type of release;
+        allowed values are: patch | minor/feature | major/breaking;
+        defaults to "patch"
+    :raises ValueError: when an invalid release_type is given.
+    :raises ValueError: when the version string from pyproject.toml is not parsable.
+    """
     patch = tuple("patch")
     minor = ("minor", "feature")
     major = ("major", "breaking")
 
-    if increase_type not in patch + minor + major:
-        raise ValueError(f"Invalid version increase type: {increase_type}")
+    if release_type not in patch + minor + major:
+        raise ValueError(f"Invalid version increase type: {release_type}")
 
     pyproject_config = get_pyproject_config()
     version = pyproject_config["tool"]["poetry"]["version"]
@@ -74,19 +106,19 @@ def bump_version(increase_type: str = "patch"):
     if not version_parts:
         raise ValueError(f"Unparsable version: {version}")
 
-    if increase_type in patch:
+    if release_type in patch:
         version = (
             f"{version_parts.group('major') + 1}"
             f".{version_parts.group('minor')}"
             f".{version_parts.group('patch')}"
         )
-    elif increase_type in minor:
+    elif release_type in minor:
         version = (
             f"{version_parts.group('major')}"
             f".{version_parts.group('minor') + 1}"
             f".{version_parts.group('patch')}"
         )
-    elif increase_type in major:
+    elif release_type in major:
         version = (
             f"{version_parts.group('major')}"
             f".{version_parts.group('minor')}"
@@ -97,7 +129,8 @@ def bump_version(increase_type: str = "patch"):
     set_pyproject_config(pyproject_config)
 
 
-def commit_and_tag():
+def commit_and_tag() -> None:
+    """Git commit and tag the new release."""
     cmd_commit = ["git", "commit"]
     subprocess.run(cmd_commit, check=True)  # noqa: S603
     cmd_tag = ["git", "tag"]
