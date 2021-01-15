@@ -154,7 +154,7 @@ def commit_and_tag(version: str) -> None:
             "git",
             "commit",
             "--no-verify",
-            f"--message='release v{version}'",
+            f"--message='release v{version}' [skip ci]",
             "--include",
             "pyproject.toml",
             "CHANGELOG.md",
