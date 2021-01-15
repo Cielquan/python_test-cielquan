@@ -29,12 +29,12 @@ on:  # yamllint disable-line rule:truthy
     inputs:
       releaseAs:
         description: >
-          Force this version major|minor|patch or full version
+          Version increase type: major/breaking | minor/feature | patch
           (w/o pre-prelease identifiers)
         required: false
-      preRelease:
-        description: 'Pre-release level: alpha|a|beta|b|rc'
-        required: false
+      # preRelease:
+      #   description: 'Pre-release level: alpha|a|beta|b|rc'
+      #   required: false
 
 
 jobs:
@@ -45,6 +45,7 @@ jobs:
       std_ver_args: ${{ steps.set-std-ver-args.outputs.std_ver_args }}
       pre_release: ${{ steps.set-std-ver-args.outputs.pre_release }}
       first_release: ${{ steps.first-release.outputs.first_release }}
+      release_script_args: ${{ steps.set-release-script-args.outputs.args }}
     steps:
       - uses: actions/checkout@v2
 
@@ -57,39 +58,32 @@ jobs:
           import sys
 
           version = "${{ github.event.inputs.releaseAs }}"
-
           if not version:
               sys.exit(0)
 
-          allowed = ("major", "minor", "patch")
-
-          if not re.fullmatch(r"^\d+\.\d+\.\d+$", version) and version not in allowed:
-              print(f"'{version}' is not a valid version.")
+          allowed = ("major", "breaking", "minor", "feature", "patch")
+          if version not in allowed:
+              print(f"'{version}' is not a valid releaes type.")
               sys.exit(1)
 
-          for ver_part in version.split("."):
-              if ver_part.startswith("0") and len(ver_part) > 1:
-                  print(f"'{version}' is not a valid version.")
-                  sys.exit(1)
+      # - name: Check preRelease
+      #   shell: python
+      #   run: |
+      #     import sys
 
-      - name: Check preRelease
-        shell: python
-        run: |
-          import sys
+      #     pre_release_stage = "${{ github.event.inputs.preRelease }}"
 
-          pre_release_stage = "${{ github.event.inputs.preRelease }}"
+      #     if not pre_release_stage:
+      #         sys.exit(0)
 
-          if not pre_release_stage:
-              sys.exit(0)
+      #     allowed_pre_release_stage = ("alpha", "a", "beta", "b", "rc")
 
-          allowed_pre_release_stage = ("alpha", "a", "beta", "b", "rc")
+      #     pre_release = False
 
-          pre_release = False
-
-          if pre_release_stage:
-              if pre_release_stage not in allowed_pre_release_stage:
-                  print(f"'{pre_release_stage}' is not allowed.")
-                  sys.exit(1)
+      #     if pre_release_stage:
+      #         if pre_release_stage not in allowed_pre_release_stage:
+      #             print(f"'{pre_release_stage}' is not allowed.")
+      #             sys.exit(1)
 
       - name: Check if first release
         id: first-release
@@ -101,20 +95,15 @@ jobs:
 
           echo "::set-output name=first_release::${first_release}"
 
-      - name: Set standart-version args
-        id: set-std-ver-args
+      - name: Set prep_release.py args
+        id: set-release-script-args
         shell: python
         run: |
           args = []
 
-          release_as = "${{ github.event.inputs.releaseAs }}"
-          pre_release = "${{ github.event.inputs.preRelease }}"
-
-          if release_as:
-              args += ["--release-as", release_as]
-
-          if pre_release:
-              args += ["--prerelease", pre_release]
+          release_step = "${{ github.event.inputs.releaseAs }}"
+          if release_step:
+              args += [release_step]
 
           if ${{ steps.first-release.outputs.first_release }} is True:
               args += ["--first-release"]
@@ -122,6 +111,28 @@ jobs:
           args_str = ' '.join(args)
           print(args_str)
           print(f"::set-output name=std_ver_args::{args_str}")
+
+      # - name: Set standart-version args
+      #   id: set-std-ver-args
+      #   shell: python
+      #   run: |
+      #     args = []
+
+      #     release_as = "${{ github.event.inputs.releaseAs }}"
+      #     pre_release = "${{ github.event.inputs.preRelease }}"
+
+      #     if release_as:
+      #         args += ["--release-as", release_as]
+
+      #     if pre_release:
+      #         args += ["--prerelease", pre_release]
+
+      #     if ${{ steps.first-release.outputs.first_release }} is True:
+      #         args += ["--first-release"]
+
+      #     args_str = ' '.join(args)
+      #     print(args_str)
+      #     print(f"::set-output name=std_ver_args::{args_str}")
 
 
   pyproject-config:
@@ -477,7 +488,7 @@ jobs:
       #   run: standard-version ${{ needs.check-input.outputs.std_ver_args }}
 
       - name: Run release script
-        run: python prep_release.py
+        run: python prep_release.py ${{ needs.check-input.outputs.release_script_args }}
 
       - name: Set new tag as ENVVAR
         id: new-tag
