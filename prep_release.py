@@ -152,6 +152,16 @@ def commit_and_tag(new_version: str) -> None:
 
 
 if __name__ == "__main__":
-    bumped_version = bump_version("patch" if len(sys.argv) <= 1 else sys.argv[1])
-    update_changelog(bumped_version, _get_current_version(), _get_repo_url())
-    commit_and_tag(bumped_version)
+    if "--first-release" in sys.argv:
+        sys.argv.remove("--first-release")
+        VERSION = _get_current_version()
+        CURRENT_VERSION = str(
+            subprocess.run(  # noqa: S603,S607
+                ["git", "rev-list", "--max-parents=0", "HEAD"], check=True
+            )
+        )[0:7]
+    else:
+        VERSION = bump_version("patch" if len(sys.argv) <= 1 else sys.argv[1])
+        CURRENT_VERSION = _get_current_version()
+    update_changelog(VERSION, CURRENT_VERSION, _get_repo_url())
+    commit_and_tag(VERSION)
