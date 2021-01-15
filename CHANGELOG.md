@@ -6,7 +6,7 @@
 - Those
 
 
-## [0.5.19](https://github.com/Cielquan/python_test-cielquan/releases/v0.5.19) (2021-01-15) - [v0.5.19...v0.5.19](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.19...v0.5.19)
+## [0.5.19](https://github.com/Cielquan/python_test-cielquan/releases/v0.5.19) (2021-01-15) - [v0.5.18...v0.5.19](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.19...v0.5.19)
 
 - Point one
 
