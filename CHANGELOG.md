@@ -1,10 +1,24 @@
-# Change Log
+# Changelog
+
+This is the changelog of `python_test-cielquan`. Releases and their respective
+changes are listed here. The order of releases is time and **not** version based!
+For a list of all available releases see the
+[release section on Github](https://github.com/Cielquan/python_test-cielquan/releases)
+
+
+<!-- Valid subcategories
+#### BREAKING CHANGES
+#### New features
+#### Bugfixes
+#### Documentation
+#### Miscellaneous
+-->
 
 
 ## Unreleased
 [v0.5.19...master](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.19...master)
 
-#### Changes:
+#### Bugfixes:
 
 - Those
 
@@ -12,7 +26,7 @@
 ## [0.5.19](https://github.com/Cielquan/python_test-cielquan/releases/v0.5.19) (2021-01-15)
 [v0.5.18...v0.5.19](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.19...v0.5.19)
 
-#### Changes:
+#### Bugfixes:
 
 - Point one
 
@@ -20,7 +34,7 @@
 ## [0.5.18](https://github.com/Cielquan/python_test-cielquan/releases/v0.5.18) (2021-01-14)
 [v0.5.17...v0.5.18](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.17...v0.5.18)
 
-#### Changes:
+#### Bugfixes:
 
 - This
 
@@ -28,7 +42,7 @@
 ## [0.5.17](https://github.com/Cielquan/python_test-cielquan/releases/v0.5.17) (2021-01-12)
 [v0.5.16...v0.5.17](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.16...v0.5.17)
 
-#### Changes:
+#### Bugfixes:
 
 - That
 
