@@ -139,11 +139,11 @@ def update_changelog(
         compare = f"{'' if first_release else 'v'}{last_version}...v{new_version}"
         changelog_lines[release_line] = (
             "## Unreleased\n"
-            f"[v{new_version}...master]({repo_url}/compare/v{new_version}...master)\n"
+            f"[diff v{new_version}...master]({repo_url}/compare/v{new_version}...master)\n"
             "\n"
             "\n"
             f"## [{new_version}]({repo_url}/releases/v{new_version}) ({today})\n"
-            f"[{compare}]({repo_url}/compare/{compare})"
+            f"[diff {compare}]({repo_url}/compare/{compare})"
         )
 
     with open("CHANGELOG.md", "w") as changelog_file:
