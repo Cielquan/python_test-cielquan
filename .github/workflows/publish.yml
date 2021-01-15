@@ -7,14 +7,11 @@ name: Release new version
 # 2. Load testing config from pyproject.toml
 # 3. Check state on commit via API -> all CI succeeded?
 # 4. Run test suit of prior release
-# TODO: Change step 5 to check Changelog instead of cmt msg
-# 5. If old test suit failed check if Breaking Changes are mentioned in Commit Messages
+# 5. If old test suit failed check if Breaking Changes are mentioned in Changelog
 # 6. Publish
 #   a) Install dependencies
 #   b) Set git user
-# TODO: Create script to finsih changelog, bump version, commit and tag
-# TODO: Change step c) to run script
-#   c) Run standard-version
+#   c) Run prep_release.py script
 #   d) Build and publish via poetry
 #   e) Create GH release with build artifacts
 
