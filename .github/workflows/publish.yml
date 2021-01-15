@@ -109,28 +109,6 @@ jobs:
           print(args_str)
           print(f"::set-output name=std_ver_args::{args_str}")
 
-      # - name: Set standart-version args
-      #   id: set-std-ver-args
-      #   shell: python
-      #   run: |
-      #     args = []
-
-      #     release_as = "${{ github.event.inputs.releaseAs }}"
-      #     pre_release = "${{ github.event.inputs.preRelease }}"
-
-      #     if release_as:
-      #         args += ["--release-as", release_as]
-
-      #     if pre_release:
-      #         args += ["--prerelease", pre_release]
-
-      #     if ${{ steps.first-release.outputs.first_release }} is True:
-      #         args += ["--first-release"]
-
-      #     args_str = ' '.join(args)
-      #     print(args_str)
-      #     print(f"::set-output name=std_ver_args::{args_str}")
-
 
   pyproject-config:
     name: Get config from pyproject.toml
@@ -426,21 +404,6 @@ jobs:
           sys.exit(1)
         if: needs.old-test-code.result != 'success'
 
-      # - uses: actions/checkout@v2
-      #   with:
-      #     fetch-depth: 0
-      #   if: needs.old-test-code.result != 'success'
-
-      # - name: Fetch git origin
-      #   run: git fetch origin --tags
-      #   if: needs.old-test-code.result != 'success'
-
-      # - name: Check for BREAKING CHANGES in commit messages
-      #   run: >
-      #     git log v${{ needs.pyproject-config.outputs.last_version }}..${{ github.sha }}
-      #     --pretty="%b" --remotes="origin" | grep "BREAKING CHANGES"
-      #   if: needs.old-test-code.result != 'success'
-
 
   publish:
     needs: [check-breaking-change-notes, pyproject-config, check-input]
@@ -466,23 +429,10 @@ jobs:
           poetry config virtualenvs.create false
           poetry install --no-root --no-dev --extras poetry
 
-      # - uses: actions/setup-node@v1
-      #   with:
-      #     node-version: '12'
-
-      # - name: Install standard-version and dependencies
-      #   run: |
-      #     npm install --no-save @iarna/toml
-      #     npm install --global standard-version
-      #     # npm install --global standard-version @iarna/toml
-
       - name: Set git user
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "github-actions"
-
-      # - name: Run standard-version
-      #   run: standard-version ${{ needs.check-input.outputs.std_ver_args }}
 
       - name: Run release script
         run: python prep_release.py ${{ needs.check-input.outputs.release_script_args }}
