@@ -458,23 +458,26 @@ jobs:
           poetry config virtualenvs.create false
           poetry install --no-root --no-dev --extras poetry
 
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '12'
+      # - uses: actions/setup-node@v1
+      #   with:
+      #     node-version: '12'
 
-      - name: Install standard-version and dependencies
-        run: |
-          npm install --no-save @iarna/toml
-          npm install --global standard-version
-          # npm install --global standard-version @iarna/toml
+      # - name: Install standard-version and dependencies
+      #   run: |
+      #     npm install --no-save @iarna/toml
+      #     npm install --global standard-version
+      #     # npm install --global standard-version @iarna/toml
 
       - name: Set git user
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "github-actions"
 
-      - name: Run standard-version
-        run: standard-version ${{ needs.check-input.outputs.std_ver_args }}
+      # - name: Run standard-version
+      #   run: standard-version ${{ needs.check-input.outputs.std_ver_args }}
+
+      - name: Run release script
+        run: python prep_release.py
 
       - name: Set new tag as ENVVAR
         id: new-tag
