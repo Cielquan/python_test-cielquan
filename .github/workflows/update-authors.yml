@@ -76,7 +76,7 @@ jobs:
           git reset HEAD -- . &&
           git add AUTHORS &&
           git commit -m 'Update AUTHORS file with new author(s) [skip ci]' &&
-          git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git")
+          git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git"
         # yamllint enable
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
