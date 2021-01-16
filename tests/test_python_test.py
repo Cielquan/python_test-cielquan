@@ -1,4 +1,12 @@
-"""docstring."""
+"""
+    tests.test_python_test
+    ~~~~~~~~~~~~~~~~~~~~~~
+
+    Tests for module: python_test
+
+    :copyright: (c) 2019-2020, Christian Riedel, see AUTHORS
+    :license: GPL-3.0, see LICENSE for details
+"""  # noqa: D205,D208,D400
 import python_test_cielquan
 
 from python_test_cielquan.python_tester import some_func

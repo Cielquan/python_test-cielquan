@@ -1,16 +1,16 @@
+"""Script for preparing the repo for a new release.
+
+This script needs `tomlkit` installed as dependency.
+
+This script does:
+1) Bump version
+2) Finish CHANGELOG.md
+3) git commit and tag
+
+Call this for more information on usage::
+
+    $ python prep_release.py --help
 """
-    prep_release
-    ~~~~~~~~~~~~
-
-    Script for preparing the repo for a new release.
-
-    1) Bump version
-    2) Finish CHANGELOG.md
-    3) git commit and tag
-
-    :copyright: (c) 2019-2020, Christian Riedel
-    :license: GPL-3.0, see LICENSE for details
-"""  # noqa: D205,D208,D400
 import argparse
 import re
 import subprocess  # noqa: S404

@@ -4,7 +4,7 @@
 
     Init file for test suit.
 
-    :copyright: (c) Christian Riedel
+    :copyright: (c) 2019-2020, Christian Riedel, see AUTHORS
     :license: GPL-3.0, see LICENSE for details
 """  # noqa: D205,D208,D400
 import pytest
