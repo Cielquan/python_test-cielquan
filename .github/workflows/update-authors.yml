@@ -19,6 +19,10 @@ on:  # yamllint disable-line rule:truthy
 jobs:
   update-authors:
     name: Update AUTHORS file
+    if: >
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'push' &&
+      contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -66,10 +70,13 @@ jobs:
       - name: Commit and push if diff
         # yamllint disable rule:line-length
         run: |
-          git diff --exit-code AUTHORS && exit 0 || echo "### Commit update"
-          git reset HEAD -- .
-          && git commit -m 'Update AUTHORS file with new author(s) [skip ci]' --include AUTHORS
-          && git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git")
+          git diff --exit-code AUTHORS &&
+          (echo "### No update" && exit 0) || echo "### Commit update"
+
+          git reset HEAD -- . &&
+          git add AUTHORS &&
+          git commit -m 'Update AUTHORS file with new author(s) [skip ci]' &&
+          git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git")
         # yamllint enable
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
