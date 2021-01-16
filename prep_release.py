@@ -240,7 +240,7 @@ def _main() -> int:
         _get_config_value("[tool.poetry.urls]", '"Source"'),
         args.first_release,
     )
-    # commit_and_tag(release_version)
+    commit_and_tag(release_version)
     return 0
 
 
