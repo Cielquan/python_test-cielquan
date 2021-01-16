@@ -22,7 +22,7 @@ import tomlkit  # type: ignore[import]
 
 
 if sys.version_info[0:2] <= (3, 6):
-    raise Exception
+    raise RuntimeError("Script runs only with python 3.7 or newer.")
 
 
 PATCH = ("patch",)

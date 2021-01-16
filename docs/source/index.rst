@@ -33,4 +33,5 @@ This a test documentation.
    :caption: Miscellaneous:
 
    changelog
+   authors
    license
