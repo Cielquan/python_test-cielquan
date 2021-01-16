@@ -31,11 +31,11 @@ MINOR = ("minor", "feature")
 MAJOR = ("major", "breaking")
 
 
+#: -- UTILS ----------------------------------------------------------------------------
 class PyprojectError(Exception):
     """Exception for lookup errors in pyproject.toml file."""
 
 
-#: -- UTILS ----------------------------------------------------------------------------
 def _get_config_value(section: str, key: str) -> str:
     """Extract a config value from pyproject.toml file.
 
