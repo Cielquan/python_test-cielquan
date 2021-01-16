@@ -1,5 +1,5 @@
 ---
-name: CodeQL
+name: CodeQL Analysis
 
 
 on:  # yamllint disable-line rule:truthy
@@ -8,10 +8,14 @@ on:  # yamllint disable-line rule:truthy
   push:
     branches:
       - master
+    paths:
+      - '**.py'
 
   pull_request:
     branches:
       - master
+    paths:
+      - '**.py'
 
   schedule:
     - cron: '36 15 * * 4'
@@ -21,8 +25,9 @@ jobs:
   analyze:
     name: Analyze with CodeQL
     if: >
-      github.event_name == 'pull_request' ||
+      github.event_name == 'schedule' ||
       github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'pull_request' ||
       (github.event_name == 'push' &&
       contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
     runs-on: ubuntu-latest
