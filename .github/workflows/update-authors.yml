@@ -64,8 +64,8 @@ jobs:
         # yamllint disable-line rule:line-length
         run: >
           git diff --exit-code AUTHORS
-          || git reset HEAD -- .
-          || git commit -m 'Update AUTHORS file with new author(s)' --include AUTHORS
-          || git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git"
+          || (git reset HEAD -- .
+          && git commit -m 'Update AUTHORS file with new author(s)' --include AUTHORS
+          && git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git")
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
