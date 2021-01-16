@@ -68,7 +68,7 @@ jobs:
         run: >
           git diff --exit-code AUTHORS
           || (git reset HEAD -- .
-          && git commit -m 'Update AUTHORS file with new author(s)' --include AUTHORS
+          && git commit -m 'Update AUTHORS file with new author(s) [skip ci]' --include AUTHORS
           && git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git")
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
