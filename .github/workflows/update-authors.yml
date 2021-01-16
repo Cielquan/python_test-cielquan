@@ -33,6 +33,8 @@ jobs:
       - name: Update AUTHORS file
         shell: python
         run: |
+          import subprocess
+
           git_authors = subprocess.run(
               ["git", "log", "--format=%aN <%aE>"], capture_output=True, check=True
           ).stdout.decode()
