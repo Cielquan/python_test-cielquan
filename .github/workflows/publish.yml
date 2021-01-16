@@ -389,7 +389,6 @@ jobs:
               changelog = changelog_file.read()
 
           start_check = False
-
           for line in changelog.split("\n"):
               if line.startswith("## Unreleased"):
                   start_check = True
