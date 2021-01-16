@@ -1,4 +1,12 @@
-"""Config file for nox."""
+"""
+    noxfile
+    ~~~~~~~
+
+    Configuration file for nox.
+
+    :copyright: (c) 2019-2020, Christian Riedel and AUTHORS
+    :license: GPL-3.0, see LICENSE for details
+"""  # noqa: D205,D208,D400
 import contextlib
 import os
 import re

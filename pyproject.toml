@@ -29,7 +29,7 @@
     name = "python_test_cielquan"
     version = "0.5.19"
     description = "test stufff"
-    authors = ["Cielquan <cielquan@protonmail.com>"]
+    authors = ["Christian Riedel <cielquan@protonmail.com>"]
     license = "GPL-3.0-or-later"
     packages = [{ include = "python_test_cielquan", from = "src" }]
     readme = "README.rst"
