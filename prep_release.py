@@ -18,8 +18,6 @@ import sys
 
 from datetime import date
 
-import tomlkit  # type: ignore[import]
-
 
 if sys.version_info[0:2] <= (3, 6):
     raise RuntimeError("Script runs only with python 3.7 or newer.")
@@ -30,39 +28,66 @@ MINOR = ("minor", "feature")
 MAJOR = ("major", "breaking")
 
 
-#: -- UTILS ----------------------------------------------------------------------------
-def _get_pyproject_config() -> tomlkit.toml_document.TOMLDocument:
-    """Load config from pyproject.toml file.
+class PyprojectError(Exception):
+    """Exception for lookup errors in pyproject.toml file."""
 
-    :return: config as dict-like object
+
+#: -- UTILS ----------------------------------------------------------------------------
+def _get_config_value(section: str, key: str) -> str:
+    """Extract a config value from pyproject.toml file.
+
+    :return: config value
     """
     with open("pyproject.toml") as pyproject_file:
-        return tomlkit.parse(pyproject_file.read())
+        pyproject = pyproject_file.read().split("\n")
+
+    start = False
+    for line in pyproject:
+        if not start and line.strip().startswith(section):
+            start = True
+            continue
+
+        if start and line.strip().startswith("["):
+            break
+
+        if start and line.strip().startswith(key):
+            match = re.match(
+                r"\s*" + key + r"""\s?=\s?["']{1}([^"']*)["']{1}.*""", line
+            )
+            if match:
+                return match.group(1)
+            raise PyprojectError(
+                f"No value for key '{key}' in {section} section could be extracted."
+            )
+
+    raise PyprojectError(f"No '{key}' found in {section} section.")
 
 
-def _set_pyproject_config(pyproject_config: tomlkit.toml_document.TOMLDocument) -> None:
-    """Write given config to pyproect.toml file.
+def _set_config_value(section: str, key: str, value: str) -> None:
+    """Set a config value in pyproject.toml file."""
+    with open("pyproject.toml") as pyproject_file:
+        pyproject = pyproject_file.read().split("\n")
 
-    :param pyproject_config: config to write
-    """
+    start = False
+    for idx, line in enumerate(pyproject):
+        if not start and line.strip().startswith(section):
+            start = True
+            continue
+
+        if start and line.strip().startswith("["):
+            raise PyprojectError(f"No '{key}' found in {section} section.")
+
+        if start and line.strip().startswith(key):
+            match = re.sub(
+                r"(\s*" + key + r"""\s?=\s?["']{1})[^"']*(["']{1}.*)""",
+                f"\\g<1>{value}\\g<2>",
+                line,
+            )
+            pyproject[idx] = match
+            break
+
     with open("pyproject.toml", "w") as pyproject_file:
-        pyproject_file.write(tomlkit.dumps(pyproject_config))
-
-
-def _get_current_version() -> str:
-    """Extract the version from pyproject.toml file.
-
-    :return: version string
-    """
-    return str(_get_pyproject_config()["tool"]["poetry"]["version"])
-
-
-def _get_repo_url() -> str:
-    """Extract source code URL at GitHub from pyproject.toml file.
-
-    :return: URL
-    """
-    return str(_get_pyproject_config()["tool"]["poetry"]["urls"]["Source"])
+        pyproject_file.write("\n".join(pyproject))
 
 
 #: -- MAIN -----------------------------------------------------------------------------
@@ -79,8 +104,7 @@ def bump_version(release_type: str = "patch") -> str:
     if release_type not in PATCH + MINOR + MAJOR:
         raise ValueError(f"Invalid version increase type: {release_type}")
 
-    pyproject_config = _get_pyproject_config()
-    current_version = pyproject_config["tool"]["poetry"]["version"]
+    current_version = _get_config_value("[tool.poetry]", "version")
 
     version_parts = re.match(
         r"(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)", current_version
@@ -110,8 +134,7 @@ def bump_version(release_type: str = "patch") -> str:
         print("Given `RELEASE TYPE` is invalid.")
         sys.exit(1)
 
-    pyproject_config["tool"]["poetry"]["version"] = version
-    _set_pyproject_config(pyproject_config)
+    _set_config_value("[tool.poetry]", "version", version)
     return version
 
 
@@ -146,6 +169,10 @@ def update_changelog(
             f"## [{new_version}]({repo_url}/releases/v{new_version}) ({today})\n"
             f"[diff {compare}]({repo_url}/compare/{compare})"
         )
+
+    #: Remove [diff ...] link line
+    if len(changelog_lines) - 1 >= release_line + 1:
+        changelog_lines.pop(release_line + 1)
 
     with open("CHANGELOG.md", "w") as changelog_file:
         changelog_file.write("\n".join(changelog_lines))
@@ -197,7 +224,7 @@ def _main() -> int:
     args = _parser()
 
     if args.first_release:
-        release_version = _get_current_version()
+        release_version = _get_config_value("[tool.poetry]", "version")
         #: Get first commit
         current_version = subprocess.run(  # noqa: S603,S607
             ["git", "rev-list", "--max-parents=0", "HEAD"],
@@ -206,11 +233,14 @@ def _main() -> int:
         ).stdout.decode()[0:7]
     else:
         release_version = bump_version(args.increase_type)
-        current_version = _get_current_version()
+        current_version = _get_config_value("[tool.poetry]", "version")
     update_changelog(
-        release_version, current_version, _get_repo_url(), args.first_release
+        release_version,
+        current_version,
+        _get_config_value("[tool.poetry.urls]", '"Source"'),
+        args.first_release,
     )
-    commit_and_tag(release_version)
+    # commit_and_tag(release_version)
     return 0
 
 
