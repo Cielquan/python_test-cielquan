@@ -69,14 +69,13 @@ jobs:
 
       - name: Commit and push if diff
         # yamllint disable rule:line-length
-        run: |
+        run: >
           git diff --exit-code AUTHORS &&
-          (echo "### No update" && exit 0) || echo "### Commit update"
-
+          (echo "### No update" && exit 0) || (echo "### Commit update" &&
           git reset HEAD -- . &&
           git add AUTHORS &&
           git commit -m 'Update AUTHORS file with new author(s) [skip ci]' &&
-          git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git"
+          git push "https://${{ github.repository_owner }}:$GITHUB_TOKEN@github.com/${{ github.repository }}.git")
         # yamllint enable
         env:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
