@@ -2,7 +2,7 @@ Contribution through Github Issues
 ==================================
 
 This section will guide you through the process of contributing through
-`Github Issues <https://github.com/cielquan/python_test-cielquan/issues>`__.
+:repo:`Github Issues <issues>`.
 Use your best judgment to follow the guidelines below. Basic rule of thump is the more
 information the better.
 
@@ -19,8 +19,7 @@ If your issue does not fall in one of the below categories use the formless
 Bug reports
 -----------
 
-Before submitting your bug report please check the
-`Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
+Before submitting your bug report please check the :repo:`Github issue tracker <issues>`
 to avoid multiple instances of the same issue.
 
     **Note:** If you find a *closed* issue covering your topic and you think that the
@@ -35,11 +34,10 @@ This section will guide you through the process of submitting a bug report, whic
 others to understand your report, reproduce the problem and eventually find related
 issues.
 
-Bugs are tracked at the aforementioned
-`Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
-where you can create a new issue and choose the ``Bug Report`` option. Through the
-option your issue's body is automatically filled with the
-`Bug Report template <https://github.com/Cielquan/python_test-cielquan/blob/master/.github/ISSUE_TEMPLATE/.bug-report.md>`__.
+Bugs are tracked at the aforementioned :repo:`Github issue tracker <issues>` where you
+can create a new issue and choose the ``Bug Report`` option. Through the option your
+issue's body is automatically filled with the
+:repo:`Bug Report template <blob/master/.github/ISSUE_TEMPLATE/.bug-report.md>`.
 By filling this template you make it easier for others to understand and help with or
 fix the problem.
 
@@ -82,7 +80,7 @@ Suggestion for improvements
 ---------------------------
 
 Before submitting your feature request please check the
-`Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
+:repo:`Github issue tracker <issues>`
 to avoid multiple instances of the same issue.
 
     **Note:** If you find a *closed* issue covering your topic and you think that the
@@ -98,11 +96,10 @@ which helps others to understand your suggestion and eventually find related iss
 You can suggest enhancements to existing functionality or completely new features.
 Your ideas are welcome.
 
-Feature requests are tracked at the aforementioned
-`Github issue tracker <https://github.com/cielquan/python_test-cielquan/issues>`__
+Feature requests are tracked at the aforementioned :repo:`Github issue tracker <issues>`
 where you can create a new issue and choose the ``Feature Request`` option. Through the
 option your issue's body is automatically filled with the
-`Feature Request template <https://github.com/Cielquan/python_test-cielquan/blob/master/.github/ISSUE_TEMPLATE/.feature-request.md>`__.
+:repo:`Feature Request template <blob/master/.github/ISSUE_TEMPLATE/.feature-request.md>`.
 By filling this template you make it easier for others to understand your suggestions.
 
 Explain your topic as detailed as possible to help others understand your ideas:
@@ -125,4 +122,4 @@ Documentation changes
 
 If you have errors or enhancement ideas for the documentation please follow the steps
 above accordingly but use the ``Documentation`` issue option to get the
-`Documentation template <https://github.com/Cielquan/python_test-cielquan/blob/master/.github/ISSUE_TEMPLATE/.documentation.md>`__.
+:repo:`Documentation template <blob/master/.github/ISSUE_TEMPLATE/.documentation.md>`.

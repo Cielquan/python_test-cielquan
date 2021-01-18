@@ -22,5 +22,8 @@ __project__ = md["Name"]
 __version__ = md["Version"]
 version_info = tuple(__version__.split("."))
 
-__gh_repository_link__ = md["Project-URL"].replace("Repository, ", "")
+__gh_repository_link__ = md["Project-URL"].replace("Repository, ", "").rstrip("/")
 __gh_repository__ = __gh_repository_link__.replace("https://github.com/", "")
+
+# FIXME: fix md to give right url
+__gh_repository_link__ = "https://github.com/Cielquan/python_test-cielquan"

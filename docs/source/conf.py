@@ -116,7 +116,7 @@ intersphinx_mapping = {"python": ("https://docs.python.org/3/", None)}
 
 extensions.append("sphinx.ext.extlinks")
 extlinks = {
-    "repo": (f"{__gh_repository_link__}/%s", "repo"),
+    "repo": (f"{__gh_repository_link__}/%s", "Repo's "),
     "issue": (f"{__gh_repository_link__}/issues/%s", "#"),
     "pull": (f"{__gh_repository_link__}/pull/%s", "pr"),
     "user": ("https://github.com/%s", "@"),
