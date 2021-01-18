@@ -7,3 +7,9 @@ TODO: simplification
 TODO: docs .. workout a automated template for the docs
     https://github.com/sphinx-contrib/apidoc
     https://github.com/readthedocs/sphinx-autoapi
+
+
+TODO: rework contrib
+
+
+TODO: fix pub; not using given version
