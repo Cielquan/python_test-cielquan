@@ -2,10 +2,15 @@ Contribution through Github Issues
 ==================================
 
 This section will guide you through the process of contributing through
-`Github Issues <https://github.com/cielquan/python_test-cielquan/issues>`__
-Use your best judgment to follow the guidelines below.
+`Github Issues <https://github.com/cielquan/python_test-cielquan/issues>`__.
+Use your best judgment to follow the guidelines below. Basic rule of thump is the more
+information the better.
 
-Table of contents:
+You may also consider using :repo:`Github Discussions <discussions>` if appropriate.
+
+If your issue does not fall in one of the below categories use the formless
+``Something Else`` category:
+
     - `Bug reports`_
     - `Suggestion for improvements`_
     - `Documentation changes`_
