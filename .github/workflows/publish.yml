@@ -24,7 +24,7 @@ env:
 on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
-      releaseAs:
+      releaseStep:
         description: 'Version increase type: major/breaking | minor/feature | patch'
         required: true
       # preRelease:
@@ -42,16 +42,14 @@ jobs:
       first_release: ${{ steps.first-release.outputs.first_release }}
       release_script_args: ${{ steps.set-release-script-args.outputs.args }}
     steps:
-      - uses: actions/checkout@v2
-
       - uses: actions/setup-python@v2
 
-      - name: Check releaseAs
+      - name: Check releaseStep
         shell: python
         run: |
           import sys
 
-          version_step = "${{ github.event.inputs.releaseAs }}"
+          version_step = "${{ github.event.inputs.releaseStep }}"
           if version_step not in ("major", "breaking", "minor", "feature", "patch"):
               print(f"'{version_step}' is not a valid release type.")
               sys.exit(1)
@@ -75,6 +73,8 @@ jobs:
       #             print(f"'{pre_release_stage}' is not allowed.")
       #             sys.exit(1)
 
+      - uses: actions/checkout@v2
+
       - name: Check if first release
         id: first-release
         run: >
@@ -91,7 +91,7 @@ jobs:
         run: |
           args = []
 
-          release_step = "${{ github.event.inputs.releaseAs }}"
+          release_step = "${{ github.event.inputs.releaseStep }}"
           if release_step:
               args += [release_step]
 
