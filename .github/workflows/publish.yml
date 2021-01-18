@@ -25,10 +25,8 @@ on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
       releaseAs:
-        description: >
-          Version increase type: major/breaking | minor/feature | patch
-          (w/o pre-prelease identifiers)
-        required: false
+        description: 'Version increase type: major/breaking | minor/feature | patch'
+        required: true
       # preRelease:
       #   description: 'Pre-release level: alpha|a|beta|b|rc'
       #   required: false
@@ -51,16 +49,11 @@ jobs:
       - name: Check releaseAs
         shell: python
         run: |
-          import re
           import sys
 
-          version = "${{ github.event.inputs.releaseAs }}"
-          if not version:
-              sys.exit(0)
-
-          allowed = ("major", "breaking", "minor", "feature", "patch")
-          if version not in allowed:
-              print(f"'{version}' is not a valid releaes type.")
+          version_step = "${{ github.event.inputs.releaseAs }}"
+          if version_step not in ("major", "breaking", "minor", "feature", "patch"):
+              print(f"'{version_step}' is not a valid release type.")
               sys.exit(1)
 
       # - name: Check preRelease
