@@ -7,34 +7,36 @@
     :copyright: (c) 2019-2020, Christian Riedel and AUTHORS
     :license: GPL-3.0, see LICENSE for details
 """  # noqa: D205,D208,D400
+from typing import List
+
+
 try:
-    from importlib.metadata import metadata
+    from importlib.metadata import metadata as get_md
 except ModuleNotFoundError:  # pragma: py-gte-38
-    from importlib_metadata import metadata  # type: ignore[import,no-redef]
+    from importlibmetadata import metadata as get_md  # type: ignore[import,no-redef]
 
 
-md = metadata(__name__)
+def _get_gh_repo_link(metadata_list: List[str]) -> str:
+    #: Extract Project-URLs from metadata
+    urls = (line[13:] for line in metadata_list if line.startswith("Project-URL"))
+    url_map = {url[: url.find(",")]: url[url.find("http") :] for url in urls}
+
+    #: Search for and set a link to Github repo
+    for cat in ("Github", "Repository", "Source", "Code", "Homepage"):
+        if cat in url_map:
+            return url_map[cat].rstrip("/")
+
+    raise AttributeError("Metadata does not contain a link to source code on github.")
 
 
-__author__ = md["Author"]
-__license__ = md["License"]
-__project__ = md["Name"]
-__version__ = md["Version"]
+metadata = get_md(__name__)
+
+
+__author__ = metadata["Author"]
+__license__ = metadata["License"]
+__project__ = metadata["Name"]
+__version__ = metadata["Version"]
 version_info = tuple(__version__.split("."))
 
-
-#: Extract Project-URLs from metadata
-urls = (line[13:] for line in str(md).split("\n") if line.startswith("Project-URL"))
-url_map = {url[: url.find(",")]: url[url.find("http") :] for url in urls}
-
-
-#: Search for and set a link to GH repo
-__gh_repository_link__ = None
-for cat in ("Github", "Repository", "Source", "Code", "Homepage"):
-    if cat in url_map:
-        __gh_repository_link__ = url_map[cat].rstrip("/")
-        __gh_repository__ = __gh_repository_link__.replace("https://github.com/", "")
-        break
-
-if __gh_repository_link__ is None:
-    raise AttributeError("Metadata do not contain a link to source.")
+__gh_repository_link__ = _get_gh_repo_link(str(metadata).split("\n"))
+__gh_repository__ = __gh_repository_link__.replace("https://github.com/", "")
