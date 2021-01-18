@@ -37,7 +37,6 @@ jobs:
     name: Check given inputs
     runs-on: ubuntu-latest
     outputs:
-      std_ver_args: ${{ steps.set-std-ver-args.outputs.std_ver_args }}
       pre_release: ${{ steps.set-std-ver-args.outputs.pre_release }}
       first_release: ${{ steps.first-release.outputs.first_release }}
       release_script_args: ${{ steps.set-release-script-args.outputs.args }}
@@ -100,7 +99,7 @@ jobs:
 
           args_str = ' '.join(args)
           print(args_str)
-          print(f"::set-output name=std_ver_args::{args_str}")
+          print(f"::set-output name=release_script_args::{args_str}")
 
 
   pyproject-config:
