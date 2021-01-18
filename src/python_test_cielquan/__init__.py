@@ -22,18 +22,19 @@ __project__ = md["Name"]
 __version__ = md["Version"]
 version_info = tuple(__version__.split("."))
 
+
 #: Extract Project-URLs from metadata
-urls = [line[13:] for line in str(md).split("\n") if line.startswith("Project-URL")]
+urls = (line[13:] for line in str(md).split("\n") if line.startswith("Project-URL"))
 url_map = {url[:url.find(",")]: url[url.find("http"):] for url in urls}
-source_cat = ("Github", "Repository", "Source", "Code", "Homepage")
+
 
 #: Search for and set a link to GH repo
-__gh_repository_link__ = ""
-for cat in source_cat:
+__gh_repository_link__ = None
+for cat in ("Github", "Repository", "Source", "Code", "Homepage"):
     if cat in url_map:
         __gh_repository_link__ = url_map[cat].rstrip("/")
         __gh_repository__ = __gh_repository_link__.replace("https://github.com/", "")
         break
 
-if not __gh_repository_link__:
+if __gh_repository_link__ is None:
     raise AttributeError("Metadata do not contain a link to source.")
