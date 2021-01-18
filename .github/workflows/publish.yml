@@ -99,7 +99,7 @@ jobs:
 
           args_str = ' '.join(args)
           print(args_str)
-          print(f"::set-output name=release_script_args::{args_str}")
+          print(f"::set-output name=args::{args_str}")
 
 
   pyproject-config:
