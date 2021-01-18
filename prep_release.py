@@ -116,16 +116,11 @@ def bump_version(release_type: str = "patch") -> str:
         raise ValueError(f"Unparsable version: {current_version}")
 
     if release_type in MAJOR:
-        version = (
-            f"{int(version_parts.group('major')) + 1}"
-            f".{version_parts.group('minor')}"
-            f".{version_parts.group('patch')}"
-        )
+        version = f"{int(version_parts.group('major')) + 1}.0.0"
     elif release_type in MINOR:
         version = (
             f"{version_parts.group('major')}"
-            f".{int(version_parts.group('minor')) + 1}"
-            f".{version_parts.group('patch')}"
+            f".{int(version_parts.group('minor')) + 1}.0"
         )
     elif release_type in PATCH:
         version = (
