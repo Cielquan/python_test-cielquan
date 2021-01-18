@@ -25,7 +25,7 @@ version_info = tuple(__version__.split("."))
 
 #: Extract Project-URLs from metadata
 urls = (line[13:] for line in str(md).split("\n") if line.startswith("Project-URL"))
-url_map = {url[:url.find(",")]: url[url.find("http"):] for url in urls}
+url_map = {url[: url.find(",")]: url[url.find("http") :] for url in urls}
 
 
 #: Search for and set a link to GH repo
