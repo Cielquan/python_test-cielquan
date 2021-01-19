@@ -452,7 +452,7 @@ jobs:
           for comment in comments_json:
               if comment["user"]["login"] == "github-actions[bot]":
                   if "publish pipeline ran here" in comment["body"]:
-                      sys.exit(2)  # TODO: make sys.exit(0)
+                      sys.exit(0)
           sys.exit(1)
         if: steps.get-comments.outcome == 'success'
 
