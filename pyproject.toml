@@ -27,7 +27,7 @@
 #: -- POETRY CONFIG --------------------------------------------------------------------
 [tool.poetry]
     name = "python_test_cielquan"
-    version = "1.0.1"
+    version = "1.0.2"
     description = "test stufff"
     authors = ["Christian Riedel <cielquan@protonmail.com>"]
     license = "GPL-3.0-or-later"
