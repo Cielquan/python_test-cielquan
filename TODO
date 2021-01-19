@@ -9,7 +9,4 @@ TODO: docs .. workout a automated template for the docs
     https://github.com/readthedocs/sphinx-autoapi
 
 
-TODO: rework contrib
-
-
 TODO: check if version bump is major when old test suit fails
