@@ -21,6 +21,8 @@
 
 .. General
 
+.. Change maintenance status in README also
+
 .. |maintenance_n| image:: https://img.shields.io/badge/Maintenance%20Intended-✖-red.svg?style=flat-square
     :target: http://unmaintained.tech/
     :alt: Maintenance - not intended
