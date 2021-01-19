@@ -10,3 +10,6 @@ TODO: docs .. workout a automated template for the docs
 
 
 TODO: rework contrib
+
+
+TODO: check if version bump is major when old test suit fails
