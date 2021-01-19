@@ -230,8 +230,8 @@ def _main() -> int:
             capture_output=True,
         ).stdout.decode()[0:7]
     else:
-        release_version = bump_version(args.increase_type)
         current_version = _get_config_value("[tool.poetry]", "version")
+        release_version = bump_version(args.increase_type)
     update_changelog(
         release_version,
         current_version,
