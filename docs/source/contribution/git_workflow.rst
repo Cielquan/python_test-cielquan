@@ -34,7 +34,6 @@ workflow you must specify the kind of version bump you want to make:
 - ``minor``/``feature`` for changes that **do** add new functionallity and are backwards compatible
 - ``major``/``breaking`` for changes that are **not** backwards compatible
 
-
 The workflow then will:
 
 #) check if all CI pipelines ran successfully on the latest commit (you can start them
