@@ -40,10 +40,12 @@ jobs:
       pre_release: ${{ steps.set-std-ver-args.outputs.pre_release }}
       first_release: ${{ steps.first-release.outputs.first_release }}
       release_script_args: ${{ steps.set-release-script-args.outputs.args }}
+      release_step: ${{ steps.release-step.outputs.step }}
     steps:
       - uses: actions/setup-python@v2
 
       - name: Check releaseStep
+        id: release-step
         shell: python
         run: |
           import sys
@@ -53,6 +55,7 @@ jobs:
           if version_step not in types:
               print(f"'{version_step}' is not a valid release type.")
               sys.exit(1)
+          print(f"::set-output name=step::{version_step}")
 
       # - name: Check preRelease
       #   shell: python
@@ -247,6 +250,8 @@ jobs:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
     steps:
+      # TODO: remove
+      - run: exit 1
       - uses: actions/checkout@v2
         if: needs.check-input.outputs.first_release != 'False'
 
@@ -361,7 +366,7 @@ jobs:
 
   check-breaking-change-notes:
     name: Check for missing BREAKING CHANGES release notes
-    needs: [old-test-code, pyproject-config]
+    needs: [old-test-code, check-input, pyproject-config]
     if: always()
     runs-on: ubuntu-latest
     steps:
@@ -374,11 +379,20 @@ jobs:
           python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
         if: steps.first-step.outcome == 'success'
 
+      - name: Get repo dir name
+        id: repo-dir
+        shell: bash
+        run: |
+          repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
+          echo "::set-output name=repo-dir::$repo_dir"
+        if: steps.first-step.outcome == 'success'
+
       - name: Check for BREAKING CHANGES in release notes
         shell: python
+        # TODO: remove exit
         run: |
           import sys
-
+          sys.exit(1)
           with open("CHANGELOG.md") as changelog_file:
               changelog = changelog_file.read()
 
@@ -397,9 +411,72 @@ jobs:
           sys.exit(1)
         if: steps.first-step.outcome == 'success'
 
+      - name: Check releaseStep
+        id: check-step
+        continue-on-error: true
+        shell: python
+        run: |
+          import sys
+
+          version_step = "${{ needs.check-input.outputs.release_step }}"
+          if version_step not in ("major", "breaking"):
+              sys.exit(1)
+          sys.exit(0)
+        if: steps.first-step.outcome == 'success'
+
+      - name: Get commit comments
+        id: get-comments
+        uses: octokit/request-action@v2.x
+        with:
+          route: GET /repos/{owner}/{repo}/commits/{commit_sha}/comments
+          owner: ${{ github.repository_owner }}
+          repo: ${{ steps.repo-dir.outputs.repo-dir }}
+          commit_sha: ${{ github.sha }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: steps.check-step.outcome != 'success'
+
+      - name: Check for comment from prior run
+        id: check-comments
+        continue-on-error: true
+        shell: python
+        run: |
+          import json
+          import sys
+
+          status_json = json.loads("""${{ steps.get-comments.outputs.data }}""")
+
+          if status_json["state"] != "success":
+              print("The CI pipeline state of this commit is not 'success'.")
+              sys.exit(1)
+
+          if len(status_json["statuses"]) < 4:
+              print(
+                  "Not all CI pipelines ran. Please make sure all CI pipelines "
+                  "ran successfully and try again."
+              )
+              sys.exit(1)
+        if: steps.check-step.outcome != 'success'
+
+      - name: Set commit comment
+        id: set-comment
+        uses: octokit/request-action@v2.x
+        with:
+          route: POST /repos/{owner}/{repo}/commits/{commit_sha}/comments
+          owner: ${{ github.repository_owner }}
+          repo: ${{ steps.repo-dir.outputs.repo-dir }}
+          commit_sha: ${{ github.sha }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: steps.check-comments.outcome != 'success'
+
+      - name: Exit if comment was set
+        run: exit 1
+        if: steps.set-comment.outcome != 'skipped'
+
 
   publish:
-    needs: [check-breaking-change-notes, pyproject-config, check-input]
+    needs: [check-breaking-change-notes, check-input, pyproject-config]
     if: always()
     runs-on: ubuntu-latest
     steps:
