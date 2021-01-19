@@ -153,3 +153,15 @@ Add this to ``test_docs()`` in ``noxfile.py``:
         session.run(
             "sphinx-build", "-b", builder, *color, *std_args, *add_args, *session.posargs
         )
+
+
+#####
+
+
+Wrap ``.. highlight:: console`` with ``.. only::``
+
+.. code-block:: rst
+
+    .. only:: not builder_confluence
+
+        .. highlight:: console
