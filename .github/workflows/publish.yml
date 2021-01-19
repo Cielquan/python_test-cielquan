@@ -443,25 +443,17 @@ jobs:
         id: check-comments
         continue-on-error: true
         shell: python
-        # TODO: write script
         run: |
           import json
           import sys
 
           comments_json = json.loads("""${{ steps.get-comments.outputs.data }}""")
-          print(comments_json)
+
+          for comment in comments_json:
+              if comment["user"]["login"] == "github-actions[bot]":
+                  if "publish pipeline ran here" in comment["body"]:
+                      sys.exit(2)  # TODO: make sys.exit(0)
           sys.exit(1)
-
-          if status_json["state"] != "success":
-              print("The CI pipeline state of this commit is not 'success'.")
-              sys.exit(1)
-
-          if len(status_json["statuses"]) < 4:
-              print(
-                  "Not all CI pipelines ran. Please make sure all CI pipelines "
-                  "ran successfully and try again."
-              )
-              sys.exit(1)
         if: steps.get-comments.outcome == 'success'
 
       - name: Set commit comment
