@@ -389,11 +389,12 @@ jobs:
         if: steps.first-step.outcome == 'success'
 
       - name: Check for BREAKING CHANGES in release notes
+        id: check-notes
+        continue-on-error: true
         shell: python
-        # TODO: remove exit
         run: |
           import sys
-          sys.exit(1)
+
           with open("CHANGELOG.md") as changelog_file:
               changelog = changelog_file.read()
 
@@ -436,7 +437,7 @@ jobs:
           commit_sha: ${{ github.sha }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: steps.check-step.outcome != 'success'
+        if: steps.check-step.outcome != 'success' || steps.check-notes.outcome != 'success'
 
       - name: Check (for) comment from prior run
         id: check-comments
@@ -447,7 +448,9 @@ jobs:
           import json
           import sys
 
-          status_json = json.loads("""${{ steps.get-comments.outputs.data }}""")
+          comments_json = json.loads("""${{ steps.get-comments.outputs.data }}""")
+          print(comments_json)
+          sys.exit(1)
 
           if status_json["state"] != "success":
               print("The CI pipeline state of this commit is not 'success'.")
@@ -459,7 +462,7 @@ jobs:
                   "ran successfully and try again."
               )
               sys.exit(1)
-        if: steps.check-step.outcome != 'success'
+        if: steps.get-comments.outcome == 'success'
 
       - name: Set commit comment
         id: set-comment
@@ -470,14 +473,16 @@ jobs:
           owner: ${{ github.repository_owner }}
           repo: ${{ steps.repo-dir.outputs.repo-dir }}
           commit_sha: ${{ github.sha }}
-          body: publish pipeline ran here
+          body: |
+            publish pipeline ran here
+            ${{ steps.check-comments.outputs.comment }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         if: steps.check-comments.outcome != 'success'
 
       - name: Exit if comment was set
         run: exit 1
-        if: steps.set-comment.outcome != 'skipped'
+        if: steps.set-comment.outcome == 'success'
 
 
   publish:
