@@ -365,13 +365,14 @@ jobs:
     if: always()
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - id: first-step
+        uses: actions/checkout@v2
         if: needs.old-test-code.result != 'success'
 
       - uses: actions/setup-python@v2
         with:
           python-version: ${{ needs.pyproject-config.outputs.default_py_version }}
-        if: needs.old-test-code.result != 'success'
+        if: steps.first-step.outcome == 'success'
 
       - name: Check for BREAKING CHANGES in release notes
         shell: python
@@ -394,7 +395,7 @@ jobs:
                       sys.exit(1)
 
           sys.exit(1)
-        if: needs.old-test-code.result != 'success'
+        if: steps.first-step.outcome == 'success'
 
 
   publish:
