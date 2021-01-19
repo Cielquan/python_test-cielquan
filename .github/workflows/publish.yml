@@ -247,6 +247,8 @@ jobs:
       PYTEST_ADDOPTS: -v -v -ra --showlocals
       PYTEST_XDIST_N: 0
     steps:
+      - run: exit 1  # TODO: remove
+
       - uses: actions/checkout@v2
         if: needs.check-input.outputs.first_release != 'False'
 
