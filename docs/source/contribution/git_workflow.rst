@@ -9,55 +9,40 @@ Git(hub) Workflow
 This section will explain the specifics regarding to ``git`` and ``github``.
 
 
-Commit message rules
---------------------
-
-We use `Conventional Commits <https://www.conventionalcommits.org/en/v1.0.0/>`__ as
-standard for our commit messages. With this standard commit messages are human **and**
-machine readable so that the change-log creation and versioning can be automated based
-on keywords. Commit messages will be checked in the CI pipeline.
-
-If you submit non-compliant commit messages we will need to ask you to fix them. So we
-highly recommend you to set ``pre-commit`` up.
-
-If you set up ``pre-commit`` as described above you already have the ``commit-msg`` hook
-installed which will check your commit message for compliance else you can run::
-
-    $ nox -s setup_pre_commit
-
-
 Development workflow
 --------------------
 
 We have no dedicated development branch so all changes are expected to be submitted and
-merged into ``master``. Merging into ``master`` is only allowed after all CI tests
+merged into ``main``. Merging into ``main`` is only allowed after all CI tests
 **succeeded**. Pull requests must be merged with a merge commit.
 
-Bugfixes are also expected to be merged into ``master``. But if they are critical the
-next release will be much sooner.
-
-If the pull request has many small commits the maintainer may use a *squash merge* to
-keep the change-log cleaner. Of cause the squash commit-message must follow the
-aforementioned commit message rules!
+Bugfixes are also expected to be merged into ``main``.
 
 
 Release workflow
 ----------------
 
 When enough changes and additions or time important fixes have accumulated on the
-``master`` branch its time for a new release. The exact time is subject to the
+``main`` branch its time for a new release. The exact time is subject to the
 judgment of the maintainer(s).
 
 To trigger a new release you have to manually start the ``Release new version`` workflow
-for the ``master`` branch form the ``Actions`` tab of the Github repository. The
-workflow will run the full current test suit first. After that it will also run the full
-test suit of the previous version and when the test suit fails it will look for a commit
-declaring *BREAKING CHANGES*. If none is found the workflow will fail. After success the
-workflow will automatically bump the version counter based on semantic versioning and
-conventional commits, update the change-log, create a new git tag, build the
-package + wheel and push them to PyPI. At last a Github release is created with the built
-source as assets.
+for the ``main`` branch form the ``Actions`` tab of the Github repository. To start the
+workflow you must specify the kind of version bump you want to make:
 
-    **Note**: As all changes are merged into ``master`` only the current released
+
+
+
+The workflow then will:
+
+1) check if all CI pipelines ran successfully on the latest commit (you can start them
+   manually if they did not run)
+2) run the full test suit of the previous release
+3) check if *BREAKING CHANGES* are declared in the ``CHANGELOG.md``, when the old test
+   suit fails
+4) bump the version, commit the update, tag the commit and push them
+5) build (sdist + wheel) and publish the code on PyPI and Github
+
+    **Note**: As all changes are merged into ``main`` only the current released
     version is supported and will receive bugfixes. Bugfixes for older versions are not
     planned.
