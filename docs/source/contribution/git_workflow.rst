@@ -35,13 +35,13 @@ workflow you must specify the kind of version bump you want to make:
 
 The workflow then will:
 
-1) check if all CI pipelines ran successfully on the latest commit (you can start them
+#) check if all CI pipelines ran successfully on the latest commit (you can start them
    manually if they did not run)
-2) run the full test suit of the previous release
-3) check if *BREAKING CHANGES* are declared in the ``CHANGELOG.md``, when the old test
+#) run the full test suit of the previous release
+#) check if *BREAKING CHANGES* are declared in the ``CHANGELOG.md``, when the old test
    suit fails
-4) bump the version, commit the update, tag the commit and push them
-5) build (sdist + wheel) and publish the code on PyPI and Github
+#) bump the version, commit the update, tag the commit and push them
+#) build (sdist + wheel) and publish the code on PyPI and Github
 
     **Note**: As all changes are merged into ``main`` only the current released
     version is supported and will receive bugfixes. Bugfixes for older versions are not
