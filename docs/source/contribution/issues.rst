@@ -51,11 +51,6 @@ If you have specific examples to reproduce the problem like config/code snippets
 or links to a Github project please include them or make a
 `Gist <https://gist.github.com/>`__ and include its link.
 
-.. CHANGE ME: include if programm has CLI
-
-.. If the problem is an error which unexpectedly occurs, please run the same command again
-.. with the ``--debug`` option to get a more information and add this information also.
-
 You can also provide more context by asking yourself these questions:
 
 - Did the problem just start happening recently after an update or something?
@@ -66,7 +61,7 @@ You can also provide more context by asking yourself these questions:
 
 The template also asks for some info about your environment:
 
-- What **version** of ``python_test-cielquan`` do you use?
+- What **version** of ``{{cookiecutter.project_name}}`` do you use?
 - Which **OS** are you using and which **version**?
 - Which **python version** are you using?
 

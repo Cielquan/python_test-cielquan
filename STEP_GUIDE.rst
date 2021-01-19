@@ -27,7 +27,7 @@ Github repo
 #. Activate code-climate
     - Add CC_TEST_REPORTER_ID secret var
 
-#. Add PyPI credentials as secret var
+#. Add PyPI token as PYPI_TOKEN secret var
 
 #. Add protection rule for ``master``
     - Require checks
@@ -40,40 +40,12 @@ Github repo
 Code base
 =========
 
-#. Update .github/ISSUE_TEMPLATES/*
-    - Repo name
-    - links
-    - if not cli remove part from bug report
-    - CHANGE ME in publish.yml
-
 #. Update docs:
-    - contribution section:
-        * If not CLI remove this part
-        * update links
-    - badges.rst
-    - index.rst: rm badges from toxtree
-    - installation.rst: links && rm pypi if not there
-    - usage.rst
-
-#. Update src
-    - init: docstr
-
-#. Update tests
-    - conftest: docstr
+    - installation.rst: rm pypi if not there
 
 #. Update pyproject.toml
-    - _testing: config
-    - _metadata: first_release_year
-    - poetry:
-        * metadata (desc: same as repo (see above))
-        * deps / extras
     - pytest.ini_options: rm mock_use_standalone_module if not needed
-    - coverage config: [plugins and plugin-conf, combine paths]
+    - coverage config: [plugins and plugin-conf]
     - coverage-conditional-plugin rm if not used
 
-#. Create LICENSE and add license to pyproject.toml
-
-#. Create/Update README.rst
-
-#. Update CONTRIBUTION.rst:
-    - Change link
+#. Create LICENSE and update license in files if no default one

@@ -24,7 +24,7 @@ Contribution to the Documentation
 ---------------------------------
 
 Contribution to the documentation is the easiest way to get started to contribute to
-``python_test-cielquan``. You can look in the :repo:`Github issue tracker <issues>`
+``{{cookiecutter.project_name}}``. You can look in the :repo:`Github issue tracker <issues>`
 for issues with the ``Documentation`` label and try to solve them.
 
 
