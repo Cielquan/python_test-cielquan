@@ -129,7 +129,9 @@ apidoc_output_dir = "autoapidoc"
 apidoc_toc_file = False
 apidoc_separate_modules = False
 apidoc_module_first = True
-apidoc_extra_args = ["--templatedir", "apidoc_templates"]
+apidoc_extra_args = []
+if Path("_apidoc_templates").is_dir():
+    apidoc_extra_args += ["--templatedir", "apidoc_templates"]
 
 
 if find_spec("sphinxcontrib.apidoc") is not None:
