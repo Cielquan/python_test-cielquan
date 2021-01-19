@@ -1,7 +1,7 @@
 +-------------------+---------------------------------------------------------------------------------------------+
 | **General**       | |maintenance_n| |license| |rtd|                                                             |
 |                   +---------------------------------------------------------------------------------------------+
-|                   | |semver| |conventional_commits|                                                             |
+|                   | |semver|                                                                                    |
 +-------------------+---------------------------------------------------------------------------------------------+
 | **PyPI**          | |pypi_release| |pypi_py_versions| |pypi_implementations|                                    |
 |                   +---------------------------------------------------------------------------------------------+
@@ -42,10 +42,6 @@
 .. |semver| image:: https://img.shields.io/badge/Semantic%20Versioning-2.0.0-brightgreen.svg?style=flat-square
     :target: https://semver.org/
     :alt: Semantic Versioning - 2.0.0
-
-.. |conventional_commits| image:: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square
-    :target: https://conventionalcommits.org
-    :alt: Conventional Commits - 1.0.0
 
 
 .. PyPI
@@ -189,3 +185,7 @@
 .. |codeclimate_cov_o| image:: https://api.codeclimate.com/v1/badges/dd84c2e0ec53f19156dd/test_coverage
     :target: https://codeclimate.com/github/Cielquan/python_test-cielquan/test_coverage
     :alt: Test Coverage
+
+.. |conventional_commits| image:: https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg?style=flat-square
+    :target: https://conventionalcommits.org
+    :alt: Conventional Commits - 1.0.0
