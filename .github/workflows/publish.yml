@@ -49,7 +49,7 @@ jobs:
           import sys
 
           version_step = "${{ github.event.inputs.releaseStep }}"
-          types = ("major", "breaking", "minor", "feature", "patch", bugfix)
+          types = ("major", "breaking", "minor", "feature", "patch", "bugfix")
           if version_step not in types:
               print(f"'{version_step}' is not a valid release type.")
               sys.exit(1)
