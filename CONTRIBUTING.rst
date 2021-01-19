@@ -8,4 +8,4 @@ For easier structuring and organizing we put the contribution guidelines into th
 
 Please follow this
 `link <https://python-test-cielquan.readthedocs.io/en/latest/contribution/>`__
-to the contribution section.
+to the contribution section in the docs.

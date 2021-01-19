@@ -71,7 +71,7 @@ Code base
     - coverage config: [plugins and plugin-conf, combine paths]
     - coverage-conditional-plugin rm if not used
 
-#. Create/Update LICENSE
+#. Create LICENSE and add license to pyproject.toml
 
 #. Create/Update README.rst
 
