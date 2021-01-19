@@ -26,7 +26,7 @@ if sys.version_info[0:2] <= (3, 6):
     raise RuntimeError("Script runs only with python 3.7 or newer.")
 
 
-PATCH = ("patch",)
+PATCH = ("patch", "bugfix")
 MINOR = ("minor", "feature")
 MAJOR = ("major", "breaking")
 
