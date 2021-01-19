@@ -30,9 +30,12 @@ To trigger a new release you have to manually start the ``Release new version`` 
 for the ``main`` branch form the ``Actions`` tab of the Github repository. To start the
 workflow you must specify the kind of version bump you want to make:
 
-- ``patch``/``bugfix``: for changes that **do not** add new functionallity and are backwards compatible
-- ``minor``/``feature``: for changes that **do** add new functionallity and are backwards compatible
-- ``major``/``breaking``: for changes that are **not** backwards compatible
+    - ``patch``/``bugfix``:
+      for changes that **do not** add new functionallity and are backwards compatible
+    - ``minor``/``feature``:
+      for changes that **do** add new functionallity and are backwards compatible
+    - ``major``/``breaking``:
+      for changes that are **not** backwards compatible
 
 The workflow then will:
 
