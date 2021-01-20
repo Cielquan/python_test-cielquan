@@ -16,7 +16,6 @@ on:  # yamllint disable-line rule:truthy
       - '!*'
     branches:
       - main
-      - master
     paths:
       #: Source/Test changes
       - 'src/**/*.py'

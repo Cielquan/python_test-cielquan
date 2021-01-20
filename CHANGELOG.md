@@ -16,7 +16,7 @@ For a list of all available releases see the
 
 
 ## Unreleased
-[diff v1.0.2...master](https://github.com/Cielquan/python_test-cielquan/compare/v1.0.2...master)
+[diff v1.0.2...main](https://github.com/Cielquan/python_test-cielquan/compare/v1.0.2...main)
 
 
 ## [1.0.2](https://github.com/Cielquan/python_test-cielquan/releases/v1.0.2) (2021-01-19)

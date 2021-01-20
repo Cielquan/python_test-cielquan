@@ -16,6 +16,6 @@ For a list of all available releases see the
 
 
 ## Unreleased
-[commits](https://github.com/Cielquan/python_test-cielquan/commits/master)
+[commits](https://github.com/Cielquan/python_test-cielquan/commits/main)
 
 - Intital release

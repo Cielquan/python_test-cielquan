@@ -160,8 +160,8 @@ def update_changelog(
         compare = f"{'' if first_release else 'v'}{last_version}...v{new_version}"
         changelog_lines[release_line] = (
             "## Unreleased\n"
-            f"[diff v{new_version}...master]"
-            f"({repo_url}/compare/v{new_version}...master)\n"
+            f"[diff v{new_version}...main]"
+            f"({repo_url}/compare/v{new_version}...main)\n"
             "\n"
             "\n"
             f"## [{new_version}]({repo_url}/releases/v{new_version}) ({today})\n"
