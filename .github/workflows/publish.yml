@@ -25,7 +25,8 @@ on:  # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
       releaseStep:
-        description: 'Version increase type: major/breaking | minor/feature | patch/bugfix'
+        description: >
+          Version increase type: major/breaking | minor/feature | patch/bugfix
         required: true
       # preRelease:
       #   description: 'Pre-release level: alpha|a|beta|b|rc'
@@ -435,7 +436,9 @@ jobs:
           commit_sha: ${{ github.sha }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: steps.check-step.outcome != 'success' || steps.check-notes.outcome != 'success'
+        if: >
+          steps.check-step.outcome != 'success' ||
+          steps.check-notes.outcome != 'success'
 
       - name: Check (for) comment from prior run
         id: check-comments
