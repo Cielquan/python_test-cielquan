@@ -15,6 +15,7 @@ on:  # yamllint disable-line rule:truthy
     tags:
       - '!*'
     branches:
+      - main
       - master
     paths:
       #: Source changes
