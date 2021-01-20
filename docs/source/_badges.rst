@@ -103,6 +103,8 @@
     :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Dependency+safety%22
     :alt: GitHub Actions - Dependency safety
 
+.. TODO:#i# readd dependabot badge when https://github.com/dependabot/dependabot-core/issues/1912 is fixed
+
 .. |dependabot| image:: https://api.dependabot.com/badges/status?host=github&repo=Cielquan/python_test-cielquan
     :target: https://dependabot.com
     :alt: Dependabot status
