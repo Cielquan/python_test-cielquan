@@ -3,6 +3,7 @@ exclude_patterns:
   - "tests/"
   - "docs/source/conf.py"
   - "noxfile.py"
+  - "prep_release.py"
   - ".commitlintrc.js"
   - ".versionrc.js"
   - ".pyproject_version.js"
