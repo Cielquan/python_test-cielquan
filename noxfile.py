@@ -528,7 +528,7 @@ def setup_pre_commit(session: Session) -> None:
 
     (Re)Create pre-commit tox env, install pre-commit hook, run tox env.
     """
-    _tox_caller(session, "pre_commit", ["-r", "--notest"])
+    _tox_caller(session, "pre_commit", ["TOX_ARGS=-r,--notest"])
     session.run("pre-commit", "install", "-t", "pre-commit", "-t", "commit-msg")
     _tox_caller(session, "pre_commit", [])
 
@@ -537,7 +537,7 @@ def setup_pre_commit(session: Session) -> None:
 def create_spellignore(session: Session) -> None:  # noqa: W0613
     """Create .spellignore file (no overwrite)."""
     gitignore_file_path = NOXFILE_DIR / ".gitignore"
-    with open(gitignore_file_path, "w") as gitignore_file:
+    with open(gitignore_file_path) as gitignore_file:
         gitignore_content = gitignore_file.read()
 
     spellignore_file_path = NOXFILE_DIR / ".spellignore"
