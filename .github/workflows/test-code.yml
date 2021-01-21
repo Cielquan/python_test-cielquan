@@ -555,9 +555,9 @@ jobs:
           name: coverage-merged
           path: .coverage_cache/
 
-      - name: Fetch origin/master
+      - name: Fetch origin/main
         #: https://github.com/Bachmann1234/diff_cover#troubleshooting
-        run: git fetch --no-tags origin master:refs/remotes/origin/master
+        run: git fetch --no-tags origin main:refs/remotes/origin/main
 
       - name: Run tox env via nox
         run: nox --forcecolor --session coverage_report
