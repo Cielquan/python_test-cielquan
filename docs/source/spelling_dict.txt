@@ -1,3 +1,5 @@
+api
+changelog
 cielquan
 compat
 conf
@@ -21,6 +23,8 @@ py
 redef
 repo
 riedel
+rst
+sdist
 tokenize
 txt
 venv

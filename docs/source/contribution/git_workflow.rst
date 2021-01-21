@@ -31,9 +31,9 @@ for the ``main`` branch form the ``Actions`` tab of the Github repository. To st
 workflow you must specify the kind of version bump you want to make:
 
     - ``patch``/``bugfix``:
-      for changes that **do not** add new functionallity and are backwards compatible
+      for changes that **do not** add new functionality and are backwards compatible
     - ``minor``/``feature``:
-      for changes that **do** add new functionallity and are backwards compatible
+      for changes that **do** add new functionality and are backwards compatible
     - ``major``/``breaking``:
       for changes that are **not** backwards compatible
 

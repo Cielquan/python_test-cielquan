@@ -83,7 +83,7 @@ after a double dash and separated by a space like so: ``nox -s <session> -- arg1
 For local development and testing ``nox`` sessions are meant to be called from the
 development virtualenv (option 1) for better performance.
 
-Option 2 is used for the above mentiond ``full_*`` sessions, testing the code against
+Option 2 is used for the above mentioned ``full_*`` sessions, testing the code against
 different python versions and in CI pipelines. If you want to give arguments to ``tox``
 you need to specify them as a comma separated list after the double dash like this:
 ``nox -s <session> -- TOX_ARGS=<tox-args>``. The same way you can also specify
