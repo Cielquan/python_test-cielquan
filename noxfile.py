@@ -268,7 +268,7 @@ def test_code(session: Session) -> None:
     session.run(
         "pytest",
         *color,
-        f"--basetemp={get_venv_tmp_dir(get_venv_path())}",
+        f"--basetemp={get_venv_tmp_dir(get_venv_path(), create_if_missing=True)}",
         f"--junitxml={NOXFILE_DIR / '.junit_cache' / f'junit.{name}.xml'}",
         f"--cov={cov_source_dir}",
         f"--cov-fail-under={session.env.get('MIN_COVERAGE') or 100}",
@@ -357,7 +357,9 @@ def safety(session: Session) -> None:
         session.log("Skipping install step.")
 
     venv_path = get_venv_path()
-    req_file_path = get_venv_tmp_dir(venv_path) / "requirements.txt"
+    req_file_path = (
+        get_venv_tmp_dir(venv_path, create_if_missing=True) / "requirements.txt"
+    )
 
     #: Use `poetry show` to fill `requirements.txt`
     command = [str(get_venv_bin_dir(venv_path) / "poetry"), "show"]

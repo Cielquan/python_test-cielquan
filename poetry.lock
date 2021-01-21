@@ -709,7 +709,7 @@ dev = ["dlint", "flake8-2020", "flake8-aaa", "flake8-absolute-import", "flake8-a
 
 [[package]]
 name = "formelsammlung"
-version = "3.1.0"
+version = "3.2.0"
 description = "Collection of different functions"
 category = "main"
 optional = false
@@ -1914,7 +1914,7 @@ twine = ["twine"]
 [metadata]
 lock-version = "1.1"
         python-versions = "^3.6.1"
-content-hash = "82aa33191988747496f6111ab8ffbba0b8a002700c436097906fa092b0938995"
+content-hash = "fee1bde35e1cfbdf176404b1f2eaec51f28191476f62baec58e96b3cc8b1b6d7"
 
 [metadata.files]
 alabaster = [
@@ -2251,8 +2251,8 @@ flakehell = [
     {file = "flakehell-0.8.0.tar.gz", hash = "sha256:d64fd8f1630c3fa191601eaa32de6e4ea24f9423cade308562c1d279d5f67bfd"},
 ]
 formelsammlung = [
-    {file = "formelsammlung-3.1.0-py3-none-any.whl", hash = "sha256:a4d91bff10a4c62ba8356279b653699ece1faf103bfae5cee254c561d5b2cfd0"},
-    {file = "formelsammlung-3.1.0.tar.gz", hash = "sha256:bc943ded14ff0621e560625a745e9cc9f76835eff6d65b5fd7983ccf81075693"},
+    {file = "formelsammlung-3.2.0-py3-none-any.whl", hash = "sha256:81a561cf15b9fd29dec3984c0a3f5679ddf815596d266c933b33020d308cdbc5"},
+    {file = "formelsammlung-3.2.0.tar.gz", hash = "sha256:bffa7247762a80498057378b4093509a6cf0ffb75407f79c9ce8769b056d192c"},
 ]
 gitdb = [
     {file = "gitdb-4.0.5-py3-none-any.whl", hash = "sha256:91f36bfb1ab7949b3b40e23736db18231bf7593edada2ba5c3a174a7b23657ac"},
