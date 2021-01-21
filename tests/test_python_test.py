@@ -12,6 +12,15 @@ import python_test_cielquan
 from python_test_cielquan.python_tester import some_func
 
 
+def test_dummy() -> None:
+    """Test a dummy to silence pytest exit code 5."""
+    print(python_test_cielquan)
+
+    result = 1 + 1
+
+    assert result == 2
+
+
 def test_something() -> None:
     """docstring."""
     test_val = 1
