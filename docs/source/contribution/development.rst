@@ -113,7 +113,7 @@ additional arguments for the inner ``nox`` with:
     (*coverage.xml*) and HTML (*/htmlcov*) reports in ``.coverage_cache``.
 
 - ``coverage_report``:
-    Report the total coverage and diff coverage against origin/master or DIFF_AGAINST.
+    Report the total coverage and diff coverage against origin/main or DIFF_AGAINST.
 
 - ``coverage``:
     Merge and report the coverage. (runs both coverage sessions above)
