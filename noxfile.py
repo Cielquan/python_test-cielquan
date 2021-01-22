@@ -309,7 +309,7 @@ def _coverage(session: Session, job: str) -> None:
 
         session.run(
             "diff-cover",
-            f"--compare-branch={session.env.get('DIFF_AGAINST') or 'origin/master'}",
+            f"--compare-branch={session.env.get('DIFF_AGAINST') or 'origin/main'}",
             "--ignore-staged",
             "--ignore-unstaged",
             f"--fail-under={session.env.get('MIN_DIFF_COVERAGE') or 100}",
@@ -333,7 +333,7 @@ def coverage_merge(session: Session) -> None:
 @monkeypatch_session
 @tox_caller()
 def coverage_report(session: Session) -> None:
-    """Report total and diff coverage against origin/master (or DIFF_AGAINST)."""
+    """Report total and diff coverage against origin/main (or DIFF_AGAINST)."""
     _coverage(session, "report")
 
 

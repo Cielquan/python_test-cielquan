@@ -29,7 +29,7 @@ Github repo
 
 #. Add PyPI token as PYPI_TOKEN secret var
 
-#. Add protection rule for ``master``
+#. Add protection rule for ``main``
     - Require checks
     - Require up to date branch
     - Include admins

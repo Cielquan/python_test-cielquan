@@ -35,7 +35,7 @@ issues.
 Bugs are tracked at the aforementioned :repo:`Github issue tracker <issues>` where you
 can create your issue and with the ``Bug Report`` option. Through the option your
 issue's body is automatically filled with the
-:repo:`Bug Report template <blob/master/.github/ISSUE_TEMPLATE/.bug-report.md>`.
+:repo:`Bug Report template <blob/main/.github/ISSUE_TEMPLATE/.bug-report.md>`.
 By filling this template you make it easier for others to understand the issue and help
 you with or fix the problem.
 
@@ -77,7 +77,7 @@ Your ideas are welcome!
 Feature requests are tracked at the aforementioned :repo:`Github issue tracker <issues>`
 where you can create your issue and choose the ``Feature Request`` option. Through the
 option your issue's body is automatically filled with the
-:repo:`Feature Request template <blob/master/.github/ISSUE_TEMPLATE/.feature-request.md>`.
+:repo:`Feature Request template <blob/main/.github/ISSUE_TEMPLATE/.feature-request.md>`.
 By filling this template you make it easier for others to understand your suggestions.
 
 Explain your topic as detailed as possible to help others understand your ideas:
@@ -100,4 +100,4 @@ Documentation changes
 
 If you have errors or enhancement ideas for the documentation please follow the steps
 above accordingly but use the ``Documentation`` issue option to get the
-:repo:`Documentation template <blob/master/.github/ISSUE_TEMPLATE/.documentation.md>`.
+:repo:`Documentation template <blob/main/.github/ISSUE_TEMPLATE/.documentation.md>`.
