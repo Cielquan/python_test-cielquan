@@ -3,7 +3,7 @@
     It is highly recommend to read the contribution guidelines
     to save you and us time and unnecessary review cycles.
 
-    https://github.com/Cielquan/python_test-cielquan/blob/master/CONTRIBUTING.rst
+    https://github.com/Cielquan/python_test-cielquan/blob/main/CONTRIBUTING.rst
 
     If you have unanswered questions feel free to open an issue or submit and ask!
 
