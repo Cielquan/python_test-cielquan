@@ -20,12 +20,8 @@ from typing import Any, Callable, Dict, List, Optional
 import nox
 import tomlkit  # type: ignore[import]
 
-from formelsammlung.venv_utils import (
-    get_venv_bin_dir,
-    get_venv_path,
-    get_venv_tmp_dir,
-)
-from formelsammlung.nox_session import session_w_poetry, Session
+from formelsammlung.nox_session import Session, session_w_poetry
+from formelsammlung.venv_utils import get_venv_bin_dir, get_venv_path, get_venv_tmp_dir
 from nox.command import CommandFailed
 from nox.logger import logger as nox_logger
 
@@ -56,6 +52,10 @@ TOXENV_DOCS_BUILDERS = PYPROJECT["tool"]["_testing"]["toxenv_docs_builders"]
 
 
 def poetry_require_venv(session: Session) -> bool:
+    """Determine if poetry_install needs a venv to install into.
+
+    :param session: nox session object
+    """
     return isinstance(session.virtualenv, nox.sessions.PassthroughEnv) and not IN_CI
 
 
