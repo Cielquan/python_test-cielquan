@@ -212,6 +212,7 @@
             "-W0511",  # fixme
             "-C0326", "-C0330",  #: deactivated for black
             #: double checks
+            "-C0116",  # same as D103[flake8-docstrings]
             "-C0301",  # same as E501[pyflakes]
             "-W0611",  # same as F401[pyflakes]
             "-W0612",  # same as F841[pyflakes]
