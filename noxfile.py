@@ -114,7 +114,7 @@ def _tox_caller(
         posargs = session.posargs
 
     #: Extract tox args
-    tox_args = []
+    tox_args: List[] = []
     for arg in posargs:
         if arg.startswith("TOX_ARGS="):
             tox_args = arg[9:].split(",")
@@ -122,7 +122,7 @@ def _tox_caller(
             break
 
     #: Extract nox args for nox called by tox
-    nox_args = []
+    nox_args: List[str] = []
     for arg in posargs:
         if arg.startswith("NOX_ARGS="):
             nox_args = arg[9:].split(",")
@@ -326,7 +326,7 @@ def safety(session: Session) -> None:
 def pre_commit(session: Session) -> None:  # noqa: R0912
     """Format and check the code."""
     if "skip_install" not in session.posargs:
-        extras = "pre-commit testing docs poetry nox"
+        extras = "pre-commit testing docs poetry dev_nox"
         session.poetry_install(
             extras,
             no_root=(TOX_CALLS or SKIP_INSTALL),

@@ -174,7 +174,7 @@
             "flake8-walrus",
         ]
         poetry = ["poetry"]
-        nox = ["nox", "tomlkit", "formelsammlung"]
+        dev_nox = ["nox", "tomlkit", "formelsammlung"]
         tomlkit = ["tomlkit"]
         tox = ["tox"]
         twine = ["twine"]
