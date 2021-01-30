@@ -40,7 +40,7 @@ project = __project__.replace("-", "_")
 author = __author__
 CREATION_YEAR = 2019  # CHANGE ME
 CURRENT_YEAR = f"{date.today().year}"
-copyright = (  # noqa: VNE003
+copyright = (  # noqa: VNE003,W0622
     f"{CREATION_YEAR}{('-' + CURRENT_YEAR) if CURRENT_YEAR != CREATION_YEAR else ''}, "
     + f"{author} and AUTHORS"
 )
