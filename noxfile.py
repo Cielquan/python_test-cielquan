@@ -114,7 +114,7 @@ def _tox_caller(
         posargs = session.posargs
 
     #: Extract tox args
-    tox_args: List[] = []
+    tox_args: List[str] = []
     for arg in posargs:
         if arg.startswith("TOX_ARGS="):
             tox_args = arg[9:].split(",")
