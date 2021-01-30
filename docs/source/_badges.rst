@@ -19,6 +19,8 @@
 +-------------------+---------------------------------------------------------------------------------------------+
 
 
+.. Change badges in README also
+
 .. General
 
 .. Change maintenance status in README also
