@@ -210,41 +210,38 @@
             #: deactivate
             "-C040?",  # spelling
             "-W0511",  # fixme
-            "-C0326", "-C0330",  #: deactivated for black
-            #: double checks
-            "-C0301",  # same as E501[pyflakes]
-            "-W0611",  # same as F401[pyflakes]
-            "-W0612",  # same as F841[pyflakes]
-            "-W0622",  # same as VNE003[flake8-variables-names]
-            "-W1309",  # same as F541[pyflakes]
             #: bugs
             "-W1203",  # Use % format in logger funcs | https://github.com/PyCQA/pylint/issues/2354
         ]
-        pyflakes = [
-            "+*",
-            #: double checks
-            "-F821",  # same as E0602[pylint]
-        ]
+        pyflakes = ["+*"]
         mccabe = ["+*"]
         pycodestyle = [
             "+*",
+            #: deactivate for black
+            "-W503",  # line break before binary operator
+            "-E203",  # whitespace before ':'
             #: deactivate
-            "-E203", "-W503",  #: deactivated for black
             "-E731",  #: forbids lambda
-            #: double checks
-            "-E402",  #: same as C0413[pylint]
-            "-E713",  #: same as SIM203[flake8-simplify]
         ]
         pep8-naming = ["+*"]
         "flake8-*" = ["+*"]
-        flake8-annotations = ["+*", "-ANN101", "-ANN102"]
-        flake8-bandit = ["+*", "-S322"]
-        flake8-logging-format = [
+        flake8-annotations = [
             "+*",
-            #: double checks
-            "-G004",  # same as W1203[pylint]
+            #: deactivate
+            "-ANN101",  # Missing type annotation for self in method
+            "-ANN102",  # Missing type annotation for cls in classmethod
         ]
-        flake8-use-fstring = ["+*", "-FS003"]
+        flake8-rst-docstrings = [
+            "+*",
+            #: deactivate
+            "-RST303",  # Unknown directive type
+            "-RST304",  # Unknown interpreted text role
+        ]
+        flake8-use-fstring = [
+            "+*",
+            #: deactivate
+            "-FS003",  # f-string missing prefix | can be % string
+        ]
 
     [tool.flakehell.exceptions]
         [tool.flakehell.exceptions."tests/"]
