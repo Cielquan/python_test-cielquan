@@ -4,7 +4,7 @@
 
     Configuration file for nox.
 
-    :copyright: (c) 2019-2020, Christian Riedel and AUTHORS
+    :copyright: (c) 2020, Christian Riedel and AUTHORS
     :license: GPL-3.0-or-later, see LICENSE for details
 """  # noqa: D205,D208,D400
 import contextlib
@@ -131,7 +131,7 @@ def _tox_caller(
 
     if not find_spec("tox"):
         session.poetry_install(
-            "tox", no_root=True, no_dev=IN_CI, require_venv=poetry_require_venv(session)
+            "tox", no_root=True, no_dev=IN_CI, pip_require_venv=poetry_require_venv(session)
         )
 
     session.env["_TOX_SKIP_SDIST"] = str(SKIP_INSTALL)
@@ -156,7 +156,7 @@ def package(session: Session) -> None:
             extras,
             no_root=True,
             no_dev=(TOX_CALLS or IN_CI),
-            require_venv=poetry_require_venv(session),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -177,7 +177,7 @@ def test_code(session: Session) -> None:
             extras,
             no_root=(TOX_CALLS or SKIP_INSTALL),
             no_dev=(TOX_CALLS or IN_CI),
-            require_venv=poetry_require_venv(session),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -220,7 +220,7 @@ def _coverage(session: Session, job: str) -> None:
             extras,
             no_root=True,
             no_dev=(TOX_CALLS or IN_CI),
-            require_venv=poetry_require_venv(session),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -295,7 +295,7 @@ def safety(session: Session) -> None:
             extras,
             no_root=True,
             no_dev=(TOX_CALLS or IN_CI),
-            require_venv=poetry_require_venv(session),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -331,7 +331,7 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
             extras,
             no_root=(TOX_CALLS or SKIP_INSTALL),
             no_dev=(TOX_CALLS or IN_CI),
-            require_venv=poetry_require_venv(session),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -410,7 +410,7 @@ def docs(session: Session) -> None:
             extras,
             no_root=(TOX_CALLS or SKIP_INSTALL),
             no_dev=(TOX_CALLS or IN_CI),
-            require_venv=poetry_require_venv(session),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -440,7 +440,7 @@ def test_docs(session: Session, builder: str) -> None:
             extras,
             no_root=(TOX_CALLS or SKIP_INSTALL),
             no_dev=(TOX_CALLS or IN_CI),
-            require_venv=poetry_require_venv(session),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -475,7 +475,7 @@ def install_extras(session: Session) -> None:
         extras_to_install.strip(),
         no_root=True,
         no_dev=False,
-        require_venv=poetry_require_venv(session),
+        pip_require_venv=poetry_require_venv(session),
     )
     session.run("python", "-m", "pip", "list", "--format=columns")
     print(f"PYTHON INTERPRETER LOCATION: {sys.executable}")
