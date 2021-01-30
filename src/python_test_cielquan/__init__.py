@@ -13,7 +13,7 @@ from typing import List
 try:
     from importlib.metadata import metadata as get_md
 except ModuleNotFoundError:  # pragma: py-gte-38
-    from importlibmetadata import metadata as get_md  # type: ignore[import,no-redef]
+    from importlib_metadata import metadata as get_md  # type: ignore[import,no-redef]
 
 
 def _get_gh_repo_link(metadata_list: List[str]) -> str:
