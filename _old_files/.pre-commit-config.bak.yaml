@@ -1,0 +1,14 @@
+repos:
+#: -------------------------------------------------------------------------------------
+#: Commit message hooks
+#: -------------------------------------------------------------------------------------
+  #: Meta hooks provided by pre-commit
+  # - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
+  - repo: https://github.com/Cielquan/commitlint-pre-commit-hook
+    rev: 0d0dcc38b7b667f1762decc9ff503f3e3cb4a379  # frozen: v7.0.0
+    hooks:
+      - id: commitlint
+        stages: [commit-msg]
+        additional_dependencies: ["conventional-changelog-conventionalcommits"]
+
+
