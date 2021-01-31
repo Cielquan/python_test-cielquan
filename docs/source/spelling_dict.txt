@@ -43,6 +43,7 @@ noqa
 nosec
 nox
 nox's
+noxfile
 num
 opensource
 os

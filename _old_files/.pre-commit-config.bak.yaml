@@ -10,5 +10,3 @@ repos:
       - id: commitlint
         stages: [commit-msg]
         additional_dependencies: ["conventional-changelog-conventionalcommits"]
-
-

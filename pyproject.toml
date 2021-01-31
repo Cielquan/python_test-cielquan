@@ -208,6 +208,7 @@
         pylint = [
             "+*",
             #: deactivate
+            "-C0301",  # line length - E501[pycodestyle]
             "-C040?",  # spelling
             "-W0511",  # fixme
             #: bugs
@@ -225,6 +226,7 @@
         ]
         pep8-naming = ["+*"]
         "flake8-*" = ["+*"]
+        flake8-aaa = ["-*"]
         flake8-annotations = [
             "+*",
             #: deactivate
@@ -245,13 +247,20 @@
 
     [tool.flakehell.exceptions]
         [tool.flakehell.exceptions."tests/"]
-            flake8-bandit = ["-S101"]
+            flake8-aaa = ["+*"]
+            flake8-bandit = [
+                "-S101",  # assert used
+            ]
 
         [tool.flakehell.exceptions."noxfile.py"]
-            flake8-cognitive-complexity = ["-CCR001"]
+            flake8-cognitive-complexity = [
+                "-CCR001",  # Cognitive complexity is too high
+            ]
 
         [tool.flakehell.exceptions."docs/source/conf.py"]
-            pylint = ["-C0103"]
+            pylint = [
+                "-C0103",  # %s name "%s" doesn't conform to %s
+            ]
 
 
 #: -- PYLINT CONFIG --------------------------------------------------------------------

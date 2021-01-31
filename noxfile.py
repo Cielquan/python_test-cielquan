@@ -131,7 +131,10 @@ def _tox_caller(
 
     if not find_spec("tox"):
         session.poetry_install(
-            "tox", no_root=True, no_dev=IN_CI, pip_require_venv=poetry_require_venv(session)
+            "tox",
+            no_root=True,
+            no_dev=IN_CI,
+            pip_require_venv=poetry_require_venv(session),
         )
 
     session.env["_TOX_SKIP_SDIST"] = str(SKIP_INSTALL)
