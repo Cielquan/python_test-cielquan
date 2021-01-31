@@ -278,7 +278,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry config --ansi virtualenvs.create false
-          poetry install --ansi --no-root --no-dev --extras nox
+          poetry install --ansi --no-root --no-dev --extras dev_nox
         if: needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2

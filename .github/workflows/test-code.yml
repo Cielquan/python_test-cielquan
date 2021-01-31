@@ -256,7 +256,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry config --ansi virtualenvs.create false
-          poetry install --ansi --no-root --no-dev --extras nox
+          poetry install --ansi --no-root --no-dev --extras dev_nox
 
       - name: Generate tox envs via nox
         run: >
@@ -339,7 +339,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry config --ansi virtualenvs.create false
-          poetry install --ansi --no-root --no-dev --extras nox
+          poetry install --ansi --no-root --no-dev --extras dev_nox
 
       - uses: actions/setup-python@v2
         with:
@@ -477,7 +477,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry config --ansi virtualenvs.create false
-          poetry install --ansi --no-root --no-dev --extras nox
+          poetry install --ansi --no-root --no-dev --extras dev_nox
 
       - name: Generate tox env via nox
         run: >
@@ -542,7 +542,7 @@ jobs:
       - name: Install dependencies
         run: |
           poetry config --ansi virtualenvs.create false
-          poetry install --ansi --no-root --no-dev --extras nox
+          poetry install --ansi --no-root --no-dev --extras dev_nox
 
       - name: Generate tox env via nox
         run: >
