@@ -7,3 +7,15 @@ TODO: simplification
 TODO: docs .. workout a automated template for the docs
     https://github.com/sphinx-contrib/apidoc
     https://github.com/readthedocs/sphinx-autoapi
+
+
+TODO: fix release CI
+Warning: Unexpected input(s) 'accept', 'owner', 'repo', 'commit_sha', valid inputs are ['route', 'mediaType']
+Run octokit/request-action@v2.x
+GET /repos/{owner}/{repo}/commits/{commit_sha}/comments
+> accept: application/vnd.github.v3+json
+> owner: Cielquan
+> repo: undefined
+> commit_sha: 106b5c53de6eec08646e0d0a4b3e3b960c06e4d4
+> mediaType: [object Object]
+Error: Not Found
