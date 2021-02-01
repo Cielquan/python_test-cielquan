@@ -545,7 +545,7 @@ jobs:
           # POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
           # POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         # yamllint disable-line rule:comments-indentation
-        # run: poetry publish
+        # run: poetry publish --ansi
 
       - name: Create GH Release
         id: create-release
