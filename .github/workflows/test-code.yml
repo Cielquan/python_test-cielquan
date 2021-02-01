@@ -241,6 +241,15 @@ jobs:
       windows-success: ${{ steps.set-result.outputs.windows-success }}
     steps:
       - run: locale
+      - shell: python
+        run: |
+          import sys
+          print(sys.stdout.encoding)
+          print(sys.getdefaultencoding())
+          print(sys.getfilesystemencoding())
+
+          import locale
+          print(locale.getpreferredencoding())
 
       - uses: actions/checkout@v2
 
