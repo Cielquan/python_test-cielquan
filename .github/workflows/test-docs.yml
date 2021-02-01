@@ -73,8 +73,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry config --ansi virtualenvs.create false
-          poetry install --ansi --no-root --no-dev --extras tomlkit
+          poetry config virtualenvs.create false
+          poetry install --no-root --no-dev --extras tomlkit
 
       - name: Get default version
         id: get-default-version
@@ -109,8 +109,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry config --ansi virtualenvs.create false
-          poetry install --ansi --no-root --no-dev --extras dev_nox
+          poetry config virtualenvs.create false
+          poetry install --no-root --no-dev --extras dev_nox
 
       - name: Set python version hash
         shell: bash
