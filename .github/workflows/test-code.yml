@@ -241,7 +241,6 @@ jobs:
       windows-success: ${{ steps.set-result.outputs.windows-success }}
     steps:
       - run: locale
-        shell: bash
 
       - uses: actions/checkout@v2
 
