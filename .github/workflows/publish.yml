@@ -141,8 +141,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry config --ansi virtualenvs.create false
-          poetry install --ansi --no-root --no-dev --extras tomlkit
+          poetry config virtualenvs.create false
+          poetry install --no-root --no-dev --extras tomlkit
 
       - name: Get config
         id: get-config
@@ -277,8 +277,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          poetry config --ansi virtualenvs.create false
-          poetry install --ansi --no-root --no-dev --extras nox
+          poetry config virtualenvs.create false
+          poetry install --no-root --no-dev --extras nox
         if: needs.check-input.outputs.first_release != 'False'
 
       - uses: actions/setup-python@v2
@@ -526,7 +526,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
 
       - name: Build package
-        run: poetry build
+        run: poetry build --ansi
 
       - name: Publish package on test.PyPI
         # CHANGE ME: remove current upload to test.pypi
@@ -538,7 +538,7 @@ jobs:
           #   ${{ secrets.POETRY_HTTP_BASIC_TEST_PASSWORD }}
           POETRY_PYPI_TOKEN_TEST: |
             ${{ secrets.TEST_PYPI_TOKEN }}
-        run: poetry publish -r test
+        run: poetry publish -r test --ansi
         # yamllint disable-line rule:comments-indentation
         # env:
           # # yamllint disable-line rule:comments-indentation
