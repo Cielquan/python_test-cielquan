@@ -657,7 +657,7 @@ jobs:
           state: ${{ steps.total-success.outputs.state }}
           target_url: |
             "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
-          description: CI pipeline for testing documentation
-          context: ci-test-docs
+          description: CI pipeline for testing code
+          context: ci-test-code
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
