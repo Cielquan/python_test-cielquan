@@ -163,7 +163,7 @@ jobs:
   set-status:
     name: Set status on commit
     needs: [safety, set-git-env-vars]
-    if: needs.safety.result != 'skipped' && needs.set-git-env-vars.result != 'skipped'
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Get repo dir name
@@ -172,6 +172,7 @@ jobs:
         run: |
           repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
           echo "::set-output name=repo-dir::$repo_dir"
+        if: needs.safety.result != 'skipped' && needs.set-git-env-vars.result != 'skipped'
 
       - name: Set status via gihub API
         uses: octokit/request-action@v2.x
@@ -187,3 +188,4 @@ jobs:
           context: ci-dependency-safety
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: needs.safety.result != 'skipped' && needs.set-git-env-vars.result != 'skipped'
