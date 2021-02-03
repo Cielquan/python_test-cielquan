@@ -382,7 +382,7 @@ def safety(session: Session) -> None:
 def pre_commit(session: Session) -> None:  # noqa: R0912
     """Format and check the code."""
     if "skip_install" not in session.posargs:
-        extras = "pre-commit testing docs poetry nox"
+        extras = "pre-commit testing docs poetry dev_nox"
         session.poetry_install(
             extras, no_root=(TOX_CALLS or SKIP_INSTALL), no_dev=(TOX_CALLS or IN_CI)
         )

@@ -108,7 +108,7 @@ jobs:
           -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox env via nox
-        run: nox --forcecolor --session safety
+        run: nox --forcecolor --session skip_install safety
 
 
   set-git-env-vars:
@@ -172,7 +172,9 @@ jobs:
         run: |
           repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
           echo "::set-output name=repo-dir::$repo_dir"
-        if: needs.safety.result != 'skipped' && needs.set-git-env-vars.result != 'skipped'
+        if: >
+          needs.safety.result != 'skipped' &&
+          needs.set-git-env-vars.result != 'skipped'
 
       - name: Set status via gihub API
         uses: octokit/request-action@v2.x
@@ -188,4 +190,4 @@ jobs:
           context: ci-dependency-safety
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        if: needs.safety.result != 'skipped' && needs.set-git-env-vars.result != 'skipped'
+        if: steps.repo-dir.outcome == 'success'
