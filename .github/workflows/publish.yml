@@ -222,23 +222,29 @@ jobs:
       - name: Check CI status
         run: exit 0
 # yamllint disable-line rule:comments-indentation
-#         shell: python
-#         run: |
-#           import json
-#           import sys
+        # shell: python
+        # run: |
+        #   import json
+        #   import sys
 
-#           status_json = json.loads("""${{ steps.get-status.outputs.data }}""")
+        #   status_json = json.loads("""${{ steps.get-status.outputs.data }}""")
 
-#           if status_json["state"] != "success":
-#               print("The CI pipeline state of this commit is not 'success'.")
-#               sys.exit(1)
+        #   if status_json["state"] != "success":
+        #       print("The CI pipeline state of this commit is not 'success'.")
+        #       sys.exit(1)
 
-#           if len(status_json["statuses"]) < 4:
-#               print(
-#                   "Not all CI pipelines ran. Please make sure all CI pipelines "
-#                   "ran successfully and try again."
-#               )
-#               sys.exit(1)
+        #   ci_that_ran = []
+        #   for ci in status_json["statuses"]:
+        #       ci_that_ran.append(ci["context"])
+
+        #   needed_ci = ("ci-code-quality", "ci-test-code", "ci-test-docs")
+        #   for ci in needed_ci:
+        #       if ci not in ci_that_ran:
+        #           print(
+        #               "Not all CI pipelines ran. Please make sure all CI pipelines "
+        #               f"ran successfully and try again.\nNeeded CI: {needed_ci}"
+        #           )
+        #           sys.exit(1)
 
 
   old-test-code:
