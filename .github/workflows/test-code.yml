@@ -265,7 +265,7 @@ jobs:
 
       - name: Run tox envs via nox
         id: test
-        run: nox --forcecolor --session skip_install package
+        run: nox --forcecolor --session package -- skip_install
 
       - name: Set result variable
         id: set-result
@@ -425,7 +425,7 @@ jobs:
           -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox envs via nox
-        run: nox --forcecolor --session skip_install test_code
+        run: nox --forcecolor --session test_code -- skip_install
 
       - name: Set archive name
         id: set-archive-name
@@ -505,7 +505,7 @@ jobs:
               shutil.copy(str(coverage_file), str(destination))
 
       - name: Run tox env via nox
-        run: nox --forcecolor --session skip_install coverage_merge
+        run: nox --forcecolor --session coverage_merge -- skip_install
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v2
@@ -560,7 +560,7 @@ jobs:
         run: git fetch --no-tags origin main:refs/remotes/origin/main
 
       - name: Run tox env via nox
-        run: nox --forcecolor --session skip_install coverage_report
+        run: nox --forcecolor --session coverage_report -- skip_install
 
 
   push-coverage-to-code-climate:

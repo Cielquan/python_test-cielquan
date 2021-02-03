@@ -108,7 +108,7 @@ jobs:
           -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox env via nox
-        run: nox --forcecolor --session skip_install safety
+        run: nox --forcecolor --session safety -- skip_install
 
 
   set-git-env-vars:

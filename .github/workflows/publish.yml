@@ -365,7 +365,7 @@ jobs:
 
       - name: Run tox envs via nox
         run: |
-          nox --forcecolor --session skip_install test_code -- tests-last-version/tests
+          nox --forcecolor --session test_code -- skip_install tests-last-version/tests
         env:
           MIN_COVERAGE: 0
         if: needs.check-input.outputs.first_release != 'False'
