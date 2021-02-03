@@ -26,3 +26,5 @@ TODO: update workflows
     - test only for doc/code test and pre.commit
 
 TODO: fix code test cache ensurance windows
+
+TODO: code test workflow - install and run - and run with skip_install
