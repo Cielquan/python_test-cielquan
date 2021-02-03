@@ -163,7 +163,7 @@ jobs:
   set-status:
     name: Set status on commit
     needs: [safety, set-git-env-vars]
-    if: needs.safety.result != 'skipped'
+    if: needs.safety.result != 'skipped' && needs.set-git-env-vars.result != 'skipped'
     runs-on: ubuntu-latest
     steps:
       - name: Get repo dir name
