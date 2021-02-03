@@ -19,3 +19,8 @@ GET /repos/{owner}/{repo}/commits/{commit_sha}/comments
 > commit_sha: 106b5c53de6eec08646e0d0a4b3e3b960c06e4d4
 > mediaType: [object Object]
 Error: Not Found
+
+TODO: update workflows
+    - line length
+    - set status not only on success
+    - test only for doc/code test and pre.commit
