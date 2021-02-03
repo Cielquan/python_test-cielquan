@@ -16,14 +16,14 @@ on:  # yamllint disable-line rule:truthy
       - '!*'
     branches:
       - main
-    # paths:  # TODO: reactivate
-    #   #: Dependency changes
-    #   - 'poetry.lock'
-    #   - 'pyproject.toml'
-    #   #: Test config changes
-    #   - 'tox.ini'
-    #   - 'noxfile.py'
-    #   - '.github/workflows/dependency-safety.yml'
+    paths:
+      #: Dependency changes
+      - 'poetry.lock'
+      - 'pyproject.toml'
+      #: Test config changes
+      - 'tox.ini'
+      - 'noxfile.py'
+      - '.github/workflows/dependency-safety.yml'
 
   pull_request:
     branches:
