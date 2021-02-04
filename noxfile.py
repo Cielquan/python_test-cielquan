@@ -4,8 +4,8 @@
 
     Configuration file for nox.
 
-    :copyright: (c) 2019-2020, Christian Riedel and AUTHORS
-    :license: GPL-3.0, see LICENSE for details
+    :copyright: (c) 2020, Christian Riedel and AUTHORS
+    :license: GPL-3.0-or-later, see LICENSE for details
 """  # noqa: D205,D208,D400
 import contextlib
 import os
@@ -20,15 +20,10 @@ from typing import Any, Callable, Dict, List, Optional
 import nox
 import tomlkit  # type: ignore[import]
 
-from formelsammlung.venv_utils import (
-    get_venv_bin_dir,
-    get_venv_path,
-    get_venv_tmp_dir,
-    where_installed,
-)
+from formelsammlung.nox_session import Session, session_w_poetry
+from formelsammlung.venv_utils import get_venv_bin_dir, get_venv_path, get_venv_tmp_dir
 from nox.command import CommandFailed
 from nox.logger import logger as nox_logger
-from nox.sessions import Session as _Session
 
 
 #: -- NOX OPTIONS ----------------------------------------------------------------------
@@ -56,83 +51,12 @@ TOXENV_PYTHON_VERSIONS = PYPROJECT["tool"]["_testing"][f"toxenv_python_versions_
 TOXENV_DOCS_BUILDERS = PYPROJECT["tool"]["_testing"]["toxenv_docs_builders"]
 
 
-#: -- MONKEYPATCH SESSION --------------------------------------------------------------
-class Session(_Session):  # noqa: R0903
-    """Subclass of nox's Session class to add `poetry_install` method."""
+def poetry_require_venv(session: Session) -> bool:
+    """Determine if poetry_install needs a venv to install into.
 
-    def poetry_install(
-        self,
-        extras: Optional[str] = None,
-        no_dev: bool = False,
-        no_root: bool = False,
-        require_venv: Optional[bool] = None,
-        **kwargs: Any,
-    ) -> None:
-        """Wrap ``poetry install`` for nox sessions.
-
-        :param extras: string of space separated extras to install
-        :param no_dev: if `--no-dev` should be set; defaults to: True
-        :param no_root: if `--no-root` should be set; defaults to: False
-        :param require_venv: If ``True`` requires to be run in a venv. If ``False`` does
-            not require a venv to be run inside. If unset autodetection is used: if no
-            venv is active abort install except when inside CI.
-        """
-        #: Safety hurdle copied from nox.sessions.Session.install()
-        if not isinstance(
-            self._runner.venv,
-            (
-                nox.sessions.CondaEnv,
-                nox.sessions.VirtualEnv,
-                nox.sessions.PassthroughEnv,
-            ),
-        ):
-            raise ValueError("A session w/o a virtualenv can not install dependencies.")
-
-        env = {"PIP_DISABLE_VERSION_CHECK": "1"}
-        req_venv = {"PIP_REQUIRE_VIRTUALENV": "true"}
-
-        if require_venv is True or (
-            isinstance(self.virtualenv, nox.sessions.PassthroughEnv)
-            and not IN_CI
-            and require_venv is not False
-        ):
-            env.update(req_venv)
-            if "env" in kwargs:
-                kwargs["env"].update(req_venv)
-            else:
-                kwargs["env"] = req_venv
-
-        if where_installed("poetry")[0] == 0:
-            self.install("poetry>=1", env=env)
-
-        extra_deps = ["--extras", extras] if extras else []
-        no_dev_flag = ["--no-dev"] if no_dev else []
-        no_root_flag = ["--no-root"] if no_root else []
-        install_args = no_root_flag + no_dev_flag + extra_deps
-
-        self._run("poetry", "install", *install_args, **kwargs)
-
-
-def monkeypatch_session(session_func: Callable) -> Callable:
-    """Decorate nox session functions to add `poetry_install` method.
-
-    :param session_func: decorated function with commands for nox session
+    :param session: nox session object
     """
-
-    def switch_session_class(session: Session, **kwargs: Dict[str, Any]) -> None:
-        """Call session function with session object overwritten by custom one.
-
-        :param session: nox session object
-        :param kwargs: keyword arguments from e.g. parametrize
-        """
-        session = Session(session._runner)  # noqa: W0212
-        session_func(session=session, **kwargs)
-
-    #: Overwrite name and docstring to imitate decorated function for nox
-    switch_session_class.__name__ = session_func.__name__
-    switch_session_class.__doc__ = session_func.__doc__
-
-    return switch_session_class
+    return isinstance(session.virtualenv, nox.sessions.PassthroughEnv) and not IN_CI
 
 
 #: -- TOX CALLING DECORATOR ------------------------------------------------------------
@@ -190,7 +114,7 @@ def _tox_caller(
         posargs = session.posargs
 
     #: Extract tox args
-    tox_args = []
+    tox_args: List[str] = []
     for arg in posargs:
         if arg.startswith("TOX_ARGS="):
             tox_args = arg[9:].split(",")
@@ -198,7 +122,7 @@ def _tox_caller(
             break
 
     #: Extract nox args for nox called by tox
-    nox_args = []
+    nox_args: List[str] = []
     for arg in posargs:
         if arg.startswith("NOX_ARGS="):
             nox_args = arg[9:].split(",")
@@ -206,7 +130,12 @@ def _tox_caller(
             break
 
     if not find_spec("tox"):
-        session.poetry_install("tox", no_root=True, no_dev=IN_CI)
+        session.poetry_install(
+            "tox",
+            no_root=True,
+            no_dev=IN_CI,
+            pip_require_venv=poetry_require_venv(session),
+        )
 
     session.env["_TOX_SKIP_SDIST"] = str(SKIP_INSTALL)
     if FORCE_COLOR:
@@ -220,13 +149,18 @@ def _tox_caller(
 
 #: -- TEST SESSIONS --------------------------------------------------------------------
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 @tox_caller()
 def package(session: Session) -> None:
     """Check sdist and wheel."""
     if "skip_install" not in session.posargs:
         extras = "poetry twine"
-        session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
+        session.poetry_install(
+            extras,
+            no_root=True,
+            no_dev=(TOX_CALLS or IN_CI),
+            pip_require_venv=poetry_require_venv(session),
+        )
     else:
         session.log("Skipping install step.")
 
@@ -236,14 +170,17 @@ def package(session: Session) -> None:
 
 
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 @tox_caller(TOXENV_PYTHON_VERSIONS)
 def test_code(session: Session) -> None:
     """Run tests with given python version."""
     if "skip_install" not in session.posargs:
         extras = "testing"
         session.poetry_install(
-            extras, no_root=(TOX_CALLS or SKIP_INSTALL), no_dev=(TOX_CALLS or IN_CI)
+            extras,
+            no_root=(TOX_CALLS or SKIP_INSTALL),
+            no_dev=(TOX_CALLS or IN_CI),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -282,7 +219,12 @@ def _coverage(session: Session, job: str) -> None:
         extras = "coverage"
         if job in ("report", "all"):
             extras += " diff-cover"
-        session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
+        session.poetry_install(
+            extras,
+            no_root=True,
+            no_dev=(TOX_CALLS or IN_CI),
+            pip_require_venv=poetry_require_venv(session),
+        )
     else:
         session.log("Skipping install step.")
         #: Remove processed posargs
@@ -322,7 +264,7 @@ def _coverage(session: Session, job: str) -> None:
 
 
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 @tox_caller()
 def coverage_merge(session: Session) -> None:
     """Combine coverage data and create xml/html reports."""
@@ -330,7 +272,7 @@ def coverage_merge(session: Session) -> None:
 
 
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 @tox_caller()
 def coverage_report(session: Session) -> None:
     """Report total and diff coverage against origin/main (or DIFF_AGAINST)."""
@@ -338,7 +280,7 @@ def coverage_report(session: Session) -> None:
 
 
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 @tox_caller()
 def coverage(session: Session) -> None:
     """Run `coverage_merge` + `coverage_report`."""
@@ -346,13 +288,18 @@ def coverage(session: Session) -> None:
 
 
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 @tox_caller()
 def safety(session: Session) -> None:
     """Check all dependencies for known vulnerabilities."""
     if "skip_install" not in session.posargs:
         extras = "poetry safety"
-        session.poetry_install(extras, no_root=True, no_dev=(TOX_CALLS or IN_CI))
+        session.poetry_install(
+            extras,
+            no_root=True,
+            no_dev=(TOX_CALLS or IN_CI),
+            pip_require_venv=poetry_require_venv(session),
+        )
     else:
         session.log("Skipping install step.")
 
@@ -377,14 +324,17 @@ def safety(session: Session) -> None:
 
 
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 @tox_caller()
 def pre_commit(session: Session) -> None:  # noqa: R0912
     """Format and check the code."""
     if "skip_install" not in session.posargs:
         extras = "pre-commit testing docs poetry dev_nox"
         session.poetry_install(
-            extras, no_root=(TOX_CALLS or SKIP_INSTALL), no_dev=(TOX_CALLS or IN_CI)
+            extras,
+            no_root=(TOX_CALLS or SKIP_INSTALL),
+            no_dev=(TOX_CALLS or IN_CI),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -440,12 +390,14 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
 
     if error_hooks:
         if hooks != [""]:
-            nox_logger.error(f"The following pre-commit hooks failed: {error_hooks}.")
+            nox_logger.error(
+                f"The following pre-commit hooks failed: {error_hooks}."  # noqa: G004
+            )
         raise CommandFailed
 
 
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 @tox_caller()
 def docs(session: Session) -> None:
     """Build docs with sphinx."""
@@ -460,7 +412,10 @@ def docs(session: Session) -> None:
 
     if "skip_install" not in session.posargs:
         session.poetry_install(
-            extras, no_root=(TOX_CALLS or SKIP_INSTALL), no_dev=(TOX_CALLS or IN_CI)
+            extras,
+            no_root=(TOX_CALLS or SKIP_INSTALL),
+            no_dev=(TOX_CALLS or IN_CI),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -480,14 +435,17 @@ def docs(session: Session) -> None:
 
 @nox.parametrize("builder", TOXENV_DOCS_BUILDERS[11:-1].split(","))
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 @tox_caller("test_docs-{builder}", parametrized=True)
 def test_docs(session: Session, builder: str) -> None:
     """Build and check docs with (see env name) sphinx builder."""
     if "skip_install" not in session.posargs:
         extras = "docs"
         session.poetry_install(
-            extras, no_root=(TOX_CALLS or SKIP_INSTALL), no_dev=(TOX_CALLS or IN_CI)
+            extras,
+            no_root=(TOX_CALLS or SKIP_INSTALL),
+            no_dev=(TOX_CALLS or IN_CI),
+            pip_require_venv=poetry_require_venv(session),
         )
     else:
         session.log("Skipping install step.")
@@ -506,7 +464,7 @@ def test_docs(session: Session, builder: str) -> None:
 
 #: -- DEV NOX SESSIONS -----------------------------------------------------------------
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 def install_extras(session: Session) -> None:
     """Install all specified extras."""
     extras = PYPROJECT["tool"]["poetry"].get("extras")
@@ -518,13 +476,18 @@ def install_extras(session: Session) -> None:
     for extra in extras:
         extras_to_install += f" {extra}"
 
-    session.poetry_install(extras_to_install.strip(), no_root=True, no_dev=False)
+    session.poetry_install(
+        extras_to_install.strip(),
+        no_root=True,
+        no_dev=False,
+        pip_require_venv=poetry_require_venv(session),
+    )
     session.run("python", "-m", "pip", "list", "--format=columns")
     print(f"PYTHON INTERPRETER LOCATION: {sys.executable}")
 
 
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 def setup_pre_commit(session: Session) -> None:
     """Set up pre-commit.
 
@@ -558,21 +521,21 @@ def dev(session: Session) -> None:
 
 #: -- TOX MULTI WRAPPER SESSIONS -------------------------------------------------------
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 def full_lint(session: Session) -> None:
     """Call tox to run all lint tests."""
     _tox_caller(session, "safety,pre_commit")
 
 
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 def full_test_code(session: Session) -> None:
     """Call tox to run all code tests incl. package and coverage."""
     _tox_caller(session, f"package,{TOXENV_PYTHON_VERSIONS},coverage")
 
 
 @nox.session
-@monkeypatch_session
+@session_w_poetry
 def full_test_docs(session: Session) -> None:
     """Call tox to run all docs tests."""
     _tox_caller(session, TOXENV_DOCS_BUILDERS)

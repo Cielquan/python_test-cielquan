@@ -5,7 +5,7 @@
     Configuration file for the Sphinx documentation builder.
 
     :copyright: (c) 2019-2020, Christian Riedel and AUTHORS
-    :license: GPL-3.0, see LICENSE for details
+    :license: GPL-3.0-or-later, see LICENSE for details
 """  # noqa: D205,D208,D400
 import os
 import re
@@ -40,7 +40,7 @@ project = __project__.replace("-", "_")
 author = __author__
 CREATION_YEAR = 2019  # CHANGE ME
 CURRENT_YEAR = f"{date.today().year}"
-copyright = (  # noqa: VNE003
+copyright = (  # noqa: VNE003,W0622
     f"{CREATION_YEAR}{('-' + CURRENT_YEAR) if CURRENT_YEAR != CREATION_YEAR else ''}, "
     + f"{author} and AUTHORS"
 )
@@ -186,7 +186,7 @@ else:
 extensions.append("sphinx_rtd_theme")
 html_theme = "sphinx_rtd_theme"
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
-html_theme_options = {"style_external_links": True}
+html_theme_options = {"style_external_links": True, "navigation_depth": 5}
 
 
 #: -- HTML OUTPUT ----------------------------------------------------------------------

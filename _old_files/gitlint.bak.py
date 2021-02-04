@@ -5,8 +5,8 @@
 
     Collection of helper functions for pre-commit.
 
-    :copyright: 2020 (c) Christian Riedel
-    :license: GPLv3, see LICENSE file for more details
+    :copyright: (c) 2019-2020, Christian Riedel and AUTHORS
+    :license: GPL-3.0-or-later, see LICENSE for details
 """  # noqa: D205, D208, D400
 import re
 
