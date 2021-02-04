@@ -7,3 +7,5 @@ TODO: simplification
 TODO: docs .. workout a automated template for the docs
     https://github.com/sphinx-contrib/apidoc
     https://github.com/readthedocs/sphinx-autoapi
+
+TODO: comments in rst code blocks
