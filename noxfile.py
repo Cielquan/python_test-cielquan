@@ -390,7 +390,9 @@ def pre_commit(session: Session) -> None:  # noqa: R0912
 
     if error_hooks:
         if hooks != [""]:
-            nox_logger.error(f"The following pre-commit hooks failed: {error_hooks}.")
+            nox_logger.error(
+                f"The following pre-commit hooks failed: {error_hooks}."  # noqa: G004
+            )
         raise CommandFailed
 
 
