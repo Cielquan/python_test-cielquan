@@ -106,7 +106,7 @@ jobs:
           -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox env via nox
-        run: nox --forcecolor --session pre_commit
+        run: nox --forcecolor --session pre_commit -- skip_install
 
 
   set-git-env-vars:
@@ -161,11 +161,7 @@ jobs:
   set-status:
     name: Set status on commit
     needs: [pre-commit, set-git-env-vars]
-    if: >
-      github.event_name == 'pull_request' ||
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push' &&
-      contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Get repo dir name
@@ -174,6 +170,9 @@ jobs:
         run: |
           repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
           echo "::set-output name=repo-dir::$repo_dir"
+        if: >
+          needs.pre-commit.result != 'skipped' &&
+          needs.set-git-env-vars.result != 'skipped'
 
       - name: Set status via gihub API
         uses: octokit/request-action@v2.x
@@ -189,3 +188,4 @@ jobs:
           context: ci-code-quality
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: steps.repo-dir.outcome == 'success'

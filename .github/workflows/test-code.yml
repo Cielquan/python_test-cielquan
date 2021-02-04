@@ -265,7 +265,7 @@ jobs:
 
       - name: Run tox envs via nox
         id: test
-        run: nox --forcecolor --session package
+        run: nox --forcecolor --session package -- skip_install
 
       - name: Set result variable
         id: set-result
@@ -410,12 +410,12 @@ jobs:
             | ${{ hashFiles('**/poetry.lock') }}
 
       - name: Ensure cache is healthy (windows)
-        if: steps.cache.outputs.cache-hit == 'true' && matrix.os == 'windows'
+        if: steps.cache.outputs.cache-hit == 'true' && matrix.os == 'windows-latest'
         shell: bash
         run: timeout 10s .tox/.package/Scripts/pip --version || rm -rf .tox
 
       - name: Ensure cache is healthy (unix)
-        if: steps.cache.outputs.cache-hit == 'true' && matrix.os != 'windows'
+        if: steps.cache.outputs.cache-hit == 'true' && matrix.os != 'windows-latest'
         shell: bash
         run: timeout 10s .tox/.package/bin/pip --version || rm -rf .tox
 
@@ -425,7 +425,7 @@ jobs:
           -- TOX_ARGS=-vv,--skip-missing-interpreters,false NOX_ARGS=-v,--install-only
 
       - name: Run tox envs via nox
-        run: nox --forcecolor --session test_code
+        run: nox --forcecolor --session test_code -- skip_install
 
       - name: Set archive name
         id: set-archive-name
@@ -505,7 +505,7 @@ jobs:
               shutil.copy(str(coverage_file), str(destination))
 
       - name: Run tox env via nox
-        run: nox --forcecolor --session coverage_merge
+        run: nox --forcecolor --session coverage_merge -- skip_install
 
       - name: Upload coverage artifact
         uses: actions/upload-artifact@v2
@@ -560,7 +560,7 @@ jobs:
         run: git fetch --no-tags origin main:refs/remotes/origin/main
 
       - name: Run tox env via nox
-        run: nox --forcecolor --session coverage_report
+        run: nox --forcecolor --session coverage_report -- skip_install
 
 
   push-coverage-to-code-climate:
@@ -617,11 +617,7 @@ jobs:
   set-status:
     name: Set status on commit
     needs: [test-code, report-coverage, push-coverage-to-code-climate, set-git-env-vars]
-    if: >
-      github.event_name == 'pull_request' ||
-      github.event_name == 'workflow_dispatch' ||
-      (github.event_name == 'push'
-      && contains(toJson(github.event.head_commit.message), '[skip ci]') == false)
+    if: always()
     runs-on: ubuntu-latest
     steps:
       - name: Process total success
@@ -639,6 +635,11 @@ jobs:
             state=failure
           fi
           echo -e "::set-output name=state::${state}"
+        if: >
+          needs.test-code.result != 'skipped' &&
+          needs.report-coverage.result != 'skipped' &&
+          needs.push-coverage-to-code-climate.result != 'skipped' &&
+          needs.set-git-env-vars.result != 'skipped'
 
       - name: Get repo dir name
         id: repo-dir
@@ -646,6 +647,7 @@ jobs:
         run: |
           repo_dir=${GITHUB_REPOSITORY#${{ github.repository_owner }}/}
           echo "::set-output name=repo-dir::$repo_dir"
+        if: steps.total-success.outcome == 'success'
 
       - name: Set status via gihub API
         uses: octokit/request-action@v2.x
@@ -657,7 +659,8 @@ jobs:
           state: ${{ steps.total-success.outputs.state }}
           target_url: |
             "https://github.com/${{ github.repository }}/runs/${{ github.run_id }}"
-          description: CI pipeline for testing documentation
-          context: ci-test-docs
+          description: CI pipeline for testing code
+          context: ci-test-code
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        if: steps.repo-dir.outcome == 'success'
