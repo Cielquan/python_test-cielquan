@@ -12,3 +12,6 @@ TODO: comments in rst code blocks
 
 
 TODO: update cc with formelsammlung settings
+
+
+TODO: add autoclass_content = "both" to docs conf
