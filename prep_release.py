@@ -36,7 +36,7 @@ class PyprojectError(Exception):
     """Exception for lookup errors in pyproject.toml file."""
 
 
-def _get_config_value(section: str, key: str) -> str:
+def _get_config_value(section: str, key: str) -> str:  # noqa: CCR001
     """Extract a config value from pyproject.toml file.
 
     :return: config value
