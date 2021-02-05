@@ -251,6 +251,9 @@
             flake8-bandit = [
                 "-S101",  # assert used
             ]
+            pylint = [
+                "-W0212",  # accesss protected member
+            ]
 
         [tool.flakehell.exceptions."noxfile.py"]
             flake8-cognitive-complexity = [
