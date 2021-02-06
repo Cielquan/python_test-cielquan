@@ -17,9 +17,5 @@
 
 Resolves: #<issue number here>
 
-I
-
-- [ ] added **tests**
-- [ ] updated the **documentation**
-
-for the changed code.
+- [ ] I added **tests** for the changed code.
+- [ ] I updated the **documentation** for the changed code.
