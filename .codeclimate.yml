@@ -1,4 +1,6 @@
 ---
+version: "2"  # required to adjust maintainability checks
+
 exclude_patterns:
   - "tests/"
   - "docs/source/conf.py"
@@ -7,3 +9,35 @@ exclude_patterns:
   - ".commitlintrc.js"
   - ".versionrc.js"
   - ".pyproject_version.js"
+
+checks:
+  argument-count:
+    config:
+      threshold: 6
+  complex-logic:
+    config:
+      threshold: 4
+  file-lines:
+    config:
+      threshold: 500
+  identical-code:
+    config:
+      threshold: 8
+  method-complexity:
+    config:
+      threshold: 10
+  method-count:
+    config:
+      threshold: 20
+  method-lines:
+    config:
+      threshold: 25
+  nested-control-flow:
+    config:
+      threshold: 4
+  return-statements:
+    config:
+      threshold: 4
+  similar-code:
+    config:
+      threshold: 4
