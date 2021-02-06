@@ -709,11 +709,11 @@ dev = ["dlint", "flake8-2020", "flake8-aaa", "flake8-absolute-import", "flake8-a
 
 [[package]]
 name = "formelsammlung"
-version = "4.0.0"
+version = "5.0.0"
 description = "Collection of different functions"
 category = "main"
 optional = false
-python-versions = ">=3.6.1,<4.0.0"
+python-versions = ">=3.6.2,<4.0.0"
 
 [package.dependencies]
 importlib-metadata = {version = ">=1.6,<4.0", markers = "python_version < \"3.8\""}
@@ -1146,7 +1146,7 @@ virtualenv = ">=20.0.26,<21.0.0"
 
 [[package]]
 name = "poetry-core"
-version = "1.0.0"
+version = "1.0.2"
 description = "Poetry PEP 517 Build Backend"
 category = "main"
 optional = false
@@ -1157,7 +1157,7 @@ importlib-metadata = {version = ">=1.7.0,<2.0.0", markers = "python_version >= \
 
 [[package]]
 name = "pre-commit"
-version = "2.10.0"
+version = "2.10.1"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
 category = "main"
 optional = true
@@ -1925,8 +1925,8 @@ twine = ["twine"]
 
 [metadata]
 lock-version = "1.1"
-        python-versions = "^3.6.1"
-content-hash = "4aa513a28622a27bbdc1055208f92966bc586193891e63fd8625abdc8da22e57"
+        python-versions = "^3.6.2"  # NOTE: update min_python_version below also
+content-hash = "2eda4739cdb1958121d3ad6fdb5a975efcf9fb4757544ced178eecce1e8dfbc0"
 
 [metadata.files]
 alabaster = [
@@ -2263,8 +2263,8 @@ flakehell = [
     {file = "flakehell-0.8.0.tar.gz", hash = "sha256:d64fd8f1630c3fa191601eaa32de6e4ea24f9423cade308562c1d279d5f67bfd"},
 ]
 formelsammlung = [
-    {file = "formelsammlung-4.0.0-py3-none-any.whl", hash = "sha256:f42d466f5bcb0125d8d7859d20eb5d4813d7285404ee026af52d5e09f22f7c74"},
-    {file = "formelsammlung-4.0.0.tar.gz", hash = "sha256:ee4dfce2f3b01f946b99694b49cbb16ee8785f3091665a306c102dbde641240e"},
+    {file = "formelsammlung-5.0.0-py3-none-any.whl", hash = "sha256:343a3e1c0c003cd1e2b82abadaa009d1e5677b862adc56519e1da1d25786ab46"},
+    {file = "formelsammlung-5.0.0.tar.gz", hash = "sha256:86561de0d72d65df112ea52bcc5719b9a3b08a650c00fcd2970f50978ea11448"},
 ]
 gitdb = [
     {file = "gitdb-4.0.5-py3-none-any.whl", hash = "sha256:91f36bfb1ab7949b3b40e23736db18231bf7593edada2ba5c3a174a7b23657ac"},
@@ -2494,12 +2494,12 @@ poetry = [
     {file = "poetry-1.1.4.tar.gz", hash = "sha256:946a5a1173be607c7c5c593358a0fb0c0d6af4400c978929ecdb19c3a37b53a8"},
 ]
 poetry-core = [
-    {file = "poetry-core-1.0.0.tar.gz", hash = "sha256:6a664ff389b9f45382536f8fa1611a0cb4d2de7c5a5c885db1f0c600cd11fbd5"},
-    {file = "poetry_core-1.0.0-py2.py3-none-any.whl", hash = "sha256:769288e0e1b88dfcceb3185728f0b7388b26d5f93d6c22d2dcae372da51d200d"},
+    {file = "poetry-core-1.0.2.tar.gz", hash = "sha256:ff505d656a6cf40ffbf84393d8b5bf37b78523a15def3ac473b6fad74261ee71"},
+    {file = "poetry_core-1.0.2-py2.py3-none-any.whl", hash = "sha256:ee0ed4164440eeab27d1b01bc7b9b3afdc3124f68d4ea28d0821a402a9c7c044"},
 ]
 pre-commit = [
-    {file = "pre_commit-2.10.0-py2.py3-none-any.whl", hash = "sha256:391ed331fdd0a21d0be48c1b9919921e9d372dfd60f6dc77b8f01dd6b13161c1"},
-    {file = "pre_commit-2.10.0.tar.gz", hash = "sha256:f413348d3a8464b77987e36ef6e02c3372dadb823edf0dfe6fb0c3dc2f378ef9"},
+    {file = "pre_commit-2.10.1-py2.py3-none-any.whl", hash = "sha256:16212d1fde2bed88159287da88ff03796863854b04dc9f838a55979325a3d20e"},
+    {file = "pre_commit-2.10.1.tar.gz", hash = "sha256:399baf78f13f4de82a29b649afd74bef2c4e28eb4f021661fc7f29246e8c7a3a"},
 ]
 psutil = [
     {file = "psutil-5.8.0-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:0066a82f7b1b37d334e68697faba68e5ad5e858279fd6351c8ca6024e8d6ba64"},
