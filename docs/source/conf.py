@@ -132,6 +132,7 @@ apidoc_module_first = True
 apidoc_extra_args = []
 if Path("_apidoc_templates").is_dir():
     apidoc_extra_args += ["--templatedir", "apidoc_templates"]
+autoclass_content = "both"
 
 
 if find_spec("sphinxcontrib.apidoc") is not None:
