@@ -42,14 +42,14 @@ repos:
 
   #: several python code regex hooks
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: 4f4c0a4cda27980be153cca2cb7710c9fec57ba3  # frozen: v1.7.0
+    rev: eccb8cef2c7987014012c3f07be550415c4d379e  # frozen: v1.7.1
     hooks:
       - id: python-no-log-warn
       - id: python-no-eval
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 6ee68a06cbfbbf1d69fffa6cda03fe301a706b15  # frozen: v2.9.0
+    rev: d94dd3486f99af99b5779e38e60a69bf97522051  # frozen: v2.10.0
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
