@@ -13,11 +13,4 @@ TODO: comments in rst code blocks
 
 TODO: update cc with formelsammlung settings
 
-
-TODO: add autoclass_content = "both" to docs conf
-
-
-TODO: remove flake8-no-u-prefixed-strings & flake8-string-format
-    https://github.com/pre-commit-ci/issues/issues/7#issuecomment-775720443
-
-TODO: https://pre-commit.ci/#configuration-skip
+TODO: add command info text like https://doc.rust-lang.org/book/ch01-01-installation.html#command-line-notation
