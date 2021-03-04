@@ -312,7 +312,7 @@ test = ["pytest (>=6.0)", "pytest-cov", "pytest-subtests", "pytest-xdist", "pret
 
 [[package]]
 name = "diff-cover"
-version = "4.2.2"
+version = "4.2.3"
 description = "Automatically find diff lines that need test coverage."
 category = "main"
 optional = true
@@ -324,7 +324,7 @@ inflect = "3.0.2"
 Jinja2 = ">=2.7.1"
 jinja2-pluralize = "*"
 pluggy = "*"
-pygments = "2.6.1"
+pygments = "*"
 
 [[package]]
 name = "distlib"
@@ -2110,8 +2110,8 @@ cryptography = [
     {file = "cryptography-3.4.3.tar.gz", hash = "sha256:d70065c42de45e15776a53216000283a2a183ae37379badb37f527a2bdfd6221"},
 ]
 diff-cover = [
-    {file = "diff_cover-4.2.2-py2.py3-none-any.whl", hash = "sha256:0940e0b4436e91c757dd8f613493fdadf1dbf18de35c495a4c7f4a159fdd88d2"},
-    {file = "diff_cover-4.2.2.tar.gz", hash = "sha256:b37af0aa26fe1d2aad5ef34409acc7b99e30b66548eec0e08d5f3f2195501ca1"},
+    {file = "diff_cover-4.2.3-py2.py3-none-any.whl", hash = "sha256:cce6f7d3e911df539e0d9f88f466479617693fc86dc1fd4317dac12709bf1613"},
+    {file = "diff_cover-4.2.3.tar.gz", hash = "sha256:e466e8c1889b7ab4068f55923289480270943cda0f6ece030d4422504ea7b3a2"},
 ]
 distlib = [
     {file = "distlib-0.3.1-py2.py3-none-any.whl", hash = "sha256:8c09de2c67b3e7deef7184574fc060ab8a793e7adbb183d942c389c8b13c52fb"},
