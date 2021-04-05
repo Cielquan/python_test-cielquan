@@ -113,7 +113,7 @@ repos:
   #: File skip: `# pylint: skip-file`
   #: Inline change: `# pylint: disable|enable=CODE|NAME`
   - repo: https://github.com/PyCQA/pylint/
-    rev: 44ba1fa97061f30764246ca087151f3fa9d47a08  # frozen: pylint-2.6.0
+    rev: c92e3ab78778aa1afcf4ddca4829245d37fbc095  # frozen: pylint-2.7.4
     hooks:
       - id: pylint
         name: spell-check (pylint+pyenchant)
