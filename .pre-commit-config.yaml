@@ -12,7 +12,7 @@ repos:
 #: Valiadte this config file
 #: -------------------------------------------------------------------------------------
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 8aec369df752dc6bfc498a96eb922f656244070b  # frozen: v2.11.1
+    rev: a1b462c94a94aa15af3d676700c834f79d2b2b7e  # frozen: v2.12.0
     hooks:
       - id: validate_manifest
 
@@ -63,7 +63,7 @@ repos:
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 0397ec8ba931ee05c1665042c097ac0c69ef0c10  # frozen: v2.11.0
+    rev: 45028618cf0017e3ac9b15adef24b1cd44d3a23f  # frozen: v2.12.0
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -166,7 +166,7 @@ repos:
   #: Block skip: `# yamllint disable[ rule:<RULE>]`
   #: Block skip end: `# yamllint enable`
   - repo: https://github.com/adrienverge/yamllint
-    rev: 0fff4e29e42d170cd0d1ad17736acdc53df97fc9  # frozen: v1.26.0
+    rev: 85ccd625a382423edd988fcb796c4dd5897886fb  # frozen: v1.26.1
     hooks:
       - id: yamllint
 
