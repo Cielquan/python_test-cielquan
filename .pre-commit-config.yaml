@@ -12,7 +12,7 @@ repos:
 #: Valiadte this config file
 #: -------------------------------------------------------------------------------------
   - repo: https://github.com/pre-commit/pre-commit
-    rev: a1b462c94a94aa15af3d676700c834f79d2b2b7e  # frozen: v2.12.0
+    rev: 8fc66027f78b193a7e940b10a3b9320b1641117e  # frozen: v2.12.1
     hooks:
       - id: validate_manifest
 
@@ -153,7 +153,7 @@ repos:
   # TODO:#i# https://github.com/python-poetry/poetry/pull/2511
   # - repo: https://github.com/python-poetry/poetry
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 3b350a4a278b1ee63e160aa950506f6a3652ac70  # frozen: 1.1.5
+    rev: 15c8263f9d8367408ae03d2d1adbbab61194b0dc  # frozen: 1.1.6
     hooks:
       - id: poetry-check
 
