@@ -63,7 +63,7 @@ repos:
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 45028618cf0017e3ac9b15adef24b1cd44d3a23f  # frozen: v2.12.0
+    rev: d6e82e348ad399e0bd625dc267dd6708276f3b28  # frozen: v2.13.0
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -78,7 +78,7 @@ repos:
   #: black - python formatter
   #: Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
   - repo: https://github.com/psf/black
-    rev: e66be67b9b6811913470f70c28b4d50f94d05b22  # frozen: 20.8b1
+    rev: 67d5532c3392280de0ce717a1ab728eca2beb698  # frozen: 21.4b0
     hooks:
       - id: black
         args: [--safe]
@@ -113,7 +113,7 @@ repos:
   #: File skip: `# pylint: skip-file`
   #: Inline change: `# pylint: disable|enable=CODE|NAME`
   - repo: https://github.com/PyCQA/pylint/
-    rev: c92e3ab78778aa1afcf4ddca4829245d37fbc095  # frozen: pylint-2.7.4
+    rev: 091cb92314dc701f10390136da78fbbb362e892e  # frozen: v2.8.2
     hooks:
       - id: pylint
         name: spell-check (pylint+pyenchant)
