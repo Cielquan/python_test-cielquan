@@ -12,7 +12,7 @@ repos:
 #: Valiadte this config file
 #: -------------------------------------------------------------------------------------
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 8fc66027f78b193a7e940b10a3b9320b1641117e  # frozen: v2.12.1
+    rev: 229a4e03e3ed531961ca850df6462f19c2a9376d  # frozen: v2.13.0
     hooks:
       - id: validate_manifest
 
@@ -63,7 +63,7 @@ repos:
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: c2e71d194a5991d8f6a2e37813c8d206eb19e3d1  # frozen: v2.16.0
+    rev: b524cb5596e9fda9f75e291bd24329f73f2583db  # frozen: v2.18.2
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -153,7 +153,7 @@ repos:
   # TODO:#i# https://github.com/python-poetry/poetry/pull/2511
   # - repo: https://github.com/python-poetry/poetry
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 15c8263f9d8367408ae03d2d1adbbab61194b0dc  # frozen: 1.1.6
+    rev: 87bf4eb48cd53dc409165358a84b1687b03efc9c  # frozen: 1.2.0a1
     hooks:
       - id: poetry-check
 
