@@ -63,7 +63,7 @@ repos:
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: b524cb5596e9fda9f75e291bd24329f73f2583db  # frozen: v2.18.2
+    rev: 8047b47c216a459268ad039a3a83f4fef959d6ad  # frozen: v2.19.0
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -78,7 +78,7 @@ repos:
   #: black - python formatter
   #: Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
   - repo: https://github.com/psf/black
-    rev: 2f52e4b4929370ec503ee272bcc10d3176db8e89  # frozen: 21.5b1
+    rev: cf75673e1a2c993025a2113ce194d5c65f311c85  # frozen: 21.5b2
     hooks:
       - id: black
         args: [--safe]
