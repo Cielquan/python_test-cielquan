@@ -1696,7 +1696,7 @@ test = ["pytest"]
 
 [[package]]
 name = "sphinxcontrib-spelling"
-version = "7.1.0"
+version = "7.2.1"
 description = "Sphinx spelling extension"
 category = "main"
 optional = true
@@ -1911,7 +1911,7 @@ twine = ["twine"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6.2"
-content-hash = "87c9d0b4d73b468a2496cc7c19d129f3e7f3b30bd3c11d095156e4b0266b681a"
+content-hash = "0f0035d71f32f0eee16e0c0aca4de740d947eb2655a89bc149075ee1d3f962d1"
 
 [metadata.files]
 alabaster = [
@@ -2753,8 +2753,8 @@ sphinxcontrib-serializinghtml = [
     {file = "sphinxcontrib_serializinghtml-1.1.4-py2.py3-none-any.whl", hash = "sha256:f242a81d423f59617a8e5cf16f5d4d74e28ee9a66f9e5b637a18082991db5a9a"},
 ]
 sphinxcontrib-spelling = [
-    {file = "sphinxcontrib-spelling-7.1.0.tar.gz", hash = "sha256:5b4240808a6d21eab9c49e69ad5ac0cb3efb03fe2e94763d23c860f85ec6a799"},
-    {file = "sphinxcontrib_spelling-7.1.0-py3-none-any.whl", hash = "sha256:e44d101a15b2e5798f76e9256917dcdc03719b7da6436cbdbbb99a14a5d0cbaa"},
+    {file = "sphinxcontrib-spelling-7.2.1.tar.gz", hash = "sha256:f2578653014931b32c8c30d1a9930d998ae053b0d8b7adfbea0eb95a63e7a737"},
+    {file = "sphinxcontrib_spelling-7.2.1-py3-none-any.whl", hash = "sha256:f09c1ddadf4f09ddbaef3ee210e6a18123c94fb5db5e11dfd5012208f73c35e0"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.1-py3-none-any.whl", hash = "sha256:017cde379adbd6a1f15a61873f43e8274179378e95ef3fede90b5aa64d304ed0"},
