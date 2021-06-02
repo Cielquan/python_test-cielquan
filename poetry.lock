@@ -648,7 +648,7 @@ test = ["coverage (>=4.0.0,<5.0.0)", "pytest (>=4)", "pytest-cov (>=2)", "flake8
 
 [[package]]
 name = "flake8-variables-names"
-version = "0.0.3"
+version = "0.0.4"
 description = "A flake8 extension that helps to make more readable variables names"
 category = "main"
 optional = true
@@ -1911,7 +1911,7 @@ twine = ["twine"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6.2"
-content-hash = "c0e0747c517f2b87a7ce20671627cf4c1bbed23db0300886ac00d02ad8a9f2c0"
+content-hash = "b29a32a714c5804bc234dd72b4ec5dd8d3e8ec951d7c795b417ad05d684d0a90"
 
 [metadata.files]
 alabaster = [
@@ -2243,7 +2243,7 @@ flake8-use-fstring = [
     {file = "flake8-use-fstring-1.1.tar.gz", hash = "sha256:a0eea849ffe33fb6903c210c243c0f418da86a530e46cb13e64f1bdb045f22dc"},
 ]
 flake8-variables-names = [
-    {file = "flake8_variables_names-0.0.3.tar.gz", hash = "sha256:d109f5a8fe8c20d64e165287330f1b0160b442d7f96e1527124ba1b63c438347"},
+    {file = "flake8_variables_names-0.0.4.tar.gz", hash = "sha256:d6fa0571a807c72940b5773827c5760421ea6f8206595ff0a8ecfa01e42bf2cf"},
 ]
 flake8-walrus = [
     {file = "flake8_walrus-1.1.0-py2.py3-none-any.whl", hash = "sha256:9ca99e92d42cef82fcdea713a9305e77722c529a2892dabdd2a5183d31ac1e75"},
