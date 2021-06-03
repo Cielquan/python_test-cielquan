@@ -52,7 +52,7 @@
         # TODO:#i# bug on py310 when set as extra: xdist is not installed
         psutil = {version = "^5.8.0", optional = true}
         # pytest-xdist = {extras = ["psutil"], version = "^2.2", optional = true}
-        pytest-cov = {version = "^2.10.1", optional = true}
+        pytest-cov = {version = "^2.12.1", optional = true}
         coverage = {extras = ["toml"], version = "^5.3.1", optional = true}
         coverage-conditional-plugin = {version = "^0.3.1", optional = true}
         pytest-sugar = {version = "^0.9.4", optional = true}
