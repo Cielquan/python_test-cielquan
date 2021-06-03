@@ -64,7 +64,7 @@
         sphinx-autobuild = {version = "2020.9.1", optional = true}
         python-dotenv = {version = "^0.15", optional = true}
         sphinx-rtd-theme = {version = "^0.5.1", optional = true}
-        sphinx-autodoc-typehints = {version = "^1.11", optional = true}
+        sphinx-autodoc-typehints = {version = "^1.12", optional = true}
         sphinxcontrib-apidoc = {version = "^0.3", optional = true}
         sphinxcontrib-spelling = {version = "^7.2", optional = true}
         ####################
