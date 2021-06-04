@@ -330,15 +330,14 @@ test = ["pytest (>=6.0)", "pytest-cov", "pytest-subtests", "pytest-xdist", "pret
 
 [[package]]
 name = "diff-cover"
-version = "4.2.3"
+version = "5.1.2"
 description = "Automatically find diff lines that need test coverage."
 category = "main"
 optional = true
-python-versions = ">= 3.5"
+python-versions = ">= 3.6"
 
 [package.dependencies]
-chardet = "4.0.0"
-inflect = "3.0.2"
+chardet = ">=3.0.0"
 Jinja2 = ">=2.7.1"
 jinja2-pluralize = "*"
 pluggy = "*"
@@ -615,8 +614,8 @@ restructuredtext-lint = "*"
 
 [[package]]
 name = "flake8-simplify"
-version = "0.12.0"
-description = "flake8 plugin which checks for code that can be simpified"
+version = "0.14.1"
+description = "flake8 plugin which checks for code that can be simplified"
 category = "main"
 optional = true
 python-versions = ">=3.6.1"
@@ -777,7 +776,7 @@ lxml = ["lxml"]
 
 [[package]]
 name = "identify"
-version = "2.2.7"
+version = "2.2.8"
 description = "File identification library for Python"
 category = "main"
 optional = true
@@ -834,18 +833,15 @@ testing = ["pytest (>=4.6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytes
 
 [[package]]
 name = "inflect"
-version = "3.0.2"
+version = "5.3.0"
 description = "Correctly generate plurals, singular nouns, ordinals, indefinite articles; convert numbers to words"
 category = "main"
 optional = true
-python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
-
-[package.dependencies]
-importlib-metadata = "*"
+python-versions = ">=3.6"
 
 [package.extras]
-docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
-testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-black-multipy", "pytest-cov", "nose"]
+docs = ["sphinx", "jaraco.packaging (>=8.2)", "rst.linker (>=1.9)"]
+testing = ["pytest (>=4.6)", "pytest-checkdocs (>=1.2.3)", "pytest-flake8", "pytest-cov", "pytest-enabler", "pygments", "pytest-black (>=0.3.7)", "pytest-mypy"]
 
 [[package]]
 name = "iniconfig"
@@ -1557,17 +1553,17 @@ python-versions = "*"
 
 [[package]]
 name = "sphinx"
-version = "3.5.4"
+version = "4.0.2"
 description = "Python documentation generator"
 category = "main"
 optional = true
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
 alabaster = ">=0.7,<0.8"
 babel = ">=1.3"
 colorama = {version = ">=0.3.5", markers = "sys_platform == \"win32\""}
-docutils = ">=0.12,<0.17"
+docutils = ">=0.14,<0.18"
 imagesize = "*"
 Jinja2 = ">=2.3"
 packaging = "*"
@@ -1588,13 +1584,14 @@ test = ["pytest", "pytest-cov", "html5lib", "cython", "typed-ast"]
 
 [[package]]
 name = "sphinx-autobuild"
-version = "2020.9.1"
+version = "2021.3.14"
 description = "Rebuild Sphinx documentation on changes, with live-reload in the browser."
 category = "main"
 optional = true
 python-versions = ">=3.6"
 
 [package.dependencies]
+colorama = "*"
 livereload = "*"
 sphinx = "*"
 
@@ -1931,7 +1928,7 @@ twine = ["twine"]
 [metadata]
 lock-version = "1.1"
         python-versions = "^3.6.2"  # NOTE: update min_python_version below also
-content-hash = "2d5d288a6683bc66799921b61e5e7eb421618335715d22ceeb0d200cd01e4385"
+content-hash = "4f82338e1951860ac6e309456d93840768f4b4aae9d6985ad5315c7d74a1efb1"
 
 [metadata.files]
 alabaster = [
@@ -2157,8 +2154,8 @@ cryptography = [
     {file = "cryptography-3.4.7.tar.gz", hash = "sha256:3d10de8116d25649631977cb37da6cbdd2d6fa0e0281d014a5b7d337255ca713"},
 ]
 diff-cover = [
-    {file = "diff_cover-4.2.3-py2.py3-none-any.whl", hash = "sha256:cce6f7d3e911df539e0d9f88f466479617693fc86dc1fd4317dac12709bf1613"},
-    {file = "diff_cover-4.2.3.tar.gz", hash = "sha256:e466e8c1889b7ab4068f55923289480270943cda0f6ece030d4422504ea7b3a2"},
+    {file = "diff_cover-5.1.2-py3-none-any.whl", hash = "sha256:bea4aa85759395b07c4c5c44795b08430f24f87196e31ace579528b07fda3293"},
+    {file = "diff_cover-5.1.2.tar.gz", hash = "sha256:59adea4355431205c4fd8bd47d1cf975af6cf534ecf02085f60619adad81d7ad"},
 ]
 distlib = [
     {file = "distlib-0.3.2-py2.py3-none-any.whl", hash = "sha256:23e223426b28491b1ced97dc3bbe183027419dfc7982b4fa2f05d5f3ff10711c"},
@@ -2253,8 +2250,8 @@ flake8-rst-docstrings = [
     {file = "flake8_rst_docstrings-0.2.3-py3-none-any.whl", hash = "sha256:565bbb391d7e4d0042924102221e9857ad72929cdd305b26501736ec22c1451a"},
 ]
 flake8-simplify = [
-    {file = "flake8_simplify-0.12.0-py3-none-any.whl", hash = "sha256:c995b934a46375e92d03f48a28ed3e9d86671d9ca63f945a79bae24e6e1dcc43"},
-    {file = "flake8_simplify-0.12.0.tar.gz", hash = "sha256:8ac8e0a1abbf255d5d1ff005b0ab7577ecc136510fcb7837eee4398cd262a770"},
+    {file = "flake8_simplify-0.14.1-py3-none-any.whl", hash = "sha256:ba5d2905dc277cd4800c6e7f4859f96322d83dd37991ae5f8305750132084dd6"},
+    {file = "flake8_simplify-0.14.1.tar.gz", hash = "sha256:d8b38feb97fd6c5943b5d9b2ab352acea83ec036a93215c0576b9e48c6aa2dcc"},
 ]
 flake8-sql = [
     {file = "flake8-SQL-0.4.1.tar.gz", hash = "sha256:a8cdd689a5549c6ec73b4478aae152d5e3199270d23a371653f260f7a0e9dedd"},
@@ -2295,8 +2292,8 @@ html5lib = [
     {file = "html5lib-1.1.tar.gz", hash = "sha256:b2e5b40261e20f354d198eae92afc10d750afb487ed5e50f9c4eaf07c184146f"},
 ]
 identify = [
-    {file = "identify-2.2.7-py2.py3-none-any.whl", hash = "sha256:92d6ad08eca19ceb17576733759944b94c0761277ddc3acf65e75e57ef190e32"},
-    {file = "identify-2.2.7.tar.gz", hash = "sha256:c29e74c3671fe9537715cb695148231d777170ca1498e1c30c675d4ea782afe9"},
+    {file = "identify-2.2.8-py2.py3-none-any.whl", hash = "sha256:3a74cf41f1a0bde21e2f196a1727a608629339d9897226bad07b22e0bbde6faa"},
+    {file = "identify-2.2.8.tar.gz", hash = "sha256:7d4a73d58869a484d4ba8892793c80e30aa699e77707f26c1049486ef9be415f"},
 ]
 idna = [
     {file = "idna-2.10-py2.py3-none-any.whl", hash = "sha256:b97d804b1e9b523befed77c48dacec60e6dcb0b5391d57af6a65a312a90648c0"},
@@ -2315,8 +2312,8 @@ importlib-resources = [
     {file = "importlib_resources-5.1.4.tar.gz", hash = "sha256:54161657e8ffc76596c4ede7080ca68cb02962a2e074a2586b695a93a925d36e"},
 ]
 inflect = [
-    {file = "inflect-3.0.2-py2.py3-none-any.whl", hash = "sha256:48a35748cd695881722699d074a61166a2b591cc8c65d5c95d00e59c847b01c2"},
-    {file = "inflect-3.0.2.tar.gz", hash = "sha256:ee7c9b7c3376d06828b205460afb3c447b5d25dd653171db249a238f3fc2c18a"},
+    {file = "inflect-5.3.0-py3-none-any.whl", hash = "sha256:42560be16af702a21d43d59427f276b5aed79efb1ded9b713468c081f4353d10"},
+    {file = "inflect-5.3.0.tar.gz", hash = "sha256:41a23f6788962e9775e40e2ecfb1d6455d02de315022afeedd3c5dc070019d73"},
 ]
 iniconfig = [
     {file = "iniconfig-1.1.1-py2.py3-none-any.whl", hash = "sha256:011e24c64b7f47f6ebd835bb12a743f2fbe9a26d4cecaa7f53bc4f35ee9da8b3"},
@@ -2714,12 +2711,12 @@ snowballstemmer = [
     {file = "snowballstemmer-2.1.0.tar.gz", hash = "sha256:e997baa4f2e9139951b6f4c631bad912dfd3c792467e2f03d7239464af90e914"},
 ]
 sphinx = [
-    {file = "Sphinx-3.5.4-py3-none-any.whl", hash = "sha256:2320d4e994a191f4b4be27da514e46b3d6b420f2ff895d064f52415d342461e8"},
-    {file = "Sphinx-3.5.4.tar.gz", hash = "sha256:19010b7b9fa0dc7756a6e105b2aacd3a80f798af3c25c273be64d7beeb482cb1"},
+    {file = "Sphinx-4.0.2-py3-none-any.whl", hash = "sha256:d1cb10bee9c4231f1700ec2e24a91be3f3a3aba066ea4ca9f3bbe47e59d5a1d4"},
+    {file = "Sphinx-4.0.2.tar.gz", hash = "sha256:b5c2ae4120bf00c799ba9b3699bc895816d272d120080fbc967292f29b52b48c"},
 ]
 sphinx-autobuild = [
-    {file = "sphinx-autobuild-2020.9.1.tar.gz", hash = "sha256:4b184a7db893f2100bbd831991ae54ca89167a2b9ce68faea71eaa9e37716aed"},
-    {file = "sphinx_autobuild-2020.9.1-py3-none-any.whl", hash = "sha256:df5c72cb8b8fc9b31279c4619780c4e95029be6de569ff60a8bb2e99d20f63dd"},
+    {file = "sphinx-autobuild-2021.3.14.tar.gz", hash = "sha256:de1ca3b66e271d2b5b5140c35034c89e47f263f2cd5db302c9217065f7443f05"},
+    {file = "sphinx_autobuild-2021.3.14-py3-none-any.whl", hash = "sha256:8fe8cbfdb75db04475232f05187c776f46f6e9e04cacf1e49ce81bdac649ccac"},
 ]
 sphinx-autodoc-typehints = [
     {file = "sphinx-autodoc-typehints-1.12.0.tar.gz", hash = "sha256:193617d9dbe0847281b1399d369e74e34cd959c82e02c7efde077fca908a9f52"},
