@@ -687,7 +687,7 @@ flake8 = ">=3.7"
 
 [[package]]
 name = "flakehell"
-version = "0.8.0"
+version = "0.9.0"
 description = "Flake8 wrapper to make it nice and configurable"
 category = "main"
 optional = true
@@ -1930,8 +1930,8 @@ twine = ["twine"]
 
 [metadata]
 lock-version = "1.1"
-        python-versions = "^3.6.2"  # NOTE: update min_python_version below also
-content-hash = "2d5d288a6683bc66799921b61e5e7eb421618335715d22ceeb0d200cd01e4385"
+python-versions = "^3.6.2"
+content-hash = "79917adcfb4ba59343beaabe217217c44ef99a85e2b49e4417aed0150231185b"
 
 [metadata.files]
 alabaster = [
@@ -2275,8 +2275,8 @@ flake8-walrus = [
     {file = "flake8_walrus-1.1.0.tar.gz", hash = "sha256:15b75838b4d38cf266f87df2cba787594cf3fa059f33035a87ae20020edebd2a"},
 ]
 flakehell = [
-    {file = "flakehell-0.8.0-py3-none-any.whl", hash = "sha256:a2800291d1f284c7e0cca98525bb1c596758aabe4a7090f332a88d74ceab9aa4"},
-    {file = "flakehell-0.8.0.tar.gz", hash = "sha256:d64fd8f1630c3fa191601eaa32de6e4ea24f9423cade308562c1d279d5f67bfd"},
+    {file = "flakehell-0.9.0-py3-none-any.whl", hash = "sha256:48a3a9b46136240e52b3b32a78a0826c45f6dcf7d980c30f758c1db5b1439c0b"},
+    {file = "flakehell-0.9.0.tar.gz", hash = "sha256:208836d8d24194d50cfa4c1fc99f681f3c537cc232edcd06455abc2971460893"},
 ]
 formelsammlung = [
     {file = "formelsammlung-5.0.0-py3-none-any.whl", hash = "sha256:343a3e1c0c003cd1e2b82abadaa009d1e5677b862adc56519e1da1d25786ab46"},
