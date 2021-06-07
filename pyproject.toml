@@ -82,7 +82,7 @@
         pydocstyle = {version = ">=5.1,<7", optional = true}
         pep8-naming = {version = "^0.11", optional = true}
         flake8-2020 = {version = "^1.6", optional = true}
-        flake8-aaa = {version = "^0.11", optional = true}
+        flake8-aaa = {version = "^0.12", optional = true}
         flake8-annotations = {version = "^2.6.2", optional = true}
         flake8-bandit = {version = "^2.1.2", optional = true}
         bandit = {version = "^1.7", optional = true}
