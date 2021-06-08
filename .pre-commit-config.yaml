@@ -54,7 +54,7 @@ repos:
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 8047b47c216a459268ad039a3a83f4fef959d6ad  # frozen: v2.19.0
+    rev: e1485c79860827b7880f8c5a40fc8ef02456fcc6  # frozen: v2.19.1
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -104,7 +104,7 @@ repos:
   #: File skip: `# pylint: skip-file`
   #: Inline change: `# pylint: disable|enable=CODE|NAME`
   - repo: https://github.com/PyCQA/pylint/
-    rev: 091cb92314dc701f10390136da78fbbb362e892e  # frozen: v2.8.2
+    rev: 735c958d3b36fb5d343b7bcb81b1055a430cb042  # frozen: v2.8.3
     hooks:
       - id: pylint
         name: spell-check (pylint+pyenchant)
