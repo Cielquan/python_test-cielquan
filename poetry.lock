@@ -330,7 +330,7 @@ test = ["pytest (>=6.0)", "pytest-cov", "pytest-subtests", "pytest-xdist", "pret
 
 [[package]]
 name = "diff-cover"
-version = "5.1.2"
+version = "5.2.0"
 description = "Automatically find diff lines that need test coverage."
 category = "main"
 optional = true
@@ -2157,8 +2157,8 @@ cryptography = [
     {file = "cryptography-3.4.7.tar.gz", hash = "sha256:3d10de8116d25649631977cb37da6cbdd2d6fa0e0281d014a5b7d337255ca713"},
 ]
 diff-cover = [
-    {file = "diff_cover-5.1.2-py3-none-any.whl", hash = "sha256:bea4aa85759395b07c4c5c44795b08430f24f87196e31ace579528b07fda3293"},
-    {file = "diff_cover-5.1.2.tar.gz", hash = "sha256:59adea4355431205c4fd8bd47d1cf975af6cf534ecf02085f60619adad81d7ad"},
+    {file = "diff_cover-5.2.0-py3-none-any.whl", hash = "sha256:c080a6364602f2a4531742ae20169ccc2ee5ceacf37e5ac312a7ecc5445df0ec"},
+    {file = "diff_cover-5.2.0.tar.gz", hash = "sha256:a1cd54232d2e48bd4c1eabc96cfe4a8727a9a92fd2556b52ff8f65bb8adf8768"},
 ]
 distlib = [
     {file = "distlib-0.3.2-py2.py3-none-any.whl", hash = "sha256:23e223426b28491b1ced97dc3bbe183027419dfc7982b4fa2f05d5f3ff10711c"},
