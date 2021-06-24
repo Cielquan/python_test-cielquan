@@ -949,7 +949,7 @@ python-versions = "*"
 
 [[package]]
 name = "m2r2"
-version = "0.2.7"
+version = "0.2.8"
 description = "Markdown and reStructuredText in a single file."
 category = "main"
 optional = true
@@ -1931,7 +1931,7 @@ twine = ["twine"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.6.2"
-content-hash = "9285b57fe9fe2ffced208d2508f0866fb87de3aa4b557179f65d5273aa95483a"
+content-hash = "4d0c848c6783a43a9f7b8064c8850fbf06f34ff29b750914e7eb12451209c93e"
 
 [metadata.files]
 alabaster = [
@@ -2374,8 +2374,8 @@ lockfile = [
     {file = "lockfile-0.12.2.tar.gz", hash = "sha256:6aed02de03cba24efabcd600b30540140634fc06cfa603822d508d5361e9f799"},
 ]
 m2r2 = [
-    {file = "m2r2-0.2.7-py3-none-any.whl", hash = "sha256:a1b87b00f4d5163a3616253fca4c045f8351818cd803ba2e24af8897442a0eae"},
-    {file = "m2r2-0.2.7.tar.gz", hash = "sha256:fbf72ade9f648d41658f97c5267687431612451f36b65761a138fbc276294df5"},
+    {file = "m2r2-0.2.8-py3-none-any.whl", hash = "sha256:613934a5d02999574c0256407e6a0e71f8c436f2d2757d6e43d52d2faf8dff1c"},
+    {file = "m2r2-0.2.8.tar.gz", hash = "sha256:ca39e1db74991818d667c7367e4fc2de13ecefd2a04d69d83b0ffa76d20d7e29"},
 ]
 markupsafe = [
     {file = "MarkupSafe-2.0.1-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:f9081981fe268bd86831e5c75f7de206ef275defcb82bc70740ae6dc507aee51"},

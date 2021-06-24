@@ -60,7 +60,7 @@
         ####################
         #: Docs
         sphinx = {version = "^4", optional = true}
-        m2r2 = {version = "^0.2.7", optional = true}
+        m2r2 = {version = "^0.2.8", optional = true}
         sphinx-autobuild = {version = "2021.3.14", optional = true}
         python-dotenv = {version = "^0.15", optional = true}
         sphinx-rtd-theme = {version = "^0.5.1", optional = true}
