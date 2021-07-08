@@ -54,7 +54,7 @@ repos:
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: b844b43552d913dbd48025b0a4ac64612c3374f2  # frozen: v2.19.4
+    rev: 513fe79284cd8bae3274563c42c2df226381f6fe  # frozen: v2.20.0
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -104,7 +104,7 @@ repos:
   #: File skip: `# pylint: skip-file`
   #: Inline change: `# pylint: disable|enable=CODE|NAME`
   - repo: https://github.com/PyCQA/pylint/
-    rev: 735c958d3b36fb5d343b7bcb81b1055a430cb042  # frozen: v2.8.3
+    rev: aa688de05e469e33a20478144013946ccb752736  # frozen: v2.9.3
     hooks:
       - id: pylint
         name: spell-check (pylint+pyenchant)
@@ -144,7 +144,7 @@ repos:
   # TODO:#i# https://github.com/python-poetry/poetry/pull/2511
   # - repo: https://github.com/python-poetry/poetry
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 87bf4eb48cd53dc409165358a84b1687b03efc9c  # frozen: 1.2.0a1
+    rev: 5013c1251a2e26563d84ad1a7d45e1452d3f8cdb  # frozen: 1.1.7
     hooks:
       - id: poetry-check
 
