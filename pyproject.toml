@@ -112,7 +112,7 @@
         poetry = {version = "^1.1.6", optional = true}
         twine = {version = "^3.3", optional = true}
         safety = {version = "^1.9", optional = true}
-        diff-cover = {version = "^5", optional = true}
+        diff-cover = {version = "^6", optional = true}
 
     [tool.poetry.dev-dependencies]
         nox = "*"  #: Version managed above
