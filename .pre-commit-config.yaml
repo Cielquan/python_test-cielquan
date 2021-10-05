@@ -54,7 +54,7 @@ repos:
 
   #: pyupgrade - upgrade old python syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 277aa8ff35f66fb14ada40130dadac76afaf4f1b  # frozen: v2.25.0
+    rev: b6e103248fd97b04d2bea898b95d1d8776fece57  # frozen: v2.29.0
     hooks:
       - id: pyupgrade
         args: [--py36-plus]
@@ -69,7 +69,7 @@ repos:
   #: black - python formatter
   #: Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
   - repo: https://github.com/psf/black
-    rev: a8b4665e7d6eb945c47820adb1a3f8b006adce0c  # frozen: 21.8b0
+    rev: 911470a610e47d9da5ea938b0887c3df62819b85  # frozen: 21.9b0
     hooks:
       - id: black
         args: [--safe]
@@ -104,7 +104,7 @@ repos:
   #: File skip: `# pylint: skip-file`
   #: Inline change: `# pylint: disable|enable=CODE|NAME`
   - repo: https://github.com/PyCQA/pylint/
-    rev: 591a23adcfdd2fe20b8cfdb9e4e07772c8f454f8  # frozen: v2.10.2
+    rev: d98e6e8adcdc5ebcd9c863f630e748cdba639b0a  # frozen: v2.11.1
     hooks:
       - id: pylint
         name: spell-check (pylint+pyenchant)
@@ -144,7 +144,7 @@ repos:
   # TODO:#i# https://github.com/python-poetry/poetry/pull/2511
   # - repo: https://github.com/python-poetry/poetry
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 31b1e001cc3ba984d79801a48446f7c232727837  # frozen: 1.1.8
+    rev: 8984c2e4ff86401eda018b6f0e5274aa95977a22  # frozen: 1.1.10
     hooks:
       - id: poetry-check
 
