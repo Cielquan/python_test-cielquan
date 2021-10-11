@@ -144,7 +144,7 @@ repos:
   # TODO:#i# https://github.com/python-poetry/poetry/pull/2511
   # - repo: https://github.com/python-poetry/poetry
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 8984c2e4ff86401eda018b6f0e5274aa95977a22  # frozen: 1.1.10
+    rev: cb9cf8a14b2060152344decd0d715b612754ede7  # frozen: 1.1.11
     hooks:
       - id: poetry-check
 
