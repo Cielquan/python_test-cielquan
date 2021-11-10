@@ -62,7 +62,7 @@ repos:
   #: isort - sort imports
   #: Inline skip: `# isort: skip`
   - repo: https://github.com/PyCQA/isort
-    rev: fd5ba70665a37ec301a1f714ed09336048b3be63  # frozen: 5.9.3
+    rev: c154ecff496bf9309eaf5d887f4aa4a0abba28a2  # frozen: 5.10.0
     hooks:
       - id: isort
 
