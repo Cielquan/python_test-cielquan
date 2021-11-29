@@ -104,7 +104,7 @@ repos:
   #: File skip: `# pylint: skip-file`
   #: Inline change: `# pylint: disable|enable=CODE|NAME`
   - repo: https://github.com/PyCQA/pylint/
-    rev: d98e6e8adcdc5ebcd9c863f630e748cdba639b0a  # frozen: v2.11.1
+    rev: 2c151378138594c5b3483a7a00bbf8e144fc4506  # frozen: v2.12.1
     hooks:
       - id: pylint
         name: spell-check (pylint+pyenchant)
@@ -144,7 +144,7 @@ repos:
   # TODO:#i# https://github.com/python-poetry/poetry/pull/2511
   # - repo: https://github.com/python-poetry/poetry
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: cb9cf8a14b2060152344decd0d715b612754ede7  # frozen: 1.1.11
+    rev: 2a9eaef6bd5e181e44e661d7e3f1b49b79073979  # frozen: 1.1.12
     hooks:
       - id: poetry-check
 
