@@ -69,7 +69,7 @@ repos:
   #: black - python formatter
   #: Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
   - repo: https://github.com/psf/black
-    rev: 19f6aa8208154de4560ee1e4a3e638e120dcdba5  # frozen: 21.11b1
+    rev: f1d4e742c91dd5179d742b0db9293c4472b765f8  # frozen: 21.12b0
     hooks:
       - id: black
         args: [--safe]
@@ -104,7 +104,7 @@ repos:
   #: File skip: `# pylint: skip-file`
   #: Inline change: `# pylint: disable|enable=CODE|NAME`
   - repo: https://github.com/PyCQA/pylint/
-    rev: 2c151378138594c5b3483a7a00bbf8e144fc4506  # frozen: v2.12.1
+    rev: eec287fae66f8fc514d5daa9caee46fd0e0cb6d9  # frozen: v2.12.2
     hooks:
       - id: pylint
         name: spell-check (pylint+pyenchant)
