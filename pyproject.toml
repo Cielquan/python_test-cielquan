@@ -119,7 +119,7 @@
         tomlkit = "*"  #: Version managed above
         formelsammlung = "*"  #: Version managed above
         poetry = "*"  #: Version managed above
-        virtualenv = "^20, !=20.2.2"  #: 20.2.2 breaks smth with nox/tox
+        virtualenv = "^20"  #: 20.2.2 breaks smth with nox/tox
         # TODO:#i# wait for new release: https://github.com/myint/rstcheck/issues/69
         rstcheck = {git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b"}
 
