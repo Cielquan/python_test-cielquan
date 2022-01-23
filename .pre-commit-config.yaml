@@ -382,7 +382,7 @@ repos:
   - repo: https://github.com/adrienverge/yamllint
     rev: 058fef75598d1a9d9250487d91549abf379878e0 # frozen: v1.26.3
     hooks:
-      # Config file: .yamllint (yaml) [--config-file]
+      # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
       # Block skip: `# yamllint disable[ rule:<RULE>]`
       # Block skip end: `# yamllint enable`

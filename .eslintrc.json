@@ -21,11 +21,7 @@
   "rules": {
     "prettier/prettier": "error",
     "class-methods-use-this": "off",
-    "max-len": [
-      "warn",
-      88,
-      { "ignorePattern": "[^\\n\\r]{83,88}\\{(?:'|\") (?:'|\")\\}" }
-    ],
+    "max-len": ["warn", 100, { "ignorePattern": "[^\\n\\r]{95,100}\\{(?:'|\") (?:'|\")\\}" }],
     "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": "warn",

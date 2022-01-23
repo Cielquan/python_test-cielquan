@@ -54,9 +54,7 @@ def _get_config_value(section: str, key: str) -> str:  # noqa: CCR001
             break
 
         if start and line.strip().startswith(key):
-            match = re.match(
-                r"\s*" + key + r"""\s?=\s?["']{1}([^"']*)["']{1}.*""", line
-            )
+            match = re.match(r"\s*" + key + r"""\s?=\s?["']{1}([^"']*)["']{1}.*""", line)
             if match:
                 return match.group(1)
             raise PyprojectError(
@@ -109,19 +107,14 @@ def bump_version(release_type: str = "patch") -> str:
 
     current_version = _get_config_value("[tool.poetry]", "version")
 
-    version_parts = re.match(
-        r"(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)", current_version
-    )
+    version_parts = re.match(r"(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)", current_version)
     if not version_parts:
         raise ValueError(f"Unparsable version: {current_version}")
 
     if release_type in MAJOR:
         version = f"{int(version_parts.group('major')) + 1}.0.0"
     elif release_type in MINOR:
-        version = (
-            f"{version_parts.group('major')}"
-            f".{int(version_parts.group('minor')) + 1}.0"
-        )
+        version = f"{version_parts.group('major')}" f".{int(version_parts.group('minor')) + 1}.0"
     elif release_type in PATCH:
         version = (
             f"{version_parts.group('major')}"
