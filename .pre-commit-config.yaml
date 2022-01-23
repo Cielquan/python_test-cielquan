@@ -57,17 +57,13 @@ repos:
       # Config file: pyproject.toml
       - id: poetry-lock
         args: ["--check", "--no-update"]
-      # - id: poetry-export
 
-  # TODO: find new way to get all deps with poetry 1.2
   # safety - python dependency vulnerability checker
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
     rev: c20e8a8125a5a51997164feb846a7171b50b5fe6 # frozen: v1.2.2
     hooks:
-      # poetry export is missing extras (optional deps)
       - id: python-safety-dependencies-check
         args: ["--full-report"]
-        # files: pyproject.toml
 
   # ####################################################################################
   #
