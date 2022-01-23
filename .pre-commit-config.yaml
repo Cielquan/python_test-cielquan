@@ -136,7 +136,7 @@ repos:
   # prettier - multi formatter
   - repo: https://github.com/pre-commit/mirrors-prettier
     # https://github.com/prettier/prettier
-    # Config file: "prettier" key package.json | .prettierrc | .prettierrc.toml |
+    # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
     rev: ea782651a7e32f40a3d13b76c79d5a2474ee8723 # frozen: v2.5.1
