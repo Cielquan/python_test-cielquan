@@ -695,6 +695,35 @@ dev = ["dlint", "flake8-2020", "flake8-aaa", "flake8-absolute-import", "flake8-a
 docs = ["alabaster", "pygments-github-lexers", "recommonmark", "sphinx"]
 
 [[package]]
+name = "formelsammlung"
+version = "5.0.0"
+description = "Collection of different functions"
+category = "dev"
+optional = false
+python-versions = ">=3.6.2,<4.0.0"
+
+[package.dependencies]
+importlib-metadata = {version = ">=1.6,<4.0", markers = "python_version < \"3.8\""}
+pydocstyle = ">=5.1,<6.0"
+python-dotenv = ">=0.15,<0.16"
+
+[package.extras]
+flask = ["flask (>=1.1.2,<2.0.0)"]
+testing = ["flask (>=1.1.2,<2.0.0)", "nox (>=2020.12.31,<2021.0.0)", "pytest (>=6,<7)", "pytest-xdist (>=2.2,<3.0)", "psutil (>=5.8.0,<6.0.0)", "pytest-cov (>=2.10.1,<3.0.0)", "coverage[toml] (>=5.3.1,<6.0.0)", "coverage-conditional-plugin (>=0.3.1,<0.4.0)", "pytest-sugar (>=0.9.4,<0.10.0)", "pytest-randomly (>=3.5,<4.0)", "pytest-mock (>=3.5.1,<4.0.0)", "mock (>=4.0.3,<5.0.0)", "pytest-flask (>=1.0,<2.0)"]
+docs = ["flask (>=1.1.2,<2.0.0)", "nox (>=2020.12.31,<2021.0.0)", "sphinx (>=3.1,<4.0)", "m2r2 (>=0.2.7,<0.3.0)", "sphinx-rtd-theme (>=0.5.1,<0.6.0)", "sphinx-autodoc-typehints (>=1.11,<2.0)", "sphinxcontrib-apidoc (>=0.3,<0.4)", "sphinxcontrib-spelling (>=7.1,<8.0)"]
+nox = ["nox (>=2020.12.31,<2021.0.0)"]
+dev_nox = ["nox (>=2020.12.31,<2021.0.0)", "tomlkit (>=0.7.0,<1.0.0)"]
+coverage = ["coverage[toml] (>=5.3.1,<6.0.0)", "coverage-conditional-plugin (>=0.3.1,<0.4.0)"]
+pre-commit = ["sphinx (>=3.1,<4.0)", "pre-commit (>=2.9,<3.0)", "mypy (==0.790)", "pylint (>=2.6,<3.0)", "pyenchant (>=3.2,<4.0)", "flakehell (==0.8.0)", "flake8 (>=3.8,<4.0)", "pep8-naming (>=0.11,<0.12)", "flake8-2020 (>=1.6,<2.0)", "flake8-aaa (>=0.11,<0.12)", "flake8-annotations (>=2.4,<3.0)", "flake8-bandit (>=2.1.2,<3.0.0)", "bandit (>=1.7,<2.0)", "flake8-broken-line (>=0.3,<0.4)", "flake8-bugbear (>=20.11,<21.0)", "flake8-cognitive-complexity (>=0.1,<0.2)", "flake8-comprehensions (>=3.3,<4.0)", "flake8-docstrings (>=1.5,<2.0)", "flake8-eradicate (>=1,<2)", "flake8-logging-format (>=0.6,<0.7)", "flake8-mutable (>=1.2,<2.0)", "flake8-no-u-prefixed-strings (>=0.2,<0.3)", "flake8-pytest-style (>=1.3,<2.0)", "flake8-rst-docstrings (>=0.0.14,<0.0.15)", "flake8-simplify (>=0.12,<0.13)", "flake8-sql (>=0.4.1,<0.5.0)", "flake8-string-format (>=0.3,<0.4)", "flake8-typing-imports (>=1.10.1,<2.0.0)", "flake8-use-fstring (>=1.1,<2.0)", "flake8-variables-names (>=0.0.3,<0.0.4)", "flake8-walrus (>=1.1,<2.0)"]
+sphinx-autobuild = ["sphinx-autobuild (==2020.9.1)"]
+tomlkit = ["tomlkit (>=0.7.0,<1.0.0)"]
+tox = ["tox (>=3.21,<4.0)"]
+poetry = ["poetry (>=1.1.4,<2.0.0)"]
+twine = ["twine (>=3.3,<4.0)"]
+safety = ["safety (>=1.9,<2.0)"]
+diff-cover = ["diff-cover (>=4,<5)"]
+
+[[package]]
 name = "gitdb"
 version = "4.0.9"
 description = "Git Object Database"
@@ -1137,17 +1166,14 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "pydocstyle"
-version = "6.1.1"
+version = "5.1.1"
 description = "Python docstring style checker"
 category = "dev"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.5"
 
 [package.dependencies]
 snowballstemmer = "*"
-
-[package.extras]
-toml = ["toml"]
 
 [[package]]
 name = "pyenchant"
@@ -1301,6 +1327,17 @@ pytest-forked = "*"
 psutil = ["psutil (>=3.0)"]
 setproctitle = ["setproctitle"]
 testing = ["filelock"]
+
+[[package]]
+name = "python-dotenv"
+version = "0.15.0"
+description = "Add .env support to your django/flask apps in development and deployments"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.extras]
+cli = ["click (>=5.0)"]
 
 [[package]]
 name = "pytz"
@@ -1858,7 +1895,7 @@ testing = ["pytest (>=6)", "pytest-checkdocs (>=2.4)", "pytest-flake8", "pytest-
 [metadata]
 lock-version = "1.1"
         python-versions = "^3.7"  # NOTE: update min_python_version below also
-content-hash = "35a267126714c5b97ac59f74d5a31ac412aaf3458c9fcc68e314485ca5e64951"
+content-hash = "eab9bf3808fc2bfcc8ccb37700aff4444ae762cb9a5ab38eddeb9c7868918e8b"
 
 [metadata.files]
 alabaster = [
@@ -2201,6 +2238,10 @@ flakeheaven = [
     {file = "flakeheaven-0.11.0-py3-none-any.whl", hash = "sha256:7c13bce95cfa496c47e46532f4ed0a020a6532d88f037e79bb9e342d9446992d"},
     {file = "flakeheaven-0.11.0.tar.gz", hash = "sha256:002f2de2bbc2ae72c2920cfc91cf068c89b7a561c61f63efe4a06c4af146c2dd"},
 ]
+formelsammlung = [
+    {file = "formelsammlung-5.0.0-py3-none-any.whl", hash = "sha256:343a3e1c0c003cd1e2b82abadaa009d1e5677b862adc56519e1da1d25786ab46"},
+    {file = "formelsammlung-5.0.0.tar.gz", hash = "sha256:86561de0d72d65df112ea52bcc5719b9a3b08a650c00fcd2970f50978ea11448"},
+]
 gitdb = [
     {file = "gitdb-4.0.9-py3-none-any.whl", hash = "sha256:8033ad4e853066ba6ca92050b9df2f89301b8fc8bf7e9324d412a63f8bf1a8fd"},
     {file = "gitdb-4.0.9.tar.gz", hash = "sha256:bac2fd45c0a1c9cf619e63a90d62bdc63892ef92387424b855792a6cabe789aa"},
@@ -2504,8 +2545,8 @@ pycparser = [
     {file = "pycparser-2.21.tar.gz", hash = "sha256:e644fdec12f7872f86c58ff790da456218b10f863970249516d60a5eaca77206"},
 ]
 pydocstyle = [
-    {file = "pydocstyle-6.1.1-py3-none-any.whl", hash = "sha256:6987826d6775056839940041beef5c08cc7e3d71d63149b48e36727f70144dc4"},
-    {file = "pydocstyle-6.1.1.tar.gz", hash = "sha256:1d41b7c459ba0ee6c345f2eb9ae827cab14a7533a88c5c6f7e94923f72df92dc"},
+    {file = "pydocstyle-5.1.1-py3-none-any.whl", hash = "sha256:aca749e190a01726a4fb472dd4ef23b5c9da7b9205c0a7857c06533de13fd678"},
+    {file = "pydocstyle-5.1.1.tar.gz", hash = "sha256:19b86fa8617ed916776a11cd8bc0197e5b9856d5433b777f51a3defe13075325"},
 ]
 pyenchant = [
     {file = "pyenchant-3.2.2-py3-none-any.whl", hash = "sha256:5facc821ece957208a81423af7d6ec7810dad29697cb0d77aae81e4e11c8e5a6"},
@@ -2555,6 +2596,10 @@ pytest-sugar = [
 pytest-xdist = [
     {file = "pytest-xdist-2.5.0.tar.gz", hash = "sha256:4580deca3ff04ddb2ac53eba39d76cb5dd5edeac050cb6fbc768b0dd712b4edf"},
     {file = "pytest_xdist-2.5.0-py3-none-any.whl", hash = "sha256:6fe5c74fec98906deb8f2d2b616b5c782022744978e7bd4695d39c8f42d0ce65"},
+]
+python-dotenv = [
+    {file = "python-dotenv-0.15.0.tar.gz", hash = "sha256:587825ed60b1711daea4832cf37524dfd404325b7db5e25ebe88c495c9f807a0"},
+    {file = "python_dotenv-0.15.0-py2.py3-none-any.whl", hash = "sha256:0c8d1b80d1a1e91717ea7d526178e3882732420b03f08afea0406db6402e220e"},
 ]
 pytz = [
     {file = "pytz-2021.3-py2.py3-none-any.whl", hash = "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c"},
