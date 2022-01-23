@@ -1,0 +1,4 @@
+# https://rust-lang.github.io/rustfmt/
+max_width = 100
+tab_spaces = 4
+imports_granularity = "Module"
