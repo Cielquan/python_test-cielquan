@@ -60,7 +60,7 @@ repos:
 
   # safety - python dependency vulnerability checker
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: c20e8a8125a5a51997164feb846a7171b50b5fe6 # frozen: v1.2.2
+    rev: 8cccd08a2ddd47f0e995302b08655320fd04981a # frozen: v1.2.3
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
@@ -322,22 +322,14 @@ repos:
   # CSS
   # ----------------------------------------------
 
-  # TODO: https://github.com/stylelint/stylelint
-
-  # # csslint - CSS linter
-  # - repo: https://github.com/pre-commit/mirrors-csslint
-  #   # https://github.com/CSSLint/csslint
-  #   # Config file: .csslintrc [--config]
-  #   rev: 818b64c6bf19ca1e089b4dabc8dc74059b405814 # frozen: v1.0.5
-  #   hooks:
-  #     - id: csslint
-
-  # # scss-lint - SCSS linter
-  # - repo: https://github.com/pre-commit/mirrors-scss-lint
-  #   # https://github.com/sds/scss-lint
-  #   rev: a1648868c160f1ca0acedef6dc51541c91ee04c6 # frozen: v0.59.0
-  #   hooks:
-  #     - id: scss-lint
+  - repo: https://github.com/cielquan/mirrors-stylelint
+    # Config file: .stylelintrc.json
+    rev: 765d365d9e49e2c4af3c7c94fc55176af32daaf4 # frozen: v14.3.0
+    hooks:
+      - id: stylelint
+        additional_dependencies:
+          - "stylelint-config-standard"
+          - "stylelint-config-prettier"
 
   # ----------------------------------------------
   # Shell script
