@@ -219,7 +219,6 @@ repos:
         name: mypy
         description: run mypy over the installed version if available
         entry: env_exe_runner tox,.venv pre_commit mypy
-        args: ["--config-file=tox.ini"]
         language: system
         types: [python]
         require_serial: true
