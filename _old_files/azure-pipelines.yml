@@ -6,7 +6,7 @@ trigger:
   branches:
     include: [master, test-me-*]
   tags:
-    include: ['*']
+    include: ["*"]
   paths:
     exclude:
       - .readthedocs.yml
@@ -36,7 +36,7 @@ variables:
   GIT_BRANCH: $(Build.SourceBranch)
   GIT_COMMIT_SHA: $(Build.SourceVersion)
   PYTEST_ADDOPTS: "-v -v -ra --showlocals"
-  PYTEST_XDIST_N: '0'
+  PYTEST_XDIST_N: "0"
 
 jobs:
   - template: jobs/run-tox.yml@cielquan
@@ -67,26 +67,26 @@ jobs:
         docs-test-doctest:
           display_name: docs_test_doctest
       coverage:
-        with_toxenv: 'coverage'
+        with_toxenv: "coverage"
         for_envs: [py36, py37, py38, py39, pypy3]
       send_cov_to_codeclimate: true
 
   - ${{ if startsWith(variables['Build.SourceBranch'], 'refs/tags/') }}:
-    # yamllint disable-line rule:indentation
-    - template: jobs/publish-pypi-poetry.yml@cielquan
-      parameters:
-        custom_repository: true
-        dependsOn:
-          - pre_commit
-          - safety
-          - package
-          - py36
-          - py37
-          - py38
-          - py39
-          - pypy3
-          - report_coverage
-          - docs_test_html
-          - docs_test_linkcheck
-          - docs_test_coverage
-          - docs_test_doctest
+      # yamllint disable-line rule:indentation
+      - template: jobs/publish-pypi-poetry.yml@cielquan
+        parameters:
+          custom_repository: true
+          dependsOn:
+            - pre_commit
+            - safety
+            - package
+            - py36
+            - py37
+            - py38
+            - py39
+            - pypy3
+            - report_coverage
+            - docs_test_html
+            - docs_test_linkcheck
+            - docs_test_coverage
+            - docs_test_doctest

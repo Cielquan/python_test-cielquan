@@ -2,47 +2,44 @@
 ---
 name: Test code
 
-
 env:
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 
-
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   workflow_dispatch:
 
   push:
     tags:
-      - '!*'
+      - "!*"
     branches:
       - main
     paths:
       #: Source/Test changes
-      - 'src/**/*.py'
-      - 'tests/**/*.py'
+      - "src/**/*.py"
+      - "tests/**/*.py"
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - "poetry.lock"
+      - "pyproject.toml"
       #: Test config changes
-      - 'tox.ini'
-      - 'noxfile.py'
-      - '.github/workflows/test-code.yml'
+      - "tox.ini"
+      - "noxfile.py"
+      - ".github/workflows/test-code.yml"
 
   pull_request:
     branches:
-      - '**'
+      - "**"
     paths:
       #: Source/Test changes
-      - 'src/**/*.py'
-      - 'tests/**/*.py'
+      - "src/**/*.py"
+      - "tests/**/*.py"
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - "poetry.lock"
+      - "pyproject.toml"
       #: Test config changes
-      - 'tox.ini'
-      - 'noxfile.py'
-      - '.github/workflows/test-code.yml'
-
+      - "tox.ini"
+      - "noxfile.py"
+      - ".github/workflows/test-code.yml"
 
 jobs:
   pyproject-config:
@@ -139,7 +136,6 @@ jobs:
           reporter_url = cc_url + conf["cc_test_reporter_version"]
           print(f"::set-output name=reporter_url::{reporter_url}")
 
-
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA and GIT_BRANCH
     needs: pyproject-config
@@ -202,7 +198,6 @@ jobs:
 
           print(f"::set-output name=GIT_BRANCH::{branch}")
 
-
   notify-code-climate:
     name: Notify code-climate
     needs: pyproject-config
@@ -226,7 +221,6 @@ jobs:
       - name: 'Run "cc-test-reporter before-build"'
         shell: bash
         run: ./cc-test-reporter before-build -d
-
 
   package-tests:
     name: nox / package / ${{ matrix.os }}
@@ -282,7 +276,6 @@ jobs:
                   print("::set-output name=macos-success::true")
               elif "${{ matrix.os }}" == "windows-latest":
                   print("::set-output name=windows-success::true")
-
 
   test-code:
     name: nox / test_code / ${{ matrix.os }}
@@ -455,7 +448,6 @@ jobs:
           path: .junit_cache/junit*.xml
           if-no-files-found: error
 
-
   merge-coverage:
     name: nox / coverage_merge
     needs: [test-code, pyproject-config]
@@ -517,7 +509,6 @@ jobs:
             .coverage_cache/htmlcov/
           if-no-files-found: error
 
-
   report-coverage:
     name: nox / coverage_report
     needs: [merge-coverage, pyproject-config]
@@ -561,7 +552,6 @@ jobs:
 
       - name: Run tox env via nox
         run: nox --forcecolor --session coverage_report -- skip_install
-
 
   push-coverage-to-code-climate:
     name: Push coverage to code-climate
@@ -613,10 +603,15 @@ jobs:
           ./cc-test-reporter --debug upload-coverage \
             --input .coverage_cache/code-climate.json
 
-
   set-status:
     name: Set status on commit
-    needs: [test-code, report-coverage, push-coverage-to-code-climate, set-git-env-vars]
+    needs:
+      [
+        test-code,
+        report-coverage,
+        push-coverage-to-code-climate,
+        set-git-env-vars,
+      ]
     if: always()
     runs-on: ubuntu-latest
     steps:

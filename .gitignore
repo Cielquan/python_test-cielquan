@@ -146,3 +146,5 @@ docs/source/autoapidoc
 ## created via nox sessions
 # ignorefile for spellchecking
 .spellignore
+
+requirements.txt

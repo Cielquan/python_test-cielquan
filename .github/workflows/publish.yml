@@ -15,13 +15,11 @@ name: Release new version
 #   d) Build and publish via poetry
 #   e) Create GH release with build artifacts
 
-
 env:
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 
-
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   workflow_dispatch:
     inputs:
       releaseStep:
@@ -31,7 +29,6 @@ on:  # yamllint disable-line rule:truthy
       # preRelease:
       #   description: 'Pre-release level: alpha|a|beta|b|rc'
       #   required: false
-
 
 jobs:
   check-input:
@@ -105,7 +102,6 @@ jobs:
           args_str = ' '.join(args)
           print(args_str)
           print(f"::set-output name=args::{args_str}")
-
 
   pyproject-config:
     name: Get config from pyproject.toml
@@ -190,7 +186,6 @@ jobs:
           if len(test_ver) >= 10:
               print(f"::set-output name=test_python_version_10::{test_ver[9]}")
 
-
   check-ci-status:
     name: Check CI status on commit
     needs: [pyproject-config]
@@ -221,31 +216,30 @@ jobs:
 
       - name: Check CI status
         run: exit 0
-# yamllint disable-line rule:comments-indentation
-        # shell: python
-        # run: |
-        #   import json
-        #   import sys
+  # yamllint disable-line rule:comments-indentation
+  # shell: python
+  # run: |
+  #   import json
+  #   import sys
 
-        #   status_json = json.loads("""${{ steps.get-status.outputs.data }}""")
+  #   status_json = json.loads("""${{ steps.get-status.outputs.data }}""")
 
-        #   if status_json["state"] != "success":
-        #       print("The CI pipeline state of this commit is not 'success'.")
-        #       sys.exit(1)
+  #   if status_json["state"] != "success":
+  #       print("The CI pipeline state of this commit is not 'success'.")
+  #       sys.exit(1)
 
-        #   ci_that_ran = []
-        #   for ci in status_json["statuses"]:
-        #       ci_that_ran.append(ci["context"])
+  #   ci_that_ran = []
+  #   for ci in status_json["statuses"]:
+  #       ci_that_ran.append(ci["context"])
 
-        #   needed_ci = ("ci-code-quality", "ci-test-code", "ci-test-docs")
-        #   for ci in needed_ci:
-        #       if ci not in ci_that_ran:
-        #           print(
-        #               "Not all CI pipelines ran. Please make sure all CI pipelines "
-        #               f"ran successfully and try again.\nNeeded CI: {needed_ci}"
-        #           )
-        #           sys.exit(1)
-
+  #   needed_ci = ("ci-code-quality", "ci-test-code", "ci-test-docs")
+  #   for ci in needed_ci:
+  #       if ci not in ci_that_ran:
+  #           print(
+  #               "Not all CI pipelines ran. Please make sure all CI pipelines "
+  #               f"ran successfully and try again.\nNeeded CI: {needed_ci}"
+  #           )
+  #           sys.exit(1)
 
   old-test-code:
     name: (old tests) nox / test_code / ${{ matrix.os }}
@@ -370,7 +364,6 @@ jobs:
           MIN_COVERAGE: 0
         if: needs.check-input.outputs.first_release != 'False'
 
-
   check-breaking-change-notes:
     name: Check for missing BREAKING CHANGES release notes
     needs: [old-test-code, check-input, pyproject-config]
@@ -487,7 +480,6 @@ jobs:
         run: exit 1
         if: steps.set-comment.outcome == 'success'
 
-
   publish:
     needs: [check-breaking-change-notes, check-input, pyproject-config]
     if: always()
@@ -551,9 +543,9 @@ jobs:
         run: poetry publish -r test --ansi
         # yamllint disable-line rule:comments-indentation
         # env:
-          # # yamllint disable-line rule:comments-indentation
-          # POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          # POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        # # yamllint disable-line rule:comments-indentation
+        # POETRY_HTTP_BASIC_PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
+        # POETRY_HTTP_BASIC_PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
         # yamllint disable-line rule:comments-indentation
         # run: poetry publish --ansi
 

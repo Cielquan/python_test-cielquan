@@ -5,16 +5,14 @@ name: Update AUTHORS
 # 1. Update the AUTHORS file
 # 2. Git commit and push the file if there are changes.
 
-
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   workflow_dispatch:
 
   push:
     tags:
-      - '!*'
+      - "!*"
     branches:
       - main
-
 
 jobs:
   update-authors:

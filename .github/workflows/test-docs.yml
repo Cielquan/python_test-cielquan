@@ -2,51 +2,48 @@
 ---
 name: Test documentation
 
-
 env:
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 
-
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   workflow_dispatch:
 
   push:
     tags:
-      - '!*'
+      - "!*"
     branches:
       - main
     paths:
       #: Source changes
-      - 'docs/**'
-      - 'src/**/*.py'
-      - 'CHANGELOG.md'
-      - 'LICENSE'
+      - "docs/**"
+      - "src/**/*.py"
+      - "CHANGELOG.md"
+      - "LICENSE"
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - "poetry.lock"
+      - "pyproject.toml"
       #: Test config changes
-      - 'tox.ini'
-      - 'noxfile.py'
-      - '.github/workflows/test-docs.yml'
+      - "tox.ini"
+      - "noxfile.py"
+      - ".github/workflows/test-docs.yml"
 
   pull_request:
     branches:
-      - '**'
+      - "**"
     paths:
       #: Source changes
-      - 'docs/**'
-      - 'src/**/*.py'
-      - 'CHANGELOG.md'
-      - 'LICENSE'
+      - "docs/**"
+      - "src/**/*.py"
+      - "CHANGELOG.md"
+      - "LICENSE"
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - "poetry.lock"
+      - "pyproject.toml"
       #: Test config changes
-      - 'tox.ini'
-      - 'noxfile.py'
-      - '.github/workflows/test-docs.yml'
-
+      - "tox.ini"
+      - "noxfile.py"
+      - ".github/workflows/test-docs.yml"
 
 jobs:
   pyproject-config:
@@ -87,7 +84,6 @@ jobs:
 
           ver = PYPROJECT["tool"]["_testing"]["ci_default_python_version"]
           print(f"::set-output name=default_python_version::{ver}")
-
 
   test-docs:
     name: nox / full_test_docs
@@ -142,7 +138,6 @@ jobs:
       - name: Run tox envs via nox
         run: nox --forcecolor --session full_test_docs -- skip_install
 
-
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA
     needs: pyproject-config
@@ -190,7 +185,6 @@ jobs:
               print(f"::set-output name=GIT_COMMIT_SHA::{sha}")
           else:
               print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
-
 
   set-status:
     name: Set status on commit

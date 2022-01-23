@@ -1,30 +1,31 @@
 [build-system]
-    requires = ["poetry>=0.12"]
-    build-backend = "poetry.masonry.api"
+    # TODO: look into tox installation issue
+    requires = ["poetry-core>=1.1.0a6", "setuptools"]
+    build-backend = "poetry.core.masonry.api"
 
 
-#: -- TESTING COFIGURATION -------------------------------------------------------------
+# -- TESTING COFIGURATION -------------------------------------------------------------
 [tool._testing]
     ci_default_python_version = "3.8"
-    #: Max 10 python versions are currently installed
+    # Max 10 python versions are currently installed
     # TODO:#i# find way to install multiple py ver in workflow VM in one step
     # https://github.com/actions/setup-python/issues/98
     ci_test_python_versions = [
-        #: pypy
-        "pypy-3.6", "pypy-3.7",
-        #: cpython
-        "3.6", "3.7", "3.8", "3.9", "3.10.0-alpha.2 - 3.10"
+        # pypy
+        "pypy-3.7",
+        # cpython
+        "3.7", "3.8", "3.9", "3.10"
     ]
     ci_test_os = ["ubuntu", "macos", "windows"]
     cc_test_reporter_version = "latest-linux-amd64"
-    skip_install = false  #: Application -> true || Library -> false
-    toxenv_python_versions_win32 = "py{310,39,38,37,36}"
-    toxenv_python_versions_darwin = "py{py3,310,39,38,37,36}"
-    toxenv_python_versions_linux = "py{py3,310,39,38,37,36}"
+    skip_install = false  # Application -> true || Library -> false
+    toxenv_python_versions_win32 = "py{310,39,38,37}"
+    toxenv_python_versions_darwin = "py{py3,310,39,38,37}"
+    toxenv_python_versions_linux = "py{py3,310,39,38,37}"
     toxenv_docs_builders = "test_docs-{html,linkcheck,coverage,doctest,spelling}"
 
 
-#: -- POETRY CONFIG --------------------------------------------------------------------
+# -- POETRY CONFIG --------------------------------------------------------------------
 [tool.poetry]
     name = "python_test_cielquan"
     version = "1.1.0"
@@ -43,150 +44,125 @@
         "Source" = "https://github.com/Cielquan/python_test-cielquan"
 
     [tool.poetry.dependencies]
-        python = "^3.6.2"  # NOTE: update min_python_version below also
-        importlib-metadata = {version = ">=1.6, <4.0", python = "<3.8"}
-        ####################
-        #: Testing
-        pytest = {version = "^6", optional = true}
-        pytest-xdist = {version = "^2.3", optional = true}
-        # TODO:#i# bug on py310 when set as extra: xdist is not installed
-        psutil = {version = "^5.8.0", optional = true}
-        # pytest-xdist = {extras = ["psutil"], version = "^2.2", optional = true}
-        pytest-cov = {version = "^2.12.1", optional = true}
-        coverage = {extras = ["toml"], version = "^5.3.1", optional = true}
-        coverage-conditional-plugin = {version = "^0.3.1", optional = true}
-        pytest-sugar = {version = "^0.9.4", optional = true}
-        pytest-randomly = {version = "^3.5", optional = true}
-        ####################
-        #: Docs
-        sphinx = {version = "^4", optional = true}
-        m2r2 = {version = "^0.3", optional = true}
-        sphinx-autobuild = {version = "2021.3.14", optional = true}
-        python-dotenv = {version = "^0.15", optional = true}
-        sphinx-rtd-theme = {version = "^0.5.1", optional = true}
-        sphinx-autodoc-typehints = {version = "^1.12", optional = true}
-        sphinxcontrib-apidoc = {version = "^0.3", optional = true}
-        sphinxcontrib-spelling = {version = "^7.2", optional = true}
-        ####################
-        #: Code check
-        pre-commit = {version = "^2.9", optional = true}
-        formelsammlung = {version = ">=4.0, <6.0", optional = true}
-        mypy = {version = "0.910", optional = true}
-        #: flakehell & flake8-plugins
-        pylint = {version = "^2.9", optional = true}
-        pyenchant = {version = "^3.2", optional = true}
-        #: flakehell 0.9.0 only drops dropqa (prior: yesqa) cmd
-        #: flakehell is now (0.9.0) unmaintained
-        flakehell = {version = "0.8.0", optional = true}
-        flake8 = {version = "^3.8", optional = true}
-        pydocstyle = {version = ">=5.1,<7", optional = true}
-        pep8-naming = {version = "^0.12", optional = true}
-        flake8-2020 = {version = "^1.6", optional = true}
-        flake8-aaa = {version = "^0.12", optional = true}
-        flake8-annotations = {version = "^2.6.2", optional = true}
-        flake8-bandit = {version = "^2.1.2", optional = true}
-        bandit = {version = "^1.7", optional = true}
-        flake8-broken-line = {version = "^0.3", optional = true}
-        flake8-bugbear = {version = "^21.4", optional = true}
-        flake8-cognitive-complexity = {version = "^0.1", optional = true}
-        flake8-comprehensions = {version = "^3.5", optional = true}
-        flake8-docstrings = {version = "^1.5", optional = true}
-        flake8-eradicate = {version = "^1", optional = true}
-        flake8-logging-format = {version = "^0.6", optional = true}
-        flake8-mutable = {version = "^1.2", optional = true}
-        flake8-pytest-style = {version = "^1.5", optional = true}
-        flake8-rst-docstrings = {version = "^0.2.3", optional = true}
-        flake8-simplify = {version = "^0.14.1", optional = true}
-        flake8-sql = {version = "^0.4.1", optional = true}
-        flake8-typing-imports = {version = "^1.10.1", optional = true}
-        flake8-use-fstring = {version = "^1.1", optional = true}
-        flake8-variables-names = {version = "^0.0.4", optional = true}
-        flake8-walrus = {version = "^1.1", python = ">=3.8", optional = true}
-        ####################
-        #: nox env dependencies
-        nox = {version = "2021.6.12", optional = true}
-        tomlkit = {version = ">=0.7.0, <1.0.0", optional = true}
-        tox = {version = "^3.23", optional = true}
-        ####################
-        #: Additional tools
-        poetry = {version = "^1.1.6", optional = true}
-        twine = {version = "^3.3", optional = true}
-        safety = {version = "^1.9", optional = true}
-        diff-cover = {version = "^6", optional = true}
+        python = "^3.7"  # NOTE: update min_python_version below also
+        importlib-metadata = {version = ">=1.6, <5.0", python = "<3.8"}
 
-    [tool.poetry.dev-dependencies]
-        nox = "*"  #: Version managed above
-        tomlkit = "*"  #: Version managed above
-        formelsammlung = "*"  #: Version managed above
-        poetry = "*"  #: Version managed above
-        virtualenv = "^20, !=20.2.2"  #: 20.2.2 breaks smth with nox/tox
+    [tool.poetry.group.dev.dependencies]
+        devtools = ">=0.8"
+        py-devtools-builtin = ">=1"
+        tox = "^3.24"
+        pre-commit = ">=2.17"
+        # tomlkit = "^0.8"
+        # formelsammlung = "^5"
+        poetry = "^1.2.0a2"
+        virtualenv = "^20.3"
         # TODO:#i# wait for new release: https://github.com/myint/rstcheck/issues/69
         rstcheck = {git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b"}
 
-    [tool.poetry.extras]
-        testing = [
-            "pytest", "pytest-xdist", "psutil",
-            "pytest-cov", "coverage", "coverage-conditional-plugin",
-            "pytest-sugar",
-            "pytest-randomly",
-        ]
-        coverage = ["coverage", "coverage-conditional-plugin"]
-        diff-cover = ["diff-cover"]
-        docs = [
-            "sphinx",
-            "m2r2",
-            "sphinx-rtd-theme",
-            "sphinx-autodoc-typehints",
-            "sphinxcontrib-apidoc",
-            "sphinxcontrib-spelling",
-        ]
-        sphinx-autobuild = ["sphinx-autobuild"]
-        pre-commit = [
-            "pre-commit", "formelsammlung",
-            "rstcheck", "sphinx",
-            "mypy",
-            "flakehell", "flake8", "pycodestyle",
-            "pylint", "pyenchant",
-            "pep8-naming",
-            "flake8-2020",
-            "flake8-aaa",
-            "flake8-annotations",
-            "flake8-bandit", "bandit",
-            "flake8-broken-line",
-            "flake8-bugbear",
-            "flake8-cognitive-complexity",
-            "flake8-comprehensions",
-            "flake8-docstrings",
-            "flake8-eradicate",
-            "flake8-logging-format",
-            "flake8-mutable",
-            "flake8-no-u-prefixed-strings",
-            "flake8-pytest-style",
-            "flake8-rst-docstrings",
-            "flake8-simplify",
-            "flake8-sql",
-            "flake8-string-format",
-            "flake8-typing-imports",
-            "flake8-use-fstring",
-            "flake8-variables-names",
-            "flake8-walrus",
-        ]
-        poetry = ["poetry"]
-        dev_nox = ["nox", "tomlkit", "formelsammlung"]
-        tomlkit = ["tomlkit"]
-        tox = ["tox"]
-        twine = ["twine"]
-        safety = ["safety"]
+    [tool.poetry.group.testing]
+        optional = true
+    [tool.poetry.group.testing.dependencies]
+        pytest = ">=6"
+        pytest-xdist = {extras = ["psutil"], version = ">=2.5"}
+        pytest-cov = ">=3"
+        coverage = {extras = ["toml"], version = ">=6"}
+        coverage-conditional-plugin = ">=0.5"
+        pytest-sugar = ">=0.9.4"
+        pytest-randomly = ">=3"
+
+    [tool.poetry.group.coverage]
+        optional = true
+    [tool.poetry.group.coverage.dependencies]
+        coverage = {extras = ["toml"], version = "*"}  # Version managed above
+        coverage-conditional-plugin = "*"  # Version managed above
+
+    [tool.poetry.group.docs]
+        optional = true
+    [tool.poetry.group.docs.dependencies]
+        sphinx = ">=4"
+        m2r2 = ">=0.3.2"
+        sphinx-rtd-theme = ">=1"
+        sphinx-autodoc-typehints = ">=1.15"
+        sphinxcontrib-apidoc = ">=0.3"
+        sphinxcontrib-spelling = ">=7.3"
+
+    [tool.poetry.group.sphinx-autobuild]
+        optional = true
+    [tool.poetry.group.sphinx-autobuild.dependencies]
+        sphinx-autobuild = "2021.3.14"
+
+    [tool.poetry.group.lint]
+        optional = false
+    [tool.poetry.group.lint.dependencies]
+        pre-commit = "*"  # Version managed above
+        mypy = ">=0.931"
+        pylint = ">=2.12"
+        pyenchant = ">=3.2.2"
+        # flakeheaven & flake8-plugins
+        flakeheaven = "0.11"
+        flake8 = ">=4"
+        pydocstyle = ">=5"
+        pep8-naming = ">=0.12"
+        flake8-aaa = ">=0.12.2"
+        flake8-annotations = ">=2.7"
+        flake8-bandit = ">=2.1.2"
+        bandit = ">=1.7.1"
+        flake8-broken-line = ">=0.4"
+        flake8-bugbear = ">=22.1"
+        flake8-cognitive-complexity = ">=0.1"
+        flake8-comprehensions = ">=3.8"
+        flake8-docstrings = ">=1.6"
+        flake8-eradicate = ">=1.2"
+        flake8-logging-format = ">=0.6"
+        flake8-mutable = ">=1.2"
+        flake8-pytest-style = ">=1.6"
+        flake8-rst-docstrings = ">=0.2.5"
+        flake8-simplify = ">=0.15.1"
+        flake8-sql = ">=0.4.1"
+        flake8-typing-imports = ">=1.12"
+        flake8-use-fstring = ">=1.3"
+        flake8-variables-names = ">=0.0.4"
+        flake8-walrus = {version = ">=1.1", python = ">=3.8"}
+
+    [tool.poetry.group.tomlkit]
+        optional = true
+    [tool.poetry.group.tomlkit.dependencies]
+        tomlkit = "*"  # Version managed above
+
+    [tool.poetry.group.tox]
+        optional = true
+    [tool.poetry.group.tox.dependencies]
+        tox = "*"  # Version managed above
+
+    [tool.poetry.group.twine]
+        optional = true
+    [tool.poetry.group.twine.dependencies]
+        twine = ">=3.3"
+
+    [tool.poetry.group.safety]
+        optional = true
+    [tool.poetry.group.safety.dependencies]
+        safety = ">=1.10.2"
+
+    [tool.poetry.group.poetry]
+        optional = true
+    [tool.poetry.group.poetry.dependencies]
+        poetry = "*"  # Version managed above
+
+    [tool.poetry.group.diff-cover]
+        optional = true
+    [tool.poetry.group.diff-cover.dependencies]
+        diff-cover = ">=6.4"
 
 
-#: -- BLACK CONFIG ---------------------------------------------------------------------
+# -- BLACK CONFIG ---------------------------------------------------------------------
 [tool.black]
     line-length = 88
     exclude = "venv/"
-    include = '\.pyi?$'  #: single quotes needed
+    include = '\.pyi?$'  # single quotes needed
 
 
-#: -- ISORT CONFIG ---------------------------------------------------------------------
+# -- ISORT CONFIG ---------------------------------------------------------------------
 [tool.isort]
     profile = "black"
     lines_after_imports = 2
@@ -194,58 +170,69 @@
     skip_gitignore = true
 
 
-#: -- FLAKEHELL CONFIG -----------------------------------------------------------------
-[tool.flakehell]
+# -- MYPY CONFIG ----------------------------------------------------------------------
+[tool.mypy]
+show_error_codes = true
+strict_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+python_version = 3.7
+
+
+# -- FLAKEHEAVEN CONFIG ----------------------------------------------------------------
+[tool.flakeheaven]
     format="colored"
     max_line_length = 88
     max_complexity = 20
     max_cognitive_complexity = 10
-    min_python_version = "3.6.2"
+    min_python_version = "3.7"
     pytest_fixture_no_parentheses = true
 
-    [tool.flakehell.plugins]
+    [tool.flakeheaven.plugins]
         pylint = [
             "+*",
-            #: deactivate
+            # deactivate
             "-C0301",  # line length - E501[pycodestyle]
             "-C040?",  # spelling
             "-W0511",  # fixme
-            #: bugs
+            # bugs
             "-W1203",  # Use % format in logger funcs | https://github.com/PyCQA/pylint/issues/2354
         ]
         pyflakes = ["+*"]
         mccabe = ["+*"]
         pycodestyle = [
             "+*",
-            #: deactivate for black
+            # deactivate for black
             "-W503",  # line break before binary operator
             "-E203",  # whitespace before ':'
-            #: deactivate
-            "-E731",  #: forbids lambda
+            # deactivate
+            "-E731",  # forbids lambda
         ]
         pep8-naming = ["+*"]
         "flake8-*" = ["+*"]
         flake8-aaa = ["-*"]
         flake8-annotations = [
             "+*",
-            #: deactivate
+            # deactivate
             "-ANN101",  # Missing type annotation for self in method
             "-ANN102",  # Missing type annotation for cls in classmethod
         ]
         flake8-rst-docstrings = [
             "+*",
-            #: deactivate
+            # deactivate
             "-RST303",  # Unknown directive type
             "-RST304",  # Unknown interpreted text role
         ]
         flake8-use-fstring = [
             "+*",
-            #: deactivate
+            # deactivate
             "-FS003",  # f-string missing prefix | can be % string
         ]
 
-    [tool.flakehell.exceptions]
-        [tool.flakehell.exceptions."tests/"]
+    [tool.flakeheaven.exceptions]
+        [tool.flakeheaven.exceptions."tests/"]
             flake8-aaa = ["+*"]
             flake8-bandit = [
                 "-S101",  # assert used
@@ -254,18 +241,13 @@
                 "-W0212",  # accesss protected member
             ]
 
-        [tool.flakehell.exceptions."noxfile.py"]
-            flake8-cognitive-complexity = [
-                "-CCR001",  # Cognitive complexity is too high
-            ]
-
-        [tool.flakehell.exceptions."docs/source/conf.py"]
+        [tool.flakeheaven.exceptions."docs/source/conf.py"]
             pylint = [
                 "-C0103",  # %s name "%s" doesn't conform to %s
             ]
 
 
-#: -- PYLINT CONFIG --------------------------------------------------------------------
+# -- PYLINT CONFIG --------------------------------------------------------------------
 [tool.pylint]
     [tool.pylint.master]
         additional-builtins = "tags"
@@ -275,14 +257,14 @@
         spelling-private-dict-file = "docs/source/spelling_dict.txt"
 
 
-#: -- PYTEST CONFIG --------------------------------------------------------------------
+# -- PYTEST CONFIG --------------------------------------------------------------------
 [tool.pytest.ini_options]
     addopts = "-ra --showlocals"
     mock_use_standalone_module = true
     junit_family = "xunit2"
 
 
-#: -- COVERAGE CONFIG ------------------------------------------------------------------
+# -- COVERAGE CONFIG ------------------------------------------------------------------
 [tool.coverage]
     [tool.coverage.run]
         plugins = ["coverage_conditional_plugin"]
@@ -330,7 +312,6 @@
     [tool.coverage.coverage_conditional_plugin]
         [tool.coverage.coverage_conditional_plugin.rules]
             # use with: # pragma: <KEY>
-            py-ue-36 = "sys_version_info[0:2] != (3, 6)"
             py-ue-37 = "sys_version_info[0:2] != (3, 7)"
             py-lt-38 = "sys_version_info < (3, 8)"
             py-gte-38 = "sys_version_info >= (3, 8)"

@@ -2,41 +2,38 @@
 ---
 name: Dependency safety
 
-
 env:
   _NOX_IN_CI: true
   _NOX_FORCE_COLOR: true
 
-
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   workflow_dispatch:
 
   push:
     tags:
-      - '!*'
+      - "!*"
     branches:
       - main
     paths:
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - "poetry.lock"
+      - "pyproject.toml"
       #: Test config changes
-      - 'tox.ini'
-      - 'noxfile.py'
-      - '.github/workflows/dependency-safety.yml'
+      - "tox.ini"
+      - "noxfile.py"
+      - ".github/workflows/dependency-safety.yml"
 
   pull_request:
     branches:
-      - '**'
+      - "**"
     paths:
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - "poetry.lock"
+      - "pyproject.toml"
       #: Test config changes
-      - 'tox.ini'
-      - 'noxfile.py'
-      - '.github/workflows/dependency-safety.yml'
-
+      - "tox.ini"
+      - "noxfile.py"
+      - ".github/workflows/dependency-safety.yml"
 
 jobs:
   pyproject-config:
@@ -78,7 +75,6 @@ jobs:
           ver = PYPROJECT["tool"]["_testing"]["ci_default_python_version"]
           print(f"::set-output name=default_python_version::{ver}")
 
-
   safety:
     name: nox / safety
     needs: pyproject-config
@@ -109,7 +105,6 @@ jobs:
 
       - name: Run tox env via nox
         run: nox --forcecolor --session safety -- skip_install
-
 
   set-git-env-vars:
     name: Set GIT_COMMIT_SHA
@@ -158,7 +153,6 @@ jobs:
               print(f"::set-output name=GIT_COMMIT_SHA::{sha}")
           else:
               print("::set-output name=GIT_COMMIT_SHA::${{ github.sha }}")
-
 
   set-status:
     name: Set status on commit

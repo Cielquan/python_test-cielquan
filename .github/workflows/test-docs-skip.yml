@@ -4,25 +4,23 @@
 ---
 name: Test documentation (Skip)
 
-
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   pull_request:
     branches:
-      - '**'
+      - "**"
     paths-ignore:
       #: Source changes
-      - 'docs/**'
-      - 'src/**/*.py'
-      - 'CHANGELOG.md'
-      - 'LICENSE'
+      - "docs/**"
+      - "src/**/*.py"
+      - "CHANGELOG.md"
+      - "LICENSE"
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - "poetry.lock"
+      - "pyproject.toml"
       #: Test config changes
-      - 'tox.ini'
-      - 'noxfile.py'
-      - '.github/workflows/test-docs.yml'
-
+      - "tox.ini"
+      - "noxfile.py"
+      - ".github/workflows/test-docs.yml"
 
 jobs:
   test-docs:

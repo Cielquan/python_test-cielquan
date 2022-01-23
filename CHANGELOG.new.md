@@ -5,7 +5,6 @@ changes are listed here. The order of releases is time and **not** version based
 For a list of all available releases see the
 [release section on Github](https://github.com/Cielquan/python_test-cielquan/releases).
 
-
 <!-- Valid subcategories
 #### BREAKING CHANGES
 #### New features
@@ -14,8 +13,8 @@ For a list of all available releases see the
 #### Miscellaneous
 -->
 
-
 ## Unreleased
+
 [commits](https://github.com/Cielquan/python_test-cielquan/commits/main)
 
 - Initial release

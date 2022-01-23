@@ -14,7 +14,6 @@
 
 # Check List
 
-
 Resolves: #<issue number here>
 
 - [ ] I added **tests** for the changed code.

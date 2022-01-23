@@ -4,23 +4,21 @@
 ---
 name: Test code (Skip)
 
-
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   pull_request:
     branches:
-      - '**'
+      - "**"
     paths-ignore:
       #: Source/Test changes
-      - 'src/**/*.py'
-      - 'tests/**/*.py'
+      - "src/**/*.py"
+      - "tests/**/*.py"
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - "poetry.lock"
+      - "pyproject.toml"
       #: Test config changes
-      - 'tox.ini'
-      - 'noxfile.py'
-      - '.github/workflows/test-code.yml'
-
+      - "tox.ini"
+      - "noxfile.py"
+      - ".github/workflows/test-code.yml"
 
 jobs:
   pyproject-config:
@@ -55,7 +53,6 @@ jobs:
           test_os = {"os": PYPROJECT["tool"]["_testing"]["ci_test_os"]}
           print(f"::set-output name=test_os::{test_os}")
 
-
   test-code:
     name: nox / test_code / ${{ matrix.os }}
     needs: pyproject-config
@@ -64,7 +61,6 @@ jobs:
       matrix: ${{ fromJson(needs.pyproject-config.outputs.test_os) }}
     steps:
       - run: exit 0
-
 
   report-coverage:
     name: tox / coverage-report

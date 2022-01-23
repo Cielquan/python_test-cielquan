@@ -4,20 +4,18 @@
 ---
 name: Dependency safety (Skip)
 
-
-on:  # yamllint disable-line rule:truthy
+on: # yamllint disable-line rule:truthy
   pull_request:
     branches:
-      - '**'
+      - "**"
     paths-ignore:
       #: Dependency changes
-      - 'poetry.lock'
-      - 'pyproject.toml'
+      - "poetry.lock"
+      - "pyproject.toml"
       #: Test config changes
-      - 'tox.ini'
-      - 'noxfile.py'
-      - '.github/workflows/dependency-safety.yml'
-
+      - "tox.ini"
+      - "noxfile.py"
+      - ".github/workflows/dependency-safety.yml"
 
 jobs:
   safety:
