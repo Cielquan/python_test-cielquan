@@ -41,7 +41,7 @@
     "max-len": [
       "warn",
       100,
-      { "ignorePattern": "[^\\n\\r]{95,100}\\{(?:'|\") (?:'|\")\\}" }
+      { "ignorePattern": "([^\\n\\r]{95,100}\\{(?:'|\") (?:'|\")\\})|^import" }
     ],
     "no-shadow": "off",
     "no-unused-vars": "off",
