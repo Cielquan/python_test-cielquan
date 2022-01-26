@@ -19,14 +19,17 @@
   },
   "plugins": ["react", "@typescript-eslint", "prettier", "react-hooks"],
   "rules": {
-    "prettier/prettier": "error",
-    "class-methods-use-this": "off",
-    "max-len": ["warn", 100, { "ignorePattern": "[^\\n\\r]{95,100}\\{(?:'|\") (?:'|\")\\}" }],
-    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
-    "no-unused-vars": "off",
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      {
+        "allowExpressions": true
+      }
+    ],
+    "@typescript-eslint/no-shadow": ["error"],
     "@typescript-eslint/no-unused-vars": "warn",
-    "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": ["error"],
+    "arrow-body-style": "off",
+    "class-methods-use-this": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
@@ -35,17 +38,20 @@
         "tsx": "never"
       }
     ],
-    "no-shadow": "off",
-    "@typescript-eslint/no-shadow": ["error"],
-    "@typescript-eslint/explicit-function-return-type": [
-      "error",
-      {
-        "allowExpressions": true
-      }
+    "max-len": [
+      "warn",
+      100,
+      { "ignorePattern": "[^\\n\\r]{95,100}\\{(?:'|\") (?:'|\")\\}" }
     ],
+    "no-shadow": "off",
+    "no-unused-vars": "off",
+    "no-use-before-define": "off",
+    "prettier/prettier": "error",
+    "react/jsx-filename-extension": ["error", { "extensions": [".jsx", ".tsx"] }],
+    "react/react-in-jsx-scope": "off",
+    "react/static-property-placement": "off",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "react/static-property-placement": "off"
+    "react-hooks/exhaustive-deps": "warn"
   },
   "overrides": [
     {
