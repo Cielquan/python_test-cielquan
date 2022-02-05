@@ -93,7 +93,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: f1d4e742c91dd5179d742b0db9293c4472b765f8 # frozen: 21.12b0
+    rev: fc0be6eb1e2a96091e6f64009ee5e9081bf8b6c6 # frozen: 22.1.0
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -102,7 +102,7 @@ repos:
 
   # blacken-docs - black for python code in docs (rst/md/tex)
   - repo: https://github.com/asottile/blacken-docs
-    rev: 505d32bce506de38b525d374490f36346540d5fa # frozen: v1.12.0
+    rev: 7ae9389351f4090e3993de28015a05a18ca6b8a7 # frozen: v1.12.1
     hooks:
       # Config file: same as `black`
       # Inline skip: same as `black`
@@ -283,7 +283,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: b5aa1387441dea027662c4365f51e9e6f68089bd # frozen: v8.7.0
+    rev: db5b7e82035cfedafec1ec495168809b938b38f7 # frozen: v8.8.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
