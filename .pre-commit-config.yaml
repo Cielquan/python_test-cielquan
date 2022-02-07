@@ -337,7 +337,7 @@ repos:
 
   # shellscript (via PyPI package)
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: 1cd4049379afa32e79a6a9b6ce0cd789d3fcd731 # frozen: v0.8.0.3
+    rev: 4c7c3dd7161ef39e984cb295e93a968236dc8e8a  # frozen: v0.8.0.4
     hooks:
       - id: shellcheck
 
