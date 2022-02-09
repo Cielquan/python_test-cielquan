@@ -352,7 +352,6 @@ repos:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
         additional_dependencies: [sphinx]
-        args: ["--config=tox.ini"]
 
   # ----------------------------------------------
   # JSON / TOML / YAML
