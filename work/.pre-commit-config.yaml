@@ -1,0 +1,349 @@
+---
+minimum_pre_commit_version: "2.16"
+default_stages: [commit]
+
+repos:
+  # ----------------------------------------------
+  # Branch guard hook
+  # ----------------------------------------------
+
+  # git context checking out-of-the-box hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    hooks:
+      - id: no-commit-to-branch
+        args: [--branch, main]
+        fail_fast: true
+
+  # ----------------------------------------------
+  # Meta hooks
+  # ----------------------------------------------
+
+  - repo: meta
+    hooks:
+      - id: identity
+        stages: [commit, manual]
+      - id: check-hooks-apply
+        stages: [manual]
+      - id: check-useless-excludes
+        stages: [manual]
+
+  # ----------------------------------------------
+  # File hooks
+  # ----------------------------------------------
+
+  # file checking out-of-the-box hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    hooks:
+      - id: check-case-conflict
+      - id: check-shebang-scripts-are-executable
+        exclude: '^.*\.rs$'
+      - id: check-symlinks
+      - id: destroyed-symlinks
+      - id: forbid-new-submodules
+
+  # ----------------------------------------------
+  # Dependency hooks
+  # ----------------------------------------------
+
+  # poetry - python dependency management
+  - repo: https://github.com/python-poetry/poetry
+    rev: 1c0c9359a80936913338a0d27c19082dd1d0c647 # commit after add of config; wait for 1.2 release
+    hooks:
+      # Config file: pyproject.toml
+      - id: poetry-lock
+        args: ["--check", "--no-update"]
+
+  # safety - python dependency vulnerability checker
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
+    rev: 8cccd08a2ddd47f0e995302b08655320fd04981a # frozen: v1.2.3
+    hooks:
+      - id: python-safety-dependencies-check
+        args: ["--full-report"]
+
+  # ####################################################################################
+  #
+  #       FORMATTING
+  #
+  # ####################################################################################
+
+  # ----------------------------------------------
+  # Python
+  # ----------------------------------------------
+
+  # pyupgrade - upgrade old syntax to new
+  - repo: https://github.com/asottile/pyupgrade
+    rev: e695ecd365119ab4e5463f6e49bea5f4b7ca786b # frozen: v2.31.0
+    hooks:
+      - id: pyupgrade
+        args: ["--py38-plus"]
+
+  # isort - sort imports
+  - repo: https://github.com/PyCQA/isort
+    rev: c5e8fa75dda5f764d20f66a215d71c21cfa198e1 # frozen: 5.10.1
+    hooks:
+      # Config file: pyproject.toml | .isort.cfg | tox.ini |
+      #     https://pycqa.github.io/isort/docs/configuration/config_files
+      # Inline skip: `# isort: skip`
+      - id: isort
+
+  # black - python formatter
+  - repo: https://github.com/psf/black
+    rev: fc0be6eb1e2a96091e6f64009ee5e9081bf8b6c6  # frozen: 22.1.0
+    hooks:
+      # Config file: pyproject.toml
+      # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
+      - id: black
+        args: ["--safe"]
+
+  # blacken-docs - black for python code in docs (rst/md/tex)
+  - repo: https://github.com/asottile/blacken-docs
+    rev: 7ae9389351f4090e3993de28015a05a18ca6b8a7  # frozen: v1.12.1
+    hooks:
+      # Config file: same as `black`
+      # Inline skip: same as `black`
+      - id: blacken-docs
+
+  # ----------------------------------------------
+  # JS / TS / HTML / CSS / MD / JSON / YAML
+  # ----------------------------------------------
+
+  # prettier - multi formatter
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    # https://github.com/prettier/prettier
+    # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
+    #     https://prettier.io/docs/en/configuration.html
+    # Ignore file: .prettierignore [file ignore pattern]
+    rev: ea782651a7e32f40a3d13b76c79d5a2474ee8723 # frozen: v2.5.1
+    hooks:
+      - id: prettier
+
+  # ----------------------------------------------
+  # General (code unspecific)
+  # ----------------------------------------------
+
+  # code unspecific out-of-the-box hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    hooks:
+      - id: end-of-file-fixer
+        stages: [commit]
+      - id: trailing-whitespace
+        stages: [commit]
+
+  # ####################################################################################
+  #
+  #       LINTING
+  #
+  # ####################################################################################
+
+  # ----------------------------------------------
+  # General (code unspecific)
+  # ----------------------------------------------
+
+  - repo: local
+    hooks:
+      # Find TODO:|FIXME:|BUG: comments in all files
+      # Inline skip: `#i#` directly after the colon after the tag-word
+      - id: find-todos
+        name: "Find TODO:|FIXME:|BUG: comments"
+        description: "Check for TODO:|FIXME:|BUG: comments in all files"
+        language: pygrep
+        entry: '(^|//!?|#|<!--|;|/\*(\*|!)?|\.\.)\s*(TODO:|FIXME:|BUG:)(?!#i#)'
+        exclude: TODO
+
+  # code unspecific out-of-the-box hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    hooks:
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  # ----------------------------------------------
+  # Python
+  # ----------------------------------------------
+
+  # python specific out-of-the-box hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    hooks:
+      - id: debug-statements
+      - id: fix-encoding-pragma
+        args: ["--remove"]
+      - id: name-tests-test
+        args: ["--django"]
+
+  # several python code regex hooks
+  - repo: https://github.com/pre-commit/pygrep-hooks
+    rev: 6f51a66bba59954917140ec2eeeaa4d5e630e6ce # frozen: v1.9.0
+    hooks:
+      - id: python-check-blanket-noqa
+      - id: python-check-blanket-type-ignore
+      - id: python-check-mock-methods
+      - id: python-no-eval
+      - id: python-no-log-warn
+
+  # Lint hooks managed via tox `pre-commit` env b/c they need the pkg installed
+  - repo: local
+    hooks:
+      # mypy - python type checker
+      # Config file: https://mypy.readthedocs.io/en/stable/command_line.html#config-file
+      # Inline skip file: `# type: ignore` at top
+      # Inline skip: `# type: ignore` or `# type: ignore[CODE, ...]`
+      - id: mypy
+        name: mypy (swlp-admin)
+        description: run mypy over the installed version if available
+        entry: tox -e mypy-admin
+        language: system
+        types: [python]
+        require_serial: true
+      - id: mypy
+        name: mypy (swlp-api)
+        description: run mypy over the installed version if available
+        entry: tox -e mypy-api
+        language: system
+        types: [python]
+        require_serial: true
+      # flake8 - python linter
+      # Inline skip file: `# flake8: noqa`
+      # Inline skip: `# noqa` or `# noqa: CODE,...`
+      - id: flakeheaven
+        name: flakeheaven (swlp-admin)
+        description: run flakeheaven over the installed version if available
+        entry: tox -e flakeheaven-admin
+        args: ["lint", "--safe"]
+        language: system
+        types: [python]
+        require_serial: true
+      - id: flakeheaven
+        name: flakeheaven (swlp-api)
+        description: run flakeheaven over the installed version if available
+        entry: tox -e flakeheaven-api
+        args: ["lint", "--safe"]
+        language: system
+        types: [python]
+        require_serial: true
+
+  # pylint - python linter
+  - repo: https://github.com/PyCQA/pylint/
+    rev: eec287fae66f8fc514d5daa9caee46fd0e0cb6d9 # frozen: v2.12.2
+    hooks:
+      # Inline skip file: `# pylint: skip-file`
+      # Inline change: `# pylint: disable|enable=CODE|NAME`
+      - id: pylint
+        name: spell-check (pylint+pyenchant)
+        description: >
+          spell-check in docstrings/comments in py-source via pyenchant and pylint
+        args: ["--disable=all", "--enable=spelling"]
+        additional_dependencies: [pyenchant]
+        exclude: "^(?!bin/swlp-.*/src).*"
+
+  - repo: local
+    hooks:
+      - id: poetry-check
+        name: poetry-check (swlp-admin)
+        language: system
+        entry: './scripts/admin'
+        args: ["poetry check"]
+      - id: poetry-check
+        name: poetry-check (swlp-api)
+        language: system
+        entry: './scripts/api'
+        args: ["poetry check"]
+      - id: poetry-check
+        name: poetry-check (root)
+        language: system
+        entry: './scripts/root'
+        args: ["poetry check"]
+
+  # ----------------------------------------------
+  # JavaScript
+  # ----------------------------------------------
+
+  # eslint - JS linter
+  - repo: https://github.com/eslint/eslint
+    # Config file: .eslintrc.json | "eslintConfig" key in package.json |
+    #     https://eslint.org/docs/user-guide/configuring/configuration-files
+    # Ignore file: .eslintignore [file ignore pattern]
+    rev: db5b7e82035cfedafec1ec495168809b938b38f7  # frozen: v8.8.0
+    hooks:
+      - id: eslint
+        files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
+        types: [file]
+        additional_dependencies:
+          - eslint@7.32.0
+          - eslint-config-airbnb@18.2.1
+          - eslint-config-prettier@8.3.0
+          - eslint-import-resolver-typescript@2.4.0
+          - eslint-plugin-import@2.23.4
+          - eslint-plugin-jsx-a11y@6.4.1
+          - eslint-plugin-prettier@3.4.0
+          - eslint-plugin-react@7.24.0
+          - eslint-plugin-react-hooks@4.2.0
+
+  # ----------------------------------------------
+  # HTML
+  # ----------------------------------------------
+
+  - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
+    rev: b234899b5db911d0e5482deffcf4e6364ad349d0 # frozen: v1.1.1
+    hooks:
+      # htmlhint - HTML linter
+      # https://htmlhint.com/
+      # Config file: .htmlhintrc [JSON|YAML|JS containing config obj] [--config/-c]
+      # Ignore file: .htmlhintignore [file ignore pattern] [--ignore/-i]
+      # Inline config e.g.: `<!-- htmlhint tag-pair,id-class-value:underline -->`
+      - id: htmlhint
+      # htmllint - HTML linter
+      # https://github.com/htmllint/htmllint/wiki/Options
+      # Config file (required): .htmllintrc [json] [--rc]
+      # Inline config: `<!-- htmllint [key]="[value]" -->`
+      - id: htmllint
+
+  # ----------------------------------------------
+  # CSS
+  # ----------------------------------------------
+
+  - repo: https://github.com/cielquan/mirrors-stylelint
+    # Config file: .stylelintrc.json
+    rev: 765d365d9e49e2c4af3c7c94fc55176af32daaf4 # frozen: v14.3.0
+    hooks:
+      - id: stylelint
+        additional_dependencies:
+          - "stylelint-config-standard"
+          - "stylelint-config-prettier"
+
+  # ----------------------------------------------
+  # reStructuredText
+  # ----------------------------------------------
+
+  # rstcheck - rst file checker
+  - repo: https://github.com/myint/rstcheck
+    rev: 3f92957478422df87bd730abde66f089cc1ee19b # commit after add of config; wait for release
+    hooks:
+      # Config file: .rstcheck.cfg [--config]
+      - id: rstcheck
+        additional_dependencies: [sphinx]
+
+  # ----------------------------------------------
+  # JSON / TOML / YAML
+  # ----------------------------------------------
+
+  # JSON specific out-of-the-box hooks
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    hooks:
+      - id: check-json
+      - id: check-toml
+      - id: check-yaml
+
+  # yamllint - yaml linter
+  - repo: https://github.com/adrienverge/yamllint
+    rev: 058fef75598d1a9d9250487d91549abf379878e0 # frozen: v1.26.3
+    hooks:
+      # Config file: .yamllint.yaml [--config-file]
+      # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
+      # Block skip: `# yamllint disable[ rule:<RULE>]`
+      # Block skip end: `# yamllint enable`
+      - id: yamllint
