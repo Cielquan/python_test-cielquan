@@ -98,7 +98,9 @@
     pylint = ">=2.12"
     pyenchant = ">=3.2.2"
     # flakeheaven & flake8-plugins
-    flakeheaven = "0.11"
+    # TODO:#i# use 0.12 release of flakeheaven
+    # flakeheaven = ">=0.11"
+    flakeheaven = {git = "https://github.com/flakeheaven/flakeheaven.git", rev = "b5f14ed174b5c739d7ad915c2093793fba67e6dd"}
     flake8 = ">=4"
     pydocstyle = ">=5"
     pep8-naming = ">=0.12"
@@ -177,7 +179,7 @@
   warn_redundant_casts = true
   warn_return_any = true
   warn_unreachable = true
-  python_version = 3.7
+  python_version = 3.7  # CHANGE ME
 
 
 # -- FLAKEHEAVEN CONFIG ----------------------------------------------------------------
@@ -186,27 +188,49 @@
   max_line_length = 100
   max_complexity = 20
   max_cognitive_complexity = 10
-  min_python_version = "3.7"
+  min_python_version = "3.7"  # CHANGE ME
   pytest_fixture_no_parentheses = true
 
   [tool.flakeheaven.plugins]
     pylint = [
       "+*",
-      # deactivate
-      "-C0301",  # line length - E501[pycodestyle]
+      # deactivate because double check
+      # https://github.com/PyCQA/pylint/issues/3512
+      "-C0113",  # unneeded-not - F713[flake8]
+      "-C0114",  # missing-module-docstring - D100,D104[flake8]
+      "-C0115",  # missing-class-docstring - D101,D106[flake8]
+      "-C0116",  # missing-function-docstring - D102,D103,D105[flake8]
+      "-C0301",  # line-too-long - E501[pycodestyle]
+      "-C0303",  # trailing-whitespace - W291,W293[falke8]
+      "-C0304",  # missing-final-newline - W292[falke8]
+      "-C0321",  # multiple-statements - E701[falke8]
+      "-C0326",  # bad-whitespace - E201,E202,E225[falke8]
+      "-C0330",  # bad-continuation - E129[falke8]
+      "-C0411",  # wrong-import-order - I202[flake8]
+      "-E0602",  # undefined-variable - F821[flake8]
+      "-R0912",  # too-many-branches - C901[flake8]
+      "-W0301",  # unnecessary-semicolon - E703[flake8]
+      "-W0311",  # bad-indentation - E111[flake8]
+      "-W0312",  # mixed-indentation - W191[flake8]
+      "-W0611",  # unused-import - F401[flake8]
+      "-W0612",  # unused-variable - F841[flake8]
+      "-W0702",  # bare-except - E722[pycodestyle]
+      # deactivate because unwanted
       "-C040?",  # spelling
       "-W0511",  # fixme
-      # bugs
+      # deactivate because of bugs
       "-W1203",  # Use % format in logger funcs | https://github.com/PyCQA/pylint/issues/2354
     ]
     pyflakes = ["+*"]
     mccabe = ["+*"]
     pycodestyle = [
       "+*",
-      # deactivate for black
+      # deactivate because of black
       "-W503",  # line break before binary operator
       "-E203",  # whitespace before ':'
-      # deactivate
+      # deactivate because double check
+      "-E722",  # bare-except B001[flake8-bugbear]
+      # deactivate because unwanted
       "-E731",  # forbids lambda
     ]
     pep8-naming = ["+*"]
@@ -214,19 +238,23 @@
     flake8-aaa = ["-*"]
     flake8-annotations = [
       "+*",
-      # deactivate
+      # deactivate because unwanted
       "-ANN101",  # Missing type annotation for self in method
       "-ANN102",  # Missing type annotation for cls in classmethod
     ]
+    flake8-bandit = [
+      # deactivate because double check
+      "-S110",  # try-except-pass - SIM105[flake8-simplify]
+    ]
     flake8-rst-docstrings = [
       "+*",
-      # deactivate
+      # deactivate because unwanted
       "-RST303",  # Unknown directive type
       "-RST304",  # Unknown interpreted text role
     ]
     flake8-use-fstring = [
       "+*",
-      # deactivate
+      # deactivate because unwanted
       "-FS003",  # f-string missing prefix | can be % string
     ]
 
@@ -234,14 +262,17 @@
     [tool.flakeheaven.exceptions."tests/"]
       flake8-aaa = ["+*"]
       flake8-bandit = [
+        # deactivate because unwanted
         "-S101",  # assert used
       ]
       pylint = [
+        # deactivate because unwanted
         "-W0212",  # accesss protected member
       ]
 
     [tool.flakeheaven.exceptions."docs/source/conf.py"]
       pylint = [
+        # deactivate because unwanted
         "-C0103",  # %s name "%s" doesn't conform to %s
       ]
 
@@ -277,17 +308,17 @@
 
   [tool.coverage.paths]
     tox_combine = [
-      "src/python_test_cielquan",
-      "*/.tox/*/lib/python*/site-packages/python_test_cielquan",
-      "*/.tox/pypy*/site-packages/python_test_cielquan",
-      "*/.tox\\*\\Lib\\site-packages\\python_test_cielquan",
+      "src/python_test_cielquan",  # CHANGE ME
+      "*/.tox/*/lib/python*/site-packages/python_test_cielquan",  # CHANGE ME
+      "*/.tox/pypy*/site-packages/python_test_cielquan",  # CHANGE ME
+      "*/.tox\\*\\Lib\\site-packages\\python_test_cielquan",  # CHANGE ME
     ]
     local_combine = [
-      "src/python_test_cielquan",
-      "*/.venv/lib/python*/site-packages/python_test_cielquan",
-      "*/.venv\\*\\Lib\\site-packages\\python_test_cielquan",
-      "*/src/python_test_cielquan",
-      "*\\src\\python_test_cielquan",
+      "src/python_test_cielquan",  # CHANGE ME
+      "*/.venv/lib/python*/site-packages/python_test_cielquan",  # CHANGE ME
+      "*/.venv\\*\\Lib\\site-packages\\python_test_cielquan",  # CHANGE ME
+      "*/src/python_test_cielquan",  # CHANGE ME
+      "*\\src\\python_test_cielquan",  # CHANGE ME
     ]
 
   [tool.coverage.report]
