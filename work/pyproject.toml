@@ -1,304 +1,337 @@
 [tool.poetry]
-  name = "swlp-root"
-  version = "1.0.0"
-  description = "Fake package only holding dev dependencies"
-  authors = ["Christian Riedel <...>"]
-  readme = "README.md"
+name = "swlp-root"
+version = "1.0.0"
+description = "Fake package only holding dev dependencies"
+authors = ["Christian Riedel <c.r@example.com>"]
+readme = "README.md"
 
   [tool.poetry.dependencies]
-    python = ">3.8,<3.10"
+  python = "^3.10"
 
   [tool.poetry.group.swlp-admin]
-    optional = true
+  optional = false
   [tool.poetry.group.swlp-admin.dependencies]
-    swlp-admin = { path = "bin/swlp-admin/", develop = false }
+  swlp-admin = { path = "bin/swlp-admin/", develop = true }
 
   [tool.poetry.group.swlp-api]
-    optional = true
+  optional = false
   [tool.poetry.group.swlp-api.dependencies]
-    swlp-api = { path = "bin/swlp-api/", develop = false }
+  swlp-api = { path = "bin/swlp-api/", develop = true }
 
   [tool.poetry.group.dev]
-    optional = false
+  optional = false
   [tool.poetry.group.dev.dependencies]
-    devtools = ">=0.8"
-    py-devtools-builtin = ">=1"
-    tox = ">=3.24"
-    virtualenv = ">=20.3"
-    pre-commit = ">=2.17"
-    poetry = ">=1.2.0a2"
-    # TODO:#i# wait for new release: https://github.com/myint/rstcheck/issues/69
-    rstcheck = {git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b"}
+  devtools = ">=0.8"
+  py-devtools-builtin = ">=1"
+  tox = ">=3.24"
+  formelsammlung = "^5"
+  virtualenv = ">=20.3"
+  pre-commit = ">=2.17"
+  # TODO:#i# use master branch because of bugfix in 1.1.12 for win32 path cache errors
+  # poetry = ">1.2.0a2"
+  poetry = {git = "https://github.com/python-poetry/poetry.git", rev = "1196923dd637ca5cca3b8259a5c9cfabe87649cc"}
+  # TODO:#i# wait for new release: https://github.com/myint/rstcheck/issues/69
+  rstcheck = {git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b"}
 
   [tool.poetry.group.testing]
-    optional = true
+  optional = true
   [tool.poetry.group.testing.dependencies]
-    pytest = ">=6"
-    pytest-xdist = {extras = ["psutil"], version = ">=2.5"}
-    pytest-cov = ">=3"
-    coverage = {extras = ["toml"], version = ">=6"}
-    coverage-conditional-plugin = ">=0.5"
-    pytest-sugar = ">=0.9.4"
-    pytest-randomly = ">=3"
+  pytest = ">=6"
+  pytest-xdist = {extras = ["psutil"], version = ">=2.5"}
+  pytest-cov = ">=3"
+  coverage = {extras = ["toml"], version = ">=6"}
+  coverage-conditional-plugin = ">=0.5"
+  pytest-sugar = ">=0.9.4"
+  pytest-randomly = ">=3"
 
   [tool.poetry.group.coverage]
-    optional = true
+  optional = true
   [tool.poetry.group.coverage.dependencies]
-    coverage = {extras = ["toml"], version = "*"}  # NOTE: Version managed above
-    coverage-conditional-plugin = "*"  # NOTE: Version managed above
+  coverage = {extras = ["toml"], version = "*"}  # NOTE: Version managed above
+  coverage-conditional-plugin = "*"  # NOTE: Version managed above
 
   [tool.poetry.group.diff-cover]
-    optional = true
+  optional = true
   [tool.poetry.group.diff-cover.dependencies]
-    diff-cover = ">=6.4"
+  diff-cover = ">=6.4"
 
   [tool.poetry.group.docs]
-    optional = true
+  optional = true
   [tool.poetry.group.docs.dependencies]
-    sphinx = ">=4"
-    m2r2 = ">=0.3.2"
-    sphinx-rtd-theme = ">=1"
-    sphinx-autodoc-typehints = ">=1.15"
-    sphinxcontrib-apidoc = ">=0.3"
-    sphinxcontrib-spelling = ">=7.3"
+  sphinx = ">=4"
+  m2r2 = ">=0.3.2"
+  sphinx-rtd-theme = ">=1"
+  sphinx-autodoc-typehints = ">=1.15"
+  sphinxcontrib-apidoc = ">=0.3"
+  sphinxcontrib-spelling = ">=7.3"
 
   [tool.poetry.group.sphinx-autobuild]
-    optional = true
+  optional = true
   [tool.poetry.group.sphinx-autobuild.dependencies]
-    sphinx-autobuild = "2021.3.14"
+  sphinx-autobuild = "2021.3.14"
+
+  [tool.poetry.group.spelling]
+  optional = false
+  [tool.poetry.group.spelling.dependencies]
+  pylint = ">=2.12"
+  pyenchant = ">=3.2.2"
 
   [tool.poetry.group.lint]
-    optional = false
+  optional = false
   [tool.poetry.group.lint.dependencies]
-    pre-commit = "*"  # NOTE: Version managed above
-    formelsammlung = "^5"
-    pylint = ">=2.12"
-    pyenchant = ">=3.2.2"
-    # flakeheaven & flake8-plugins
-    # TODO:#i# use 0.12 release of flakeheaven
-    # flakeheaven = ">=0.11"
-    flakeheaven = {git = "https://github.com/flakeheaven/flakeheaven.git", rev = "b5f14ed174b5c739d7ad915c2093793fba67e6dd"}
-    flake8 = ">=4"
-    pydocstyle = ">=5"
-    pep8-naming = ">=0.12"
-    flake8-aaa = ">=0.12.2"
-    flake8-annotations = ">=2.7"
-    flake8-bandit = ">=2.1.2"
-    bandit = ">=1.7.1"
-    flake8-broken-line = ">=0.4"
-    flake8-bugbear = ">=22.1"
-    flake8-cognitive-complexity = ">=0.1"
-    flake8-comprehensions = ">=3.8"
-    flake8-docstrings = ">=1.6"
-    flake8-eradicate = ">=1.2"
-    flake8-logging-format = ">=0.6"
-    flake8-mutable = ">=1.2"
-    flake8-pytest-style = ">=1.6"
-    flake8-rst-docstrings = ">=0.2.5"
-    flake8-simplify = ">=0.15.1"
-    flake8-sql = ">=0.4.1"
-    flake8-typing-imports = ">=1.12"
-    flake8-use-fstring = ">=1.3"
-    flake8-variables-names = ">=0.0.4"
-    flake8-walrus = {version = ">=1.1", python = ">=3.8"}
+  # flakeheaven & flake8-plugins
+  # TODO:#i# use 0.12 release of flakeheaven
+  # flakeheaven = ">=0.11"
+  flakeheaven = {git = "https://github.com/flakeheaven/flakeheaven.git", rev = "b5f14ed174b5c739d7ad915c2093793fba67e6dd"}
+  flake8 = ">=4"
+  pylint = "*"  # NOTE: Version managed above
+  pydocstyle = ">=5"
+  pep8-naming = ">=0.12"
+  flake8-aaa = ">=0.12.2"
+  flake8-annotations = ">=2.7"
+  flake8-bandit = ">=2.1.2"
+  bandit = ">=1.7.1"
+  flake8-broken-line = ">=0.4"
+  flake8-bugbear = ">=22.1"
+  flake8-cognitive-complexity = ">=0.1"
+  flake8-comprehensions = ">=3.8"
+  flake8-docstrings = ">=1.6"
+  flake8-eradicate = ">=1.2"
+  flake8-logging-format = ">=0.6"
+  flake8-mutable = ">=1.2"
+  flake8-pytest-style = ">=1.6"
+  flake8-rst-docstrings = ">=0.2.5"
+  flake8-simplify = ">=0.15.1"
+  flake8-sql = ">=0.4.1"
+  flake8-typing-imports = ">=1.12"
+  flake8-use-fstring = ">=1.3"
+  flake8-variables-names = ">=0.0.4"
+  flake8-walrus = {version = ">=1.1", python = ">=3.8"}
 
   [tool.poetry.group.mypy]
-    optional = true
+  optional = true
   [tool.poetry.group.mypy.dependencies]
-    mypy = ">=0.931"
+  mypy = ">=0.931"
 
   [tool.poetry.group.tox]
-    optional = true
+  optional = true
   [tool.poetry.group.tox.dependencies]
-    tox = "*"  # NOTE: Version managed above
+  tox = "*"  # NOTE: Version managed above
 
   [tool.poetry.group.poetry]
-    optional = true
+  optional = true
   [tool.poetry.group.poetry.dependencies]
-    poetry = "*"  # NOTE: Version managed above
-    setuptools = "*"  # NOTE: Version irrelevant, just needs to appear in lock
+  # poetry = "*"  # NOTE: Version managed above
+  poetry = {git = "https://github.com/python-poetry/poetry.git", rev = "1196923dd637ca5cca3b8259a5c9cfabe87649cc"} # CHANGE ME
+  setuptools = "*"  # NOTE: Version irrelevant, just needs to appear in lock
 
   [tool.poetry.group.twine]
-    optional = true
+  optional = true
   [tool.poetry.group.twine.dependencies]
-    twine = ">=3.3"
+  twine = ">=3.3"
 
   [tool.poetry.group.safety]
-    optional = true
+  optional = true
   [tool.poetry.group.safety.dependencies]
-    safety = ">=1.10.2"
+  safety = ">=1.10.2"
 
 
 # -- PYTEST CONFIG --------------------------------------------------------------------
 [tool.pytest.ini_options]
-  addopts = "-ra --showlocals"
-  mock_use_standalone_module = true
-  junit_family = "xunit2"
+addopts = "-ra --showlocals"
+mock_use_standalone_module = true
+junit_family = "xunit2"
 
 
 # -- COVERAGE CONFIG ------------------------------------------------------------------
 [tool.coverage]
   [tool.coverage.run]
-    plugins = ["coverage_conditional_plugin"]
-    branch = true
-    parallel = true
-    context = "static-context"
-    omit = [
-      "bin/*/tests/*",
-      "docs/*",
-    ]
+  plugins = ["coverage_conditional_plugin"]
+  branch = true
+  parallel = true
+  context = "static-context"
+  omit = [
+    "bin/*/tests/*",
+    "docs/*",
+  ]
 
   [tool.coverage.paths]
-    tox_combine__swlp_admin = [
-      "bin/swlp-admin/src/swlp_admin",
-      "*/.tox/*/lib/python*/site-packages/swlp_admin",
-      "*/.tox/pypy*/site-packages/swlp_admin",
-      "*/.tox\\*\\Lib\\site-packages\\swlp_admin",
-    ]
-    tox_combine__swlp_api = [
-      "bin/swlp-api/src/swlp_api",
-      "*/.tox/*/lib/python*/site-packages/swlp_api",
-      "*/.tox/pypy*/site-packages/swlp_api",
-      "*/.tox\\*\\Lib\\site-packages\\swlp_api",
-    ]
-    local_combine__swlp_admin = [
-      "bin/swlp-admin/src/swlp_admin",
-      "*/.venv/lib/python*/site-packages/swlp_admin",
-      "*/.venv\\*\\Lib\\site-packages\\swlp_admin",
-      "*/src/swlp_admin",
-      "*\\src\\swlp_admin",
-    ]
-    local_combine__swlp_api = [
-      "bin/swlp-api/src/swlp_api",
-      "*/.venv/lib/python*/site-packages/swlp_api",
-      "*/.venv\\*\\Lib\\site-packages\\swlp_api",
-      "*/src/swlp_api",
-      "*\\src\\swlp_api",
-    ]
+  tox_combine__swlp_admin = [
+    "bin/swlp-admin/src/swlp_admin",
+    "*/.tox/*/lib/python*/site-packages/swlp_admin",
+    "*/.tox/pypy*/site-packages/swlp_admin",
+    "*/.tox\\*\\Lib\\site-packages\\swlp_admin",
+  ]
+  tox_combine__swlp_api = [
+    "bin/swlp-api/src/swlp_api",
+    "*/.tox/*/lib/python*/site-packages/swlp_api",
+    "*/.tox/pypy*/site-packages/swlp_api",
+    "*/.tox\\*\\Lib\\site-packages\\swlp_api",
+  ]
+  local_combine__swlp_admin = [
+    "bin/swlp-admin/src/swlp_admin",
+    "*/.venv/lib/python*/site-packages/swlp_admin",
+    "*/.venv\\*\\Lib\\site-packages\\swlp_admin",
+    "*/src/swlp_admin",
+    "*\\src\\swlp_admin",
+  ]
+  local_combine__swlp_api = [
+    "bin/swlp-api/src/swlp_api",
+    "*/.venv/lib/python*/site-packages/swlp_api",
+    "*/.venv\\*\\Lib\\site-packages\\swlp_api",
+    "*/src/swlp_api",
+    "*\\src\\swlp_api",
+  ]
 
   [tool.coverage.report]
-    show_missing = true
-    exclude_lines = [
-      "# pragma: no cover",
-      "if __name__ == ['\"]__main__['\"]:",
-      "def __str__",
-      "def __repr__",
-      "if self.debug:",
-      "if settings.DEBUG",
-      "if 0:",
-      "if False:",
-      "if TYPE_CHECKING:",
-      "if MYPY:",
-    ]
+  show_missing = true
+  exclude_lines = [
+    "# pragma: no cover",
+    "if __name__ == ['\"]__main__['\"]:",
+    "def __str__",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "if 0:",
+    "if False:",
+    "if TYPE_CHECKING:",
+    "if MYPY:",
+  ]
 
   [tool.coverage.html]
-    show_contexts = true
+  show_contexts = true
 
   [tool.coverage.coverage_conditional_plugin]
     [tool.coverage.coverage_conditional_plugin.rules]
-      # use with: # pragma: <KEY>
-      py-ue-37 = "sys_version_info[0:2] != (3, 7)"
-      py-lt-38 = "sys_version_info < (3, 8)"
-      py-gte-38 = "sys_version_info >= (3, 8)"
+    # use with: # pragma: <KEY>
+    py-ue-37 = "sys_version_info[0:2] != (3, 7)"
+    py-lt-38 = "sys_version_info < (3, 8)"
+    py-gte-38 = "sys_version_info >= (3, 8)"
 
 
 # -- BLACK CONFIG ---------------------------------------------------------------------
 [tool.black]
-  line-length = 100
-  exclude = "venv/"
-  include = '\.pyi?$'  # single quotes needed
+line-length = 100
+exclude = "venv/"
+include = '\.pyi?$'  # single quotes needed
 
 
 # -- ISORT CONFIG ---------------------------------------------------------------------
 [tool.isort]
-  profile = "black"
-  lines_after_imports = 2
-  lines_between_types = 1
-  skip_gitignore = true
+profile = "black"
+lines_after_imports = 2
+lines_between_types = 1
+skip_gitignore = true
 
 
 # -- MYPY CONFIG ----------------------------------------------------------------------
 [tool.mypy]
-  show_error_codes = true
-  strict_optional = true
-  warn_unused_ignores = true
-  warn_redundant_casts = true
-  warn_return_any = true
-  warn_unreachable = true
-  python_version = 3.8
+show_error_codes = true
+strict_optional = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unreachable = true
+python_version = "3.10"
 
 
 # -- FLAKEHEAVEN CONFIG ----------------------------------------------------------------
 [tool.flakeheaven]
-  format="colored"
-  max_line_length = 100
-  max_complexity = 20
-  max_cognitive_complexity = 10
-  min_python_version = "3.8"
-  pytest_fixture_no_parentheses = true
+format="colored"
+max_line_length = 100
+max_complexity = 20
+max_cognitive_complexity = 10
+min_python_version = "3.10"
+pytest_fixture_no_parentheses = true
 
   [tool.flakeheaven.plugins]
-    pylint = [
-      "+*",
-      # deactivate
-      "-C0301",  # line length - E501[pycodestyle]
-      "-C040?",  # spelling
-      "-W0511",  # fixme
-      # bugs
-      "-W1203",  # Use % format in logger funcs | https://github.com/PyCQA/pylint/issues/2354
-    ]
-    pyflakes = ["+*"]
-    mccabe = ["+*"]
-    pycodestyle = [
-      "+*",
-      # deactivate for black
-      "-W503",  # line break before binary operator
-      "-E203",  # whitespace before ':'
-      # deactivate
-      "-E731",  # forbids lambda
-    ]
-    pep8-naming = ["+*"]
-    "flake8-*" = ["+*"]
-    flake8-aaa = ["-*"]
-    flake8-annotations = [
-      "+*",
-      # deactivate
-      "-ANN101",  # Missing type annotation for self in method
-      "-ANN102",  # Missing type annotation for cls in classmethod
-    ]
-    flake8-rst-docstrings = [
-      "+*",
-      # deactivate
-      "-RST303",  # Unknown directive type
-      "-RST304",  # Unknown interpreted text role
-    ]
-    flake8-use-fstring = [
-      "+*",
-      # deactivate
-      "-FS003",  # f-string missing prefix | can be % string
-    ]
+  pylint = [
+    "+*",
+    # deactivate because double check
+    # https://github.com/PyCQA/pylint/issues/3512
+    "-C0113",  # unneeded-not - F713[flake8]
+    "-C0114",  # missing-module-docstring - D100,D104[flake8]
+    "-C0115",  # missing-class-docstring - D101,D106[flake8]
+    "-C0116",  # missing-function-docstring - D102,D103,D105[flake8]
+    "-C0301",  # line-too-long - E501[pycodestyle]
+    "-C0303",  # trailing-whitespace - W291,W293[falke8]
+    "-C0304",  # missing-final-newline - W292[falke8]
+    "-C0321",  # multiple-statements - E701[falke8]
+    "-C0326",  # bad-whitespace - E201,E202,E225[falke8]
+    "-C0330",  # bad-continuation - E129[falke8]
+    "-C0411",  # wrong-import-order - I202[flake8]
+    "-E0602",  # undefined-variable - F821[flake8]
+    "-R0912",  # too-many-branches - C901[flake8]
+    "-W0301",  # unnecessary-semicolon - E703[flake8]
+    "-W0311",  # bad-indentation - E111[flake8]
+    "-W0312",  # mixed-indentation - W191[flake8]
+    "-W0611",  # unused-import - F401[flake8]
+    "-W0612",  # unused-variable - F841[flake8]
+    "-W0702",  # bare-except - E722[pycodestyle]
+    # deactivate because unwanted
+    "-C040?",  # spelling
+    "-W0511",  # fixme
+    # deactivate because of bugs
+    "-W1203",  # Use % format in logger funcs | https://github.com/PyCQA/pylint/issues/2354
+  ]
+  pyflakes = ["+*"]
+  mccabe = ["+*"]
+  pycodestyle = [
+    "+*",
+    # deactivate because of black
+    "-W503",  # line break before binary operator
+    "-E203",  # whitespace before ':'
+    # deactivate because double check
+    "-E722",  # bare-except B001[flake8-bugbear]
+    # deactivate because unwanted
+    "-E731",  # forbids lambda
+  ]
+  pep8-naming = ["+*"]
+  "flake8-*" = ["+*"]
+  flake8-aaa = ["-*"]
+  flake8-annotations = [
+    "+*",
+    # deactivate because unwanted
+    "-ANN101",  # Missing type annotation for self in method
+    "-ANN102",  # Missing type annotation for cls in classmethod
+  ]
+  flake8-bandit = [
+    # deactivate because double check
+    "-S110",  # try-except-pass - SIM105[flake8-simplify]
+  ]
+  flake8-rst-docstrings = [
+    "+*",
+    # deactivate because unwanted
+    "-RST303",  # Unknown directive type
+    "-RST304",  # Unknown interpreted text role
+  ]
+  flake8-use-fstring = [
+    "+*",
+    # deactivate because unwanted
+    "-FS003",  # f-string missing prefix | can be % string
+  ]
 
   [tool.flakeheaven.exceptions]
     [tool.flakeheaven.exceptions."**/test_*.py"]
-      flake8-aaa = ["+*"]
-      flake8-bandit = [
-        "-S101",  # assert used
-      ]
-      pylint = [
-        "-W0212",  # accesss protected member
-      ]
+    flake8-aaa = ["+*"]
+    flake8-bandit = [
+      "-S101",  # assert used
+    ]
+    pylint = [
+      "-W0212",  # accesss protected member
+    ]
 
     [tool.flakeheaven.exceptions."docs/source/conf.py"]
-      pylint = [
-        "-C0103",  # %s name "%s" doesn't conform to %s
-      ]
+    pylint = [
+      "-C0103",  # %s name "%s" doesn't conform to %s
+    ]
 
 
 # -- PYLINT CONFIG --------------------------------------------------------------------
 [tool.pylint]
   [tool.pylint.master]
-    additional-builtins = "tags"
+  additional-builtins = "tags"
 
   [tool.pylint.spelling]
-    spelling-dict = "en_US"
-    spelling-private-dict-file = "docs/spelling_dict.txt"
+  spelling-dict = "en_US"
+  spelling-private-dict-file = "docs/spelling_dict.txt"

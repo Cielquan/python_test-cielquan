@@ -61,6 +61,8 @@ repos:
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
+        files: pyproject.toml
+        exclude: bin/.*
 
   # ####################################################################################
   #
@@ -90,7 +92,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: fc0be6eb1e2a96091e6f64009ee5e9081bf8b6c6  # frozen: 22.1.0
+    rev: fc0be6eb1e2a96091e6f64009ee5e9081bf8b6c6 # frozen: 22.1.0
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -99,7 +101,7 @@ repos:
 
   # blacken-docs - black for python code in docs (rst/md/tex)
   - repo: https://github.com/asottile/blacken-docs
-    rev: 7ae9389351f4090e3993de28015a05a18ca6b8a7  # frozen: v1.12.1
+    rev: 7ae9389351f4090e3993de28015a05a18ca6b8a7 # frozen: v1.12.1
     hooks:
       # Config file: same as `black`
       # Inline skip: same as `black`
@@ -194,14 +196,16 @@ repos:
       - id: mypy
         name: mypy (swlp-admin)
         description: run mypy over the installed version if available
-        entry: tox -e mypy-admin
+        entry: env_exe_runner .venv - tox
+        args: ["-e", "mypy-admin"]
         language: system
         types: [python]
         require_serial: true
       - id: mypy
         name: mypy (swlp-api)
         description: run mypy over the installed version if available
-        entry: tox -e mypy-api
+        entry: env_exe_runner .venv - tox
+        args: ["-e", "mypy-api"]
         language: system
         types: [python]
         require_serial: true
@@ -211,16 +215,16 @@ repos:
       - id: flakeheaven
         name: flakeheaven (swlp-admin)
         description: run flakeheaven over the installed version if available
-        entry: tox -e flakeheaven-admin
-        args: ["lint", "--safe"]
+        entry: env_exe_runner .venv - tox
+        args: ["-e", "flakeheaven-admin"]
         language: system
         types: [python]
         require_serial: true
       - id: flakeheaven
         name: flakeheaven (swlp-api)
         description: run flakeheaven over the installed version if available
-        entry: tox -e flakeheaven-api
-        args: ["lint", "--safe"]
+        entry: env_exe_runner .venv - tox
+        args: ["-e", "flakeheaven-api"]
         language: system
         types: [python]
         require_serial: true
@@ -244,17 +248,17 @@ repos:
       - id: poetry-check
         name: poetry-check (swlp-admin)
         language: system
-        entry: './scripts/admin'
+        entry: "./scripts/admin"
         args: ["poetry check"]
       - id: poetry-check
         name: poetry-check (swlp-api)
         language: system
-        entry: './scripts/api'
+        entry: "./scripts/api"
         args: ["poetry check"]
       - id: poetry-check
         name: poetry-check (root)
         language: system
-        entry: './scripts/root'
+        entry: "./scripts/root"
         args: ["poetry check"]
 
   # ----------------------------------------------
@@ -266,7 +270,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: db5b7e82035cfedafec1ec495168809b938b38f7  # frozen: v8.8.0
+    rev: db5b7e82035cfedafec1ec495168809b938b38f7 # frozen: v8.8.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
