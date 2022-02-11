@@ -131,6 +131,7 @@ node_modules/
 
 # Backup files
 *.bak
+*.bak.*
 
 # Local backup dir
 _backupfiles
