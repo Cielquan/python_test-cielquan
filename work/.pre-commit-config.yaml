@@ -57,7 +57,7 @@ repos:
 
   # safety - python dependency vulnerability checker
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: 8cccd08a2ddd47f0e995302b08655320fd04981a # frozen: v1.2.3
+    rev: d0c2c5156e146e5030e6aafff1a0cb398875b4f2  # frozen: v1.2.4
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
@@ -186,6 +186,17 @@ repos:
       - id: python-no-eval
       - id: python-no-log-warn
 
+  # flakeheaven - wrapper for flake8
+  - repo: https://github.com/flakeheaven/flakeheaven
+    rev: "3f0afc179dbd0907230fb3123f2938b0b63d3b7f"  # frozen: 0.11.0
+    hooks:
+      # flake8 - python linter
+      # Inline skip file: `# flake8: noqa`
+      # Inline skip: `# noqa` or `# noqa: CODE,...`
+      - id: flakeheaven
+        additional_dependencies:
+          - "git+https://github.com/cielquan/my-flake8-plugins.git@1.0.1"
+
   # Lint hooks managed via tox `pre-commit` env b/c they need the pkg installed
   - repo: local
     hooks:
@@ -195,37 +206,39 @@ repos:
       # Inline skip: `# type: ignore` or `# type: ignore[CODE, ...]`
       - id: mypy
         name: mypy (swlp-admin)
-        description: run mypy over the installed version if available
-        entry: env_exe_runner .venv - tox
+        description: run mypy over the installed package via tox
+        entry: tox
         args: ["-e", "mypy-admin"]
-        language: system
+        language: python
         types: [python]
+        pass_filenames: false
         require_serial: true
       - id: mypy
         name: mypy (swlp-api)
-        description: run mypy over the installed version if available
-        entry: env_exe_runner .venv - tox
+        description: run mypy over the installed package via tox
+        entry: tox
         args: ["-e", "mypy-api"]
-        language: system
+        language: python
+        types: [python]
+        pass_filenames: false
+        require_serial: true
+        # pylint - python linter
+        # Inline skip file: `# pylint: skip-file`
+        # Inline change: `# pylint: disable|enable=CODE|NAME`
+      - id: pylint
+        name: pylint (swlp-admin)
+        description: run pylint over the installed package via tox
+        entry: tox
+        args: ["-e", "pylint-admin"]
+        language: python
         types: [python]
         require_serial: true
-      # flake8 - python linter
-      # Inline skip file: `# flake8: noqa`
-      # Inline skip: `# noqa` or `# noqa: CODE,...`
-      - id: flakeheaven
-        name: flakeheaven (swlp-admin)
-        description: run flakeheaven over the installed version if available
-        entry: env_exe_runner .venv - tox
-        args: ["-e", "flakeheaven-admin"]
-        language: system
-        types: [python]
-        require_serial: true
-      - id: flakeheaven
-        name: flakeheaven (swlp-api)
-        description: run flakeheaven over the installed version if available
-        entry: env_exe_runner .venv - tox
-        args: ["-e", "flakeheaven-api"]
-        language: system
+      - id: pylint
+        name: pylint (swlp-api)
+        description: run pylint over the installed package via tox
+        entry: tox
+        args: ["-e", "pylint-api"]
+        language: python
         types: [python]
         require_serial: true
 
