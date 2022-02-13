@@ -6,7 +6,8 @@
 
     :copyright: (c) 2019-2020, Christian Riedel and AUTHORS
     :license: GPL-3.0-or-later, see LICENSE for details
-"""  # noqa: D205,D208,D400
+"""  # noqa: D205,D208,D400,RST399
+# pylint: disable=C0103
 import os
 import re
 import shutil
@@ -16,7 +17,7 @@ from importlib.util import find_spec
 from pathlib import Path
 from typing import List
 
-import sphinx_rtd_theme  # type: ignore[import]
+import sphinx_rtd_theme
 
 from sphinx.application import Sphinx
 
@@ -40,7 +41,7 @@ project = __project__.replace("-", "_")
 author = __author__
 CREATION_YEAR = 2019  # CHANGE ME
 CURRENT_YEAR = f"{date.today().year}"
-copyright = (  # noqa: VNE003,W0622
+copyright = (  # noqa: VNE003 # pylint: disable=W0622
     f"{CREATION_YEAR}{('-' + CURRENT_YEAR) if CURRENT_YEAR != CREATION_YEAR else ''}, "
     + f"{author} and AUTHORS"
 )
@@ -149,8 +150,8 @@ autodoc_mock_imports: List[str] = []
 autodoc_default_options = {"members": True}
 
 
-def _remove_module_docstring(  # noqa: R0913
-    app, what, name, obj, options, lines  # noqa: ANN001,W0613
+def _remove_module_docstring(  # pylint: disable=R0913
+    app, what, name, obj, options, lines  # pylint: disable=W0613 # noqa: ANN001
 ) -> None:
     """Remove module docstring."""
     if what == "module":

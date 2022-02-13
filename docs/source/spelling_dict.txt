@@ -37,6 +37,7 @@ html
 importlib
 ini
 init
+inv
 kwarg
 kwargs
 monkypatch
@@ -54,11 +55,13 @@ parametrize
 pragma
 pre
 py
+rc
 rd
 redef
 repo
 riedel
 rst
+rtd
 sdist
 setter
 st
