@@ -70,8 +70,8 @@
   [tool.poetry.group.coverage]
     optional = true
   [tool.poetry.group.coverage.dependencies]
-    coverage = {extras = ["toml"], version = "*"}  # Version managed above
-    coverage-conditional-plugin = "*"  # Version managed above
+    coverage = {extras = ["toml"], version = ">=6"}
+    coverage-conditional-plugin = ">=0.5"
     diff-cover = ">=6.4"
 
   [tool.poetry.group.docs]
