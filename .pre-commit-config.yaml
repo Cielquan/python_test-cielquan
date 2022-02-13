@@ -60,7 +60,7 @@ repos:
 
   # safety - python dependency vulnerability checker
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: 8cccd08a2ddd47f0e995302b08655320fd04981a # frozen: v1.2.3
+    rev: d0c2c5156e146e5030e6aafff1a0cb398875b4f2  # frozen: v1.2.4
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
@@ -204,7 +204,18 @@ repos:
       - id: python-no-eval
       - id: python-no-log-warn
 
-  # Lint hooks managed via tox `pre-commit` env b/c they need the pkg installed
+  # flakeheaven - wrapper for flake8
+  - repo: https://github.com/flakeheaven/flakeheaven
+    rev: "3f0afc179dbd0907230fb3123f2938b0b63d3b7f"  # frozen: 0.11.0
+    hooks:
+      # flake8 - python linter
+      # Inline skip file: `# flake8: noqa`
+      # Inline skip: `# noqa` or `# noqa: CODE,...`
+      - id: flakeheaven
+        additional_dependencies:
+          - "git+https://github.com/cielquan/my-flake8-plugins.git@1.0.1"
+
+  # Lint hooks managed via tox envs b/c they need the pkg installed
   - repo: local
     hooks:
       # mypy - python type checker
@@ -213,22 +224,22 @@ repos:
       # Inline skip: `# type: ignore` or `# type: ignore[CODE, ...]`
       - id: mypy
         name: mypy
-        description: run mypy over the installed version if available
-        entry: env_exe_runner tox,.venv pre_commit mypy
-        language: system
+        description: run mypy over the installed package via tox
+        entry: tox
+        args: ["-e", "mypy"]
+        language: python
+        additional_dependencies: [tox]
         types: [python]
-        require_serial: true
-      # flake8 - python linter
-      # Inline skip file: `# flake8: noqa`
-      # Inline skip: `# noqa` or `# noqa: CODE,...`
-      - id: flakeheaven
-        name: flakeheaven
-        description: run flakeheaven over the installed version if available
-        entry: env_exe_runner tox,.venv pre_commit flakeheaven
-        args: ["lint", "--safe"]
-        language: system
+        pass_filenames: false
+        # pylint - python linter
+      - id: pylint
+        name: pylint
+        description: run pylint over the installed package via tox
+        entry: tox
+        args: ["-e", "pylint"]
+        language: python
+        additional_dependencies: [tox]
         types: [python]
-        require_serial: true
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
@@ -283,7 +294,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: db5b7e82035cfedafec1ec495168809b938b38f7 # frozen: v8.8.0
+    rev: 60d9f216064935fc13f4a3c0860ecceef6290d36  # frozen: v8.9.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
