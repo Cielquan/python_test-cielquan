@@ -64,6 +64,7 @@ repos:
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
+        files: pyproject.toml
 
   # ####################################################################################
   #
@@ -231,7 +232,10 @@ repos:
         additional_dependencies: [tox]
         types: [python]
         pass_filenames: false
+        require_serial: true
         # pylint - python linter
+        # Inline skip file: `# pylint: skip-file`
+        # Inline change: `# pylint: disable|enable=CODE|NAME`
       - id: pylint
         name: pylint
         description: run pylint over the installed package via tox
@@ -240,6 +244,7 @@ repos:
         language: python
         additional_dependencies: [tox]
         types: [python]
+        require_serial: true
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
