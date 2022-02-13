@@ -1,3 +1,37 @@
+# Files
+
+## tox.ini
+
+### 1)
+
+`tox.require` `tox-poetry-installer[poetry]` plugin when either
+- poetry 1.2 releases and plugin supports it
+- https://github.com/python-poetry/poetry-core/pull/83 is merged and adapted by plugin
+
+Then:
+- remove `testenv.deps = <poetry-link>`
+- replace in `testenv:package.deps`: `{[testenv]deps}` with `poetry>=1.2`
+- replace in `testenv:safety.deps`: `{[testenv]deps}` with `poetry>=1.2`
+- rework installs in `testenv.XXX.commands_pre`
+- remove poetry as dependency from pyproject.toml
+- remove poetry from readme install command
+
+### 2)
+
+When dependency resolution for `poetry install` is fixed make groups `optional = false`:
+- dev
+- testing
+- docs
+- pylint
+- mypy
+
+Fix tox.ini poetry install commands.
+
+
+---
+
+# OLD
+
 TODO: update STEP_GUIDE
 
 
