@@ -131,58 +131,8 @@ python_version = 3.8  # CHANGE ME
 
 # -- FLAKEHEAVEN CONFIG ----------------------------------------------------------------
 [tool.flakeheaven]
-format="colored"
-max_line_length = 100
-max_complexity = 20
-max_cognitive_complexity = 10
+base = ["https://raw.githubusercontent.com/Cielquan/my-flake8-plugins/v1.2.0/flakeheaven-base.toml"]
 min_python_version = "3.8"  # CHANGE ME
-pytest_fixture_no_parentheses = true
-
-  [tool.flakeheaven.plugins]
-  pyflakes = ["+*"]
-  mccabe = ["+*"]
-  pycodestyle = [
-    "+*",
-    # deactivate because of black
-    "-W503",  # line break before binary operator
-    "-E203",  # whitespace before ':'
-    # deactivate because double check
-    "-E722",  # bare-except B001[flake8-bugbear]
-    # deactivate because unwanted
-    "-E731",  # forbids lambda
-  ]
-  pep8-naming = ["+*"]
-  "flake8-*" = ["+*"]
-  flake8-aaa = ["-*"]
-  flake8-annotations = [
-    "+*",
-    # deactivate because unwanted
-    "-ANN101",  # Missing type annotation for self in method
-    "-ANN102",  # Missing type annotation for cls in classmethod
-  ]
-  flake8-bandit = [
-    # deactivate because double check
-    "-S110",  # try-except-pass - SIM105[flake8-simplify]
-  ]
-  flake8-rst-docstrings = [
-    "+*",
-    # deactivate because unwanted
-    "-RST303",  # Unknown directive type
-    "-RST304",  # Unknown interpreted text role
-  ]
-  flake8-use-fstring = [
-    "+*",
-    # deactivate because unwanted
-    "-FS003",  # f-string missing prefix | can be % string
-  ]
-
-  [tool.flakeheaven.exceptions]
-    [tool.flakeheaven.exceptions."tests/"]
-    flake8-aaa = ["+*"]
-    flake8-bandit = [
-      # deactivate because unwanted
-      "-S101",  # assert used
-    ]
 
 
 # -- PYLINT CONFIG --------------------------------------------------------------------
