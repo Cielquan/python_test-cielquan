@@ -76,4 +76,5 @@ tokenize
 tox
 txt
 venv
+virtualenv
 xml
