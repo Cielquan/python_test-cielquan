@@ -34,7 +34,7 @@
     :alt: Maintenance - intended
 
 .. |license| image:: https://img.shields.io/github/license/Cielquan/python_test-cielquan.svg?style=flat-square&label=License
-    :target: :repo:`/blob/main/LICENSE`
+    :target: https://github.com/Cielquan/python_test-cielquan/blob/main/LICENSE
     :alt: License
 
 .. |rtd| image:: https://img.shields.io/readthedocs/python_test-cielquan/latest.svg?style=flat-square&logo=read-the-docs&logoColor=white&label=Read%20the%20Docs
@@ -78,7 +78,7 @@
 .. Pipeline
 
 .. |gha_test_code| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Test%20code/main?style=flat-square&logo=github&label=Test%20code
-    :target: :repo:`/actions?query=workflow%3A%22Test+code%22`
+    :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Test+code%22
     :alt: GitHub Actions - Test code
 
 .. |codeclimate_cov| image:: https://img.shields.io/codeclimate/coverage/Cielquan/python_test-cielquan?style=flat-square&logo=code-climate
@@ -86,7 +86,7 @@
     :alt: Code Climate - Coverage
 
 .. |gha_code_quality| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Code%20qualitiy/main?style=flat-square&logo=github&label=Code%20qualitiy
-    :target: :repo:`/actions?query=workflow%3A%22Code+qualitiy%22`
+    :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Code+qualitiy%22
     :alt: GitHub Actions - Code qualitiy
 
 .. |pre-commit-ci| image:: https://results.pre-commit.ci/badge/github/Cielquan/python_test-cielquan/main.svg
@@ -98,11 +98,11 @@
     :alt: Code Climate - Maintainability
 
 .. |gha_test_docs| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Test%20documentation/main?style=flat-square&logo=github&label=Test%20documentation
-    :target: :repo:`/actions?query=workflow%3A%22Test+documentation%22`
+    :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Test+documentation%22
     :alt: GitHub Actions - Test docs
 
 .. |gha_dep_safety| image:: https://img.shields.io/github/workflow/status/cielquan/python_test-cielquan/Dependency%20safety/main?style=flat-square&logo=github&label=Dependency%20safety
-    :target: :repo:`/actions?query=workflow%3A%22Dependency+safety%22`
+    :target: https://github.com/Cielquan/python_test-cielquan/actions?query=workflow%3A%22Dependency+safety%22
     :alt: GitHub Actions - Dependency safety
 
 .. TODO:#i# readd dependabot badge when https://github.com/dependabot/dependabot-core/issues/1912 is fixed
@@ -115,31 +115,31 @@
 .. GitHub
 
 .. |gh_release| image:: https://img.shields.io/github/v/release/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
-    :target: :repo:`/releases/latest`
+    :target: https://github.com/Cielquan/python_test-cielquan/releases/latest
     :alt: Github - Latest Release
 
 .. |gh_commits_since| image:: https://img.shields.io/github/commits-since/Cielquan/python_test-cielquan/latest.svg?style=flat-square&logo=github
-    :target: :repo:`/commits/main`
+    :target: https://github.com/Cielquan/python_test-cielquan/commits/main
     :alt: GitHub - Commits since latest release
 
 .. |gh_last_commit| image:: https://img.shields.io/github/last-commit/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
-    :target: :repo:`/commits/main`
+    :target: https://github.com/Cielquan/python_test-cielquan/commits/main
     :alt: GitHub - Last Commit
 
 .. |gh_stars| image:: https://img.shields.io/github/stars/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
-    :target: :repo:`/stargazers`
+    :target: https://github.com/Cielquan/python_test-cielquan/stargazers
     :alt: Github - Stars
 
 .. |gh_forks| image:: https://img.shields.io/github/forks/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
-    :target: :repo:`/network/members`
+    :target: https://github.com/Cielquan/python_test-cielquan/network/members
     :alt: Github - Forks
 
 .. |gh_contributors| image:: https://img.shields.io/github/contributors/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
-    :target: :repo:`/graphs/contributors`
+    :target: https://github.com/Cielquan/python_test-cielquan/graphs/contributors
     :alt: Github - Contributors
 
 .. |gh_watchers| image:: https://img.shields.io/github/watchers/Cielquan/python_test-cielquan.svg?style=flat-square&logo=github
-    :target: :repo:`/watchers/`
+    :target: https://github.com/Cielquan/python_test-cielquan/watchers/
     :alt: Github - Watchers
 
 
