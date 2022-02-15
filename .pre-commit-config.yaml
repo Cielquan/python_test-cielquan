@@ -60,7 +60,7 @@ repos:
 
   # safety - python dependency vulnerability checker
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: d0c2c5156e146e5030e6aafff1a0cb398875b4f2  # frozen: v1.2.4
+    rev: d0c2c5156e146e5030e6aafff1a0cb398875b4f2 # frozen: v1.2.4
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
@@ -207,14 +207,14 @@ repos:
 
   # flakeheaven - wrapper for flake8
   - repo: https://github.com/flakeheaven/flakeheaven
-    rev: "3f0afc179dbd0907230fb3123f2938b0b63d3b7f"  # frozen: 0.11.0
+    rev: "3f0afc179dbd0907230fb3123f2938b0b63d3b7f" # frozen: 0.11.0
     hooks:
       # flake8 - python linter
       # Inline skip file: `# flake8: noqa`
       # Inline skip: `# noqa` or `# noqa: CODE,...`
       - id: flakeheaven
         additional_dependencies:
-          - "git+https://github.com/cielquan/my-flake8-plugins.git@1.0.1"
+          - "git+https://github.com/cielquan/my-flake8-plugins.git@v1.0.1"
 
   # Lint hooks managed via tox envs b/c they need the pkg installed
   - repo: local
@@ -299,7 +299,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 60d9f216064935fc13f4a3c0860ecceef6290d36  # frozen: v8.9.0
+    rev: 60d9f216064935fc13f4a3c0860ecceef6290d36 # frozen: v8.9.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -353,7 +353,7 @@ repos:
 
   # shellscript (via PyPI package)
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: 4c7c3dd7161ef39e984cb295e93a968236dc8e8a  # frozen: v0.8.0.4
+    rev: 4c7c3dd7161ef39e984cb295e93a968236dc8e8a # frozen: v0.8.0.4
     hooks:
       - id: shellcheck
 
@@ -375,8 +375,8 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: 79c5e552066e7ad28aca449e7f2eed692a603abf  # frozen: v0.4.0
-    # Config files: 
+    rev: 79c5e552066e7ad28aca449e7f2eed692a603abf # frozen: v0.4.0
+    # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
     # - .markdownlint-cli2.cjs
@@ -387,13 +387,13 @@ repos:
     # Disable all rules: <!-- markdownlint-disable -->
     # Enable all rules: <!-- markdownlint-enable -->
     # Disable all rules for the next line only: <!-- markdownlint-disable-next-line -->
-    # Disable one or more rules by name: <!-- markdownlint-disable MD001 MD005 -->
-    # Enable one or more rules by name: <!-- markdownlint-enable MD001 MD005 -->
-    # Disable one or more rules by name for the next line only: <!-- markdownlint-disable-next-line MD001 MD005 -->
+    # Disable rules by name: <!-- markdownlint-disable MD001 MD005 -->
+    # Enable rules by name: <!-- markdownlint-enable MD001 MD005 -->
+    # Disable rules by name for next line only: <!-- markdownlint-disable-next-line MD001 MD005 -->
     # Capture the current rule configuration: <!-- markdownlint-capture -->
     # Restore the captured rule configuration: <!-- markdownlint-restore -->
     hooks:
-    - id: markdownlint-cli2
+      - id: markdownlint-cli2
 
   # ----------------------------------------------
   # JSON / TOML / YAML
