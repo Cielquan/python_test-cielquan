@@ -344,8 +344,10 @@ repos:
     hooks:
       - id: stylelint
         additional_dependencies:
+          - "stylelint"
           - "stylelint-config-standard"
           - "stylelint-config-prettier"
+          - "stylelint-config-tailwindcss"
 
   # ----------------------------------------------
   # Shell script
