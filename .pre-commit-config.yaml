@@ -139,6 +139,9 @@ repos:
     rev: ea782651a7e32f40a3d13b76c79d5a2474ee8723 # frozen: v2.5.1
     hooks:
       - id: prettier
+        additional_dependencies:
+          - "prettier@^2.5.1"
+          - "@trivago/prettier-plugin-sort-imports@^3.2.0"
 
   # ----------------------------------------------
   # General (code unspecific)
