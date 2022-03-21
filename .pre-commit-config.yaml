@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/python-poetry/poetry
-    rev: 1c0c9359a80936913338a0d27c19082dd1d0c647 # commit after add of config; wait for 1.2 release
+    rev: 1.2.0b1 # commit after add of config; wait for 1.2 release
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: e695ecd365119ab4e5463f6e49bea5f4b7ca786b # frozen: v2.31.0
+    rev: 0b37fd8e3b95981ff3d04b1351d2252a540e0cfc  # frozen: v2.31.1
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -136,7 +136,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: ea782651a7e32f40a3d13b76c79d5a2474ee8723 # frozen: v2.5.1
+    rev: a1362a37bf34c715a447e0406f6cff9f26b4672a  # frozen: v2.6.0
     hooks:
       - id: prettier
         additional_dependencies:
@@ -265,7 +265,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/python-poetry/poetry
-    rev: 1c0c9359a80936913338a0d27c19082dd1d0c647 # commit after add of config; wait for 1.2 release
+    rev: 1.2.0b1 # commit after add of config; wait for 1.2 release
     hooks:
       - id: poetry-check
 
@@ -302,7 +302,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 550f60e4f05c7c65609e73d38ccf3d92f3e60d27 # frozen: v8.10.0
+    rev: 31b71ec66ec91d9fcad5096654b1916eca6f76a9  # frozen: v8.11.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -323,7 +323,7 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
-    rev: b234899b5db911d0e5482deffcf4e6364ad349d0 # frozen: v1.1.1
+    rev: 013455c0de40486ccf40a982d6ba68d3c0d78474  # frozen: v1.1.2
     hooks:
       # htmlhint - HTML linter
       # https://htmlhint.com/
