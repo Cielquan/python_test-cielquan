@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 0b37fd8e3b95981ff3d04b1351d2252a540e0cfc  # frozen: v2.31.1
+    rev: 0b37fd8e3b95981ff3d04b1351d2252a540e0cfc # frozen: v2.31.1
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -136,7 +136,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: a1362a37bf34c715a447e0406f6cff9f26b4672a  # frozen: v2.6.0
+    rev: a1362a37bf34c715a447e0406f6cff9f26b4672a # frozen: v2.6.0
     hooks:
       - id: prettier
         additional_dependencies:
@@ -302,7 +302,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 31b71ec66ec91d9fcad5096654b1916eca6f76a9  # frozen: v8.11.0
+    rev: 31b71ec66ec91d9fcad5096654b1916eca6f76a9 # frozen: v8.11.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -323,7 +323,7 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
-    rev: 013455c0de40486ccf40a982d6ba68d3c0d78474  # frozen: v1.1.2
+    rev: 013455c0de40486ccf40a982d6ba68d3c0d78474 # frozen: v1.1.2
     hooks:
       # htmlhint - HTML linter
       # https://htmlhint.com/
