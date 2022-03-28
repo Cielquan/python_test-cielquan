@@ -136,7 +136,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: a1362a37bf34c715a447e0406f6cff9f26b4672a # frozen: v2.6.0
+    rev: 49501742584ec71d158bb089e8cae37b57f0de02  # frozen: v2.6.1
     hooks:
       - id: prettier
         additional_dependencies:
@@ -251,7 +251,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: eec287fae66f8fc514d5daa9caee46fd0e0cb6d9 # frozen: v2.12.2
+    rev: 2066cab9bbe43341b84014ac9610e275db586431  # frozen: v2.13.2
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -302,7 +302,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 31b71ec66ec91d9fcad5096654b1916eca6f76a9 # frozen: v8.11.0
+    rev: 02c0efe59c2071bca5486c77f222be84910aeff4  # frozen: v8.12.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
