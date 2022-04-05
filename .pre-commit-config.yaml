@@ -94,7 +94,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: fc0be6eb1e2a96091e6f64009ee5e9081bf8b6c6 # frozen: 22.1.0
+    rev: ae2c0758c9e61a385df9700dc9c231bf54887041 # frozen: 22.3.0
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -136,7 +136,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: 49501742584ec71d158bb089e8cae37b57f0de02 # frozen: v2.6.1
+    rev: 5e374fda194d7f7ce9eebbd582b2a5594838c85b # frozen: v2.6.2
     hooks:
       - id: prettier
         additional_dependencies:
@@ -251,7 +251,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 2066cab9bbe43341b84014ac9610e275db586431 # frozen: v2.13.2
+    rev: 14ae9e8985a70af1b04aa996c04a1a8c3fa8f463 # frozen: v2.13.4
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -427,6 +427,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: d3bdf1403d92f8cf2dc77bd99a5da42f0a6cef17 # frozen: v2.17.0
+    rev: 0276e25f713ddfd66482f358d238186ca47a6eb4 # frozen: v2.18.1
     hooks:
       - id: validate_manifest
