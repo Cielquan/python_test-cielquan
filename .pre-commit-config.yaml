@@ -37,7 +37,7 @@ repos:
 
   # file checking out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    rev: db7346d375eda68a0174f2c057dd97f2fbffe030 # frozen: v4.2.0
     hooks:
       - id: check-case-conflict
       - id: check-shebang-scripts-are-executable
@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 0b37fd8e3b95981ff3d04b1351d2252a540e0cfc # frozen: v2.31.1
+    rev: 256bd84aa5a17edbd3dcfaaa4f30f870168d2838 # frozen: v2.32.0
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -149,7 +149,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    rev: db7346d375eda68a0174f2c057dd97f2fbffe030 # frozen: v4.2.0
     hooks:
       - id: end-of-file-fixer
         stages: [commit]
@@ -179,7 +179,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    rev: db7346d375eda68a0174f2c057dd97f2fbffe030 # frozen: v4.2.0
     hooks:
       - id: check-merge-conflict
       - id: detect-private-key
@@ -190,7 +190,7 @@ repos:
 
   # python specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    rev: db7346d375eda68a0174f2c057dd97f2fbffe030 # frozen: v4.2.0
     hooks:
       - id: debug-statements
       - id: fix-encoding-pragma
@@ -251,7 +251,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 14ae9e8985a70af1b04aa996c04a1a8c3fa8f463 # frozen: v2.13.4
+    rev: 95cbd2bd14576cb5d9eade4798e73e8601c884de # frozen: v2.13.5
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -302,7 +302,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 02c0efe59c2071bca5486c77f222be84910aeff4 # frozen: v8.12.0
+    rev: abda488c56bd6551d0ea5d8148a57fa090ff0c18 # frozen: v8.13.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -406,7 +406,7 @@ repos:
 
   # JSON specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    rev: db7346d375eda68a0174f2c057dd97f2fbffe030 # frozen: v4.2.0
     hooks:
       - id: check-json
       - id: check-toml
