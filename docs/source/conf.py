@@ -11,14 +11,12 @@
 import os
 import re
 import shutil
-
 from datetime import date
 from importlib.util import find_spec
 from pathlib import Path
 from typing import List
 
 import sphinx_rtd_theme
-
 from sphinx.application import Sphinx
 
 from python_test_cielquan import (  # CHANGE ME
