@@ -368,7 +368,7 @@ repos:
 
   # rstcheck - rst file checker
   - repo: https://github.com/myint/rstcheck
-    rev: 3f92957478422df87bd730abde66f089cc1ee19b # commit after add of config; wait for release
+    rev: v5.0.0 # commit after add of config; wait for release
     hooks:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
