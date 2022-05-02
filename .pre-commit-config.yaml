@@ -251,7 +251,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 45cbae2bab9001bb2f159103490a02d63e75ee5b  # frozen: v2.13.8
+    rev: 45cbae2bab9001bb2f159103490a02d63e75ee5b # frozen: v2.13.8
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
