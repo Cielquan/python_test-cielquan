@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 256bd84aa5a17edbd3dcfaaa4f30f870168d2838 # frozen: v2.32.0
+    rev: 4d35c00c9ff5a51a853a89137db5fdd2bdf0ca95 # frozen: v2.32.1
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -210,7 +210,7 @@ repos:
 
   # flakeheaven - wrapper for flake8
   - repo: https://github.com/flakeheaven/flakeheaven
-    rev: "3f0afc179dbd0907230fb3123f2938b0b63d3b7f" # frozen: 0.11.0
+    rev: "20f94457744c47d965d4520d3b22def538b0cc49" # frozen: 0.11.1
     hooks:
       # flake8 - python linter
       # Inline skip file: `# flake8: noqa`
@@ -251,7 +251,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 45cbae2bab9001bb2f159103490a02d63e75ee5b # frozen: v2.13.8
+    rev: 2dfff17ec794c9cc08eef19b288398e67bdcb239 # frozen: v2.14.0-b1
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -302,7 +302,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: eb0dbc51fa2568ec311a9570915c62b217fc96a2 # frozen: v8.14.0
+    rev: 9d293b675b07cb85b1694fc266c633110867b9a4 # frozen: v8.15.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -368,7 +368,7 @@ repos:
 
   # rstcheck - rst file checker
   - repo: https://github.com/myint/rstcheck
-    rev: v5.0.0 # commit after add of config; wait for release
+    rev: v6.0.0a1 # commit after add of config; wait for release
     hooks:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
@@ -427,6 +427,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 0276e25f713ddfd66482f358d238186ca47a6eb4 # frozen: v2.18.1
+    rev: cc9d950601cd3eba27e8395a7edcd455262705d9 # frozen: v2.19.0
     hooks:
       - id: validate_manifest
