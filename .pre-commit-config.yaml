@@ -302,7 +302,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 87d2e03d0a89863a73d6c302564b9ba6ceaccb5c  # frozen: v8.16.0
+    rev: 87d2e03d0a89863a73d6c302564b9ba6ceaccb5c # frozen: v8.16.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
