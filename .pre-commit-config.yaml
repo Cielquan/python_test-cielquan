@@ -302,7 +302,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 9d293b675b07cb85b1694fc266c633110867b9a4 # frozen: v8.15.0
+    rev: 87d2e03d0a89863a73d6c302564b9ba6ceaccb5c  # frozen: v8.16.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -368,7 +368,7 @@ repos:
 
   # rstcheck - rst file checker
   - repo: https://github.com/myint/rstcheck
-    rev: v6.0.0a1 # commit after add of config; wait for release
+    rev: v6.0.0rc1 # commit after add of config; wait for release
     hooks:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
