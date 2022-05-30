@@ -210,7 +210,7 @@ repos:
 
   # flakeheaven - wrapper for flake8
   - repo: https://github.com/flakeheaven/flakeheaven
-    rev: "a2013e9fa15bb9331873afcc9c1928b3fc91db3e"  # frozen: 1.0.1
+    rev: "a2013e9fa15bb9331873afcc9c1928b3fc91db3e" # frozen: 1.0.1
     hooks:
       # flake8 - python linter
       # Inline skip file: `# flake8: noqa`
