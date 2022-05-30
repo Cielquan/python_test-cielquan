@@ -210,7 +210,7 @@ repos:
 
   # flakeheaven - wrapper for flake8
   - repo: https://github.com/flakeheaven/flakeheaven
-    rev: "20f94457744c47d965d4520d3b22def538b0cc49" # frozen: 0.11.1
+    rev: "a2013e9fa15bb9331873afcc9c1928b3fc91db3e"  # frozen: 1.0.1
     hooks:
       # flake8 - python linter
       # Inline skip file: `# flake8: noqa`
@@ -368,7 +368,7 @@ repos:
 
   # rstcheck - rst file checker
   - repo: https://github.com/myint/rstcheck
-    rev: v6.0.0rc1 # commit after add of config; wait for release
+    rev: v6.0.0rc3 # commit after add of config; wait for release
     hooks:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
