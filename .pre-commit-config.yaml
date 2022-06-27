@@ -37,7 +37,7 @@ repos:
 
   # file checking out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0  # frozen: v4.3.0
+    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
     hooks:
       - id: check-case-conflict
       - id: check-shebang-scripts-are-executable
@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 400a572e713da5a32bf2f00fd2926833b1570956  # frozen: v2.34.0
+    rev: 400a572e713da5a32bf2f00fd2926833b1570956 # frozen: v2.34.0
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -136,7 +136,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: 50c5478ed9e10bf360335449280cf2a67f4edb7a  # frozen: v2.7.1
+    rev: 50c5478ed9e10bf360335449280cf2a67f4edb7a # frozen: v2.7.1
     hooks:
       - id: prettier
         additional_dependencies:
@@ -170,7 +170,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0  # frozen: v4.3.0
+    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
     hooks:
       - id: end-of-file-fixer
         stages: [commit]
@@ -200,7 +200,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0  # frozen: v4.3.0
+    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
     hooks:
       - id: check-merge-conflict
       - id: detect-private-key
@@ -211,7 +211,7 @@ repos:
 
   # python specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0  # frozen: v4.3.0
+    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
     hooks:
       - id: debug-statements
       - id: fix-encoding-pragma
@@ -231,7 +231,7 @@ repos:
 
   # flakeheaven - wrapper for flake8
   - repo: https://github.com/flakeheaven/flakeheaven
-    rev: "b1c9d8c333e7c1fbe4428c5a12ef26f603dca0a7"  # frozen: 2.0.0
+    rev: "b1c9d8c333e7c1fbe4428c5a12ef26f603dca0a7" # frozen: 2.0.0
     hooks:
       # flake8 - python linter
       # Inline skip file: `# flake8: noqa`
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 680edebc686cad664bbed934a490aeafa775f163  # frozen: v2.14.3
+    rev: 680edebc686cad664bbed934a490aeafa775f163 # frozen: v2.14.3
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 2db00199ac0530b5d4e590ce730ee409441da736  # frozen: v8.18.0
+    rev: 2db00199ac0530b5d4e590ce730ee409441da736 # frozen: v8.18.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -427,7 +427,7 @@ repos:
 
   # JSON specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0  # frozen: v4.3.0
+    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
     hooks:
       - id: check-json
       - id: check-toml
