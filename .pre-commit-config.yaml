@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: d232077d3bc16dcbaee30b42d35197f8bf337a36  # frozen: v2.37.1
+    rev: d232077d3bc16dcbaee30b42d35197f8bf337a36 # frozen: v2.37.1
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -435,7 +435,7 @@ repos:
 
   # yamllint - yaml linter
   - repo: https://github.com/adrienverge/yamllint
-    rev: a09ad89268e9042349b764084426617da69957d3  # frozen: v1.27.1
+    rev: a09ad89268e9042349b764084426617da69957d3 # frozen: v1.27.1
     hooks:
       # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
@@ -448,6 +448,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 78a2d867feac2c1602a608c1fa4eeecb2f8bb415  # frozen: v2.20.0
+    rev: 78a2d867feac2c1602a608c1fa4eeecb2f8bb415 # frozen: v2.20.0
     hooks:
       - id: validate_manifest
