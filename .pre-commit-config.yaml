@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/python-poetry/poetry
-    rev: 1.2.0b2 # commit after add of config; wait for 1.2 release
+    rev: 1.2.0b3 # commit after add of config; wait for 1.2 release
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: d232077d3bc16dcbaee30b42d35197f8bf337a36 # frozen: v2.37.1
+    rev: 28d3c0b287188512d7c7a7c225ff8dedf4a87ee1  # frozen: v2.37.2
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: bf29a5520e8d0e432ca715e0614a62052b3809e2 # frozen: v2.14.4
+    rev: 566ffca72a1a08c9e7ec14383c4710d64165c592  # frozen: v2.14.5
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -286,7 +286,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/python-poetry/poetry
-    rev: 1.2.0b2 # commit after add of config; wait for 1.2 release
+    rev: 1.2.0b3 # commit after add of config; wait for 1.2 release
     hooks:
       - id: poetry-check
 
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: d4e17baac8d61b2a0888defdc0539f9aa3bb4a68 # frozen: v8.19.0
+    rev: b2935ee1f58e03bd4b79a3e3a765f397a05e5f13  # frozen: v8.20.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
