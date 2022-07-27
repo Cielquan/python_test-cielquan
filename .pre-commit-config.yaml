@@ -217,7 +217,7 @@ repos:
       - id: fix-encoding-pragma
         args: ["--remove"]
       - id: name-tests-test
-        args: ["--django"]
+        args: ["--pytest-test-first"]
 
   # several python code regex hooks
   - repo: https://github.com/pre-commit/pygrep-hooks
