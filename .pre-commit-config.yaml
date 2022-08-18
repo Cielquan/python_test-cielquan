@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: fa4981912686d24ee56def6d92038c84f8500038 # frozen: v8.21.0
+    rev: 83eeb826b2fe839ae01cd47e4952ba1ffd09f166 # frozen: v8.22.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -389,7 +389,7 @@ repos:
 
   # rstcheck - rst file checker
   - repo: https://github.com/myint/rstcheck
-    rev: v6.0.0.post1 # commit after add of config; wait for release
+    rev: v6.1.0 # commit after add of config; wait for release
     hooks:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
@@ -401,7 +401,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: 7bc1f05d19a53d136e723ee0e5bddb161f2c8dcd # frozen: v0.5.0
+    rev: c303058e614a540cf34066afe16cefb1521f8dec # frozen: v0.5.1
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
