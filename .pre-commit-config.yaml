@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/python-poetry/poetry
-    rev: 1.2.0b3 # commit after add of config; wait for 1.2 release
+    rev: 1.2.0rc1 # commit after add of config; wait for 1.2 release
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 566ffca72a1a08c9e7ec14383c4710d64165c592 # frozen: v2.14.5
+    rev: 24eaec26f701cf8adddf27ffa8859e0bb5074a89  # frozen: v2.15.0
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -286,7 +286,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/python-poetry/poetry
-    rev: 1.2.0b3 # commit after add of config; wait for 1.2 release
+    rev: 1.2.0rc1 # commit after add of config; wait for 1.2 release
     hooks:
       - id: poetry-check
 
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 83eeb826b2fe839ae01cd47e4952ba1ffd09f166 # frozen: v8.22.0
+    rev: 6c554ec7ed73eb99172cb0068243f72373e5b6e1  # frozen: v8.23.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -364,7 +364,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 765d365d9e49e2c4af3c7c94fc55176af32daaf4 # frozen: v14.3.0
+    rev: 487b6da6d461cf431f5b20848960e73944dbbe92  # frozen: v14.11.0
     hooks:
       - id: stylelint
         additional_dependencies:
