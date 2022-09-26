@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: a78007c1e9de96e71d5fb3e720c2b9fae8ed8abf # frozen: v2.37.3
+    rev: b5a5b76d863fef36b709bd7481d1516f3d3808a7  # frozen: v2.38.2
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 24eaec26f701cf8adddf27ffa8859e0bb5074a89 # frozen: v2.15.0
+    rev: 403dac602ee01e317a22800e0d63bdeb0c2faa7e  # frozen: v2.15.3
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 6c554ec7ed73eb99172cb0068243f72373e5b6e1 # frozen: v8.23.0
+    rev: 69c692094e62330d2eb045b6791349f817a27c3c  # frozen: v8.24.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -364,7 +364,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 487b6da6d461cf431f5b20848960e73944dbbe92 # frozen: v14.11.0
+    rev: e66168880ab1d5af0f90d9419616cb8277de2d39  # frozen: v14.12.1
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -388,7 +388,7 @@ repos:
   # ----------------------------------------------
 
   # rstcheck - rst file checker
-  - repo: https://github.com/myint/rstcheck
+  - repo: https://github.com/rstcheck/rstcheck
     rev: v6.1.0 # commit after add of config; wait for release
     hooks:
       # Config file: .rstcheck.cfg [--config]
@@ -435,7 +435,7 @@ repos:
 
   # yamllint - yaml linter
   - repo: https://github.com/adrienverge/yamllint
-    rev: a09ad89268e9042349b764084426617da69957d3 # frozen: v1.27.1
+    rev: 9cce2940414e9560ae4c8518ddaee2ac1863a4d2  # frozen: v1.28.0
     hooks:
       # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
