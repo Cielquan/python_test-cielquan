@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: b5a5b76d863fef36b709bd7481d1516f3d3808a7  # frozen: v2.38.2
+    rev: fe81c259f5169066cdd6dafdaf58677928b1fd61  # frozen: v3.2.0
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -94,7 +94,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: 2018e667a6a36ee3fbfa8041cd36512f92f60d49 # frozen: 22.8.0
+    rev: 27d20144a7517594e24a1649451177b2a11284be  # frozen: 22.10.0
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -136,7 +136,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: d0a4882e1c96eca274f90b273f0f809ab3d98aff # frozen: v3.0.0-alpha.0
+    rev: cafd5506f18eea191804850dacc0a4264772d59d  # frozen: v3.0.0-alpha.4
     hooks:
       - id: prettier
         additional_dependencies:
@@ -231,7 +231,7 @@ repos:
 
   # flakeheaven - wrapper for flake8
   - repo: https://github.com/flakeheaven/flakeheaven
-    rev: "e32a6e822ae45390c9e02b5491d808d5a14971ba" # frozen: 3.0.0
+    rev: "4cd049b3b188a32435fa2020f84625b5bd9c53d7"  # frozen: 3.2.1
     hooks:
       # flake8 - python linter
       # Inline skip file: `# flake8: noqa`
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 403dac602ee01e317a22800e0d63bdeb0c2faa7e  # frozen: v2.15.3
+    rev: bb17694867b1668db0cd3ae00c8a960d7f4b9868  # frozen: v2.15.5
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 69c692094e62330d2eb045b6791349f817a27c3c  # frozen: v8.24.0
+    rev: d04bbab398463cd06c5f7670ea424fa19b27d836  # frozen: v8.27.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -364,7 +364,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: e66168880ab1d5af0f90d9419616cb8277de2d39  # frozen: v14.12.1
+    rev: de3c9b75230ec0082f790ec0a89f692eadacfe55  # frozen: v14.14.1
     hooks:
       - id: stylelint
         additional_dependencies:
