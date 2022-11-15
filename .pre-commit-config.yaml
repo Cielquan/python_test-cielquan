@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: fe81c259f5169066cdd6dafdaf58677928b1fd61  # frozen: v3.2.0
+    rev: c1b1c5380dbb12b30ec0d0652df204d21ae003b8  # frozen: v3.2.2
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -364,7 +364,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: de3c9b75230ec0082f790ec0a89f692eadacfe55  # frozen: v14.14.1
+    rev: 411d75d7e9170ac5a454d3a828115b6a013cbeb3  # frozen: v14.15.0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -389,7 +389,7 @@ repos:
 
   # rstcheck - rst file checker
   - repo: https://github.com/rstcheck/rstcheck
-    rev: v6.1.0 # commit after add of config; wait for release
+    rev: v6.1.1 # commit after add of config; wait for release
     hooks:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
