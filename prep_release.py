@@ -18,7 +18,6 @@ import argparse
 import re
 import subprocess  # noqa: S404
 import sys
-
 from datetime import date
 
 
