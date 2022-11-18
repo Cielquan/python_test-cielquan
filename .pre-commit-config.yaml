@@ -37,7 +37,7 @@ repos:
 
   # file checking out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
     hooks:
       - id: check-case-conflict
       - id: check-shebang-scripts-are-executable
@@ -51,8 +51,8 @@ repos:
   # ----------------------------------------------
 
   # poetry - python dependency management
-  - repo: https://github.com/python-poetry/poetry
-    rev: 1c0c9359a80936913338a0d27c19082dd1d0c647 # commit after add of config; wait for 1.2 release
+  - repo: https://github.com/Cielquan/mirrors-poetry
+    rev: de20845626cb378ff59a7b009825b76ebadaca59 # frozen: 1.2.2
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -60,7 +60,7 @@ repos:
 
   # safety - python dependency vulnerability checker
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: d0c2c5156e146e5030e6aafff1a0cb398875b4f2 # frozen: v1.2.4
+    rev: 8131ecce7c746aa3c0f8ebb453a6df1e0f62b8b5 # frozen: v1.3.0
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: e695ecd365119ab4e5463f6e49bea5f4b7ca786b # frozen: v2.31.0
+    rev: c1b1c5380dbb12b30ec0d0652df204d21ae003b8  # frozen: v3.2.2
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -94,7 +94,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: fc0be6eb1e2a96091e6f64009ee5e9081bf8b6c6 # frozen: 22.1.0
+    rev: 27d20144a7517594e24a1649451177b2a11284be  # frozen: 22.10.0
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -136,7 +136,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: ea782651a7e32f40a3d13b76c79d5a2474ee8723 # frozen: v2.5.1
+    rev: cafd5506f18eea191804850dacc0a4264772d59d  # frozen: v3.0.0-alpha.4
     hooks:
       - id: prettier
         additional_dependencies:
@@ -144,12 +144,33 @@ repos:
           - "@trivago/prettier-plugin-sort-imports@^3.2.0"
 
   # ----------------------------------------------
+  # Spelling dict
+  # ----------------------------------------------
+
+  # Custom hook as python command
+  - repo: local
+    hooks:
+      - id: sort-spelling-dicts
+        name: Sort spelling_dict.txt files
+        description: Sort spelling_dict.txt files
+        language: python
+        entry: python
+        args:
+          - "-c"
+          - |
+            import pathlib;
+            import sys;
+            p = pathlib.Path(sys.argv[1]);
+            p.write_text("\n".join(sorted(set(p.read_text("utf-8").splitlines()))) + "\n", "utf-8")
+        files: "spelling_dict.txt"
+
+  # ----------------------------------------------
   # General (code unspecific)
   # ----------------------------------------------
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
     hooks:
       - id: end-of-file-fixer
         stages: [commit]
@@ -179,7 +200,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
     hooks:
       - id: check-merge-conflict
       - id: detect-private-key
@@ -190,13 +211,13 @@ repos:
 
   # python specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
     hooks:
       - id: debug-statements
       - id: fix-encoding-pragma
         args: ["--remove"]
       - id: name-tests-test
-        args: ["--django"]
+        args: ["--pytest-test-first"]
 
   # several python code regex hooks
   - repo: https://github.com/pre-commit/pygrep-hooks
@@ -210,7 +231,7 @@ repos:
 
   # flakeheaven - wrapper for flake8
   - repo: https://github.com/flakeheaven/flakeheaven
-    rev: "3f0afc179dbd0907230fb3123f2938b0b63d3b7f" # frozen: 0.11.0
+    rev: "4cd049b3b188a32435fa2020f84625b5bd9c53d7"  # frozen: 3.2.1
     hooks:
       # flake8 - python linter
       # Inline skip file: `# flake8: noqa`
@@ -251,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: eec287fae66f8fc514d5daa9caee46fd0e0cb6d9 # frozen: v2.12.2
+    rev: bb17694867b1668db0cd3ae00c8a960d7f4b9868  # frozen: v2.15.5
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -264,8 +285,8 @@ repos:
         exclude: "^(?!src).*"
 
   # poetry - python dependency management
-  - repo: https://github.com/python-poetry/poetry
-    rev: 1c0c9359a80936913338a0d27c19082dd1d0c647 # commit after add of config; wait for 1.2 release
+  - repo: https://github.com/Cielquan/mirrors-poetry
+    rev: de20845626cb378ff59a7b009825b76ebadaca59 # frozen: 1.2.2
     hooks:
       - id: poetry-check
 
@@ -302,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 550f60e4f05c7c65609e73d38ccf3d92f3e60d27 # frozen: v8.10.0
+    rev: d04bbab398463cd06c5f7670ea424fa19b27d836  # frozen: v8.27.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -323,7 +344,7 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/Lucas-C/pre-commit-hooks-nodejs
-    rev: b234899b5db911d0e5482deffcf4e6364ad349d0 # frozen: v1.1.1
+    rev: 013455c0de40486ccf40a982d6ba68d3c0d78474 # frozen: v1.1.2
     hooks:
       # htmlhint - HTML linter
       # https://htmlhint.com/
@@ -343,7 +364,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 765d365d9e49e2c4af3c7c94fc55176af32daaf4 # frozen: v14.3.0
+    rev: 411d75d7e9170ac5a454d3a828115b6a013cbeb3  # frozen: v14.15.0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -367,8 +388,8 @@ repos:
   # ----------------------------------------------
 
   # rstcheck - rst file checker
-  - repo: https://github.com/myint/rstcheck
-    rev: 3f92957478422df87bd730abde66f089cc1ee19b # commit after add of config; wait for release
+  - repo: https://github.com/rstcheck/rstcheck
+    rev: v6.1.1 # commit after add of config; wait for release
     hooks:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
@@ -380,7 +401,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: 79c5e552066e7ad28aca449e7f2eed692a603abf # frozen: v0.4.0
+    rev: c303058e614a540cf34066afe16cefb1521f8dec # frozen: v0.5.1
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
@@ -406,7 +427,7 @@ repos:
 
   # JSON specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 8fe62d14e0b4d7d845a7022c5c2c3ae41bdd3f26 # frozen: v4.1.0
+    rev: 3298ddab3c13dd77d6ce1fc0baf97691430d84b0 # frozen: v4.3.0
     hooks:
       - id: check-json
       - id: check-toml
@@ -414,7 +435,7 @@ repos:
 
   # yamllint - yaml linter
   - repo: https://github.com/adrienverge/yamllint
-    rev: 058fef75598d1a9d9250487d91549abf379878e0 # frozen: v1.26.3
+    rev: 9cce2940414e9560ae4c8518ddaee2ac1863a4d2  # frozen: v1.28.0
     hooks:
       # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
@@ -427,6 +448,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: d3bdf1403d92f8cf2dc77bd99a5da42f0a6cef17 # frozen: v2.17.0
+    rev: 78a2d867feac2c1602a608c1fa4eeecb2f8bb415 # frozen: v2.20.0
     hooks:
       - id: validate_manifest

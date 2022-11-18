@@ -132,7 +132,7 @@ include = '\.pyi?$'  # single quotes needed
 [tool.isort]
 profile = "black"
 lines_after_imports = 2
-lines_between_types = 1
+combine_as_imports = true
 skip_gitignore = true
 
 
