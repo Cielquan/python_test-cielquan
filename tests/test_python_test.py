@@ -8,7 +8,6 @@
     :license: GPL-3.0-or-later, see LICENSE for details
 """  # noqa: D205,D208,D400
 import python_test_cielquan
-
 from python_test_cielquan.python_tester import some_func
 
 
