@@ -55,7 +55,7 @@ classifiers = []
   rstcheck = { git = "https://github.com/myint/rstcheck.git", rev = "3f92957478422df87bd730abde66f089cc1ee19b", optional = true }
   my-flake8-plugins = { git = "https://github.com/cielquan/my-flake8-plugins.git", rev = "v1.0.1", extras= ["flakeheaven"], optional = true }
   # testing
-  pytest = { version = ">=6", optional = true }
+  pytest = { version = ">=7.2", optional = true }
   pytest-xdist = { version = ">=2.5", extras = ["psutil"], optional = true }
   pytest-cov = { version = ">=3", optional = true }
   # TODO:#i# wait for merge/new release: https://github.com/Teemu/pytest-sugar/issues/227
