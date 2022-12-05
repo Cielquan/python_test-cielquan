@@ -78,7 +78,7 @@ repos:
 
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: c1b1c5380dbb12b30ec0d0652df204d21ae003b8 # frozen: v3.2.2
+    rev: a19e73372afc7ad8462488148c8ebeb9d82a864a  # frozen: v3.3.0
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: b2af2b299c1206e035f44db90b1569b3e3b13511 # frozen: v2.15.6
+    rev: 1f84ed912d088a9c2152ad7bc9b1aff0a66f389f  # frozen: v2.15.8
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: b07c97af12adebc0037a3f3efd0a7597b8b4eb45 # frozen: v8.28.0
+    rev: 18d08ba9b03ab677ddbffe9eaf1f042c238e145c  # frozen: v8.29.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -364,7 +364,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 411d75d7e9170ac5a454d3a828115b6a013cbeb3 # frozen: v14.15.0
+    rev: cdd4ec847148e7eaddbd2ae8f6c2425f76ecf295  # frozen: v14.16.0
     hooks:
       - id: stylelint
         additional_dependencies:
