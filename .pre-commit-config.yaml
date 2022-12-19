@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 356c4b238462d33e78eee858573c5284c69f2214  # frozen: 1.3.1
+    rev: 356c4b238462d33e78eee858573c5284c69f2214 # frozen: 1.3.1
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -85,7 +85,7 @@ repos:
 
   # isort - sort imports
   - repo: https://github.com/PyCQA/isort
-    rev: dbfeff978be405f59704097cf11c59110a08e67b  # frozen: v5.11.3
+    rev: dbfeff978be405f59704097cf11c59110a08e67b # frozen: v5.11.3
     hooks:
       # Config file: pyproject.toml | .isort.cfg | tox.ini |
       #     https://pycqa.github.io/isort/docs/configuration/config_files
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 1ded4d081480cccd573ddc6c592adccdc6723bb5  # frozen: v2.15.9
+    rev: 1ded4d081480cccd573ddc6c592adccdc6723bb5 # frozen: v2.15.9
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -286,7 +286,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 356c4b238462d33e78eee858573c5284c69f2214  # frozen: 1.3.1
+    rev: 356c4b238462d33e78eee858573c5284c69f2214 # frozen: 1.3.1
     hooks:
       - id: poetry-check
 
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 9fb5ccdfcb98c02b706e365153b4bf9ce16f68f4  # frozen: v8.30.0
+    rev: 9fb5ccdfcb98c02b706e365153b4bf9ce16f68f4 # frozen: v8.30.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -379,7 +379,7 @@ repos:
 
   # shellscript (via PyPI package)
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: 4bb61ddc1b4175565f8f975fd20d657f00f2bd53  # frozen: v0.9.0.2
+    rev: 4bb61ddc1b4175565f8f975fd20d657f00f2bd53 # frozen: v0.9.0.2
     hooks:
       - id: shellcheck
 
