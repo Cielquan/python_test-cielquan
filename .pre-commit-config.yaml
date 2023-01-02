@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 9fb5ccdfcb98c02b706e365153b4bf9ce16f68f4 # frozen: v8.30.0
+    rev: 3599f4e6b9572cc651704f1a70fc5d328a398eeb  # frozen: v8.31.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -364,7 +364,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: cdd4ec847148e7eaddbd2ae8f6c2425f76ecf295 # frozen: v14.16.0
+    rev: 9c2e22dde79e317449d2387d9c7d9672366d3a4c  # frozen: v14.16.1
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -401,7 +401,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: c303058e614a540cf34066afe16cefb1521f8dec # frozen: v0.5.1
+    rev: e3c981ce9ab04c82884e2bb074e13f0ad755a63d  # frozen: v0.6.0
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
