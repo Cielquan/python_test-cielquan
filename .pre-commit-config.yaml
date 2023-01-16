@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 356c4b238462d33e78eee858573c5284c69f2214 # frozen: 1.3.1
+    rev: 62a6dec756dcc01ce336d2af971214a30fae3974  # frozen: 1.3.2
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -103,7 +103,7 @@ repos:
 
   # blacken-docs - black for python code in docs (rst/md/tex)
   - repo: https://github.com/asottile/blacken-docs
-    rev: 7ae9389351f4090e3993de28015a05a18ca6b8a7 # frozen: v1.12.1
+    rev: 1238e1d8f03e96a7ed9ad44937ea4348eb6b11b8  # frozen: 1.13.0
     hooks:
       # Config file: same as `black`
       # Inline skip: same as `black`
@@ -221,7 +221,7 @@ repos:
 
   # several python code regex hooks
   - repo: https://github.com/pre-commit/pygrep-hooks
-    rev: 6f51a66bba59954917140ec2eeeaa4d5e630e6ce # frozen: v1.9.0
+    rev: 3a6eb0fadf60b3cccfd80bad9dbb6fae7e47b316  # frozen: v1.10.0
     hooks:
       - id: python-check-blanket-noqa
       - id: python-check-blanket-type-ignore
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: ea12a608b8b1bbe99717051f33dd74b22e2fae52 # frozen: v2.15.10
+    rev: 361a1f7533ccfcec58eb10fb517cc5b278fec411  # frozen: v2.16.0b0
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -286,7 +286,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 356c4b238462d33e78eee858573c5284c69f2214 # frozen: 1.3.1
+    rev: 62a6dec756dcc01ce336d2af971214a30fae3974  # frozen: 1.3.2
     hooks:
       - id: poetry-check
 
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 3599f4e6b9572cc651704f1a70fc5d328a398eeb # frozen: v8.31.0
+    rev: 4c1fa5ade3e21ea16e6765524955201c521bc1f9  # frozen: v8.32.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -435,7 +435,7 @@ repos:
 
   # yamllint - yaml linter
   - repo: https://github.com/adrienverge/yamllint
-    rev: 9cce2940414e9560ae4c8518ddaee2ac1863a4d2 # frozen: v1.28.0
+    rev: b9e1fd18c1acbaa4b0028196f8925ce4e91970d9  # frozen: v1.29.0
     hooks:
       # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
