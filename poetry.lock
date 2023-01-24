@@ -291,14 +291,14 @@ pygments = ["pygments (>=2.2.0)"]
 
 [[package]]
 name = "diff-cover"
-version = "6.4.4"
+version = "7.3.2"
 description = "Run coverage and linting reports on diffs"
 category = "main"
 optional = true
-python-versions = ">=3.6.2,<4.0.0"
+python-versions = ">=3.7.2,<4.0.0"
 files = [
-    {file = "diff_cover-6.4.4-py3-none-any.whl", hash = "sha256:d89c165d3c852c3c10e9f969236e08d413225ce52be8e2477be2a070987229bf"},
-    {file = "diff_cover-6.4.4.tar.gz", hash = "sha256:b1d782c1ce53ad4b2c5545f8b7aa799eb61a0b12a62b376a18e2313c6f2d77f1"},
+    {file = "diff_cover-7.3.2-py3-none-any.whl", hash = "sha256:54d2ab3a00f5f82d8a3d655763205ff549b671fb32c457bffa11c98e9f1b3383"},
+    {file = "diff_cover-7.3.2.tar.gz", hash = "sha256:cca1ad3fa48b374643cce8bda465b257a0a439624566bed1a5dfc27e70afa3df"},
 ]
 
 [package.dependencies]
@@ -308,7 +308,7 @@ pluggy = ">=0.13.1,<2"
 Pygments = ">=2.9.0,<3.0.0"
 
 [package.extras]
-toml = ["tomli (>=1.2.1,<2.0.0)"]
+toml = ["tomli (>=1.2.1)"]
 
 [[package]]
 name = "dill"
