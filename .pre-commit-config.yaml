@@ -85,7 +85,7 @@ repos:
 
   # isort - sort imports
   - repo: https://github.com/PyCQA/isort
-    rev: dbf82f2dd09ae41d9355bcd7ab69187a19e6bf2f  # frozen: 5.12.0
+    rev: dbf82f2dd09ae41d9355bcd7ab69187a19e6bf2f # frozen: 5.12.0
     hooks:
       # Config file: pyproject.toml | .isort.cfg | tox.ini |
       #     https://pycqa.github.io/isort/docs/configuration/config_files
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: a3d7b59e3f7ff1aba53553466cf07e6ec7c7e426  # frozen: v8.33.0
+    rev: a3d7b59e3f7ff1aba53553466cf07e6ec7c7e426 # frozen: v8.33.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -448,6 +448,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 6abb05a60c4087a10c6ce196cd3a8bce065fa6f1  # frozen: v3.0.2
+    rev: 6abb05a60c4087a10c6ce196cd3a8bce065fa6f1 # frozen: v3.0.2
     hooks:
       - id: validate_manifest
