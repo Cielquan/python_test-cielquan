@@ -94,7 +94,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: 2ddea293a88919650266472186620a98a4a8bb37 # frozen: 22.12.0
+    rev: b0d1fba7ac3be53c71fb0d3211d911e629f8aecb  # frozen: 23.1.0
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 8885a575151715f99f1914f824cb3f4efa75f452 # frozen: v2.16.0b1
+    rev: f48ec66d04429721ddfdf1613e33f6545a3da72e  # frozen: v2.16.1
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -448,6 +448,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 6abb05a60c4087a10c6ce196cd3a8bce065fa6f1 # frozen: v3.0.2
+    rev: 0359fae2da2aadb2fbd3afae1777edd3aa856cc9  # frozen: v3.0.4
     hooks:
       - id: validate_manifest
