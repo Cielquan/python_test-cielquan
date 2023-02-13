@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 057c203864ce0d55928d1fde7ad08a07f239945b  # frozen: v8.34.0
+    rev: 057c203864ce0d55928d1fde7ad08a07f239945b # frozen: v8.34.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -364,7 +364,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 3624c83c2b30f9eab39ccba5bafd6623e38e7335  # frozen: v15.1.0
+    rev: 3624c83c2b30f9eab39ccba5bafd6623e38e7335 # frozen: v15.1.0
     hooks:
       - id: stylelint
         additional_dependencies:
