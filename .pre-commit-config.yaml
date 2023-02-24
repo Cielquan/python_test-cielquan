@@ -85,7 +85,7 @@ repos:
 
   # isort - sort imports
   - repo: https://github.com/PyCQA/isort
-    rev: 4e97b170469b7c8ef29afe944ebfb057791457aa # frozen: 5.11.4
+    rev: dbf82f2dd09ae41d9355bcd7ab69187a19e6bf2f # frozen: 5.12.0
     hooks:
       # Config file: pyproject.toml | .isort.cfg | tox.ini |
       #     https://pycqa.github.io/isort/docs/configuration/config_files
@@ -94,7 +94,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: 2ddea293a88919650266472186620a98a4a8bb37 # frozen: 22.12.0
+    rev: b0d1fba7ac3be53c71fb0d3211d911e629f8aecb # frozen: 23.1.0
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 8885a575151715f99f1914f824cb3f4efa75f452 # frozen: v2.16.0b1
+    rev: f48ec66d04429721ddfdf1613e33f6545a3da72e # frozen: v2.16.1
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 4c1fa5ade3e21ea16e6765524955201c521bc1f9 # frozen: v8.32.0
+    rev: 057c203864ce0d55928d1fde7ad08a07f239945b # frozen: v8.34.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -364,7 +364,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 9c2e22dde79e317449d2387d9c7d9672366d3a4c # frozen: v14.16.1
+    rev: 3624c83c2b30f9eab39ccba5bafd6623e38e7335 # frozen: v15.1.0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -448,6 +448,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 40c5bdad65da4015af0e5ffe88227053109aecf3 # frozen: v2.21.0
+    rev: 0359fae2da2aadb2fbd3afae1777edd3aa856cc9 # frozen: v3.0.4
     hooks:
       - id: validate_manifest
