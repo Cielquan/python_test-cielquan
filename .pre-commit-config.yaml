@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: f48ec66d04429721ddfdf1613e33f6545a3da72e # frozen: v2.16.1
+    rev: 0006ae993340aecf1eefdc402bc58a6e611a1586  # frozen: v2.16.2
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -323,7 +323,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 057c203864ce0d55928d1fde7ad08a07f239945b # frozen: v8.34.0
+    rev: b42e4193cbd0bd8b031002c6cd87440b5bb5bc15  # frozen: v8.35.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -364,7 +364,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 3624c83c2b30f9eab39ccba5bafd6623e38e7335 # frozen: v15.1.0
+    rev: ce295bbd10748a0076ac9b801fb6afca5050e1e1  # frozen: v15.2.0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -448,6 +448,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 0359fae2da2aadb2fbd3afae1777edd3aa856cc9 # frozen: v3.0.4
+    rev: 294590fd124484a786ba90423fa5d89536a6de98  # frozen: v3.1.0
     hooks:
       - id: validate_manifest
