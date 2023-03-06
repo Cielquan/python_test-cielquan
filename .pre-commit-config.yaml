@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: d1b667cf10d9ee3e488bf79382509cd70f2325a8  # frozen: 1.4.0
+    rev: d1b667cf10d9ee3e488bf79382509cd70f2325a8 # frozen: 1.4.0
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -136,7 +136,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: 6f3cb139ef36133b6f903b97facc57b07cef57c9  # frozen: v3.0.0-alpha.6
+    rev: 6f3cb139ef36133b6f903b97facc57b07cef57c9 # frozen: v3.0.0-alpha.6
     hooks:
       - id: prettier
         additional_dependencies:
@@ -272,7 +272,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 8e7b809806ef94818ae595d4b654f398a3030dbe  # frozen: v2.16.4
+    rev: 8e7b809806ef94818ae595d4b654f398a3030dbe # frozen: v2.16.4
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -286,7 +286,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: d1b667cf10d9ee3e488bf79382509cd70f2325a8  # frozen: 1.4.0
+    rev: d1b667cf10d9ee3e488bf79382509cd70f2325a8 # frozen: 1.4.0
     hooks:
       - id: poetry-check
 
@@ -448,6 +448,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 2822de9aa6284f2de1c5ff8d0884b38bc553afa5  # frozen: v3.1.1
+    rev: 2822de9aa6284f2de1c5ff8d0884b38bc553afa5 # frozen: v3.1.1
     hooks:
       - id: validate_manifest
