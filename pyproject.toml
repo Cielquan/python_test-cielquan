@@ -148,49 +148,21 @@ python_version = 3.8  # CHANGE ME
 
 
 # -- FLAKEHEAVEN CONFIG ----------------------------------------------------------------
+# [tool.flakeheaven]
+# base = ["https://raw.githubusercontent.com/Cielquan/my-flake8-plugins/v1.2.0/flakeheaven-base.toml"]
+# min_python_version = "3.8"  # CHANGE ME
+
+
 [tool.flakeheaven]
-base = ["https://raw.githubusercontent.com/Cielquan/my-flake8-plugins/v1.2.0/flakeheaven-base.toml"]
-min_python_version = "3.8"  # CHANGE ME
+max_cognitive_complexity = 10
+extend_select = ["B950"]
+
 
 
 # -- PYLINT CONFIG --------------------------------------------------------------------
 [tool.pylint]
   [tool.pylint.master]
   additional-builtins = "tags"
-
-  [tool.pylint.messages_control]
-  disable = [
-    # deactivate because double check
-    # https://github.com/PyCQA/pylint/issues/3512
-    "C0103",  # invalid-name - [pep8-naming]
-    "C0113",  # unneeded-not - F713[flake8]
-    "C0114",  # missing-module-docstring - D100,D104[flake8]
-    "C0115",  # missing-class-docstring - D101,D106[flake8]
-    "C0116",  # missing-function-docstring - D102,D103,D105[flake8]
-    "C0301",  # line-too-long - E501[pycodestyle]
-    "C0303",  # trailing-whitespace - W291,W293[falke8]
-    "C0304",  # missing-final-newline - W292[falke8]
-    "C0305",  # trailing-newlines - W291[falke8]
-    "C0321",  # multiple-statements - E701[falke8]
-    "C0326",  # bad-whitespace - E201,E202,E225[falke8]
-    "C0330",  # bad-continuation - E129[falke8]
-    "C0411",  # wrong-import-order - I202[flake8]
-    "C0413",  # wrong-import-position - E402[flake8]
-    "E0602",  # undefined-variable - F821[flake8]
-    "R0912",  # too-many-branches - C901[flake8]
-    "W0301",  # unnecessary-semicolon - E703[flake8]
-    "W0311",  # bad-indentation - E111[flake8]
-    "W0312",  # mixed-indentation - W191[flake8]
-    "W0611",  # unused-import - F401[flake8]
-    "W0612",  # unused-variable - F841[flake8]
-    "W0702",  # bare-except - E722[pycodestyle]
-    # deactivate because unwanted
-    "C040?",  # spelling
-    "W0511",  # fixme
-    "R0903",  # too-few-public-methods
-    # deactivate because of bugs
-    "W1203",  # Use % format in logger funcs | https://github.com/PyCQA/pylint/issues/2354
-  ]
 
   [tool.pylint.spelling]
   spelling-dict = "en_US"
@@ -261,3 +233,146 @@ junit_family = "xunit2"
 [tool.rstcheck]
 ignore_directives = ["mdinclude", "spelling", "click", "jira_issue"]
 ignore_roles = ["repo", "issue", "pull", "user"]
+
+
+# -- RUFF CONFIG ----------------------------------------------------------------------
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+format = "grouped"
+show-fixes = true
+show-source = true
+src = ["src"]
+task-tags = ["TODO", "FIXME", "XXX", "NOTE", "BUG", "HACK"]
+typing-modules = []
+extend-exclude = [
+  "*venv*/",
+  "*.tox/",
+  "*.nox/",
+  "_backupfiles/",
+  "*.bak.*"
+]
+
+select = [
+  "A",   # flake8-builtins
+  "ANN", # flake8-annotations
+  "ARG", # flake8-unused-arguments
+  "B",   # flake8-bugbear
+  "BLE", # flake8-blind-except
+  "C4",  # flake8-comprehensions
+  "C90", # mccabe
+  # "COM", # flake8-commas # black does that
+  "D",   # pydocstyle
+  "DJ",  # flake8-django
+  "DTZ", # flake8-datetimez
+  "E",   # pycodestyle
+  "EM",  # flake8-errmsg
+  "ERA", # flake8-eradicate
+  "EXE", # flake8-executable
+  "F",   # pyflakes
+  "FBT", # flake8-boolean-trap # TODO: check
+  "G",   # flake8-logging-format
+  "I",   # isort
+  "ICN", # flake8-import-conventions
+  "INP", # flake8-no-pep420
+  "ISC", # flake8-implicit-str-concat
+  "N",   # pep8-naming
+  "NPY", # NumPy-specific rules
+  "PD",  # flake8-vet
+  "PGH", # pygrep-hooks
+  "PIE", # flake8-pie
+  "PLC", # Pylint - Convention
+  "PLE", # Pylint - Error
+  "PLR", # Pylint - Refactor
+  "PLW", # Pylint - Warning
+  "PT",  # flake8-pytest-style
+  "PTH", # flake8-use-pathlib
+  "PYI", # flake8-pyi
+  "Q",   # flake8-quotes
+  "RET", # flake8-return
+  "RUF", # Ruff-specific rules
+  "RSE", # flake8-raise
+  "S",   # flake8-bandit
+  "SLF", # flake8-self
+  "SIM", # flake8-simplify
+  # "T10", # flake8-debugger # pre-commit hook does that
+  "T20", # flake8-print
+  "TCH", # flake8-type-checking
+  "TID", # flake8-tidy-imports
+  "TRY", # tryceratops
+  "UP",  # pyupgrade
+  "W",   # pycodestyle
+  "YTT", # flake8-2020
+]
+
+ignore = [
+  # deactivate because unwanted
+  "ANN101", # type self
+  "E501",  # line length
+  "E731",  # forbids lambda
+  "G001",  # Logging statements should not use string.format() for their first argument
+  "G002",  # Logging statements should not use % formatting for their first argument
+  "G003",  # Logging statements should not use + concatenation for their first argument
+  "PT011", # Use match for specific exceptions in pytest.raises
+  "S110",  # try-except-pass - same as SIM105[flake8-simplify]
+
+  # # flake8-rst-docstrings
+  # "RST303",  # Unknown directive type
+  # "RST304",  # Unknown interpreted text role
+  # # flake8-use-fstring
+  # "FS003",  # f-string missing prefix | can be % string
+]
+unfixable = ["ERA001"]
+
+[tool.ruff.per-file-ignores]
+"tests/*" = [
+  "ARG",  # unused arguments
+  "S101",  # assert used
+]
+"__init__.py" = [
+  "PLC0414",  # useless-import-alias
+]
+
+[tool.ruff.flake8-annotations]
+suppress-dummy-args = true
+
+[tool.ruff.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query"] # CHANGE ME
+
+[tool.ruff.flake8-builtins]
+builtins-ignorelist = ["id"] # CHANGE ME
+
+[tool.ruff.flake8-import-conventions]
+extend-aliases = {typing = "t"}
+
+[tool.ruff.flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
+
+[tool.ruff.flake8-quotes]
+avoid-escape = true # NOTE: DEFAULT
+
+[tool.ruff.flake8-tidy-imports]
+ban-relative-imports = "parents"
+
+# TODO: check defaults when change lands
+# [tool.ruff.flake8-type-checking]
+# runtime-evaluated-decorators = ["attrs.define", "attrs.frozen"]
+# runtime-evaluated-baseclasses = ["pydantic.BaseModel"]
+
+[tool.ruff.isort]
+combine-as-imports = true
+lines-after-imports = 2
+
+[tool.ruff.mccabe]
+max-complexity = 20
+
+[tool.ruff.pep8-naming]
+classmethod-decorators = ["pydantic.validator"] # CHANGE ME
+
+[tool.ruff.pycodestyle]
+ignore-overlong-task-comments = true
+max-doc-length = 100
+
+[tool.ruff.pydocstyle]
+convention = "pep257"
