@@ -108,6 +108,9 @@ env.bak/
 # mypy
 .mypy_cache/
 
+# ruff
+.ruff_cache/
+
 # IDE folder
 .idea/
 .vscode/
