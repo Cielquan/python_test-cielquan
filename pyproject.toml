@@ -255,3 +255,9 @@ junit_family = "xunit2"
     py-ue-37 = "sys_version_info[0:2] != (3, 7)"
     py-lt-38 = "sys_version_info < (3, 8)"
     py-gte-38 = "sys_version_info >= (3, 8)"
+
+
+# -- RSTCHECK CONFIG ------------------------------------------------------------------
+[tool.rstcheck]
+ignore_directives = ["mdinclude", "spelling", "click", "jira_issue"]
+ignore_roles = ["repo", "issue", "pull", "user"]
