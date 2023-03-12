@@ -76,6 +76,13 @@ repos:
   # Python
   # ----------------------------------------------
 
+  # ruff - python linter with fixing ability
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: 9db230353b823e61e76b88bf2272329e3ad32c3a  # frozen: v0.0.254
+    hooks:
+      - id: ruff
+        args: ["--fix-only", "--exit-non-zero-on-fix"]
+
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
     rev: 01cee377ba3a5264c7fbe7b6beae7b575f764dc3 # frozen: v3.3.1
@@ -208,6 +215,12 @@ repos:
   # ----------------------------------------------
   # Python
   # ----------------------------------------------
+
+  # ruff - python linter with fixing ability
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: 9db230353b823e61e76b88bf2272329e3ad32c3a  # frozen: v0.0.254
+    hooks:
+      - id: ruff
 
   # python specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
