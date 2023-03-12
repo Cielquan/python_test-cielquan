@@ -232,7 +232,6 @@ repos:
       - id: fix-encoding-pragma
         args: ["--remove"]
       - id: name-tests-test
-        args: ["--pytest-test-first"]
 
   # TODO:#i# remove b/c all are/will be impl by ruff
   # several python code regex hooks
