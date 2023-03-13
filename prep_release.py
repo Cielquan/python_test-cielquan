@@ -16,7 +16,7 @@ Call this for more information on usage::
 """
 import argparse
 import re
-import subprocess  # noqa: S404
+import subprocess
 import sys
 from datetime import date
 
@@ -35,7 +35,7 @@ class PyprojectError(Exception):
     """Exception for lookup errors in pyproject.toml file."""
 
 
-def _get_config_value(section: str, key: str) -> str:  # noqa: CCR001
+def _get_config_value(section: str, key: str) -> str:
     """Extract a config value from pyproject.toml file.
 
     :return: config value
@@ -170,7 +170,7 @@ def update_changelog(
 
 def commit_and_tag(version: str) -> None:
     """Git commit and tag the new release."""
-    subprocess.run(  # noqa: S603,S607
+    subprocess.run(
         [
             "git",
             "commit",
@@ -182,9 +182,7 @@ def commit_and_tag(version: str) -> None:
         ],
         check=True,
     )
-    subprocess.run(  # noqa: S603,S607
-        ["git", "tag", "-am", f"'v{version}'", f"v{version}"], check=True
-    )
+    subprocess.run(["git", "tag", "-am", f"'v{version}'", f"v{version}"], check=True)
 
 
 def _parser() -> argparse.Namespace:
@@ -216,7 +214,7 @@ def _main() -> int:
     if args.first_release:
         release_version = _get_config_value("[tool.poetry]", "version")
         #: Get first commit
-        current_version = subprocess.run(  # noqa: S603,S607
+        current_version = subprocess.run(
             ["git", "rev-list", "--max-parents=0", "HEAD"],
             check=True,
             capture_output=True,
