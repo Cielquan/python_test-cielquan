@@ -6,7 +6,7 @@
 
     :copyright: (c) 2019-2020, Christian Riedel and AUTHORS
     :license: GPL-3.0-or-later, see LICENSE for details
-"""  # noqa: D205,D208,D400,RST399
+"""  # noqa: D205, D208, D400
 # pylint: disable=C0103
 import os
 import re
@@ -14,7 +14,6 @@ import shutil
 from datetime import date
 from importlib.util import find_spec
 from pathlib import Path
-from typing import List
 
 import sphinx_rtd_theme
 from sphinx.application import Sphinx
@@ -39,7 +38,7 @@ project = __project__.replace("-", "_")
 author = __author__
 CREATION_YEAR = 2019  # CHANGE ME
 CURRENT_YEAR = f"{date.today().year}"
-copyright = (  # noqa: VNE003 # pylint: disable=W0622
+copyright = (
     f"{CREATION_YEAR}{('-' + CURRENT_YEAR) if CURRENT_YEAR != CREATION_YEAR else ''}, "
     + f"{author} and AUTHORS"
 )
@@ -52,9 +51,9 @@ RELEASE_LEVEL = None if not version_parts else version_parts.group("tag")
 
 
 #: -- GENERAL CONFIG -------------------------------------------------------------------
-extensions: List[str] = []
+extensions: list[str] = []
 today_fmt = "%Y-%m-%d"
-exclude_patterns: List[str] = []  #: Files to exclude for source of doc
+exclude_patterns: list[str] = []  #: Files to exclude for source of doc
 
 #: Added dirs for static and template files if they exist
 html_static_path = ["_static"] if Path("_static").exists() else []
@@ -144,7 +143,7 @@ else:
 extensions.append("sphinx.ext.autodoc")
 autodoc_typehints = "description"
 autodoc_member_order = "bysource"
-autodoc_mock_imports: List[str] = []
+autodoc_mock_imports: list[str] = []
 autodoc_default_options = {"members": True}
 
 

@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 9db230353b823e61e76b88bf2272329e3ad32c3a  # frozen: v0.0.254
+    rev: 9db230353b823e61e76b88bf2272329e3ad32c3a # frozen: v0.0.254
     hooks:
       - id: ruff
         args: ["--fix-only", "--exit-non-zero-on-fix"]
@@ -220,7 +220,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 9db230353b823e61e76b88bf2272329e3ad32c3a  # frozen: v0.0.254
+    rev: 9db230353b823e61e76b88bf2272329e3ad32c3a # frozen: v0.0.254
     hooks:
       - id: ruff
 
@@ -289,7 +289,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 2e78c414d24c9819936351c133b3edcad970abaa  # frozen: v2.17.0
+    rev: 2e78c414d24c9819936351c133b3edcad970abaa # frozen: v2.17.0
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -340,7 +340,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: db248993f1ff4b83c84865f849ce985052c8c3b1  # frozen: v8.36.0
+    rev: db248993f1ff4b83c84865f849ce985052c8c3b1 # frozen: v8.36.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -406,7 +406,7 @@ repos:
 
   # rstcheck - rst file checker
   - repo: https://github.com/rstcheck/rstcheck
-    rev: 165c37523acb08cc649f44d378c80266ce451c2a  # frozen: v6.1.2
+    rev: 165c37523acb08cc649f44d378c80266ce451c2a # frozen: v6.1.2
     hooks:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
