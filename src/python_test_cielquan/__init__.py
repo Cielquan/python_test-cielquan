@@ -7,7 +7,6 @@
     :copyright: (c) 2019-2020, Christian Riedel and AUTHORS
     :license: GPL-3.0-or-later, see LICENSE for details
 """  # noqa: D205,D208,D400
-from typing import List
 
 
 try:
@@ -16,7 +15,7 @@ except ModuleNotFoundError:  # pragma: py-gte-38
     from importlib_metadata import metadata as get_md  # type: ignore[import,no-redef]
 
 
-def _get_gh_repo_link(metadata_list: List[str]) -> str:
+def _get_gh_repo_link(metadata_list: list[str]) -> str:
     #: Extract Project-URLs from metadata
     urls = (line[13:] for line in metadata_list if line.startswith("Project-URL"))
     url_map = {url[: url.find(",")]: url[url.find("http") :] for url in urls}
