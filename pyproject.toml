@@ -355,10 +355,9 @@ avoid-escape = true # NOTE: DEFAULT
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "parents"
 
-# TODO: check defaults when change lands
-# [tool.ruff.flake8-type-checking]
-# runtime-evaluated-decorators = ["attrs.define", "attrs.frozen"]
-# runtime-evaluated-baseclasses = ["pydantic.BaseModel"]
+[tool.ruff.flake8-type-checking]
+runtime-evaluated-decorators = ["attrs.define", "attrs.frozen"]
+runtime-evaluated-baseclasses = ["pydantic.BaseModel"]
 
 [tool.ruff.isort]
 combine-as-imports = true
