@@ -308,6 +308,7 @@ select = [
 ignore = [
   # deactivate because unwanted
   "ANN101", # type self
+  "ANN102", # type cls
   "E501",  # line length
   "E731",  # forbids lambda
   "G001",  # Logging statements should not use string.format() for their first argument
