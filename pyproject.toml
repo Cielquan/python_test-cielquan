@@ -357,11 +357,12 @@ ban-relative-imports = "parents"
 
 [tool.ruff.flake8-type-checking]
 runtime-evaluated-decorators = ["attrs.define", "attrs.frozen"]
-runtime-evaluated-baseclasses = ["pydantic.BaseModel"]
+runtime-evaluated-base-classes = ["pydantic.BaseModel"]
 
 [tool.ruff.isort]
 combine-as-imports = true
 lines-after-imports = 2
+required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.mccabe]
 max-complexity = 20
