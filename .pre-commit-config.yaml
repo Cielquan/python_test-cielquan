@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: d1b667cf10d9ee3e488bf79382509cd70f2325a8 # frozen: 1.4.0
+    rev: 86ee4b1b1af5187c2d2a696df86abe5a806ab7e1  # frozen: 1.4.1
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 9db230353b823e61e76b88bf2272329e3ad32c3a # frozen: v0.0.254
+    rev: e812d61e6e9d269f44ecda63904ed670a1948fe8  # frozen: v0.0.257
     hooks:
       - id: ruff
         args: ["--fix-only", "--exit-non-zero-on-fix"]
@@ -220,7 +220,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 9db230353b823e61e76b88bf2272329e3ad32c3a # frozen: v0.0.254
+    rev: e812d61e6e9d269f44ecda63904ed670a1948fe8  # frozen: v0.0.257
     hooks:
       - id: ruff
 
@@ -303,7 +303,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: d1b667cf10d9ee3e488bf79382509cd70f2325a8 # frozen: 1.4.0
+    rev: 86ee4b1b1af5187c2d2a696df86abe5a806ab7e1  # frozen: 1.4.1
     hooks:
       - id: poetry-check
 
@@ -381,7 +381,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: ce295bbd10748a0076ac9b801fb6afca5050e1e1 # frozen: v15.2.0
+    rev: feb7bf070b3e7fd203fd351b9f22533127abc9a6  # frozen: v15.3.0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -465,6 +465,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 2822de9aa6284f2de1c5ff8d0884b38bc553afa5 # frozen: v3.1.1
+    rev: df2cada973da6ee689cbc8e323caccf5c00df92c  # frozen: v3.2.0
     hooks:
       - id: validate_manifest
