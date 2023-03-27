@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 13eadaf3e8d5714c3cdd0b38c907107a641c635d  # frozen: v0.0.259
+    rev: 13eadaf3e8d5714c3cdd0b38c907107a641c635d # frozen: v0.0.259
     hooks:
       - id: ruff
         args: ["--fix-only", "--exit-non-zero-on-fix"]
@@ -220,7 +220,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 13eadaf3e8d5714c3cdd0b38c907107a641c635d  # frozen: v0.0.259
+    rev: 13eadaf3e8d5714c3cdd0b38c907107a641c635d # frozen: v0.0.259
     hooks:
       - id: ruff
 
@@ -289,7 +289,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: b9c1ab3cd5323f5cb305a12c9e105102e4200ead  # frozen: v2.17.1
+    rev: b9c1ab3cd5323f5cb305a12c9e105102e4200ead # frozen: v2.17.1
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -452,7 +452,7 @@ repos:
 
   # yamllint - yaml linter
   - repo: https://github.com/adrienverge/yamllint
-    rev: 9d0f59876dc6882e263b2657ab42a1ced4c0207d  # frozen: v1.30.0
+    rev: 9d0f59876dc6882e263b2657ab42a1ced4c0207d # frozen: v1.30.0
     hooks:
       # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
@@ -465,6 +465,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: bb49560dc99a65608c8f9161dd71467af163c0d1  # frozen: v3.2.1
+    rev: bb49560dc99a65608c8f9161dd71467af163c0d1 # frozen: v3.2.1
     hooks:
       - id: validate_manifest
