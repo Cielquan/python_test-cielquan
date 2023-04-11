@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 3c6d40da8d90069e86c0ba3942239d773aadad1a # frozen: v0.0.260
+    rev: f6346ef27faac608d493bf3926528b308d175d9e # frozen: v0.0.261
     hooks:
       - id: ruff
         args: ["--fix-only", "--exit-non-zero-on-fix"]
@@ -220,7 +220,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 3c6d40da8d90069e86c0ba3942239d773aadad1a # frozen: v0.0.260
+    rev: f6346ef27faac608d493bf3926528b308d175d9e # frozen: v0.0.261
     hooks:
       - id: ruff
 
@@ -340,7 +340,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 99d879461a1c306805e4eb992dfdb36143fb072c # frozen: v8.37.0
+    rev: ff097a6c23fa8ec909e033ea0c2633f9d62da06e # frozen: v8.38.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -465,6 +465,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: bb49560dc99a65608c8f9161dd71467af163c0d1 # frozen: v3.2.1
+    rev: 5027592625f8df286dea831e84e7bf83021b7c1b # frozen: v3.2.2
     hooks:
       - id: validate_manifest
