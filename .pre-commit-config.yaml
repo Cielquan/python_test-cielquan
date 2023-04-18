@@ -247,7 +247,7 @@ repos:
   # TODO:#i# remove b/c ruff
   # flakeheaven - wrapper for flake8
   - repo: https://github.com/flakeheaven/flakeheaven
-    rev: "4cd049b3b188a32435fa2020f84625b5bd9c53d7" # frozen: 3.2.1
+    rev: "289c489c9654342dae2ad871527c5951acb2f22d" # frozen: 3.3.0
     hooks:
       # flake8 - python linter
       # Inline skip file: `# flake8: noqa`
@@ -381,7 +381,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: d808d7c2d33cb9ab3d0c91c4636da70380d07ccb # frozen: v15.4.0
+    rev: 9f112c04025c2a01eb255c7f3ed1e374380e5dea # frozen: v15.5.0
     hooks:
       - id: stylelint
         additional_dependencies:
