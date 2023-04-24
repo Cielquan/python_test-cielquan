@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 343c49ab887fa4e5724ceb86c9c3678e647c94c2  # frozen: v0.0.262
+    rev: 343c49ab887fa4e5724ceb86c9c3678e647c94c2 # frozen: v0.0.262
     hooks:
       - id: ruff
         args: ["--fix-only", "--exit-non-zero-on-fix"]
@@ -145,7 +145,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: 6fd1ced85fc139abd7f5ab4f3d78dab37592cd5e  # frozen: v3.0.0-alpha.9-for-vscode
+    rev: 6fd1ced85fc139abd7f5ab4f3d78dab37592cd5e # frozen: v3.0.0-alpha.9-for-vscode
     hooks:
       - id: prettier
         additional_dependencies:
@@ -220,7 +220,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 343c49ab887fa4e5724ceb86c9c3678e647c94c2  # frozen: v0.0.262
+    rev: 343c49ab887fa4e5724ceb86c9c3678e647c94c2 # frozen: v0.0.262
     hooks:
       - id: ruff
 
@@ -340,7 +340,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 5af581dc3a2ed1b84ffd1aeee935b088ef5256e5  # frozen: v8.39.0
+    rev: 5af581dc3a2ed1b84ffd1aeee935b088ef5256e5 # frozen: v8.39.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -381,7 +381,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 3de6b83cfeea08cd71ba14d3515e425f0fe65bf1  # frozen: v15.6.0
+    rev: 3de6b83cfeea08cd71ba14d3515e425f0fe65bf1 # frozen: v15.6.0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -418,7 +418,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: e54fbe250d287fd6f09363395343887a999963c5  # frozen: v0.7.0
+    rev: e54fbe250d287fd6f09363395343887a999963c5 # frozen: v0.7.0
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
@@ -452,7 +452,7 @@ repos:
 
   # yamllint - yaml linter
   - repo: https://github.com/adrienverge/yamllint
-    rev: 98f2281f56be5503f3851e74556e1122fc18b2a8  # frozen: v1.31.0
+    rev: 98f2281f56be5503f3851e74556e1122fc18b2a8 # frozen: v1.31.0
     hooks:
       # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
