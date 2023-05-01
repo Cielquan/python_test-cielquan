@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 2c3a89a6fd956d81c4ad9925af758b451ef2227f  # frozen: v0.0.263
+    rev: 2c3a89a6fd956d81c4ad9925af758b451ef2227f # frozen: v0.0.263
     hooks:
       - id: ruff
         args: ["--fix-only", "--exit-non-zero-on-fix"]
@@ -86,7 +86,7 @@ repos:
   # TODO:#i# remove b/c ruff
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 7c551d39dfa69851607d85392ffa296568e92436  # frozen: v3.3.2
+    rev: 7c551d39dfa69851607d85392ffa296568e92436 # frozen: v3.3.2
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -220,7 +220,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 2c3a89a6fd956d81c4ad9925af758b451ef2227f  # frozen: v0.0.263
+    rev: 2c3a89a6fd956d81c4ad9925af758b451ef2227f # frozen: v0.0.263
     hooks:
       - id: ruff
 
@@ -418,7 +418,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: 22669c403cc8d456394865f16c170c4749c3af11  # frozen: v0.7.1
+    rev: 22669c403cc8d456394865f16c170c4749c3af11 # frozen: v0.7.1
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
