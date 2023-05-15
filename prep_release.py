@@ -24,7 +24,8 @@ from datetime import date
 
 
 if sys.version_info[0:2] <= (3, 6):
-    raise RuntimeError("Script runs only with python 3.7 or newer.")
+    msg = "Script runs only with python 3.7 or newer."
+    raise RuntimeError(msg)
 
 
 PATCH = ("patch", "bugfix")
@@ -58,11 +59,11 @@ def _get_config_value(section: str, key: str) -> str:
             match = re.match(r"\s*" + key + r"""\s?=\s?["']{1}([^"']*)["']{1}.*""", line)
             if match:
                 return match.group(1)
-            raise PyprojectError(
-                f"No value for key '{key}' in {section} section could be extracted."
-            )
+            msg = f"No value for key '{key}' in {section} section could be extracted."
+            raise PyprojectError(msg)
 
-    raise PyprojectError(f"No '{key}' found in {section} section.")
+    msg = f"No '{key}' found in {section} section."
+    raise PyprojectError(msg)
 
 
 def _set_config_value(section: str, key: str, value: str) -> None:
@@ -77,7 +78,8 @@ def _set_config_value(section: str, key: str, value: str) -> None:
             continue
 
         if start and line.strip().startswith("["):
-            raise PyprojectError(f"No '{key}' found in {section} section.")
+            msg = f"No '{key}' found in {section} section."
+            raise PyprojectError(msg)
 
         if start and line.strip().startswith(key):
             match = re.sub(
@@ -104,13 +106,15 @@ def bump_version(release_type: str = "patch") -> str:
     :return: new version string
     """
     if release_type not in PATCH + MINOR + MAJOR:
-        raise ValueError(f"Invalid version increase type: {release_type}")
+        msg = f"Invalid version increase type: {release_type}"
+        raise ValueError(msg)
 
     current_version = _get_config_value("[tool.poetry]", "version")
 
     version_parts = re.match(r"(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)", current_version)
     if not version_parts:
-        raise ValueError(f"Unparsable version: {current_version}")
+        msg = f"Unparsable version: {current_version}"
+        raise ValueError(msg)
 
     if release_type in MAJOR:
         version = f"{int(version_parts.group('major')) + 1}.0.0"

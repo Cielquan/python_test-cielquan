@@ -26,9 +26,8 @@ def _get_gh_repo_link(metadata_list: list[str]) -> str:
         if cat in url_map:
             return url_map[cat].rstrip("/")
 
-    raise AttributeError(  # pragma: no cover
-        "Metadata does not contain a link to source code on github."
-    )
+    msg = "Metadata does not contain a link to source code on github."
+    raise AttributeError(msg)  # pragma: no cover
 
 
 metadata = get_md(__name__)
