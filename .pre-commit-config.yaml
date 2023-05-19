@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 2c3a89a6fd956d81c4ad9925af758b451ef2227f # frozen: v0.0.263
+    rev: 11c1d1d46cde6812135d98d4ae0d2311de64a8dd # frozen: v0.0.267
     hooks:
       - id: ruff
         args: ["--fix-only", "--exit-non-zero-on-fix"]
@@ -86,7 +86,7 @@ repos:
   # TODO:#i# remove b/c ruff
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 7c551d39dfa69851607d85392ffa296568e92436 # frozen: v3.3.2
+    rev: 1395c21a149988e686aef88be48d52ba0d5752f3 # frozen: v3.4.0
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -220,7 +220,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: 2c3a89a6fd956d81c4ad9925af758b451ef2227f # frozen: v0.0.263
+    rev: 11c1d1d46cde6812135d98d4ae0d2311de64a8dd # frozen: v0.0.267
     hooks:
       - id: ruff
 
@@ -340,7 +340,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 5af581dc3a2ed1b84ffd1aeee935b088ef5256e5 # frozen: v8.39.0
+    rev: 0be16b53d49cb281fa25cce4b96cdb1ebfa7c8ce # frozen: v8.40.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -381,7 +381,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 3de6b83cfeea08cd71ba14d3515e425f0fe65bf1 # frozen: v15.6.0
+    rev: 48c339c3ba6ca741ca59f63d1756c2b67fff1275 # frozen: v15.6.1
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -465,6 +465,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 5027592625f8df286dea831e84e7bf83021b7c1b # frozen: v3.2.2
+    rev: 51104fa94a6c3cdf603de2e187284289ea5abcf5 # frozen: v3.3.1
     hooks:
       - id: validate_manifest
