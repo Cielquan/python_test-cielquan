@@ -16,9 +16,9 @@ import shutil
 from datetime import date
 from importlib.util import find_spec
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import sphinx_rtd_theme
-from sphinx.application import Sphinx
 
 from python_test_cielquan import (  # CHANGE ME
     __author__,
@@ -26,6 +26,10 @@ from python_test_cielquan import (  # CHANGE ME
     __project__,
     __version__,
 )
+
+
+if TYPE_CHECKING:
+    from sphinx.application import Sphinx
 
 
 needs_sphinx = "3.1"  #: Minimum Sphinx version to build the docs
