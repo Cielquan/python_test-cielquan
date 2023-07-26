@@ -119,7 +119,7 @@ def bump_version(release_type: str = "patch") -> str:
     if release_type in MAJOR:
         version = f"{int(version_parts.group('major')) + 1}.0.0"
     elif release_type in MINOR:
-        version = f"{version_parts.group('major')}" f".{int(version_parts.group('minor')) + 1}.0"
+        version = f"{version_parts.group('major')}.{int(version_parts.group('minor')) + 1}.0"
     elif release_type in PATCH:
         version = (
             f"{version_parts.group('major')}"
