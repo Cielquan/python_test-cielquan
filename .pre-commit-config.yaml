@@ -60,7 +60,7 @@ repos:
 
   # safety - python dependency vulnerability checker
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: a4a1eb373d8e809534a46855a58be427a0a29219 # frozen: v1.3.1
+    rev: cdd875f1c96ba08362eb92c2b0f6de8d614f2fd1 # frozen: v1.3.2
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 2b844a9c8b9defadd0a0fab39dace0b524999daa # frozen: v0.0.281
+    rev: b9a5dc23ed421f99c0fe14b9ace2cbc7fbf710bd # frozen: v0.0.284
     hooks:
       - id: ruff
         args: ["--fix-only", "--exit-non-zero-on-fix"]
@@ -145,7 +145,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: efd8b1e16f05132acf6edcf2827eeab21e0e00db # frozen: v3.0.0
+    rev: 39f806769667765a1d55ea736d62bb8f72993e01 # frozen: v3.0.1
     hooks:
       - id: prettier
         additional_dependencies:
@@ -220,7 +220,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 2b844a9c8b9defadd0a0fab39dace0b524999daa # frozen: v0.0.281
+    rev: b9a5dc23ed421f99c0fe14b9ace2cbc7fbf710bd # frozen: v0.0.284
     hooks:
       - id: ruff
 
@@ -340,7 +340,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 6b82d01a51d62397e27d8e1d20aa4e02f950a540 # frozen: v8.46.0
+    rev: c8690f99d7540f21c9d362ace1f66e87478e4a69 # frozen: v8.47.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
