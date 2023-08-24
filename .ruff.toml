@@ -1,0 +1,187 @@
+required-version = "0.0.285"
+target-version = "py310"
+line-length = 100
+format = "grouped"
+show-fixes = true
+show-source = true
+task-tags = ["TODO", "FIXME", "XXX", "NOTE", "BUG", "HACK", "CHANGE ME"]
+extend-exclude = [
+  "*venv*/",
+  "*.bak.*",
+]
+src = ["src", "tests"] # CHANGE ME
+typing-modules = [] # CHANGE ME
+logger-objects = [] # CHANGE ME
+
+unfixable = ["ERA001"]
+
+# MISSING
+# flake8-aaa https://github.com/astral-sh/ruff/issues/3462
+# flake8-broken-line https://github.com/astral-sh/ruff/issues/3465
+# flake8-cognitive-complexity https://github.com/astral-sh/ruff/issues/2418 # max_cognitive_complexity = 10
+# flake8-docstrings via pydocstyle?
+# flake8-rst-docstrings = ">=0.2.5" # RST...
+# flake8-sql https://github.com/sqlfluff/sqlfluff/
+# flake8-typing-imports https://github.com/astral-sh/ruff/issues/2302
+# flake8-use-fstring partial via UP031/UP032 https://github.com/astral-sh/ruff/issues/2097
+# flake8-variables-names https://github.com/astral-sh/ruff/issues/3463
+# flake8-walrus https://github.com/astral-sh/ruff/issues/3464
+#########
+
+select = [
+  "A",   # flake8-builtins
+  "AIR", # Airflow
+  "ANN", # flake8-annotations
+  "ARG", # flake8-unused-arguments
+  "ASYNC", # flake8-async
+  "B",   # flake8-bugbear
+  "BLE", # flake8-blind-except
+  "C4",  # flake8-comprehensions
+  "C90", # mccabe
+  # "COM", # flake8-commas # black does that
+  "D",   # pydocstyle
+  "DJ",  # flake8-django
+  "DTZ", # flake8-datetimez
+  "E",   # pycodestyle
+  "EM",  # flake8-errmsg
+  "ERA", # flake8-eradicate
+  "EXE", # flake8-executable
+  "F",   # pyflakes
+  "FA",   # flake8-future-annotations
+  "FBT", # flake8-boolean-trap
+  # "FIX", # flake8-fixme # custom pre-commit hook does with RegEx
+  "FLY", # flynt 
+  "G",   # flake8-logging-format
+  "I",   # isort
+  "ICN", # flake8-import-conventions
+  "INP", # flake8-no-pep420
+  "INT", # flake8-gettext 
+  "ISC", # flake8-implicit-str-concat
+  "N",   # pep8-naming
+  "NPY", # NumPy-specific rules
+  "PD",  # flake8-vet
+  "PERF",  # Perflint
+  "PGH", # pygrep-hooks
+  "PIE", # flake8-pie
+  "PLC", # Pylint - Convention
+  "PLE", # Pylint - Error
+  "PLR", # Pylint - Refactor
+  "PLW", # Pylint - Warning
+  "PT",  # flake8-pytest-style
+  "PTH", # flake8-use-pathlib
+  "PYI", # flake8-pyi
+  "Q",   # flake8-quotes
+  "RET", # flake8-return
+  "RUF", # Ruff-specific rules
+  "RSE", # flake8-raise
+  "S",   # flake8-bandit
+  "SLF", # flake8-self
+  "SLOT", # flake8-slots
+  "SIM", # flake8-simplify
+  # "T10", # flake8-debugger # pre-commit hook does that
+  "T20", # flake8-print
+  "TCH", # flake8-type-checking
+  # "TD", # flake8-todos # TODO: Check if wanna use this
+  "TID", # flake8-tidy-imports
+  "TRY", # tryceratops
+  "UP",  # pyupgrade
+  "W",   # pycodestyle
+  "YTT", # flake8-2020
+]
+
+ignore = [
+  # deactivate because unwanted
+  "ANN101", # type self
+  "ANN102", # type cls
+  "E501",  # line length
+  "PT011", # Use match for specific exceptions in pytest.raises
+]
+
+[per-file-ignores]
+"**/tests/**" = [
+  "ARG",  # unused arguments
+  "PLR0913",  # Too many arguments to function call
+  "S101",  # assert used
+  "SLF001",  # Private member accessed
+]
+"**/tests/**/*_test.py" = [
+  "FBT001",  # Boolean positional arg in function definition
+]
+"__init__.py" = [
+  "D104",  # Missing docstring in public package
+  "PLC0414",  # useless-import-alias
+]
+"**/migrations/**" = [
+  "INP001",  # implicit-namespace-package
+]
+"**/src/models/**" = [
+  "UP006",  # Use `list` instead of `List` for type annotations
+  "UP007",  # Use `X | Y` for type annotations
+]
+"**/testing/models/**" = [
+  "UP006",  # Use `list` instead of `List` for type annotations
+  "UP007",  # Use `X | Y` for type annotations
+]
+
+[flake8-annotations]
+suppress-dummy-args = true
+
+[flake8-bugbear]
+extend-immutable-calls = [ # CHANGE ME
+  "fastapi.Depends",
+  "fastapi.Query",
+]
+
+[flake8-builtins]
+builtins-ignorelist = [ # CHANGE ME
+  "id",
+]
+
+[flake8-import-conventions.extend-aliases] # CHANGE ME
+"typing" = "t"
+
+[flake8-pytest-style]
+fixture-parentheses = false
+mark-parentheses = false
+
+[flake8-type-checking]
+runtime-evaluated-base-classes = [ # CHANGE ME
+  "pydantic.BaseModel",
+  "sqlalchemy.orm.DeclarativeBase",
+]
+runtime-evaluated-decorators = [ # CHANGE ME
+  "attrs.define",
+  "attrs.frozen",
+]
+
+[isort]
+combine-as-imports = true
+lines-after-imports = 2
+known-first-party = [] # CHANGE ME
+known-third-party = [] # CHANGE ME
+required-imports = [ # CHANGE ME
+  "from __future__ import annotations",
+]
+
+[mccabe]
+max-complexity = 20
+
+[pep8-naming]
+classmethod-decorators = [ # CHANGE ME
+  "pydantic.validator",
+]
+staticmethod-decorators = [] # CHANGE ME
+
+[pycodestyle]
+ignore-overlong-task-comments = true
+max-doc-length = 100
+
+[pydocstyle]
+convention = "pep257"
+ignore-decorators = [ # CHANGE ME
+  "typing.overload",
+]
+property-decorators = []
+
+[pylint]
+max-args = 6
