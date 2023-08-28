@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 922851ade62d12cd103513b8c1046db0992d6a39 # frozen: 1.5.1
+    rev: de4d70d4adc6e729486dddbbbdf74c8f7ba15a6c  # frozen: 1.6.1
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: b9a5dc23ed421f99c0fe14b9ace2cbc7fbf710bd # frozen: v0.0.284
+    rev: cf997e203947de4c75f8b56165bf356c25eead44  # frozen: v0.0.286
     hooks:
       - id: ruff
         args: ["--fix-only", "--exit-non-zero-on-fix"]
@@ -112,7 +112,7 @@ repos:
 
   # blacken-docs - black for python code in docs (rst/md/tex)
   - repo: https://github.com/asottile/blacken-docs
-    rev: 2e74dc4c30c336176e76e0426c66f09a4e79df9c # frozen: 1.15.0
+    rev: 960ead214cd1184149d366c6d27ca6c369ce46b6  # frozen: 1.16.0
     hooks:
       # Config file: same as `black`
       # Inline skip: same as `black`
@@ -145,7 +145,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: 39f806769667765a1d55ea736d62bb8f72993e01 # frozen: v3.0.1
+    rev: 672abe14d309fc28817d45b6be25ea976a92222a  # frozen: v3.0.2
     hooks:
       - id: prettier
         additional_dependencies:
@@ -220,7 +220,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: b9a5dc23ed421f99c0fe14b9ace2cbc7fbf710bd # frozen: v0.0.284
+    rev: cf997e203947de4c75f8b56165bf356c25eead44  # frozen: v0.0.286
     hooks:
       - id: ruff
 
@@ -289,7 +289,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 0a805f88671eda9820be5b75590db5f4199fc6ba # frozen: v3.0.0a6
+    rev: 3259bc81ec3c92a1f00040f3e036f85d0ffc5da2  # frozen: v3.0.0a7
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -303,7 +303,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 922851ade62d12cd103513b8c1046db0992d6a39 # frozen: 1.5.1
+    rev: de4d70d4adc6e729486dddbbbdf74c8f7ba15a6c  # frozen: 1.6.1
     hooks:
       - id: poetry-check
 
@@ -340,7 +340,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: c8690f99d7540f21c9d362ace1f66e87478e4a69 # frozen: v8.47.0
+    rev: 31bf1d4d184f61583921dd24cd02f383f4a634bf  # frozen: v8.48.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -381,7 +381,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: e95140a797f3c4e0589bb1e57e3a6b2520287d1b # frozen: v15.10.2
+    rev: 2e88f6711adb350a582bd7c0a05e4a0f2206881e  # frozen: v15.10.3
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -418,7 +418,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: 50b923d7df0876a24adca18cbbca57ddfa7369ad # frozen: v0.8.1
+    rev: 5199ad880c218462d54620a41ea08cc210eb1c5f  # frozen: v0.9.2
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
