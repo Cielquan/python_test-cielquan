@@ -50,12 +50,12 @@ select = [
   "FA",   # flake8-future-annotations
   "FBT", # flake8-boolean-trap
   # "FIX", # flake8-fixme # custom pre-commit hook does with RegEx
-  "FLY", # flynt 
+  "FLY", # flynt
   "G",   # flake8-logging-format
   "I",   # isort
   "ICN", # flake8-import-conventions
   "INP", # flake8-no-pep420
-  "INT", # flake8-gettext 
+  "INT", # flake8-gettext
   "ISC", # flake8-implicit-str-concat
   "N",   # pep8-naming
   "NPY", # NumPy-specific rules
