@@ -1,4 +1,3 @@
-required-version = "0.0.285"
 target-version = "py310"
 line-length = 100
 format = "grouped"
@@ -90,6 +89,8 @@ select = [
 ]
 
 ignore = [
+  "RUF100", # TODO:#i# remove after removing flake8 and pylint
+
   # deactivate because unwanted
   "ANN101", # type self
   "ANN102", # type cls
@@ -98,6 +99,9 @@ ignore = [
 ]
 
 [per-file-ignores]
+"*.pyi" = [
+  "TCH",  # don't use type checking blocks in stubs
+]
 "**/tests/**" = [
   "ARG",  # unused arguments
   "PLR0913",  # Too many arguments to function call
@@ -110,17 +114,6 @@ ignore = [
 "__init__.py" = [
   "D104",  # Missing docstring in public package
   "PLC0414",  # useless-import-alias
-]
-"**/migrations/**" = [
-  "INP001",  # implicit-namespace-package
-]
-"**/src/models/**" = [
-  "UP006",  # Use `list` instead of `List` for type annotations
-  "UP007",  # Use `X | Y` for type annotations
-]
-"**/testing/models/**" = [
-  "UP006",  # Use `list` instead of `List` for type annotations
-  "UP007",  # Use `X | Y` for type annotations
 ]
 
 [flake8-annotations]
@@ -147,6 +140,7 @@ mark-parentheses = false
 [flake8-type-checking]
 runtime-evaluated-base-classes = [ # CHANGE ME
   "pydantic.BaseModel",
+  "pydantic.BaseSettings",
   "sqlalchemy.orm.DeclarativeBase",
 ]
 runtime-evaluated-decorators = [ # CHANGE ME
@@ -156,7 +150,6 @@ runtime-evaluated-decorators = [ # CHANGE ME
 
 [isort]
 combine-as-imports = true
-lines-after-imports = 2
 known-first-party = [] # CHANGE ME
 known-third-party = [] # CHANGE ME
 required-imports = [ # CHANGE ME
