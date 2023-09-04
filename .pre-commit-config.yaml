@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: cf997e203947de4c75f8b56165bf356c25eead44  # frozen: v0.0.286
+    rev: cf997e203947de4c75f8b56165bf356c25eead44 # frozen: v0.0.286
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: d8a1be87c7b21e7f8e8d7624a7c62bb5a9825963  # frozen: 2.3.1
+    rev: d8a1be87c7b21e7f8e8d7624a7c62bb5a9825963 # frozen: 2.3.1
     hooks:
       - id: sqlfluff-fix
 
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: cf997e203947de4c75f8b56165bf356c25eead44  # frozen: v0.0.286
+    rev: cf997e203947de4c75f8b56165bf356c25eead44 # frozen: v0.0.286
     hooks:
       - id: ruff
         name: ruff (lint)
