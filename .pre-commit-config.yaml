@@ -77,8 +77,8 @@ repos:
   # ----------------------------------------------
 
   # ruff - python linter with fixing ability
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: cf997e203947de4c75f8b56165bf356c25eead44 # frozen: v0.0.286
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: 47023bed2b253176c10ba0f760c85e952e52e5fd  # frozen: v0.0.287
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -146,7 +146,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: 672abe14d309fc28817d45b6be25ea976a92222a # frozen: v3.0.2
+    rev: fc260393cc4ec09f8fc0a5ba4437f481c8b55dc1  # frozen: v3.0.3
     hooks:
       - id: prettier
         additional_dependencies:
@@ -232,8 +232,8 @@ repos:
   # ----------------------------------------------
 
   # ruff - python linter with fixing ability
-  - repo: https://github.com/charliermarsh/ruff-pre-commit
-    rev: cf997e203947de4c75f8b56165bf356c25eead44 # frozen: v0.0.286
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: 47023bed2b253176c10ba0f760c85e952e52e5fd  # frozen: v0.0.287
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -479,6 +479,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 5da4258b17dea7bd4601358de200e185699f9997 # frozen: v3.3.3
+    rev: fe9ba6b53fd5ae112ef5a3d2ac883e2d0e5a10db  # frozen: v3.4.0
     hooks:
       - id: validate_manifest
