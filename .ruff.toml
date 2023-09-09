@@ -115,14 +115,22 @@ ignore = [
   "D104",  # Missing docstring in public package
   "PLC0414",  # useless-import-alias
 ]
+"docs/source/conf.py" = [
+  "INP001",  # implicit namespace
+]
+"__version__.py" = ["ALL"]
 
 [flake8-annotations]
 suppress-dummy-args = true
 
 [flake8-bugbear]
 extend-immutable-calls = [ # CHANGE ME
+  "fastapi.Body",
   "fastapi.Depends",
+  "fastapi.Path",
   "fastapi.Query",
+  "typer.Argument",
+  "typer.Option",
 ]
 
 [flake8-builtins]
@@ -162,6 +170,7 @@ max-complexity = 20
 [pep8-naming]
 classmethod-decorators = [ # CHANGE ME
   "pydantic.validator",
+  "pydantic.field_validator",
 ]
 staticmethod-decorators = [] # CHANGE ME
 
