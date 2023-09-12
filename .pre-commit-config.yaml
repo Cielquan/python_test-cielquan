@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 47023bed2b253176c10ba0f760c85e952e52e5fd # frozen: v0.0.287
+    rev: 36d09b6e15ad1577720205c2591714ab7636cac7 # frozen: v0.0.288
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -104,7 +104,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: 193ee766ca496871f93621d6b58d57a6564ff81b # frozen: 23.7.0
+    rev: e87737140f32d3cd7c44ede75f02dcd58e55820e # frozen: 23.9.1
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: d8a1be87c7b21e7f8e8d7624a7c62bb5a9825963 # frozen: 2.3.1
+    rev: 5dbc0aa71ac5eeaa70e4f7e9159a17dd8eaa81b4 # frozen: 2.3.2
     hooks:
       - id: sqlfluff-fix
 
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 47023bed2b253176c10ba0f760c85e952e52e5fd # frozen: v0.0.287
+    rev: 36d09b6e15ad1577720205c2591714ab7636cac7 # frozen: v0.0.288
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 31bf1d4d184f61583921dd24cd02f383f4a634bf # frozen: v8.48.0
+    rev: e368a2353600bbafefb165fd28913407fde4b034 # frozen: v8.49.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -420,7 +420,7 @@ repos:
 
   # rstcheck - rst file checker
   - repo: https://github.com/rstcheck/rstcheck
-    rev: 165c37523acb08cc649f44d378c80266ce451c2a # frozen: v6.1.2
+    rev: 445861c31d8134562e723d77115721038de2e687 # frozen: v6.2.0
     hooks:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
