@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 6fcbf19c7cf351a8dc3517a0fed3ebfa05610de2 # frozen: v0.0.290
+    rev: 146c621c9fbe4727ca57be94779b7abecf5058ec  # frozen: v0.0.291
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -87,7 +87,7 @@ repos:
   # TODO:#i# remove b/c ruff
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: f838af6848df063c04a2e6c78a2e8ae0e8fb822b # frozen: v3.11.0
+    rev: ffb735bf0dc786a3a1e6b08043440b0bdef5bef8  # frozen: v3.13.0
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 6fcbf19c7cf351a8dc3517a0fed3ebfa05610de2 # frozen: v0.0.290
+    rev: 146c621c9fbe4727ca57be94779b7abecf5058ec  # frozen: v0.0.291
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: e368a2353600bbafefb165fd28913407fde4b034 # frozen: v8.49.0
+    rev: ee96e854ebb5805d6b5c4b8cecffeb126a11ea37  # frozen: v8.50.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
