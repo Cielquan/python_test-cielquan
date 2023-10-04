@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 146c621c9fbe4727ca57be94779b7abecf5058ec # frozen: v0.0.291
+    rev: 42f98979dbdfcd148dff424477552b8816a7cf01 # frozen: v0.0.292
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 146c621c9fbe4727ca57be94779b7abecf5058ec # frozen: v0.0.291
+    rev: 42f98979dbdfcd148dff424477552b8816a7cf01 # frozen: v0.0.292
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -303,7 +303,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 3259bc81ec3c92a1f00040f3e036f85d0ffc5da2 # frozen: v3.0.0a7
+    rev: 4a7ad5ea9f1c5a98ccf736578a00554be0da6dc7 # frozen: v3.0.0
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -410,7 +410,7 @@ repos:
 
   # shellscript (via PyPI package)
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: 375289a39f5708101b1f916eb729e8d6da96993f # frozen: v0.9.0.5
+    rev: 4de1378e4cd853bfc2b111b05fff35e2dbf809a3 # frozen: v0.9.0.6
     hooks:
       - id: shellcheck
 
