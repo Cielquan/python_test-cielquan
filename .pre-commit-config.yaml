@@ -37,7 +37,7 @@ repos:
 
   # file checking out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: c4a0b883114b00d8d76b479c820ce7950211c99b  # frozen: v4.5.0
+    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
     hooks:
       - id: check-case-conflict
       - id: check-shebang-scripts-are-executable
@@ -87,7 +87,7 @@ repos:
   # TODO:#i# remove b/c ruff
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 1bbebc88c6925a4e56fd5446b830b12c38c1c24a  # frozen: v3.15.0
+    rev: 1bbebc88c6925a4e56fd5446b830b12c38c1c24a # frozen: v3.15.0
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: 2447559c307773dbf9b37a44c13d09e3a6829bc6  # frozen: 2.3.3
+    rev: 2447559c307773dbf9b37a44c13d09e3a6829bc6 # frozen: 2.3.3
     hooks:
       - id: sqlfluff-fix
 
@@ -192,7 +192,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: c4a0b883114b00d8d76b479c820ce7950211c99b  # frozen: v4.5.0
+    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
     hooks:
       - id: end-of-file-fixer
         stages: [commit]
@@ -222,7 +222,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: c4a0b883114b00d8d76b479c820ce7950211c99b  # frozen: v4.5.0
+    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
     hooks:
       - id: check-merge-conflict
       - id: detect-private-key
@@ -240,7 +240,7 @@ repos:
 
   # python specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: c4a0b883114b00d8d76b479c820ce7950211c99b  # frozen: v4.5.0
+    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
     hooks:
       - id: debug-statements
       - id: fix-encoding-pragma
@@ -303,7 +303,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: f2cded41f7f3d4b45236cbe107b366b6caf84bde  # frozen: v3.0.1
+    rev: f2cded41f7f3d4b45236cbe107b366b6caf84bde # frozen: v3.0.1
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 0999c95996f1c0b9422b5f0d45faf6189250ea7a  # frozen: v8.51.0
+    rev: 0999c95996f1c0b9422b5f0d45faf6189250ea7a # frozen: v8.51.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -458,7 +458,7 @@ repos:
 
   # JSON specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: c4a0b883114b00d8d76b479c820ce7950211c99b  # frozen: v4.5.0
+    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
     hooks:
       - id: check-json
       - id: check-toml
@@ -479,6 +479,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 61cc55a59cc63c7405dd3cd7c96b169fdb750333  # frozen: v3.5.0
+    rev: 61cc55a59cc63c7405dd3cd7c96b169fdb750333 # frozen: v3.5.0
     hooks:
       - id: validate_manifest
