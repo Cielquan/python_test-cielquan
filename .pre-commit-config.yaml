@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 42f98979dbdfcd148dff424477552b8816a7cf01 # frozen: v0.0.292
+    rev: 51ae37a7805e6d6f791a373b7d7752d023ea6c0f  # frozen: v0.1.1
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -104,7 +104,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: e87737140f32d3cd7c44ede75f02dcd58e55820e # frozen: 23.9.1
+    rev: 9edba85f71d50d12996ef7bda576426362016171  # frozen: 23.10.0
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: 2447559c307773dbf9b37a44c13d09e3a6829bc6 # frozen: 2.3.3
+    rev: 10c38653a5e60853dfba472b57d01aaaec8261ec  # frozen: 2.3.4
     hooks:
       - id: sqlfluff-fix
 
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 42f98979dbdfcd148dff424477552b8816a7cf01 # frozen: v0.0.292
+    rev: 51ae37a7805e6d6f791a373b7d7752d023ea6c0f  # frozen: v0.1.1
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 0999c95996f1c0b9422b5f0d45faf6189250ea7a # frozen: v8.51.0
+    rev: 4889f078b5ccc7b525b7bf8673228aef25c1a3b1  # frozen: v8.52.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 2e88f6711adb350a582bd7c0a05e4a0f2206881e # frozen: v15.10.3
+    rev: c64062e55c72ec3ce37cdf9c1de555e2447a0fc9  # frozen: v15.11.0
     hooks:
       - id: stylelint
         additional_dependencies:
