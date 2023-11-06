@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: de4d70d4adc6e729486dddbbbdf74c8f7ba15a6c # frozen: 1.6.1
+    rev: 2ac338ebdea243e3c512ba25f7768ef79e11adc9  # frozen: 1.7.0
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 8a43105c597ef7067b5507451f4f1b07e5f6e26d # frozen: v0.1.3
+    rev: 3dacd83b1ee8fb950dbdd1001f9b5851728b6077  # frozen: v0.1.4
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 8a43105c597ef7067b5507451f4f1b07e5f6e26d # frozen: v0.1.3
+    rev: 3dacd83b1ee8fb950dbdd1001f9b5851728b6077  # frozen: v0.1.4
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -317,7 +317,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: de4d70d4adc6e729486dddbbbdf74c8f7ba15a6c # frozen: 1.6.1
+    rev: 2ac338ebdea243e3c512ba25f7768ef79e11adc9  # frozen: 1.7.0
     hooks:
       - id: poetry-check
 
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 4889f078b5ccc7b525b7bf8673228aef25c1a3b1 # frozen: v8.52.0
+    rev: d12aa2223c114762d01416d9e5dede04a2c3bfa0  # frozen: v8.53.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
