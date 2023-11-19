@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 3dacd83b1ee8fb950dbdd1001f9b5851728b6077 # frozen: v0.1.4
+    rev: 3d440bd6c67653f33f1c89ff9d6d450685ef9bfc # frozen: v0.1.5
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -104,7 +104,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: 744d23b34800c06e10272149b70752396e90eeb8 # frozen: 23.10.1
+    rev: 2a1c67e0b2f81df602ec1f6e7aeb030b9709dc7c # frozen: 23.11.0
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -146,7 +146,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: fc260393cc4ec09f8fc0a5ba4437f481c8b55dc1 # frozen: v3.0.3
+    rev: ffb6a759a979008c0e6dff86e39f4745a2d9eac4 # frozen: v3.1.0
     hooks:
       - id: prettier
         additional_dependencies:
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: 472f9b89984da6ee31069c023c2433ec0c5d0080 # frozen: 2.3.5
+    rev: 04192fabd7a12df24cc40636f422385de598e955 # frozen: 3.0.0a2
     hooks:
       - id: sqlfluff-fix
 
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 3dacd83b1ee8fb950dbdd1001f9b5851728b6077 # frozen: v0.1.4
+    rev: 3d440bd6c67653f33f1c89ff9d6d450685ef9bfc # frozen: v0.1.5
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: c64062e55c72ec3ce37cdf9c1de555e2447a0fc9 # frozen: v15.11.0
+    rev: e504671a750480274bb37808e211f244b82acfb3 # frozen: v16.0.0-0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -466,7 +466,7 @@ repos:
 
   # yamllint - yaml linter
   - repo: https://github.com/adrienverge/yamllint
-    rev: b05e028c5881819161d11cb543fd96a30c06cceb # frozen: v1.32.0
+    rev: 8713140e99914c0cb6e07364daedfb140847c3c5 # frozen: v1.33.0
     hooks:
       # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
