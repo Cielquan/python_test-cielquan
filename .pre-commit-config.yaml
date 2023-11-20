@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 2ac338ebdea243e3c512ba25f7768ef79e11adc9 # frozen: 1.7.0
+    rev: 41ef89aac1c244b9592952e5624689909ddadbb7 # frozen: 1.7.1
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 3d440bd6c67653f33f1c89ff9d6d450685ef9bfc # frozen: v0.1.5
+    rev: 75d1925b523dd109cc200d1b29142ff36ec785ad # frozen: v0.1.6
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 3d440bd6c67653f33f1c89ff9d6d450685ef9bfc # frozen: v0.1.5
+    rev: 75d1925b523dd109cc200d1b29142ff36ec785ad # frozen: v0.1.6
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -317,7 +317,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 2ac338ebdea243e3c512ba25f7768ef79e11adc9 # frozen: 1.7.0
+    rev: 41ef89aac1c244b9592952e5624689909ddadbb7 # frozen: 1.7.1
     hooks:
       - id: poetry-check
 
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: d12aa2223c114762d01416d9e5dede04a2c3bfa0 # frozen: v8.53.0
+    rev: 8d0b2276484ec30ab9ea5372dd4ec69f0fb69d2f # frozen: v8.54.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: e504671a750480274bb37808e211f244b82acfb3 # frozen: v16.0.0-0
+    rev: 431fb322d909e5eb1a693dcc995ac0161bb95d76 # frozen: v16.0.0-2
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -432,7 +432,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: ef974bde8375da10f3aa38a1b6ce646a34a23446 # frozen: v0.10.0
+    rev: 8524909c7a86f78a6b915ffafea220a6f3979ba1 # frozen: v0.11.0
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
