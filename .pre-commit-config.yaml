@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 7bcc70ca475b87e0fdee2511300c74b25babe0b3  # frozen: v0.1.9
+    rev: 7bcc70ca475b87e0fdee2511300c74b25babe0b3 # frozen: v0.1.9
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -95,7 +95,7 @@ repos:
   # TODO:#i# remove b/c ruff
   # isort - sort imports
   - repo: https://github.com/PyCQA/isort
-    rev: c235f5e450b4b84e58d114ed4c589cbf454175a3  # frozen: 5.13.2
+    rev: c235f5e450b4b84e58d114ed4c589cbf454175a3 # frozen: 5.13.2
     hooks:
       # Config file: pyproject.toml | .isort.cfg | tox.ini |
       #     https://pycqa.github.io/isort/docs/configuration/config_files
@@ -104,7 +104,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: ec91a2be3c44d88e1a3960a4937ad6ed3b63464e  # frozen: 23.12.1
+    rev: ec91a2be3c44d88e1a3960a4937ad6ed3b63464e # frozen: 23.12.1
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -146,7 +146,7 @@ repos:
     # Config file: "prettier" key package.json | .prettierrc | .prettierrc.json |
     #     https://prettier.io/docs/en/configuration.html
     # Ignore file: .prettierignore [file ignore pattern]
-    rev: f12edd9c7be1c20cfa42420fd0e6df71e42b51ea  # frozen: v4.0.0-alpha.8
+    rev: f12edd9c7be1c20cfa42420fd0e6df71e42b51ea # frozen: v4.0.0-alpha.8
     hooks:
       - id: prettier
         additional_dependencies:
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: cd725c61a9bde17511b95d559f6cb578c273e1e2  # frozen: 3.0.0a4
+    rev: cd725c61a9bde17511b95d559f6cb578c273e1e2 # frozen: 3.0.0a4
     hooks:
       - id: sqlfluff-fix
 
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 7bcc70ca475b87e0fdee2511300c74b25babe0b3  # frozen: v0.1.9
+    rev: 7bcc70ca475b87e0fdee2511300c74b25babe0b3 # frozen: v0.1.9
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -303,7 +303,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 1a5ffc1f447b77071ffe18a9c6836c09147ee2ed  # frozen: v3.0.3
+    rev: 1a5ffc1f447b77071ffe18a9c6836c09147ee2ed # frozen: v3.0.3
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: ac1c24d6ed574bb022e2631987fda70fbb9972a6  # frozen: v8.56.0
+    rev: ac1c24d6ed574bb022e2631987fda70fbb9972a6 # frozen: v8.56.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: fdcbd801095ded1ec3b33c263ca3fe432e84d2c3  # frozen: v16.0.2
+    rev: fdcbd801095ded1ec3b33c263ca3fe432e84d2c3 # frozen: v16.0.2
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -479,6 +479,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 9c9983dba00bf67d1b2625f1f0e9112afc063849  # frozen: v3.6.0
+    rev: 9c9983dba00bf67d1b2625f1f0e9112afc063849 # frozen: v3.6.0
     hooks:
       - id: validate_manifest
