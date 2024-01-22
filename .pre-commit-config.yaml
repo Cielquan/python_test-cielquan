@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: fbe77be689d01fea5a7b64d3c495d4d1ed646852  # frozen: v0.1.11
+    rev: 1d42195ebc67a509991eaf68c2353e0181003a95  # frozen: v0.1.14
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: fbe77be689d01fea5a7b64d3c495d4d1ed646852  # frozen: v0.1.11
+    rev: 1d42195ebc67a509991eaf68c2353e0181003a95  # frozen: v0.1.14
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 25d3df01693b9a859ab8edc19f35fc027c1f5223  # frozen: v9.0.0-alpha.0
+    rev: 33ff30145a4b7074415682993e788c0dbf130293  # frozen: v9.0.0-alpha.1
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 965aec632e3056d9e43f35ca1d15d7b9d674f47b  # frozen: v16.1.0
+    rev: 757c94a867ebfda106f6f98b93f4c7b61030e2fc  # frozen: v16.2.0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -432,7 +432,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: 8524909c7a86f78a6b915ffafea220a6f3979ba1 # frozen: v0.11.0
+    rev: 82c791e94c2e2ab2119437d61c722c8e0c20d6c9  # frozen: v0.12.1
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
