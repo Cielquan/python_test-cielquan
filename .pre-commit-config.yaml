@@ -60,7 +60,7 @@ repos:
 
   # safety - python dependency vulnerability checker
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: cdd875f1c96ba08362eb92c2b0f6de8d614f2fd1 # frozen: v1.3.2
+    rev: 3f01891d76160f03e9134ef025fb1eb1d10c85a2  # frozen: v1.3.3
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 1d42195ebc67a509991eaf68c2353e0181003a95  # frozen: v0.1.14
+    rev: cc575a3e5800b42ffbb5182b53d87203b2c4fc26  # frozen: v0.2.2
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -87,7 +87,7 @@ repos:
   # TODO:#i# remove b/c ruff
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 1bbebc88c6925a4e56fd5446b830b12c38c1c24a # frozen: v3.15.0
+    rev: df17dfa3911b81b4a27190b0eea5b1debc7ffa0a  # frozen: v3.15.1
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -104,7 +104,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: ec91a2be3c44d88e1a3960a4937ad6ed3b63464e # frozen: 23.12.1
+    rev: 6fdf8a4af28071ed1d079c01122b34c5d587207a  # frozen: 24.2.0
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: cd725c61a9bde17511b95d559f6cb578c273e1e2 # frozen: 3.0.0a4
+    rev: 36c918597c93fe05a5ee23f4ef10125593b1b80d  # frozen: 3.0.0a5
     hooks:
       - id: sqlfluff-fix
 
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 1d42195ebc67a509991eaf68c2353e0181003a95  # frozen: v0.1.14
+    rev: cc575a3e5800b42ffbb5182b53d87203b2c4fc26  # frozen: v0.2.2
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 33ff30145a4b7074415682993e788c0dbf130293  # frozen: v9.0.0-alpha.1
+    rev: 959ec0d70d631d9596ff20055129857739f221eb  # frozen: v9.0.0-beta.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 757c94a867ebfda106f6f98b93f4c7b61030e2fc  # frozen: v16.2.0
+    rev: dd5c2bcc2e0ca6707d2cbb5fc1341a2badd33eca  # frozen: v16.2.1
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -466,7 +466,7 @@ repos:
 
   # yamllint - yaml linter
   - repo: https://github.com/adrienverge/yamllint
-    rev: 8713140e99914c0cb6e07364daedfb140847c3c5 # frozen: v1.33.0
+    rev: 81e9f98ffd059efe8aa9c1b1a42e5cce61b640c6  # frozen: v1.35.1
     hooks:
       # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
@@ -479,6 +479,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 9c9983dba00bf67d1b2625f1f0e9112afc063849 # frozen: v3.6.0
+    rev: e5257268558a1e83731232b1ec4276a24ba870dc  # frozen: v3.6.2
     hooks:
       - id: validate_manifest
