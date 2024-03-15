@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 41ef89aac1c244b9592952e5624689909ddadbb7 # frozen: 1.7.1
+    rev: ec25c4d5817d8bcf1d6251c347a1892cb817edb8  # frozen: 1.8.2
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: cc575a3e5800b42ffbb5182b53d87203b2c4fc26  # frozen: v0.2.2
+    rev: 522df5be28c6c515e78ef3c2790b9f233680f04d  # frozen: v0.3.2
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: 36c918597c93fe05a5ee23f4ef10125593b1b80d  # frozen: 3.0.0a5
+    rev: 85c85bf0dedb9608e300e1214fa0e3a0b7228f1d  # frozen: 3.0.0
     hooks:
       - id: sqlfluff-fix
 
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: cc575a3e5800b42ffbb5182b53d87203b2c4fc26  # frozen: v0.2.2
+    rev: 522df5be28c6c515e78ef3c2790b9f233680f04d  # frozen: v0.3.2
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -303,7 +303,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 1a5ffc1f447b77071ffe18a9c6836c09147ee2ed # frozen: v3.0.3
+    rev: 053c2c3a25f97f043e10cdd41d2609e495a68f57  # frozen: v3.1.0
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -317,7 +317,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: 41ef89aac1c244b9592952e5624689909ddadbb7 # frozen: 1.7.1
+    rev: ec25c4d5817d8bcf1d6251c347a1892cb817edb8  # frozen: 1.8.2
     hooks:
       - id: poetry-check
 
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 959ec0d70d631d9596ff20055129857739f221eb  # frozen: v9.0.0-beta.0
+    rev: 84d057cb5fb37baf4b80a1275a39bc8f883d4e9c  # frozen: v9.0.0-beta.2
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
