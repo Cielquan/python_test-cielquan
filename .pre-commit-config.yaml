@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: c22645f6b45188216151a407c040a9eec1795ab0  # frozen: v0.3.3
+    rev: 1986670a8c4578a526ad3dddee3b35d9cfb9d7be  # frozen: v0.3.4
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -87,7 +87,7 @@ repos:
   # TODO:#i# remove b/c ruff
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: df17dfa3911b81b4a27190b0eea5b1debc7ffa0a  # frozen: v3.15.1
+    rev: 12af25eb252deaaecb6b259df40d01f42e716dc3  # frozen: v3.15.2
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: 5ac7e6e7bb046e23f059f341624026e31e73582d  # frozen: 3.0.2
+    rev: 40bdc4b95ebf83c41015ac01afba9746b8b73ead  # frozen: 3.0.3
     hooks:
       - id: sqlfluff-fix
 
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: c22645f6b45188216151a407c040a9eec1795ab0  # frozen: v0.3.3
+    rev: 1986670a8c4578a526ad3dddee3b35d9cfb9d7be  # frozen: v0.3.4
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 84d057cb5fb37baf4b80a1275a39bc8f883d4e9c  # frozen: v9.0.0-beta.2
+    rev: 6c0fc35b46bc7f3de0a59b061cf38e2bd7e6f022  # frozen: v9.0.0-rc.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: dd5c2bcc2e0ca6707d2cbb5fc1341a2badd33eca  # frozen: v16.2.1
+    rev: 271524c60fcfa73da2c0ddba93eb8724a416dab1  # frozen: v16.3.0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -479,6 +479,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: e5257268558a1e83731232b1ec4276a24ba870dc  # frozen: v3.6.2
+    rev: 7b4667e9e6e05e31707c404c95115b151745866c  # frozen: v3.7.0
     hooks:
       - id: validate_manifest
