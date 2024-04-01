@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 271524c60fcfa73da2c0ddba93eb8724a416dab1  # frozen: v16.3.0
+    rev: 1a56c69c880eaeb739424df29350a02d7c19c810  # frozen: v16.3.1
     hooks:
       - id: stylelint
         additional_dependencies:
