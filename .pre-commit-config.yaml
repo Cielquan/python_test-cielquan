@@ -37,7 +37,7 @@ repos:
 
   # file checking out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
     hooks:
       - id: check-case-conflict
       - id: check-shebang-scripts-are-executable
@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 1986670a8c4578a526ad3dddee3b35d9cfb9d7be  # frozen: v0.3.4
+    rev: 596470fba20d04adc68ec7903ff69a12e5e1a8d3  # frozen: v0.4.2
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -104,7 +104,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: 552baf822992936134cbd31a38f69c8cfe7c0f05  # frozen: 24.3.0
+    rev: 3702ba224ecffbcec30af640c149f231d90aebdb  # frozen: 24.4.2
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: 40bdc4b95ebf83c41015ac01afba9746b8b73ead  # frozen: 3.0.3
+    rev: fbf8fadf8106472114a4ba64c56208125b970ca9  # frozen: 3.0.5
     hooks:
       - id: sqlfluff-fix
 
@@ -192,7 +192,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
     hooks:
       - id: end-of-file-fixer
         stages: [commit]
@@ -222,7 +222,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
     hooks:
       - id: check-merge-conflict
       - id: detect-private-key
@@ -233,14 +233,14 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 1986670a8c4578a526ad3dddee3b35d9cfb9d7be  # frozen: v0.3.4
+    rev: 596470fba20d04adc68ec7903ff69a12e5e1a8d3  # frozen: v0.4.2
     hooks:
       - id: ruff
         name: ruff (lint)
 
   # python specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
     hooks:
       - id: debug-statements
       - id: fix-encoding-pragma
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 6c0fc35b46bc7f3de0a59b061cf38e2bd7e6f022  # frozen: v9.0.0-rc.0
+    rev: 95ac353c6d344108aa1b05a69db8b6ed6ea3b9b1  # frozen: v9.1.1
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 1a56c69c880eaeb739424df29350a02d7c19c810  # frozen: v16.3.1
+    rev: 2f65df15f31eb0344729db2ce063555fcd2afd7e  # frozen: v16.4.0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -432,7 +432,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: 82c791e94c2e2ab2119437d61c722c8e0c20d6c9  # frozen: v0.12.1
+    rev: 24eb4dce508ab81398d14d75179123fca425f12d  # frozen: v0.13.0
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
@@ -458,7 +458,7 @@ repos:
 
   # JSON specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: c4a0b883114b00d8d76b479c820ce7950211c99b # frozen: v4.5.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
     hooks:
       - id: check-json
       - id: check-toml
