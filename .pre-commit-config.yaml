@@ -37,7 +37,7 @@ repos:
 
   # file checking out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c # frozen: v4.6.0
     hooks:
       - id: check-case-conflict
       - id: check-shebang-scripts-are-executable
@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: ec25c4d5817d8bcf1d6251c347a1892cb817edb8  # frozen: 1.8.2
+    rev: ec25c4d5817d8bcf1d6251c347a1892cb817edb8 # frozen: 1.8.2
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -60,7 +60,7 @@ repos:
 
   # safety - python dependency vulnerability checker
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: 3f01891d76160f03e9134ef025fb1eb1d10c85a2  # frozen: v1.3.3
+    rev: 3f01891d76160f03e9134ef025fb1eb1d10c85a2 # frozen: v1.3.3
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 596470fba20d04adc68ec7903ff69a12e5e1a8d3  # frozen: v0.4.2
+    rev: 596470fba20d04adc68ec7903ff69a12e5e1a8d3 # frozen: v0.4.2
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -87,7 +87,7 @@ repos:
   # TODO:#i# remove b/c ruff
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 12af25eb252deaaecb6b259df40d01f42e716dc3  # frozen: v3.15.2
+    rev: 12af25eb252deaaecb6b259df40d01f42e716dc3 # frozen: v3.15.2
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -104,7 +104,7 @@ repos:
 
   # black - python formatter
   - repo: https://github.com/psf/black
-    rev: 3702ba224ecffbcec30af640c149f231d90aebdb  # frozen: 24.4.2
+    rev: 3702ba224ecffbcec30af640c149f231d90aebdb # frozen: 24.4.2
     hooks:
       # Config file: pyproject.toml
       # Inline skip: mark block with `# fmt: off` and `# fmt: on` (same indent)
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: fbf8fadf8106472114a4ba64c56208125b970ca9  # frozen: 3.0.5
+    rev: fbf8fadf8106472114a4ba64c56208125b970ca9 # frozen: 3.0.5
     hooks:
       - id: sqlfluff-fix
 
@@ -192,7 +192,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c # frozen: v4.6.0
     hooks:
       - id: end-of-file-fixer
         stages: [commit]
@@ -222,7 +222,7 @@ repos:
 
   # code unspecific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c # frozen: v4.6.0
     hooks:
       - id: check-merge-conflict
       - id: detect-private-key
@@ -233,14 +233,14 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 596470fba20d04adc68ec7903ff69a12e5e1a8d3  # frozen: v0.4.2
+    rev: 596470fba20d04adc68ec7903ff69a12e5e1a8d3 # frozen: v0.4.2
     hooks:
       - id: ruff
         name: ruff (lint)
 
   # python specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c # frozen: v4.6.0
     hooks:
       - id: debug-statements
       - id: fix-encoding-pragma
@@ -303,7 +303,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 053c2c3a25f97f043e10cdd41d2609e495a68f57  # frozen: v3.1.0
+    rev: 053c2c3a25f97f043e10cdd41d2609e495a68f57 # frozen: v3.1.0
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -317,7 +317,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: ec25c4d5817d8bcf1d6251c347a1892cb817edb8  # frozen: 1.8.2
+    rev: ec25c4d5817d8bcf1d6251c347a1892cb817edb8 # frozen: 1.8.2
     hooks:
       - id: poetry-check
 
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 95ac353c6d344108aa1b05a69db8b6ed6ea3b9b1  # frozen: v9.1.1
+    rev: 95ac353c6d344108aa1b05a69db8b6ed6ea3b9b1 # frozen: v9.1.1
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 2f65df15f31eb0344729db2ce063555fcd2afd7e  # frozen: v16.4.0
+    rev: 2f65df15f31eb0344729db2ce063555fcd2afd7e # frozen: v16.4.0
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -410,7 +410,7 @@ repos:
 
   # shellscript (via PyPI package)
   - repo: https://github.com/shellcheck-py/shellcheck-py
-    rev: a23f6b85d0fdd5bb9d564e2579e678033debbdff  # frozen: v0.10.0.1
+    rev: a23f6b85d0fdd5bb9d564e2579e678033debbdff # frozen: v0.10.0.1
     hooks:
       - id: shellcheck
 
@@ -432,7 +432,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: 24eb4dce508ab81398d14d75179123fca425f12d  # frozen: v0.13.0
+    rev: 24eb4dce508ab81398d14d75179123fca425f12d # frozen: v0.13.0
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
@@ -458,7 +458,7 @@ repos:
 
   # JSON specific out-of-the-box hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # frozen: v4.6.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c # frozen: v4.6.0
     hooks:
       - id: check-json
       - id: check-toml
@@ -466,7 +466,7 @@ repos:
 
   # yamllint - yaml linter
   - repo: https://github.com/adrienverge/yamllint
-    rev: 81e9f98ffd059efe8aa9c1b1a42e5cce61b640c6  # frozen: v1.35.1
+    rev: 81e9f98ffd059efe8aa9c1b1a42e5cce61b640c6 # frozen: v1.35.1
     hooks:
       # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
@@ -479,6 +479,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 7b4667e9e6e05e31707c404c95115b151745866c  # frozen: v3.7.0
+    rev: 7b4667e9e6e05e31707c404c95115b151745866c # frozen: v3.7.0
     hooks:
       - id: validate_manifest

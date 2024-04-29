@@ -14,6 +14,7 @@ Call this for more information on usage::
 :copyright: (c) 2019-2020, Christian Riedel and AUTHORS
 :license: GPL-3.0-or-later, see LICENSE for details
 """
+
 from __future__ import annotations
 
 import argparse
