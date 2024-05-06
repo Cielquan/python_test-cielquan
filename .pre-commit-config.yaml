@@ -52,7 +52,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: ec25c4d5817d8bcf1d6251c347a1892cb817edb8 # frozen: 1.8.2
+    rev: 8322ea5e4c20ab182bfb72e80189d2a02941089a  # frozen: 1.8.3
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 596470fba20d04adc68ec7903ff69a12e5e1a8d3 # frozen: v0.4.2
+    rev: 5559d0350deec43675eef448015296e1d79800bd  # frozen: v0.4.3
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 596470fba20d04adc68ec7903ff69a12e5e1a8d3 # frozen: v0.4.2
+    rev: 5559d0350deec43675eef448015296e1d79800bd  # frozen: v0.4.3
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -317,7 +317,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: ec25c4d5817d8bcf1d6251c347a1892cb817edb8 # frozen: 1.8.2
+    rev: 8322ea5e4c20ab182bfb72e80189d2a02941089a  # frozen: 1.8.3
     hooks:
       - id: poetry-check
 
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 95ac353c6d344108aa1b05a69db8b6ed6ea3b9b1 # frozen: v9.1.1
+    rev: a2ecc7aff074b1c883190d498b8d33b6a0e91ca5  # frozen: v9.2.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 2f65df15f31eb0344729db2ce063555fcd2afd7e # frozen: v16.4.0
+    rev: dabfcc4707b1ee14a41a10e39c908ac6d91f20f1  # frozen: v16.5.0
     hooks:
       - id: stylelint
         additional_dependencies:
