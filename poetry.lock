@@ -24,13 +24,13 @@ files = [
 
 [[package]]
 name = "astroid"
-version = "3.2.0"
+version = "3.2.2"
 description = "An abstract syntax tree for Python with inference support."
 optional = true
 python-versions = ">=3.8.0"
 files = [
-    {file = "astroid-3.2.0-py3-none-any.whl", hash = "sha256:16ee8ca5c75ac828783028cc1f967777f0e507c6886a295ad143e0f405b975a2"},
-    {file = "astroid-3.2.0.tar.gz", hash = "sha256:f7f829f8506ade59f1b3c6c93d8fac5b1ebc721685fa9af23e9794daf1d450a3"},
+    {file = "astroid-3.2.2-py3-none-any.whl", hash = "sha256:e8a0083b4bb28fcffb6207a3bfc9e5d0a68be951dd7e336d5dcf639c682388c0"},
+    {file = "astroid-3.2.2.tar.gz", hash = "sha256:8ead48e31b92b2e217b6c9733a21afafe479d52d6e164dd25fb1a770c7c3cf94"},
 ]
 
 [package.dependencies]
@@ -121,7 +121,7 @@ files = [
 name = "certifi"
 version = "2023.7.22"
 description = "Python package for providing Mozilla's CA Bundle."
-optional = false
+optional = true
 python-versions = ">=3.6"
 files = [
     {file = "certifi-2023.7.22-py3-none-any.whl", hash = "sha256:92d6037539857d8206b8f6ae472e8b77db8058fec5937a1ef3f54304089edbb9"},
@@ -143,7 +143,7 @@ files = [
 name = "charset-normalizer"
 version = "2.0.12"
 description = "The Real First Universal Charset Detector. Open, modern and actively maintained alternative to Chardet."
-optional = false
+optional = true
 python-versions = ">=3.5.0"
 files = [
     {file = "charset-normalizer-2.0.12.tar.gz", hash = "sha256:2857e29ff0d34db842cd7ca3230549d1a697f96ee6d3fb071cfa6c7393832597"},
@@ -1261,17 +1261,17 @@ plugins = ["importlib-metadata"]
 
 [[package]]
 name = "pylint"
-version = "3.2.0"
+version = "3.2.3"
 description = "python code static checker"
 optional = true
 python-versions = ">=3.8.0"
 files = [
-    {file = "pylint-3.2.0-py3-none-any.whl", hash = "sha256:9f20c05398520474dac03d7abb21ab93181f91d4c110e1e0b32bc0d016c34fa4"},
-    {file = "pylint-3.2.0.tar.gz", hash = "sha256:ad8baf17c8ea5502f23ae38d7c1b7ec78bd865ce34af9a0b986282e2611a8ff2"},
+    {file = "pylint-3.2.3-py3-none-any.whl", hash = "sha256:b3d7d2708a3e04b4679e02d99e72329a8b7ee8afb8d04110682278781f889fa8"},
+    {file = "pylint-3.2.3.tar.gz", hash = "sha256:02f6c562b215582386068d52a30f520d84fdbcf2a95fc7e855b816060d048b60"},
 ]
 
 [package.dependencies]
-astroid = ">=3.2.0,<=3.3.0-dev0"
+astroid = ">=3.2.2,<=3.3.0-dev0"
 colorama = {version = ">=0.4.5", markers = "sys_platform == \"win32\""}
 dill = [
     {version = ">=0.2", markers = "python_version < \"3.11\""},
@@ -1468,7 +1468,7 @@ files = [
 name = "requests"
 version = "2.32.0"
 description = "Python HTTP for Humans."
-optional = false
+optional = true
 python-versions = ">=3.8"
 files = [
     {file = "requests-2.32.0-py3-none-any.whl", hash = "sha256:f2c3881dddb70d056c5bd7600a4fae312b2a300e39be6a118d30b90bd27262b5"},
@@ -1916,7 +1916,7 @@ files = [
 name = "urllib3"
 version = "1.26.18"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
-optional = false
+optional = true
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 files = [
     {file = "urllib3-1.26.18-py2.py3-none-any.whl", hash = "sha256:34b97092d7e0a3a8cf7cd10e386f401b3737364026c45e622aa02903dffe0f07"},
