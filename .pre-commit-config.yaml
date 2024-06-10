@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 5559d0350deec43675eef448015296e1d79800bd # frozen: v0.4.3
+    rev: 99e5311c54112fde9d58021fe477b3ba7aab20d4  # frozen: v0.4.8
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -87,7 +87,7 @@ repos:
   # TODO:#i# remove b/c ruff
   # pyupgrade - upgrade old syntax to new
   - repo: https://github.com/asottile/pyupgrade
-    rev: 12af25eb252deaaecb6b259df40d01f42e716dc3 # frozen: v3.15.2
+    rev: 32151ac97cbfd7f9dcd22e49516fb32266db45b4  # frozen: v3.16.0
     hooks:
       - id: pyupgrade
         args: ["--py37-plus"]
@@ -161,7 +161,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: fbf8fadf8106472114a4ba64c56208125b970ca9 # frozen: 3.0.5
+    rev: 6c22f5ecd973ee78a42dabf7dbc5230f03a7bee4  # frozen: 3.0.7
     hooks:
       - id: sqlfluff-fix
 
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 5559d0350deec43675eef448015296e1d79800bd # frozen: v0.4.3
+    rev: 99e5311c54112fde9d58021fe477b3ba7aab20d4  # frozen: v0.4.8
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -303,7 +303,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 053c2c3a25f97f043e10cdd41d2609e495a68f57 # frozen: v3.1.0
+    rev: 918d2168e15662df90cfb993df100e566f69d418  # frozen: v3.2.3
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: a2ecc7aff074b1c883190d498b8d33b6a0e91ca5 # frozen: v9.2.0
+    rev: 11a0113d7d5bcf7de3760ee401e8b63ebe4e3bd4  # frozen: v9.4.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -395,7 +395,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: dabfcc4707b1ee14a41a10e39c908ac6d91f20f1 # frozen: v16.5.0
+    rev: 84b4412937b8866a356a0704085ea2e8488b232b  # frozen: v16.6.1
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -479,6 +479,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: 7b4667e9e6e05e31707c404c95115b151745866c # frozen: v3.7.0
+    rev: 9ee076835365c0b3aa700de8f574def623826385  # frozen: v3.7.1
     hooks:
       - id: validate_manifest
