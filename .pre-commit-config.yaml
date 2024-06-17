@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 99e5311c54112fde9d58021fe477b3ba7aab20d4 # frozen: v0.4.8
+    rev: 02609a0003fd4903bd7f43852e5dfc82242a96db  # frozen: v0.4.9
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 99e5311c54112fde9d58021fe477b3ba7aab20d4 # frozen: v0.4.8
+    rev: 02609a0003fd4903bd7f43852e5dfc82242a96db  # frozen: v0.4.9
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 11a0113d7d5bcf7de3760ee401e8b63ebe4e3bd4 # frozen: v9.4.0
+    rev: a407ecf1ba4556c5a5666a27d4990d0218b50b7b  # frozen: v9.5.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
