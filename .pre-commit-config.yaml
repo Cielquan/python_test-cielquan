@@ -78,7 +78,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 02609a0003fd4903bd7f43852e5dfc82242a96db # frozen: v0.4.9
+    rev: 1dc9eb131c2ea4816c708e4d85820d2cc8542683  # frozen: v0.5.0
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -113,7 +113,7 @@ repos:
 
   # blacken-docs - black for python code in docs (rst/md/tex)
   - repo: https://github.com/asottile/blacken-docs
-    rev: 960ead214cd1184149d366c6d27ca6c369ce46b6 # frozen: 1.16.0
+    rev: 4c97c4a0d921007af6fefae92d8447cfbf63720b  # frozen: 1.18.0
     hooks:
       # Config file: same as `black`
       # Inline skip: same as `black`
@@ -233,7 +233,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 02609a0003fd4903bd7f43852e5dfc82242a96db # frozen: v0.4.9
+    rev: 1dc9eb131c2ea4816c708e4d85820d2cc8542683  # frozen: v0.5.0
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -303,7 +303,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: 918d2168e15662df90cfb993df100e566f69d418 # frozen: v3.2.3
+    rev: 425ad66da9467bac9074de3f2294f7851cb3320b  # frozen: v3.2.4
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -354,7 +354,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: a407ecf1ba4556c5a5666a27d4990d0218b50b7b # frozen: v9.5.0
+    rev: 11dcc17f64ca323542e048e701dbd5ca0db482d0  # frozen: v9.6.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
