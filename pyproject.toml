@@ -5,22 +5,22 @@ build-backend = "poetry.core.masonry.api"
 
 # -- TESTING COFIGURATION -------------------------------------------------------------
 [tool._testing]
-ci_default_python_version = "3.8"
+ci_default_python_version = "3.12"
 # Max 10 python versions are currently installed
 # TODO:#i# find way to install multiple py ver in workflow VM in one step
 # https://github.com/actions/setup-python/issues/98
 ci_test_python_versions = [
   # pypy
-  "pypy-3.8", "pypy-3.9",
+  "pypy-3.9",
   # cpython
-  "3.8", "3.9", "3.10"
+  "3.9", "3.10", "3.11", "3.12"
 ]
 ci_test_os = ["ubuntu", "macos", "windows"]
 cc_test_reporter_version = "latest-linux-amd64"
 skip_install = false  # Application -> true || Library -> false
-toxenv_python_versions_win32 = "py{310,39,38,37}"
-toxenv_python_versions_darwin = "py{py3,310,39,38,37}"
-toxenv_python_versions_linux = "py{py3,310,39,38,37}"
+toxenv_python_versions_win32 = "py{312,311,310,39}"
+toxenv_python_versions_darwin = "py{py3,312,311,310,39}"
+toxenv_python_versions_linux = "py{py3,312,311,310,39}"
 toxenv_docs_builders = "test_docs-{html,linkcheck,coverage,doctest,spelling}"
 
 
