@@ -53,7 +53,7 @@ For a list of all available releases see the
 
 [diff v0.5.20...v0.5.20](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.20...v0.5.20)
 
-#### Bugfixes:
+#### Bugfixes
 
 - Those
 
@@ -61,7 +61,7 @@ For a list of all available releases see the
 
 [diff v0.5.18...v0.5.19](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.19...v0.5.19)
 
-#### Bugfixes:
+#### Bugfixes
 
 - Point one
 
@@ -69,7 +69,7 @@ For a list of all available releases see the
 
 [diff v0.5.17...v0.5.18](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.17...v0.5.18)
 
-#### Bugfixes:
+#### Bugfixes
 
 - This
 
@@ -77,7 +77,7 @@ For a list of all available releases see the
 
 [diff v0.5.16...v0.5.17](https://github.com/Cielquan/python_test-cielquan/compare/v0.5.16...v0.5.17)
 
-#### Bugfixes:
+#### Bugfixes
 
 - That
 
