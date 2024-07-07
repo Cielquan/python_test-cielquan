@@ -18,16 +18,11 @@ Call this for more information on usage::
 from __future__ import annotations
 
 import argparse
+import datetime
 import re
 import subprocess
 import sys
-from datetime import date
-
-
-if sys.version_info[0:2] <= (3, 6):
-    msg = "Script runs only with python 3.7 or newer."
-    raise RuntimeError(msg)
-
+from pathlib import Path
 
 PATCH = ("patch", "bugfix")
 MINOR = ("minor", "feature")
@@ -44,7 +39,7 @@ def _get_config_value(section: str, key: str) -> str:
 
     :return: config value
     """
-    with open("pyproject.toml") as pyproject_file:
+    with Path.open("pyproject.toml") as pyproject_file:
         pyproject = pyproject_file.read().split("\n")
 
     start = False
@@ -69,7 +64,7 @@ def _get_config_value(section: str, key: str) -> str:
 
 def _set_config_value(section: str, key: str, value: str) -> None:
     """Set a config value in pyproject.toml file."""
-    with open("pyproject.toml") as pyproject_file:
+    with Path.open("pyproject.toml") as pyproject_file:
         pyproject = pyproject_file.read().split("\n")
 
     start = False
@@ -91,7 +86,7 @@ def _set_config_value(section: str, key: str, value: str) -> None:
             pyproject[idx] = match
             break
 
-    with open("pyproject.toml", "w") as pyproject_file:
+    with Path.open("pyproject.toml", "w") as pyproject_file:
         pyproject_file.write("\n".join(pyproject))
 
 
@@ -128,7 +123,7 @@ def bump_version(release_type: str = "patch") -> str:
             f".{int(version_parts.group('patch')) + 1}"
         )
     else:
-        print("Given `RELEASE TYPE` is invalid.")
+        print("Given `RELEASE TYPE` is invalid.")  # noqa: T201
         sys.exit(1)
 
     _set_config_value("[tool.poetry]", "version", version)
@@ -136,7 +131,7 @@ def bump_version(release_type: str = "patch") -> str:
 
 
 def update_changelog(
-    new_version: str, last_version: str, repo_url: str, first_release: bool
+    new_version: str, last_version: str, repo_url: str, *, first_release: bool
 ) -> None:
     """Update CHANGELOG.md to be release ready.
 
@@ -145,7 +140,7 @@ def update_changelog(
     :param repo_url: URL to source code at GitHub
     :first_release: if this is the first release
     """
-    with open("CHANGELOG.md") as changelog_file:
+    with Path.open("CHANGELOG.md") as changelog_file:
         changelog_lines = changelog_file.read().split("\n")
 
     release_line = 0
@@ -155,8 +150,8 @@ def update_changelog(
             release_line = idx
 
     if release_line:
-        today = date.today().isoformat()
-        compare = f"{'' if first_release else 'v'}{last_version}...v{new_version}"
+        today = datetime.datetime.now(tz=datetime.UTC).date().isoformat()
+        compare = f"{'' if first_release else ''}{last_version}...v{new_version}"
         changelog_lines[release_line] = (
             "## Unreleased\n"
             f"[diff v{new_version}...main]"
@@ -171,14 +166,14 @@ def update_changelog(
     if len(changelog_lines) - 1 >= release_line + 1:
         changelog_lines.pop(release_line + 1)
 
-    with open("CHANGELOG.md", "w") as changelog_file:
+    with Path.open("CHANGELOG.md", "w") as changelog_file:
         changelog_file.write("\n".join(changelog_lines))
 
 
 def commit_and_tag(version: str) -> None:
     """Git commit and tag the new release."""
-    subprocess.run(
-        [
+    subprocess.run(  # noqa: S603
+        [  # noqa: S607
             "git",
             "commit",
             "--no-verify",
@@ -189,7 +184,9 @@ def commit_and_tag(version: str) -> None:
         ],
         check=True,
     )
-    subprocess.run(["git", "tag", "-am", f"'v{version}'", f"v{version}"], check=True)
+    subprocess.run(  # noqa: S603
+        ["git", "tag", "-am", f"'v{version}'", f"v{version}"], check=True  # noqa: S607
+    )
 
 
 def _parser() -> argparse.Namespace:
@@ -221,8 +218,8 @@ def _main() -> int:
     if args.first_release:
         release_version = _get_config_value("[tool.poetry]", "version")
         #: Get first commit
-        current_version = subprocess.run(
-            ["git", "rev-list", "--max-parents=0", "HEAD"],
+        current_version = subprocess.run(  # noqa: S603
+            ["git", "rev-list", "--max-parents=0", "HEAD"],  # noqa: S607
             check=True,
             capture_output=True,
         ).stdout.decode()[0:7]
@@ -233,7 +230,7 @@ def _main() -> int:
         release_version,
         current_version,
         _get_config_value("[tool.poetry.urls]", '"Source"'),
-        args.first_release,
+        first_release=args.first_release,
     )
     commit_and_tag(release_version)
     return 0
