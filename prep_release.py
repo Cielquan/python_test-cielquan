@@ -127,7 +127,7 @@ def bump_version(release_type: str = "patch") -> str:
         sys.exit(1)
 
     _set_config_value("[tool.poetry]", "version", version)
-    return version
+    return f"v{version}"
 
 
 def update_changelog(
@@ -151,14 +151,14 @@ def update_changelog(
 
     if release_line:
         today = datetime.datetime.now(tz=datetime.UTC).date().isoformat()
-        compare = f"{'' if first_release else ''}{last_version}...v{new_version}"
+        compare = f"{'' if first_release else ''}{last_version}...{new_version}"
         changelog_lines[release_line] = (
             "## Unreleased\n"
-            f"[diff v{new_version}...main]"
-            f"({repo_url}/compare/v{new_version}...main)\n"
+            f"[diff {new_version}...main]"
+            f"({repo_url}/compare/{new_version}...main)\n"
             "\n"
             "\n"
-            f"## [{new_version}]({repo_url}/releases/v{new_version}) ({today})\n"
+            f"## [{new_version}]({repo_url}/releases/{new_version}) ({today})\n"
             f"[diff {compare}]({repo_url}/compare/{compare})"
         )
 
@@ -177,7 +177,7 @@ def commit_and_tag(version: str) -> None:
             "git",
             "commit",
             "--no-verify",
-            f"--message=release v{version} [skip ci]",
+            f"--message=release {version} [skip ci]",
             "--include",
             "pyproject.toml",
             "CHANGELOG.md",
@@ -185,7 +185,7 @@ def commit_and_tag(version: str) -> None:
         check=True,
     )
     subprocess.run(  # noqa: S603
-        ["git", "tag", "-am", f"'v{version}'", f"v{version}"], check=True  # noqa: S607
+        ["git", "tag", "-am", f"'{version}'", version], check=True  # noqa: S607
     )
 
 
