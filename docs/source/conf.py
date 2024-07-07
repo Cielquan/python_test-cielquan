@@ -28,7 +28,6 @@ from python_test_cielquan import (  # CHANGE ME
     __version__,
 )
 
-
 if TYPE_CHECKING:
     from sphinx.application import Sphinx
 
@@ -169,7 +168,7 @@ else:
 
 
 #: -- SPELLING -------------------------------------------------------------------------
-spelling_word_list_filename = "spelling_dict.txt"
+spelling_word_list_filename = "../../spelling_dict.txt"
 spelling_show_suggestions = True
 spelling_exclude_patterns = ["autoapi/**", "autoapidoc/**"]
 
