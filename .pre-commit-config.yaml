@@ -95,7 +95,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: f6793c73d53e659efecf3b3c38d122fb6a2a969f  # frozen: v0.5.1
+    rev: 47533c0f59972e30ade57ab52cbac2ea7fbdec87  # frozen: v0.5.2
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -138,7 +138,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 11dcc17f64ca323542e048e701dbd5ca0db482d0  # frozen: v9.6.0
+    rev: 1033fc6322216e785f934067368415dc84dc58cb  # frozen: v9.7.0
     hooks:
       - id: eslint
         name: eslint (fix)
@@ -290,7 +290,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: f6793c73d53e659efecf3b3c38d122fb6a2a969f  # frozen: v0.5.1
+    rev: 47533c0f59972e30ade57ab52cbac2ea7fbdec87  # frozen: v0.5.2
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -377,7 +377,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 11dcc17f64ca323542e048e701dbd5ca0db482d0 # frozen: v9.6.0
+    rev: 1033fc6322216e785f934067368415dc84dc58cb  # frozen: v9.7.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -418,7 +418,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 84b4412937b8866a356a0704085ea2e8488b232b # frozen: v16.6.1
+    rev: ea5da8640202d7bee2dc381bbee2dc3012ce85b0  # frozen: v16.7.0
     hooks:
       - id: stylelint
         additional_dependencies:
