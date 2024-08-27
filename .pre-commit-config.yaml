@@ -95,7 +95,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 8b5112a3b2ad121439a2092f8ff548c0d80f2514  # frozen: v0.6.1
+    rev: 24d039e647a08707e6cb31e75e01844eeff925e7  # frozen: v0.6.2
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -138,7 +138,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: b03496a9315e1707e841777c39f3a09246e7fad1  # frozen: v9.9.0
+    rev: 64140bb8c6ef5608b58d1041c54bf1fed6a2c1c4  # frozen: v9.9.1
     hooks:
       - id: eslint
         name: eslint (fix)
@@ -190,7 +190,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: 3ef765df7af5d6a2b7a02d729e6eacfb49cfa408  # frozen: 3.1.0
+    rev: 35ffbfb8f4068bfbc34ab0abb1e808fd020f271f  # frozen: 3.1.1
     hooks:
       - id: sqlfluff-fix
 
@@ -290,7 +290,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 8b5112a3b2ad121439a2092f8ff548c0d80f2514  # frozen: v0.6.1
+    rev: 24d039e647a08707e6cb31e75e01844eeff925e7  # frozen: v0.6.2
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -377,7 +377,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: b03496a9315e1707e841777c39f3a09246e7fad1  # frozen: v9.9.0
+    rev: 64140bb8c6ef5608b58d1041c54bf1fed6a2c1c4  # frozen: v9.9.1
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
