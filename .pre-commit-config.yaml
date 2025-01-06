@@ -54,7 +54,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: a0effc6f95b7b6e0a7945be3701c832eb29c0fba  # frozen: 1.8.5
+    rev: 1bb335334dd7b0a851cab0b1f148cc8a644c3cc6  # frozen: 2.0.0
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -95,7 +95,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 8b76f04e7e5a9cd259e9d1db7799599355f97cdf  # frozen: v0.8.2
+    rev: 89c421dff2e1026ba12cdb9ebd731f4a83aa8021  # frozen: v0.8.6
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -138,7 +138,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: de2b7986929c5a92de076e4381b8bb05440e78c2  # frozen: v9.16.0
+    rev: 3d8028abdbdbc6c59ff6b86c5fe26755db26ee6a  # frozen: v9.17.0
     hooks:
       - id: eslint
         name: eslint (fix)
@@ -190,7 +190,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: 36ad37b2a36d98633b003f29cc98a7242838b8a0  # frozen: 3.2.5
+    rev: 78440d70b9f9d4c2f1c363e6fca25af3f7ecfabf  # frozen: 3.3.0
     hooks:
       - id: sqlfluff-fix
 
@@ -200,7 +200,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: 1d349044b9624661f5a0a7e13e0ca9801752022a  # frozen: v0.16.0
+    rev: af14a2e768b741b941255b4c6b875339b4acbb73  # frozen: v0.17.1
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
@@ -290,7 +290,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 8b76f04e7e5a9cd259e9d1db7799599355f97cdf  # frozen: v0.8.2
+    rev: 89c421dff2e1026ba12cdb9ebd731f4a83aa8021  # frozen: v0.8.6
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -327,7 +327,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: a5a1bc3a9602d08f15ac90ad12f5b25bde375613  # frozen: v3.3.2
+    rev: c28580be76fe1ec55a6cac41833c0bd68070d2f7  # frozen: v3.3.3
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -340,7 +340,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: a0effc6f95b7b6e0a7945be3701c832eb29c0fba  # frozen: 1.8.5
+    rev: 1bb335334dd7b0a851cab0b1f148cc8a644c3cc6  # frozen: 2.0.0
     hooks:
       - id: poetry-check
 
@@ -377,7 +377,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: de2b7986929c5a92de076e4381b8bb05440e78c2  # frozen: v9.16.0
+    rev: 3d8028abdbdbc6c59ff6b86c5fe26755db26ee6a  # frozen: v9.17.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -418,7 +418,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 2f39417f4b0518db5fe3cc1180cf821332f5d9bc  # frozen: v16.11.0
+    rev: 292c496124775de7315dc68a47d3286559859f68  # frozen: v16.12.0
     hooks:
       - id: stylelint
         additional_dependencies:
