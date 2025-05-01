@@ -54,7 +54,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: c12f2581a038cff675d4f91c1f313329cbdc5f34  # frozen: 2.0.1
+    rev: 808efe2f2653536e7d0b0355be026199332a9cc4  # frozen: 2.1.2
     hooks:
       # Config file: pyproject.toml
       - id: poetry-lock
@@ -62,7 +62,7 @@ repos:
 
   # safety - python dependency vulnerability checker
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: 3f01891d76160f03e9134ef025fb1eb1d10c85a2 # frozen: v1.3.3
+    rev: 5824be5a3fde4f524ef7412f55b284584946bf81  # frozen: v1.4.2
     hooks:
       - id: python-safety-dependencies-check
         args: ["--full-report"]
@@ -95,7 +95,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 73413df07b4ab0bf103ca1ae73c7cec5c0ace593  # frozen: v0.9.2
+    rev: e84319e627902e1b348574ecf3238dc511933dc7  # frozen: v0.11.7
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -138,7 +138,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 2fb8eb062a2cd2640e11abb84f0eb81140af032d  # frozen: v9.18.0
+    rev: 137b77ebf502fe6652f3025dc060f394567dea64  # frozen: v9.25.1
     hooks:
       - id: eslint
         name: eslint (fix)
@@ -190,7 +190,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: 78440d70b9f9d4c2f1c363e6fca25af3f7ecfabf  # frozen: 3.3.0
+    rev: 338ff784a3ead58a2c6e4e0f2e94e60ecb058ed6  # frozen: 3.4.0
     hooks:
       - id: sqlfluff-fix
 
@@ -290,7 +290,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 73413df07b4ab0bf103ca1ae73c7cec5c0ace593  # frozen: v0.9.2
+    rev: e84319e627902e1b348574ecf3238dc511933dc7  # frozen: v0.11.7
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -327,7 +327,7 @@ repos:
 
   # pylint - python linter
   - repo: https://github.com/PyCQA/pylint/
-    rev: c28580be76fe1ec55a6cac41833c0bd68070d2f7  # frozen: v3.3.3
+    rev: 7ac5a4d4f77576df3a00e63f86ca86e0e1780b47  # frozen: v3.3.6
     hooks:
       # Inline skip file: `# pylint: skip-file`
       # Inline change: `# pylint: disable|enable=CODE|NAME`
@@ -340,7 +340,7 @@ repos:
 
   # poetry - python dependency management
   - repo: https://github.com/Cielquan/mirrors-poetry
-    rev: c12f2581a038cff675d4f91c1f313329cbdc5f34  # frozen: 2.0.1
+    rev: 808efe2f2653536e7d0b0355be026199332a9cc4  # frozen: 2.1.2
     hooks:
       - id: poetry-check
 
@@ -377,7 +377,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 2fb8eb062a2cd2640e11abb84f0eb81140af032d  # frozen: v9.18.0
+    rev: 137b77ebf502fe6652f3025dc060f394567dea64  # frozen: v9.25.1
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -418,7 +418,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 4b7f0efc9a7dfe02ffa67640cc5638b5ded99aa6  # frozen: v16.13.2
+    rev: 37dfe5e76e87e82618ceab6764058246328b48ce  # frozen: v16.19.1
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -462,7 +462,7 @@ repos:
 
   # yamllint - yaml linter
   - repo: https://github.com/adrienverge/yamllint
-    rev: 81e9f98ffd059efe8aa9c1b1a42e5cce61b640c6  # frozen: v1.35.1
+    rev: be92e15345b32661abee2e675d765ae79686eb4c  # frozen: v1.37.0
     hooks:
       # Config file: .yamllint.yaml [--config-file]
       # Inline skip: `# yamllint disable-line[ rule:<RULE>]`
@@ -475,6 +475,6 @@ repos:
   # ----------------------------------------------
 
   - repo: https://github.com/pre-commit/pre-commit
-    rev: cc4a52241565440ce200666799eef70626457488  # frozen: v4.0.1
+    rev: aa48766b888990e7b118d12cf757109d96e65a7e  # frozen: v4.2.0
     hooks:
       - id: validate_manifest
