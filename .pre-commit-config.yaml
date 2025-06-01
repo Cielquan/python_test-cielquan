@@ -95,7 +95,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: f0fe93c067104b76ffb58852abe79673a8429bd1  # frozen: v0.11.8
+    rev: 76e47323a83cd9795e4ff9a1de1c0d2eef610f17  # frozen: v0.11.11
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -138,7 +138,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 9f8178610fb6fbdb8f6c7bb9b15ec30bb2b138bc  # frozen: v9.26.0
+    rev: d50424578879c2445f4a17af3418f805d6cd51f9  # frozen: v9.27.0
     hooks:
       - id: eslint
         name: eslint (fix)
@@ -200,7 +200,7 @@ repos:
 
   # markdownlint - md file checker
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: d174eb7a8f35e05d4065c82d375ad84aa0b32352  # frozen: v0.17.2
+    rev: d7a4f7cf4914d3bffb9b83bdbc45fd2a00c91ff9  # frozen: v0.18.1
     # Config files:
     # - .markdownlint-cli2.jsonc
     # - .markdownlint-cli2.yaml
@@ -290,7 +290,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: f0fe93c067104b76ffb58852abe79673a8429bd1  # frozen: v0.11.8
+    rev: 76e47323a83cd9795e4ff9a1de1c0d2eef610f17  # frozen: v0.11.11
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -377,7 +377,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: 9f8178610fb6fbdb8f6c7bb9b15ec30bb2b138bc  # frozen: v9.26.0
+    rev: d50424578879c2445f4a17af3418f805d6cd51f9  # frozen: v9.27.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
