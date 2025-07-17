@@ -95,7 +95,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 76e47323a83cd9795e4ff9a1de1c0d2eef610f17  # frozen: v0.11.11
+    rev: 3d44372123ca5e8617fdb65d9f11facd159b9e95  # frozen: v0.12.3
     hooks:
       - id: ruff
         name: ruff (fix)
@@ -138,7 +138,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: d50424578879c2445f4a17af3418f805d6cd51f9  # frozen: v9.27.0
+    rev: 2f4ef358621f2f1529399cea9423ace4e297ca29  # frozen: v9.31.0
     hooks:
       - id: eslint
         name: eslint (fix)
@@ -190,7 +190,7 @@ repos:
   - repo: https://github.com/sqlfluff/sqlfluff
     # Config file: ".sqlfluff"
     # Ignore file: .sqlfluffignore [file ignore pattern]
-    rev: 338ff784a3ead58a2c6e4e0f2e94e60ecb058ed6  # frozen: 3.4.0
+    rev: 5f6d8626c8c13537866ec476e82bb9781afb32ac  # frozen: 3.4.2
     hooks:
       - id: sqlfluff-fix
 
@@ -290,7 +290,7 @@ repos:
 
   # ruff - python linter with fixing ability
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: 76e47323a83cd9795e4ff9a1de1c0d2eef610f17  # frozen: v0.11.11
+    rev: 3d44372123ca5e8617fdb65d9f11facd159b9e95  # frozen: v0.12.3
     hooks:
       - id: ruff
         name: ruff (lint)
@@ -377,7 +377,7 @@ repos:
     # Config file: .eslintrc.json | "eslintConfig" key in package.json |
     #     https://eslint.org/docs/user-guide/configuring/configuration-files
     # Ignore file: .eslintignore [file ignore pattern]
-    rev: d50424578879c2445f4a17af3418f805d6cd51f9  # frozen: v9.27.0
+    rev: 2f4ef358621f2f1529399cea9423ace4e297ca29  # frozen: v9.31.0
     hooks:
       - id: eslint
         files: \.[jt]sx?$ # *.js, *.jsx, *.ts, *.tsx
@@ -418,7 +418,7 @@ repos:
 
   - repo: https://github.com/cielquan/mirrors-stylelint
     # Config file: .stylelintrc.json
-    rev: 37dfe5e76e87e82618ceab6764058246328b48ce  # frozen: v16.19.1
+    rev: 33e48caed7dae5e0fb869818fe9586fc7a7f349f  # frozen: v16.21.1
     hooks:
       - id: stylelint
         additional_dependencies:
@@ -442,7 +442,7 @@ repos:
 
   # rstcheck - rst file checker
   - repo: https://github.com/rstcheck/rstcheck
-    rev: f30c4d170a36ea3812bceb5f33004afc213bd797  # frozen: v6.2.4
+    rev: 27258fde1ee7d3b1e6a7bbc58f4c7b1dd0e719e5  # frozen: v6.2.5
     hooks:
       # Config file: .rstcheck.cfg [--config]
       - id: rstcheck
